@@ -1,0 +1,83 @@
+PROGRAM Pertukaran
+{Diberikan nilai A dan B, Pertukaran nilai A dengan B}
+DEKLARASI
+   A,B,C :integer
+ALGORITMA
+   Read(A,B)
+   C <-- A
+   A <-- B
+   B <-- C
+   Write(A,B)
+----------------------
+PROGRAM Pertukaran3Variabel
+{Diberikan nilai A,B dan C, Pertukaran Nilai A dengan B, B dengan C, dan C dengan A}
+DEKALRASI
+   A,B,C,D :integer
+ALDORITMA
+   Read(A,B,C)
+   D <-- A
+   A <-- B
+   B <-- C
+   C <-- D
+   Write(A,B,C)
+-----------------------
+PROGRAM LuasPersegiPanjang
+{Diberikan Alas dan Tinggi, hitung luas persegi panjang tersebut}
+DEKLARASI
+   Alas, Tinggi, Luas :integer
+ALGORITMA
+   Read(Alas,Tinggi)
+   Luas <-- Alas*Tinggi
+   Write(Luas)
+-----------------------
+PROGRAM KelilingPersegiPanjang
+{Diberikan Alas dan Tinggi, hitung keliling persegi panjang tersebut}
+DEKLARASI
+   Alas, Tinggi, Keliling :integer
+ALGORITMA
+   Read(Alas, Tinggi)
+   Keliling <-- 2*(Alas+Tinggi)
+   Write(Keliling)
+-----------------------
+PROGRAM LuasSegitiga
+{Diberikan Alas dan Tinggi, hitung luas segitiga tersebut}
+DEKLARASI
+   Alas, Tinggi :integer
+   Luas :real
+ALGORITMA
+   Read(Alas,Tinggi)
+   Luas <-- (Alas*Tinggi)/2
+   Write (Luas)
+-----------------------
+PROGRAM KelilingSegitiga
+{Diberikan Sisi yang sama panjang, hitung keliling segitiga tersebut}
+DEKLARASI
+   Sisi :integer
+   Keliling :real
+ALGORITMA
+   Read(Sisi)
+   Keliling <-- 3*Sisi
+   Write(Keliling)
+-----------------------
+PROGRAM LuasLingkaran
+{Diberikan jari-jari suati lingkaran, hitung luas lingkaran tersebut}
+DEKLARASI
+   Const Pi=3,1415926535897932384
+   Var Jarijari :integer
+   Luas :real
+ALGORITMA
+   Read(Jarijari)
+   Luas <-- Pi*Jarijari*Jarijari
+   Write(Luas)
+-----------------------
+PROGRAM KelilingLingkaran
+{Diberikan jari-jari suatu lingkaran, hitung keliling lingkaran tersebut}
+DEKLARASI
+   Const Pi=3,1415926535897932384
+   Var Jarijari :integer
+   Keliling :real
+ALGORITMA
+   Read(Jarijari)
+   Keliling <-- 2*Pi*Jarijari
+   Write(Keliling)
+----------------------
