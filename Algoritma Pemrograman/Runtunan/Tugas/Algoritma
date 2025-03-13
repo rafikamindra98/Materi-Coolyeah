@@ -1,0 +1,39 @@
+PROGRAM LuasLingkaran
+DEKLARASI
+   const pi=3,141592653589793
+   var 
+     JariJari, Luas: real
+ALGORITMA
+   read(jarijari)
+   Luas <-- pi*jarijari*jarijari
+   write(Luas)
+------------------------------
+PROGRAM LuasSegitiga
+DEKLARASI
+   alas,tinggi:integer
+   luas:real
+ALGORITMA
+   read(alas,tinggi)
+   Luas <-- (alas*tinggi)/2
+   write(Luas)
+------------------------------
+PROGRAM PertukaranNilaiMataUang
+DEKLARASI
+   Rupiah,Dolar,Euro,Yen,Real:integer
+ALGORITMA
+   read(Rupiah)
+   Dolar <-- Rupiah*0.065
+   Euro <-- Rupiah*0.061
+   Yen <-- Rupiah*8.82
+   Real <-- Rupiah*0.24
+   write(Dolar,Euro,Yen,Real)
+-------------------------------
+PROGRAM 
+DEKLARASI KonversiSuhuDerajatCelcius
+   Celcius,Reamur,Fahrenheit,Kelvin:integer
+ALGORITMA
+   read(Celcius)
+   Reamur <-- 4*Celcius/5
+   Fahrenheit <-- 9*Celcius/5+32
+   Kelvin <-- Celcius+273
+   write(Reamur,Fahrenheit,Kelvin)
