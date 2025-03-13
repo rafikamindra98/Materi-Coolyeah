@@ -1,0 +1,75 @@
+PROGRAM DurasiDetik
+DEKLARASI
+   Var Jam, Menit, Detik, DurasiDetik: integer
+ALGORITMA
+   Read(Jam, Menit, Detik)
+   DurasiDetik=Jam*3600+Menit*60+Detik
+   Write(DurasiDetik)
+--------------------------------------------
+PROGRAM DurasiWaktu
+DEKLARASI
+   Var DurasiDetik,Jam,Menit,Detik,Sisa: integer
+ALGORITMA
+   Read(DurasiDetik)
+   Jam <-- DurasiDetik div 3600
+   Sisa <-- DurasiDetik mod 3600
+   Menit <-- Sisa div 60
+   Detik <-- Sisa mod 60
+   Write <--(Jam,Menit,Detik)
+=-------------------------------------------
+PROGRAM DurasiAntara
+DEKLARASI
+   Var Jam1,Jam2,Menit1,Menit2,Detik1,Detik2,Durasi1,Durasi2,DurasiAkhir,Jam,Menit,Detik,Sisa: interger
+ALGORTIMA
+   Write(WaktuAwal)
+   Read(Jam1, Menit1, Detik1)
+   Write(WaktuAkhir)
+   Read(Jam2, Menit2, Detik2)
+   Durasi1 <-- (Jam1*3600) + (Menit1*60) + Detik1
+   Durasi2 <-- (Jam2*3600) + (Menit2*60) + Detik2
+   DurasiAkhir <-- Durasi2 - Durasi1
+   Jam <-- Durasi div 3600
+   Sisa <-- Durasi mod 3600
+   Menit <-- Sisa div 60
+   Detik <-- Sisa mod 60
+   Write(DurasiAkhir)
+--------------------------------------------
+PROGRAM BiayaPercakapan
+{Menghitung biaya percakapan melalui ponsel. Masukkan adalah waktu awal dan waktu selesai percakapan. Keluaran adalah lama dan biaya percakapan. Biaya percakapan adalah Rp.5/detik}
+DEKLARASI
+   Const BiayaPerDetik=5 :integer
+   jam1, jam2, jam3, menit1, menit2, menit3, detik1, detik2, detik3, durasi1, durasi2, durasi3, sisa, biaya :integer
+ALGORITMA
+   Read(jam1,menit1,detik1)
+   Read(jam2,menit2,detik2)
+   durasi1 <-- (jam1*3600) + (menit1*60) + detik1
+   durasi2 <-- (jam2*3600) + (menit2*60) + detik2
+   durasi3 <-- durasi2 - durasi1
+   biaya <-- durasi3*BiayaPerDetik
+   jam3 <-- durasi3 div 3600
+   sisa <-- durasi3 mod 3600
+   menit3 <-- sisa div 60
+   detik3 <-- sisa mod 60
+   Write(jam3, menit3, detik3)
+   Write(biaya)
+--------------------------------------------
+PROGRAM BiayaPenggunaan
+{Menghitung biaya penggunaan pulsa melalui ponsel. Masukkan adalah waktu awal dan waktu selesai percakapan. Keluaran adalah lama dan biaya percakapan. Biaya pulsa adalah 1 per 5 menit dan biaya per pulsa adalah Rp.1000}
+DEKLARASI
+   Const BiayaPerPulsa=1000 :integer
+   jam1, jam2, jam3, menit1, menit2, menit3, detik1, detik2, detik3, durasi1, durasi2, durasi3, sisa, biaya, menitpulsa :integer
+ALGORITMA
+   Read(jam1,menit1,detik1)
+   Read(jam2,menit2,detik2)
+   durasi1 <-- (jam1*3600) + (menit1*60) + detik1
+   durasi2 <-- (jam2*3600) + (menit2*60) + detik2
+   durasi3 <-- durasi2 - durasi1
+   menitpulsa <-- durasi3/60
+   biaya <-- (menitpulsa/5)*BiayaPerPulsa+BiayaPerPulsa
+   jam3 <-- durasi3 div 3600
+   sisa <-- durasi3 mod 3600
+   menit3 <-- sisa div 60
+   detik3 <-- sisa mod 60
+   Write(jam3, menit3, detik3)
+   Write(biaya)
+   
