@@ -1,0 +1,44 @@
+PROGRAM BiayaParkir
+{Menghitung biaya parkir kendaraan. Masukkan adalah waktu awal dan waktu selesai kendaraan parkir. Keluaran adalah lama dan biaya parkir. Biaya parkir adalah Rp.2000/jam}
+DEKLARASI
+   Const BiayaPerJam=2000 :integer
+   jam1, jam2, jam3, menit1, menit2, menit3, detik1, detik2, detik3, durasi1, durasi2, durasi3, sisa, biaya :integer
+ALGORITMA
+   Write(WaktuMasuk)
+   Read(jam1,menit1,detik1)
+   Write(WaktuKeluar)
+   Read(jam2,menit2,detik2)
+   durasi1 <-- (jam1*3600) + (menit1*60) + detik1
+   durasi2 <-- (jam2*3600) + (menit2*60) + detik2
+   durasi3 <-- durasi2 - durasi1
+   jam3 <-- durasi3 div 3600
+   sisa <-- durasi3 mod 3600
+   menit3 <-- sisa div 60
+   detik3 <-- sisa mod 60
+   biaya <-- jam3*BiayaPerJam+BiayaPerJam
+   Write(jam3, menit3, detik3)
+   Write(biaya)
+----------------------------------
+PROGRAM UangKembalian
+{Menghitung uang kembalian. Masukkan adalah jumlah harga dan pembayaran kendaraan parkir. Keluaran adalah total kembalian dan pecahan kembalian}
+DEKLARASI
+   harga, bayar, kembali :integer
+   a, a1, b, b1, c, c1, d, d1, e, ei, f, f1 :integer
+ALGORIMA
+   Write(harga,bayar)
+   Read(harga,bayar)
+   kembali = bayar - harga
+   Read (kembali)
+   a = kembali mod 50000
+   a1 = kembali div 50000
+   b = a mod 20000
+   b1 = a div 20000
+   c = b mod 10000
+   c1 = b div 10000
+   d = c mod 5000
+   d1 = c div 5000
+   e = d mod 2000
+   e1 = d div 2000
+   f = e mod 1000
+   f1 = e div 1000
+   Write(kembali)
