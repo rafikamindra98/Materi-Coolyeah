@@ -1,0 +1,75 @@
+PROGRAM Grade
+DEKLARASI
+   nilai :integer
+ALGORITMA
+   read(nilai)
+   if ((nilai>=80)and(nilai<=100)) then
+      write('Nilai A')
+   else
+      if ((nilai>=70)and(nilai<80)) then
+         write('Nilai B')
+      else
+         if ((nilai>=60)and(nilai<70) then
+            write('Nilai C')
+         else
+            if ((nilai>=50)and(nilai<60) then
+               write('Nilai D')
+            else
+               write('Nilai E')
+            endif
+         endif
+      endif
+   endif
+--------------------------------
+PROGRAM AkarReal_Imajiner
+DEKLARASI
+   a, b, c, D :integer
+   x1, x2 :real
+ALGORITMA
+   read(a,b,c)
+   D = b*b-4*a*c
+   if (D>0) then
+      write ('Akar Real dan Berbeda')
+      x1 = (-b + sqrt(D)) div (2*a)
+      x2 = (-b - sqrt(D)) div (2*a)
+      write (x1,x2)
+   endif
+   else
+      if (D=0) then
+         write ('Akar Real dan Sama')
+         x1 = x2 = (-b + sqrt(D)) div (2*a)
+         write (x1,X2)
+      else 
+      p = -b div (2*a)
+      q = sqrt(-D) div (2*a)
+      write(p'+'1q'i')
+      write(p'-'1q'i')
+      endif
+---------------------------------
+PROGRAM TrafficLightA
+DEKLARASI
+   LampuMenyala, LampuMerah :integer
+ALGORITMA
+   read(LampuMenyala)
+   if (LampuMenyala=1) then
+      read(LampuMerah)
+      if (LampuMerah=1) then
+         write('Berhenti')
+      else
+         write('Jalan')
+      endif
+   endif
+----------------------------------
+PROGRAM TrafficLightB
+DEKLARASI
+   LampuMenyala, LampuMerah :integer
+ALGORITMA
+   read(LampuMenyala)
+   if (LampuMenyala=1) then
+      read(LampuMerah)
+      if (LampuMerah=1) then
+         write('Berhenti')
+      endif
+   else
+      write('Jalan')
+   endif
