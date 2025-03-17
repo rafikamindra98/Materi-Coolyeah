@@ -1,0 +1,66 @@
+PROGRAM AkarReal
+DEKLARASI
+   a,b,c,D :integer
+ALGORITMA
+   Read(a,b,c)
+   D <-- b*b-4*a*c
+   if (D>=0) then
+      Write('Memiliki akar real')
+      Write(D)
+   else
+      Write('Tidak memiliki akar real')
+endif
+------------------------
+PROGRAM BiayaParkir
+DEKLARASI
+   Const BiayaPerJam=2000 :integer
+   jam1, jam2, jam3, menit1, menit2, menit3, detik1, detik2, detik3, durasi1, durasi2, durasi3, sisa, biaya1, biaya2 :integer
+ALGORITMA
+   Read(jam1,menit1,detik1)
+   Read(jam2,menit2,detik2)
+   durasi1 <-- (jam1*3600) + (menit1*60) + detik1
+   durasi2 <-- (jam2*3600) + (menit2*60) + detik2
+   durasi3 <-- durasi2 - durasi1
+   jam3 <-- durasi3 div 3600
+   sisa <-- durasi3 mod 3600
+   menit3 <-- sisa div 60
+   detik3 <-- sisa mod 60
+   biaya1 <-- jam3*BiayaPerJam+BiayaPerJam
+   biaya2 <-- jam3*BiayaPerJam
+   if ((menit3=0) and (detik3=0)) then
+      write(biaya2)
+   else
+      write(biaya1)
+endif
+------------------------
+PROGRAM UangKembalian_if
+DEKLARASI
+   beli, bayar, kembali, sisa, jumlah :integer
+ALGORITMA
+   Read(beli,bayar)
+   kembali <-- bayar - beli
+   if (sisa>=50000) then
+      jumlah = sisa div 50000
+      write(jumlah)
+      sisa = sisa mod 50000
+   if (sisa>=20000) then
+      jumlah = sisa div 20000
+      write(jumlah)
+      sisa = sisa mod 20000
+   if (sisa>=10000) then
+      jumlah = sisa div 10000
+      write(jumlah)
+      sisa = sisa mod 10000
+   if (sisa>=5000) then
+      jumlah = sisa div 5000
+      write(jumlah)
+      sisa = sisa mod 5000
+   if (sisa>=2000) then
+      jumlah = sisa div 2000
+      write(jumlah)
+      sisa = sisa mod 2000
+   if (sisa>=1000) then
+      jumlah = sisa div 1000
+      write(jumlah)
+      sisa = sisa mod 1000
+endif
