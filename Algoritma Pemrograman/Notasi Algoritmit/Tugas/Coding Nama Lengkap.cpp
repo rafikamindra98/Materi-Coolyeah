@@ -1,0 +1,12 @@
+#include <iostream>
+using namespace std;
+int main(){
+	/*PROGRAM NamaLengkap
+	DEKLARASI*/
+	string NamaDepan,NamaBelakang,NamaLengkap;
+	//ALGORTIMA
+	NamaDepan="Rafi";
+	NamaBelakang="Kamindra";
+	NamaLengkap=NamaDepan+NamaBelakang;
+	cout<<NamaLengkap<<endl;
+}

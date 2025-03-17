@@ -1,0 +1,27 @@
+PROGRAM Regard
+DEKLARASI
+   nama, regard :string
+ALGORTIMA
+   nama <-- "Rafi"
+   regard <-- "Halo, "+nama
+   write(regard)
+--------------------------
+PROGRAM NamaLengkap
+DEKLARASI
+   NamaDepan, NamaBelakang, NamaLengkap :string
+ALGORITMA
+   NamaDepan <-- "Rafi"
+   NamaBelakang <-- "Kamindra"
+   NamaLengkap <-- NamaDepan+NamaBelakang
+   write(NamaLengkap)
+--------------------------
+PROGRAM Bintang
+DEKLARASI
+   (tidak ada)
+ALGOITMA
+   write(   *   )
+   write(  ***  )
+   write( ***** )
+   write(   *   )
+   write(   *   )
+   write(   *   )
