@@ -1,0 +1,39 @@
+PROGRAM GenapIf
+DEKLARASI
+   x :integer
+ALGORITMA
+   Read(x)
+   if (x mod 2 = 0) then
+      Write('Bilangan Genap)
+endif
+-------------------------
+PROGRAM GanjilGenap
+DEKLARASI
+   x :integer
+ALGORITMA
+   Read(x)
+   if (x mod 2 = 0) then
+      Write('Bilangan Genap')
+   else 
+      Write('Bilangan Ganjil')
+endif
+-------------------------
+PROGRAM Genap_If_Not
+DEKLARASI
+   x :integer
+ALGORITMA
+   Read(x)
+   if not(x mod 2 = 1) then
+     Write('Bilangan Genap')
+endif
+------------------------
+PROGRAM GanjilGenap_if
+DEKLARASI
+   x :integer
+ALGORITMA
+   Read(x)
+   if (x mod 2 = 0) then
+       Write('Bilangan Genap')
+   if (x mod 2 = 1) then
+      Write('Bilangan Ganjil')
+endif
