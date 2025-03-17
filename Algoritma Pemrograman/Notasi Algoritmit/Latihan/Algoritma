@@ -1,0 +1,65 @@
+PROGRAM Hello_world1
+DEKLARASI
+   (tidak ada)
+ALGORTIMA 
+   write('Hello, world')
+
+Running:
+Hello, world!
+------------
+PROGRAM Hello_World2
+DEKLARASI
+   var pesan: string
+ALGORTIMA
+   pesan<--'Hello, world!'
+   write(pesan)
+
+Running:
+pesan=Hello, world!
+Hello, world!
+-----------
+PROGRAM "4"
+DEKLARASI
+   (tidak ada)
+ALGORITMA
+   write(4)
+----------
+PROGRAM 4
+DEKLARASI
+   (tidak ada)
+ALGORITMA
+   write(4)
+----------
+PROGRAM "4+3"
+DEKLARASI
+   (tidak ada)
+ALGORTIMA
+   write(4+3)
+----------
+PROGRAM 4+3
+DEKLARASI
+   (tidak ada)
+ALGORTIMA
+   write(7)
+----------
+Algoritma:	Coding:
+write(a)	cout<<a<<endl;
+write(b)	cout<<b<<endl;
+-----------
+PROGRAM X 
+DEKLARASI 
+   var x:integer
+ALGORITMA
+   x<--10
+   write(x)
+-----------
+PROGRAM AB
+DEKLARASI
+   a,b:integer
+ALGORTIMA
+  a<--2
+  b<--5
+  a<--b
+  b<--a
+  write (a)
+  write (b)
