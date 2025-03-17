@@ -1,0 +1,15 @@
+PROGRAM LulusPerbaikanGagal
+DEKLARASI
+   nilai :Integer
+ALGORITMA
+   read(nilai)
+   if (nilai>75) and (nilai<=100) then
+      write('LULUS')
+   else
+      if (nilai>=50) and (nilai<=75) then
+         write('PERBAIKAN')
+      else
+         write('GAGAL')
+      endif
+   endif
+--------------------------------
