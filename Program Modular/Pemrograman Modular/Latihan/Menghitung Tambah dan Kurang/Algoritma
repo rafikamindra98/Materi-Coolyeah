@@ -1,0 +1,36 @@
+SUB-PROGRAM Baca (a,b)
+DEKLARASI 
+   a,b: integer
+ALGORITMA
+   read (a,b)
+
+SUB-PROGRAM Tambah (a,b)
+DEKLARASi 
+   a,b,tambah: integer
+ALGORITMA
+   tambah <-- a+b
+
+SUB-PROGRAM Kurang (a,b)
+DEKLARASI
+   a,b,kurang: integer
+ALGORITMA
+   kurang <-- a-b
+
+SUB-PROGRAM Tulis (tambah,kurang)
+DEKLARASI
+   tambah,kurang: integer
+ALGORITMA
+   write (tambah,kurang)
+
+PROGRAM UTAMA
+PROGRAM RARABAN
+DEKLARASI
+   Sub-Program Baca
+   Sub-Program Tambah
+   Sub-Program Kurang
+   Sub-Program Tulis
+ALGORITMA
+   read (a,b)
+   tambah (a,b)
+   kurang (a,b)
+   tulis (tambah,kurang)
