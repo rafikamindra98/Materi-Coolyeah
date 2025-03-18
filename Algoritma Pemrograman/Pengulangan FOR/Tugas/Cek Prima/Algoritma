@@ -1,0 +1,48 @@
+PRORGAM CekPrima1
+DEKLARASI
+   N, i, flag :integer
+ALGORITMA
+   read (N)
+   flag<--0
+   for i<--2 to N-1 do
+      if (N mod i = 0) then
+         flag<--1
+      endif
+   endfor
+   if (flag = 0) then
+      write ('Prima')
+   else
+      write ('Bukan Prima')
+   endif
+---------------------------
+PRORGAM CekPrima2
+DEKLARASI
+   N, i :integer
+   flag :boolean
+ALGORITMA
+   read (N)
+   flag<--false
+   for i<--2 to N-1 do
+      if (N mod i = 0) then
+         flag<--true
+      endif
+   endfor
+   if (flag = true) then
+      write ('Prima')
+   else
+      write ('Bukan Prima')
+   endif
+-----------------------------
+PRORGAM CekPrima3
+DEKLARASI
+   N, i :integer
+   flag :string
+ALGORITMA
+   read (N)
+   flag<--'Prima'
+   for i<--2 to N-1 do
+      if (N mod i = 0) then
+         flag<--'Bukan Prima'
+      endif
+   endfor
+   write (flag) 
