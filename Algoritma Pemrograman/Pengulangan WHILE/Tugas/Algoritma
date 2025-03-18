@@ -1,0 +1,54 @@
+PROGRAM BINTANGPERSEGI
+DEKLARASI
+    i,j,n: integer
+ALGORITMA 
+    read(n)
+    i<--1
+    while i<=n do
+       j<--1
+       while j<=n do
+           write('*')
+           j<--j+1
+       endwhile
+       writeln()}
+       i<--i+1
+    endwhile
+----------------------------------
+PROGRAM BINTANGDIAMOND
+DEKLARASI
+   n: integer
+ALGORITMA
+   read (n)
+   for a <-- 1 to n do
+      for b <-- n downto a do
+         writeln()
+      endfor
+      for c <-- 1 to 2*a-1 do
+         write (*)
+      endfor
+   endfor
+   for a <-- 2 to n do
+      for b <-- 1 to a do
+         writeln()
+      endfor
+      for c <-- n downto 2*a-n do
+         write (*)
+      endfor
+   endfor
+---------------------------------
+PROGRAM BilanganPrimaKurangdariN
+DEKLARASI
+   n: integer
+ALGORITMA
+   read (n)
+   for i <-- 2 to n do
+      mod = 0
+      for j <-- 1 to i do
+         if (i mod j = 0) 
+            mod++
+         endif
+      endfor
+      if (mod = 2) 
+         write (i )
+      endif
+   endfor
