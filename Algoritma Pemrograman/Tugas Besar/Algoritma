@@ -1,0 +1,73 @@
+PROGRAM Konversi_ke_Romawi(1-4999)
+DEKLARASI
+   romawi: integer
+ALGORITMA
+   read (romawi)
+   if (romawi < 1 || romawi > 4999) then
+      write ('romawi hanya diantara 1-4999)
+   else then
+      while romawi >= 1000 do
+         write ('M')
+         romawi -= 1000
+      endwhile
+      if (romawi >= 500) then
+         if (romawi >=900) then
+            write ('CM')
+            romawi -= 900
+         endif
+         else then
+            write ('D')
+            romawi -= 500
+         endelse
+      endif
+      while romawi >= 100 do 
+         if (romawi >= 400) then
+            write ('CD')
+            romawi -= 400
+         endif
+         else then
+            write ('C')
+            romawi -= 100
+         endelse
+      endwhile
+      if (romawi >= 50) then
+         if (romawi >= 90) then
+            write ('XC')
+            romawi -= 90
+         endif
+         else then
+            write ('L')
+            romawi -= 50
+         endelse
+      endif
+      while romawi >= 10 do
+         if (romawi >= 40) then
+            write ('XL')
+            romawi -= 40
+         endif
+         else then
+            write ('X')
+            romawi -= 10
+         endelse
+      endwhile
+      if (romawi >= 5) then
+         if (romawi = 9) then
+            write ('IX')
+            romawi -= 9
+         else then
+            write ('V')
+            romawi -= 5
+         endelse
+      endif
+      while romawi >= 1 do
+         if (romawi = 4)
+            write ('IV')
+            romawi -= 4
+         endif
+         else then
+            write ('I')
+            romawi -= 1
+         endelse
+       endwhile
+   endelse
+   system ('pause')
