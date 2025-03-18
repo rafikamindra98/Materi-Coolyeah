@@ -1,0 +1,38 @@
+PROGRAM TulisUlangHelloWorld
+DEKLARASI
+   i :integer
+ALGORITMA
+   i <-- 1
+   while i<=10 do
+      write ('Hello World')
+      i<--i+1
+   endwhile
+------------------------------
+PROGRAM Faktorial
+DEKLARASI
+   i, n, fak :integer
+ALGORITMA
+   read (n)
+   i <-- 1
+   fak <-- 1
+   while i<=n do
+      fak<--fak*i
+      i<--i+1
+   endwhile
+   write (fak)
+-------------------------------
+PROGRAM CekPrima
+DEKLARASI
+   i, n :integer
+   flag :string
+ALGORITMA
+   read (n)
+   i<--2
+   flag<--"Prima"
+   while (n mod i<>0) and (i<--n-1) do
+      i<--i+1
+   endwhile
+   if (i<n) then
+      flag<--"Bukan Prima"
+   write (n, flag)
+-------------------------------
