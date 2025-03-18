@@ -1,0 +1,45 @@
+PROGRAM Nbanyak_HelloWorld
+DEKLARASI
+   i,n :integer
+ALGORITMA
+   read(n)
+      for i <-- 1 to n do
+         write ('Hello World')
+      endfor
+------------------------------
+PROGRAM 10BilanganKelipatanLima
+DEKLARASI
+   i :integer
+ALGORITMA
+   for <-- 1 to 10 do
+      write (i*5)
+   endfor
+------------------------------
+PROGRAM NBilangan_KelipatanK
+DEKLARASI
+   i, n, k :integer
+ALGORITMA
+   read (n,k)
+   for <-- 1 to n do
+      write (i*k)
+   endfor
+-----------------------------
+PROGRAM DaftarBilanganKuadrat
+DEKLARASI 
+   i, n :integer
+ALGORITMA
+   read (n)
+   for <-- 1 to n do
+      write (i*i)
+   endfor
+-----------------------------
+PROGRAM Jumlah_N_BilanganAsliPertama
+DEKLARASI
+   i, n, x :integer
+ALGORITMA
+   read (n)
+   x <-- 0
+   for <-- 1 to n do
+      x <-- x+i
+      write (x)
+   endfor
