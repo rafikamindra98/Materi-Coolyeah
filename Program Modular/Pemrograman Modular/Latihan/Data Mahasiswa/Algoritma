@@ -1,0 +1,20 @@
+Sub-Program Baca (nama,nim,prodi)
+DEKLARASI
+   nama,nim,prodi: string
+ALGORITMA
+   read (nama,nim,prodi)
+
+Sub Program Tulis (nama,nim,prodi)
+DEKLARASI
+   nama,nim,prodi: string
+ALGORITMA
+   write (nama,nim,prodi)
+
+Program Utama
+Program Data Mahasiswa
+DEKLARASI
+   Sub Program Baca 
+   Sub Program Tulis 
+ALGORITMA
+   Baca (nama,nim,prodi)
+   Tulis (nama,nim,prodi)
