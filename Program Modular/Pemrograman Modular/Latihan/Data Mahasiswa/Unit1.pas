@@ -1,0 +1,53 @@
+unit Unit1;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls;
+
+type
+  TForm1 = class(TForm)
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Edit1: TEdit;
+    Edit2: TEdit;
+    Edit3: TEdit;
+    Label5: TLabel;
+    Button1: TButton;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    Edit4: TEdit;
+    Edit5: TEdit;
+    Edit6: TEdit;
+    procedure Button1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.Button1Click(Sender: TObject);
+  var nama,nim,prodi: string;
+begin
+  nama:=edit1.text;
+  nim:=edit2.text;
+  prodi:=edit3.text;
+
+  edit4.text:=nama;
+  edit5.text:=nim;
+  edit6.text:=prodi;
+
+end;
+
+end.
