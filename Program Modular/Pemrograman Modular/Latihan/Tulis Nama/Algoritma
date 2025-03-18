@@ -1,0 +1,20 @@
+SUB-PROGRAM Baca (nama)
+DEKLARASI
+   nama: string
+ALGORITMA
+   read (nama)
+
+SUB-PROGRAM Tulis
+DEKLARASI
+   nama: string
+ALGORITMA
+   write (nama)
+
+PROGRAM UTAMA
+PROGRAM Tulis Nama
+DEKLARASI
+   Sub-Program Baca
+   Sub-Program Tulis
+ALGORITMA
+   Baca (nama)
+   Tulis (nama)
