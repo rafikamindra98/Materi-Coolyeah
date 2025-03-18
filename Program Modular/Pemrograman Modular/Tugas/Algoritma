@@ -1,0 +1,59 @@
+Sub Program Baca			
+SUB-PROGRAM Baca(X,Y)
+DEKLARASI 
+	X, Y : real
+ALGORITMA
+	read (X, Y)
+
+Sub Program Tambah
+SUB-PROGRAM Tambah(X, Y)
+DEKLARASI
+	X, Y, Hasil: real
+ALGORITMA
+	Hasil <-- X + Y
+
+Sub Program Kurang
+SUB-PROGRAM Kurang(X, Y)
+DEKLARASI
+	X, Y, Hasil: real
+ALGORITMA
+	Hasil <-- X – Y
+
+Sub Program Kali
+SUB-PROGRAM Kali(X, Y)
+DEKLARASI
+	X, Y, Hasil: real
+ALGORITMA
+	Hasil <-- X * Y
+
+Sub Program Bagi
+SUB-PROGRAM Bagi(X, Y)
+DEKLARASI
+	X, Y, Hasil: real
+ALGORITMA
+	Hasil <-- X / Y
+
+Sub Program Tulis
+SUB-PROGRAM Tulis(X, Y)
+DEKLARASI
+	X,Y, Hasil: real
+ALGORITMA
+	write (Hasil)
+
+Program Utama
+PROGRAM Kalkulator
+DEKLARASI
+	X, Y, Hasil: real
+	Sub-Program Baca
+	Sub-Program Tambah
+	Sub-Program Kurang
+	Sub-Program Kali
+	Sub-Program Bagi
+	Sub-Program Tulis
+ALGORITMA
+	Baca(X, Y)
+	Tambah(X, Y)
+	Kurang(X, Y)
+	Kali(X, Y)
+	Bagi(X, Y)
+	Tulis(Hasil)
