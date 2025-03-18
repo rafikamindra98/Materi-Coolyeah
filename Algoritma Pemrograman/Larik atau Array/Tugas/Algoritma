@@ -1,0 +1,31 @@
+PROGRAM InputNamaArray
+DEKLARASI
+   nama, flag, cari :string
+   hasilcari :integer
+   A[100] :string
+ALGORITMA
+   write ('Masukkan nama')
+   write ('tuliskan 'stop' untuk berhenti')
+   flag <-- stop
+   n <-- 0
+   while (nama <> flag) do
+      A[n] <-- nama
+      read (nama)
+   endwhile
+   read (cari)
+   for a <-- 1 to n do
+      if (cari = A[a]) then
+         hasilcari++
+      endif
+   endfor
+   if (hasilcari=0) then
+      write ('Nama tidak ditemukan')
+      write (cari)
+      A[n+1] <-- cari
+      for a <-- 1 to a do
+         write (A[a])
+      endfor
+   endif
+   else then
+      write ('Nama sudah ada dalam daftar')
+   endelse
