@@ -1,0 +1,32 @@
+SUB-PROGRAM Baca (a,b)
+DEKLARASI 
+   a,b: integer
+ALGORITMA
+   read (a,b)
+
+SUB-PROGRAM Tukar (a,b)
+DEKLARASI
+   a,b,c: integer
+ALGORITMA
+   c <-- a
+   a <-- b
+   b <-- c
+
+SUB-PROGRAM Tulis (a,b)
+DEKLARASI
+   a,b: integer
+ALGORITMA
+   write (a,b)
+
+PROGRAM Pertukaran
+DEKLARASI 
+   a,b: integer
+   Sub-program Baca
+   Sub-program Tukar
+   Sub-program Tulis
+ALGORITMA
+   Baca (a,b)
+   Tukar (a,b)
+   Tulis (a,b)
+
+--------------------------------------
