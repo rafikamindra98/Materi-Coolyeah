@@ -1,0 +1,39 @@
+Program Faktorial
+DEKLARASI
+   n, i, fak :integer
+ALGORITMA
+   read (n)
+   fak <-- 1
+   for i <-- 1 to N do
+      fak <-- fak*i
+   endfor
+   write (fak)
+-----------------------
+Program CekPrima
+DEKLARASI
+   n :integer
+   flag :string
+ALGORITMA
+   read(n)
+   flag <-- 'Bilangan Prima'
+   for i <-- 2 to n-1 do
+      if (n mod i) = 0
+         flag <-- 'Bukan Bilangan Prima'
+      endif
+   endfor
+   write (n, flag)
+------------------------
+Program Prima
+DEKLARASI
+   n, flag :integer
+ALGORITMA
+   read (n)
+   for i <-- 2 to n-1 do
+      if (n mod i) = 0 then
+         flag <-- 0
+      endif
+   endfor
+   if (flag = 0) then
+      write (n, 'Bukan Prima')
+   else
+      write (n, 'Prima')
