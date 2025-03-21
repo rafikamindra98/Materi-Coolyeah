@@ -1,0 +1,42 @@
+Function Faktorial(n: integer) --> real
+Deklarasi
+     k: integer 
+     fak: real
+Algoritma
+     fak <-- 1
+     for k <-- 1 to n do
+         fak <-- fak*k
+     endfor
+     return fak
+ 
+Function Pangkat(input x:real, output n:integer) --> real 
+Deklarasi
+     p: real
+     m: integer
+Algoritma
+     p <-- 1
+     for m <-- 1 to n do
+         p <-- p*x
+     endfor
+     return p
+
+Function Eksponen(x: real) --> real
+Deklarasi
+     n: integer
+     S: real
+     function Faktorial(n: integer) --> real
+     function Pangkat(input x:real, output n:integer) --> real
+Algoritma
+     S <-- 0
+     for n <-- 0 to 99 do
+         S <-- Pangkat(x,n)/Faktorial(n)+S
+     endfor
+     return S      
+
+Program Utama ExpX
+Deklarasi
+     x: real
+     function Eksponen(x: real) --> real
+Algoritma
+     read (x)
+     write (x, Eksponen(x))
