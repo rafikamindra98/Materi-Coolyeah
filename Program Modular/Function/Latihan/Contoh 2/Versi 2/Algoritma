@@ -1,0 +1,24 @@
+function Genap(input n: integer) -> boolean
+{true jika n adalah bilangan genap, atau false jika tidak genap}
+DEKLARASI
+   {tidak ada}
+ALGORITMA:
+   if n mod 2 = 0 then
+      return true {n genap}
+   else {berarti, n mod 2 ≠ 0}
+      return false {n ganjil}
+   endif
+
+PROGRAM BilanganGanjilGenap
+{Program utama menentukan apakah suatu bilangan ganjil atau genap}
+DEKLARASI
+   bilangan: integer
+   function Genap(input n: integer) -> Boolean
+   {true jika n adalah bilangan genap, atau false jika ganjil
+ALGORITMA:
+   read(bilangan)
+   if genap(bilangan) then
+      write(‘bilangan genap’)
+   else {berarti genap(n)=false}
+      write(‘bilangan ganjil’)
+   endif
