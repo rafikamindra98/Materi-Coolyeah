@@ -1,0 +1,57 @@
+unit Unit1;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls;
+
+type
+  TForm1 = class(TForm)
+    Label1: TLabel;
+    EditAngka: TEdit;
+    ButtonBulan: TButton;
+    EditBulan: TEdit;
+    procedure ButtonBulanClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.ButtonBulanClick(Sender: TObject);
+var
+  n: integer;
+  nama: string;
+  function Bulan(c:integer):string;
+  begin
+    case c of
+      1: nama:='Januari';
+      2: nama:='Februari';
+      3: nama:='Maret';
+      4: nama:='April';
+      5: nama:='Mei';
+      6: nama:='Juni';
+      7: nama:='Juli';
+      8: nama:='Agustus';
+      9: nama:='September';
+      10: nama:='Oktober';
+      11: nama:='Nopember';
+      12: nama:='Desember';
+    end;
+      Bulan:=nama;
+  end;
+
+begin
+  n:=StrToInt(EditAngka.Text);
+  EditBulan.Text:=Bulan(n);
+end;
+
+end.
