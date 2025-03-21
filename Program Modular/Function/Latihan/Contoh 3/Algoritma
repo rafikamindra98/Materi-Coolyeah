@@ -1,0 +1,21 @@
+function Bulan(input bln: integer)-->string
+{mengembalikan nama bulan berdasarkan nomor bln}
+DEKLARASI
+   nama: string
+   n: integer
+ALGORITMA:
+   case bln
+      1: nama <-- ‘Januari’
+      2: nama <-- ‘Februari’
+      3: nama <-- ‘Maret’
+      4: nama <-- ‘April’
+      5: nama <-- ‘Mei’
+      6: nama <-- ‘Juni’
+      7: nama <-- ‘Juli’
+      8: nama <-- ‘Agustus’
+      9: nama <-- ‘September’
+      10: nama <-- ’Oktober’
+      11: nama <-- ‘Nopember’
+      12: nama <-- ‘Desember’
+   endcase
+   return nama
