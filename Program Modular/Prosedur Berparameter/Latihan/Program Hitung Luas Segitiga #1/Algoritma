@@ -1,0 +1,14 @@
+procedure HitungLuasSegitiga (input alas, tinggi: real)
+DEKLARASI
+   luas : real
+ALGORITMA
+   luas <-- (alas * tinggi)/2
+   write (luas)
+
+PROGRAM Segitiga
+DEKLARASI
+   a, t: real
+procedure HitungLuasSegitiga(input alas, tinggi: real)
+ALGORITMA:
+   read(a, t)
+   HitungLuasSegitiga(a, t)
