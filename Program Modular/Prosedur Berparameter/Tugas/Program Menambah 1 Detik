@@ -1,0 +1,68 @@
+unit Unit1;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls;
+
+type
+  TForm1 = class(TForm)
+    Label1: TLabel;
+    Edit1: TEdit;
+    Edit2: TEdit;
+    Edit3: TEdit;
+    Edit4: TEdit;
+    Edit5: TEdit;
+    Edit6: TEdit;
+    Label2: TLabel;
+    Button1: TButton;
+    procedure Button1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.Button1Click(Sender: TObject);
+   var dd,mm,jj: integer;
+procedure TambahDetik(var dd,mm,jj: integer);
+  begin
+  dd := dd+1;
+  if dd=60 then
+    begin
+      dd := 0;
+      mm := mm+1;
+      if mm = 60 then
+      begin
+        mm := 0;
+        jj := jj+1;
+        if jj = 24 then
+        begin
+          jj := 0;
+          dd := 0;
+          mm := 0;
+        end;
+      end;
+    end;
+  end;
+
+BEGIN
+  jj := strtoint(edit1.text);
+  mm := strtoint(edit2.text);
+  dd := strtoint(edit3.text);
+  TambahDetik(dd,mm,jj);
+  edit6.text := inttostr(dd);
+  edit5.text := inttostr(mm);
+  edit4.text := inttostr(jj);
+
+end;
+
+end.
