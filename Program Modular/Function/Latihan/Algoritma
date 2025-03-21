@@ -1,0 +1,11 @@
+function fak(input n: integer) -> integer
+DEKLARASI
+   var f, i: integer
+ALGORITMA
+   f<--1
+   if n>0 then
+      for i:=1 to n do
+         f<--f*i
+      endfor
+   endif
+   return f
