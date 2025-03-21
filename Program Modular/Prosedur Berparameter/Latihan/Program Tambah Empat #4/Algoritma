@@ -1,0 +1,30 @@
+procedure TambahEmpat(input x, y: integer)
+{Menambah nilai x dan y masing-masing dengan 4}
+{K Awal: x dan y sudah berisi nilai}
+{K Akhir: nilai x dan y masing-masing bertambah 4, lalu dicetak}
+DEKLARASI
+   {tidak ada}
+ALGORITMA
+   x <-- x+4
+   y <-- y+4
+   write('nilai x dan y di akhir procedur Empat')
+   write(' x=',x)
+   write(' y=',y)
+
+Program Utama
+PROGRAM AB
+{Program yang memperlihatkan efek penggunaan parameter masukkan}
+DEKLARASI
+   a,b: integer
+   procedure TambahEmpat(input x, y: integer)
+   {Menambah nilai x dan y masing-masing dengan 4}
+ALGORITMA
+   a <-- 15
+   b <-- 10
+   write('nilai a dan b sebelum pemanggilan procedure TambahEmpat)
+   write(' a=',a)
+   write(' b=',b)
+   TambahEmpat(a,b)
+   write('nilai a dan b sesudah pemanggilan prosedur TambahEmpat')
+   write(' a=',a)
+   write(' b=',b)
