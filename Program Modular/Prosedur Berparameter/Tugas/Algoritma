@@ -1,0 +1,27 @@
+PROGRAM IncDetik
+  var
+    dd,mm,jj:integer;
+  procedure TambahDetik(input/output dd,mm,jj:integer)
+    algoritma
+      dd<-dd+1
+      if dd=60 then
+        begin
+          dd<-0
+          mm<-mm+1
+          if mm=60 then
+          begin
+            mm=0
+            jj<-jj+1
+            if jj=24 then
+            begin
+              jj<-0
+              dd<-0
+              mm<-0
+            endif
+          endif
+         endif
+BEGIN
+  read(dd,mm,jj)
+  TambahDetik(dd,mm,jj)
+  write(dd,mm,jj)
+END.
