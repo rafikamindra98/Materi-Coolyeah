@@ -1,0 +1,141 @@
+unit Unit5;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls;
+
+type
+  TForm1 = class(TForm)
+    Label1: TLabel;
+    ButtonNilai: TButton;
+    ListNilai: TListBox;
+    ButtonHasil: TButton;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    EditRata: TEdit;
+    EditDeviasi: TEdit;
+    EditMaks: TEdit;
+    EditInput: TEdit;
+    EditMin: TEdit;
+    EditVar: TEdit;
+    Label5: TLabel;
+    Label6: TLabel;
+    procedure ButtonNilaiClick(Sender: TObject);
+    procedure ButtonHasilClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.ButtonNilaiClick(Sender: TObject);
+begin
+    ListNilai.Items.Add(EditInput.Text);
+    EditInput.Text:='';
+end;
+
+procedure TForm1.ButtonHasilClick(Sender: TObject);
+type
+    ArrInt=array[1..100] of integer ;
+var
+    A: ArrInt;
+    n: integer;
+
+    procedure BacaData(n: integer; var A: ArrInt);
+    var
+       i: integer;
+    begin
+       for i:=1 to n do
+       begin
+           A[i]:=StrToInt(ListNilai.Items[i-1]);
+       end;
+    end;
+
+    function MaksLarik(A: ArrInt; n:integer): integer;
+    var
+       Maks, i: integer;
+    begin
+       Maks:= A[1];
+       for i:=2 to n do
+       begin
+          if A[i] > Maks then
+          begin
+              Maks := A[i];
+              end;
+          end;
+          MaksLarik:=Maks;
+          end;
+
+    function MinLarik(A: ArrInt; n:integer): integer;
+    var
+       Min, i: integer;
+    begin
+       Min:= A[1];
+       for i:=2 to n do
+       begin
+          if A[i] < Min then
+          begin
+              Min := A[i];
+              end;
+          end;
+          MinLarik:=Min;
+          end;
+    function StandarDeviasi (A: ArrInt; n:integer): real;
+    var
+      D: Real;
+      function Varians (A: ArrInt; n:integer): real;
+      var
+       i: integer;
+       S, Avg, V: real;
+       function RataRata (A: ArrInt; n:integer): real;
+       var
+          jumlah, i: integer;
+          u: real;
+       begin
+          jumlah:=0;
+          for i:=1 to n do
+          begin
+              jumlah:=jumlah+A[i];
+          end;
+          u:=jumlah/n;
+          RataRata:=u;
+       end;
+         begin
+         S := 0;
+         Avg := RataRata(A,n);
+         for i:=1 to n do
+         begin
+            S:= S+sqr(A[i]-Avg);
+         end;
+         V := S/(n-1);
+         Varians:=V;
+         EditRata.Text:=FloatToStr(RataRata(A,n));
+      end;
+    begin
+        D:= sqr(Varians(A,n));
+        StandarDeviasi:=D;
+        EditVar.Text:=FloatToStr(Varians(A,n));
+     end;
+
+
+begin
+n:=ListNilai.Items.Count;
+BacaData(n,A);
+EditMaks.Text:=IntToStr(MaksLarik(A,n));
+EditMin.Text:=IntToStr(MinLarik(A,n));
+EditDeviasi.Text:=FloatToStr(StandarDeviasi(A,n));
+
+
+end;
+
+end.
