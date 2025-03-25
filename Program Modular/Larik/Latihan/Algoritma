@@ -1,0 +1,48 @@
+PROCEDURE TulisArray(output A: LarikInt, input n: integer)
+DEKLARASI
+   i : integer	
+ALGORITMA
+   for i<--1 to n do
+      write (A[i])
+   endfor
+
+-------------------------
+ASET
+Procedure HitungMean(input N:integer, input A:ArrInt,output Mean:real)
+....
+Algoritma
+ ....
+
+
+Program Statistika
+....
+Algoritma
+   ...
+   HitungMean(N,A,Mean)
+   write(Mean)
+-------------------------
+Procedure HitungMean(input N:integer, input A:ArrInt)
+....
+Algoritma
+ ....
+ write(Mean)
+
+Program Statistika
+....
+Algoritma
+   ...
+   HitungMean(N,A)
+--------------------------------
+Procedure HitungMean(input N:integer, input A:ArrInt,output Mean:real)
+....
+Algoritma
+ ....
+ write(mean)
+
+
+Program Statistika
+....
+Algoritma
+   ...
+   HitungMean(N,A,Mean)
+   --------------------------
