@@ -1,0 +1,36 @@
+Procedure BacaKata (input M: integer, output S: ArrChar)
+Deklarasi
+    var i: integer
+Algoritma
+    for i <-- 1 to M do
+        S[i] <-- read(Kalimat[i])
+    endfor
+
+Function CariHuruf (input S: ArrChar, input M: integer, input N: string): integer
+Deklarasi
+    var i, u: integer
+Algoritma
+    u <-- 0
+    for i <-- 1 to M do
+        if N <-- S[i] then
+           u <-- i
+        endif
+    endfor
+    return u
+
+Program Utama Indeks
+Deklarasi
+    const NMaks = 20
+    type    
+    ArrChar = Array [1..Nmaks] of char
+    var
+       S: ArrChar
+       M: Integer
+       N: String
+    procedure BacaKata (input M: integer, output S: ArrChar)
+    function CariHuruf (input S: ArrChar, input M: integer, input N: string): integer
+Algoritma
+    M <-- length (Kalimat)
+    BacaKata(M,S)
+    read (N) {Huruf yang dicari}
+    write(CariHuruf(S,M,N))
