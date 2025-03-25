@@ -1,0 +1,113 @@
+Algoritma Rekursif
+   1<=3
+F<--1*1=1
+i<--1+1=2
+   2<=3
+F<--1*2
+i<--2+1=3
+   3<=3
+F<--(1*2)*3
+i<--3+1=4
+4<=3 (false)
+F=1*2*3
+
+increament for
+-----------------------------------------------
+0!=1
+untuk n>0
+n!=1.2.3....(n-1).n
+   --------------
+   (n-1)!
+n!=(n-1)!.n
+n=5
+(n=0)=false ==> 5*fak(4)
+                5*4*fak(3)
+                5*4*3*fak(2)
+                5*4*3*2*fak(1)
+                5*4*3*2*1*fak(0)
+                5*4*3*2*1*1=5!
+==================================================
+write(fak(5))
+C(5)
+==============================
+Program FakRekursif
+Deklarasi
+var
+......
+   function Fak(input n:integer)-->integer
+begin
+   read(n)         (kalau di coding itu n:= ....)
+   write(fak(n))   (kalau di coding itu EditFaktorial.Text ...)
+
+endif di algo itu end;
+end. di codingan itu buat nutupin coding
+return di dephi itu result
+================================================
+Pangkat
+a^n=a*a*a*a*...*a
+    --------------
+     n
+   =a^(n-1) *a
+function pangkat(input a,n:integer)-->integer
+Deklarasi
+  tidak ada
+Algoritma
+  if n=0 then
+      return 1 {basis}
+  else
+      return a*pangkat(n-1)  {rekurensi}
+  endif
+=======================================================
+T(0,3)=1
+T(0,100)=1
+T(1,3)=3
+T(1,100)=100
+T(2,1)=2*1*T(1,1)-T(0,1)=2*1*1-1=1
+T(3,5)=2*5*T(2,5)-T(1,5)
+      =2*5*(2*5*T(1,5)-T(0,5))-5
+      =2*5*(10*5-1)-5
+      =10*49-5 =485
+=============================
+fpb(8,2)=2
+fpb(8,4)=4
+fpb(8,3)=1
+fpb(1000,201)   fpb(x,y)
+1000=201.4+196    (x dibagi sama y)
+ x   y      r(sisa)
+201=196.1+5
+x    y    r
+196=5.39+1
+x    y   r    (y dapet dari r di atas, x dapet dari y di atas, r dapet dari dihitung)
+5=1.5+0
+x y   r
+1=0.1+1
+x y   r    (kalau y=0, maka berhenti. Jadi, fpb nya x)
+
+fpb(8,3)
+8=3.2+2   
+3=2.1+1    *mewakili fpb(3,2)
+2=1.2+0    *mewakili fpb(2,1)
+1=0.1+1    *mewakili fpb(1,0)
+
+fpb(8,3)=fpb(3,2)=fpb(2,1)=fpb(1,0)=1
+    x,y      x y      x y
+----------------------------------------------
+p_n(x)=a0+a1.x+a2.x^2+a3.x^3+...a(n-1).x^n-1+an.x^n
+      =a0+x(a1+a2.x+a3.x^2+...+a(n-1).x^n-2+an.x^(n-1))
+      =a0+x.P_(n-1)   --> P_(n-1) itu polinom berderajat n-1
+
+basisnya a0,a1,...,an (array of int),x,n
+
+n=4
+A={1,2,3,4}
+B={5,6,7,8}
+X(a,b,4)=X(a,b,3)+a[4]*b[4]
+        =X(a,b,2)+a[3]*b[3]+a[4]*b[4]
+        =X(a,b,1)+a[2]*b[2]+a[3]*b[3]+a[4]*b[4]
+        =a[1]*b[1]+a[2]*b[2]+a[3]*b[3]+a[4]*b[4]
+fungsi X adalah dot product dari vektor A dan B (dari A & B)
+
+ciri rekursif:ada fungsi yang sama
+kalau fungsi dalam fungsi blm tentu rekursif
+
+function penjumlahan n bil asli         
