@@ -1,0 +1,50 @@
+Nama   :Rafi Kamindra
+NIM    :2201006
+__________________________________________________________________________________________
+
+procedure BacaData(input n:integer output L:ArrInt);
+  DEKLARASI
+    i: integer
+  ALGORITMA
+    for i<--1 to n do
+      read(L[i])
+    endfor
+
+procedure PencarianBagiDua(input L:ArrInt, input n:integer, input x:integer, output ketemu:boolean, output idx:integer);
+  DEKLARASI
+    i,j,k:integer
+  ALGORITMA
+    i<--1
+    j<--n
+    k<--0
+    ketemu<--false
+    while (not ketemu) and (i<=j) do
+      k<--(i+j) div 2
+      if (L[k] = x) then
+          ketemu<--true
+      else
+        if (L[k]<x) then
+          j<--k-1
+      endif
+      else
+        i<--k+1;
+    endwhile
+
+    if ketemu then
+        idx<--k
+    else
+      idx<--1
+    endif
+
+  BEGIN
+  read(n)
+  BacaData(n,L)
+  read(x)
+  PencarianBagiDua(L,n,x,ketemu,idx)
+  write(idx)
+
+  if ketemu then
+    write('Ketemu'}
+  else
+    write('Tidak ditemukan')
+  END;
