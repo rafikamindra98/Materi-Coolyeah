@@ -1,0 +1,52 @@
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+Listbox1.Items.Add(EditInput.Text);
+EditInput.Text:='';
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+const nmaks=100;
+type arrint=array[1..nmaks] of integer;
+var n:integer; L:arrint;
+
+procedure bacadata(n:integer; var L:arrint);
+  var i:integer;
+  begin
+    for i:=1 to n do
+      L[i]:=strtoint(Listbox1.items[i-1]);
+  end;
+
+procedure tukar(var a,b:integer);
+  var c:integer;
+  begin
+    c:=a;
+    a:=b;
+    b:=c;
+  end;
+
+procedure bubblesort(var L:arrint; n:integer);
+  var i,k:integer;
+  begin
+    for i:=1 to n-1 do
+      for k:=n downto i+1 do
+        begin
+          if L[k]<L[k-1] then
+            tukar(L[k],L[k-1]);
+        end;
+  end;
+
+procedure tulisdata(L:arrint; n:integer);
+  var i:integer;
+  begin
+    for i:=1 to n do
+      Listbox1.Items[i-1]:=inttostr(L[i]);
+  end;
+
+BEGIN
+n:=Listbox1.count;
+bacadata(n,L);
+bubblesort(L,n);
+tulisdata(L,n);
+END;
+
+end.
