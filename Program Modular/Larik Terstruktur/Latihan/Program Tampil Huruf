@@ -1,0 +1,56 @@
+unit Unit1;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls;
+
+type
+  TForm1 = class(TForm)
+    Label1: TLabel;
+    EditKata: TEdit;
+    EditHurufKe: TEdit;
+    ButtonTampilkan: TButton;
+    EditTampil: TEdit;
+    procedure ButtonTampilkanClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.ButtonTampilkanClick(Sender: TObject);
+const
+  NMaks = 20;
+type
+  ArrChar = array [1..NMaks] of char;
+var
+  S: ArrChar;
+  N,M: integer;
+
+procedure BacaKata(M:integer; var S: ArrChar);
+var i: integer;
+begin
+  for i:=1 to M do
+  begin
+    S[i]:=EditKata.Text[i];
+  end;
+end;
+
+begin
+  M:=Length(EditKata.Text);
+  BacaKata(M,S);
+  N:=StrToInt(EditHurufKe.Text);
+  EditTampil.Text:=S[N];
+end;
+
+
+end.
