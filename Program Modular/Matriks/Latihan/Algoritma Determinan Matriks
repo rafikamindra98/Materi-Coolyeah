@@ -1,0 +1,52 @@
+procedure TForm1.ButtonTampilClick(Sender: TObject);
+   const
+      NBarisMaks = 5;
+      NKolomMaks = 5;
+   type
+      Matriks = array [1..NBarisMaks, 1..NKolomMaks] of integer;
+   var
+      M: Matriks;
+      NBaris, NKoloc: integer;
+      D: Integer;
+
+procedure BacaMatriks (NBaris, NKolom: integer; Var M: Matriks);
+   var
+      i, j: integer;
+   begin
+      for i:=1 to NBaris do
+         for j:=1 to NKolom do
+            M[i, j]:=StrToInt(SG1.Cells[j-1,i-1]);
+   end;
+
+procedure TampilElemen (M:Matriks);
+   var
+      BarisKe, KolomKe: integer;
+   begin
+      BarisKe:=StrToInt(EditBarisKe.Text);
+      KolomKe:=StrToInt(EditKolomKe.Text);
+      EditElemen.Text:=IntToStr(M[BarisKe,KolomKe]);
+   end;
+
+procedure MenghitungDeterminan (M:Matriks; Var D:Integer);
+   begin
+      D:=M[1,1]*M[2,2]-M[1,2]*M[2,1];
+      EditDeterminan.Text:=IntToStr(D);
+   end;
+
+BEGIN
+   NBaris:=StrToInt(EditNBaris.Text);
+   NKolom:=StrToInt(EditNKolom.Text);
+   BacaMatriks(NBaris, NKolom, M);
+   TampilElemen(M);
+   MenghitungDeterminan(M,D);
+END;
+end.
+
+
+**ALGORITMA PROCEDURE MENGHITUNG DETERMINAN**
+Procedure MenghitungDeterminan (Input M:Matriks; output D: Integer)
+Deklarasi
+  {Tidak ada, tapi D dideklarasikan di program utama}
+Algoritma
+  D<--M[1,1]*M[2,2]-M[1,2]*M[2,1];
+  write(D)
