@@ -1,0 +1,67 @@
+unit Unit1;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, Grids;
+
+type
+  TForm1 = class(TForm)
+    Label1: TLabel;
+    EditNMhs: TEdit;
+    SGMhs: TStringGrid;
+    Label2: TLabel;
+    EditDataKe: TEdit;
+    SGDataKe: TStringGrid;
+    ButtonTampilkan: TButton;
+    procedure ButtonTampilkanClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.ButtonTampilkanClick(Sender: TObject);
+  const Nmaks = 10;
+  type Mahasiswa = record
+    NIM : string;
+    NamaMhs : string;
+    IPK : real;
+    end;
+  TabMhs = array[1..Nmaks] of Mahasiswa;
+var Mhs : TabMhs;
+  n, NMhs : integer;
+procedure BacaData(NMhs: integer; var Mhs: TabMhs);
+  var i: integer;
+  begin
+    for i:=1 to NMhs do
+    begin
+      Mhs[i].NIM:=SGMhs.Cells[1,i];
+      Mhs[i].NamaMhs:=SGMhs.Cells[2,i];
+      Mhs[i].IPK:=StrToFloat(SGMhs.Cells[3,i]);
+    end;
+  end;
+
+Procedure TulisDataKe(Mhs:TabMhs;n:integer);
+begin
+  SGDataKe.Cells[0,1]:=Mhs[n].NIM;
+  SGDataKe.Cells[1,1]:=Mhs[n].NamaMhs;
+  SGDataKe.Cells[2,1]:=FloatToStr(Mhs[n].IPK);
+end;
+begin
+  NMhs:=StrToInt(EditNMhs.Text);
+  BacaData(NMhs,Mhs);
+  n:=StrToInt(EditDatake.Text);
+  TulisDataKe(Mhs,n);
+end;
+
+
+end.
