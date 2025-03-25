@@ -1,0 +1,20 @@
+procedure TForm1.Button1 Click(Sender: TObject):
+begin
+  with imagel.Canvas do
+    begin
+      Rectangle(10,10,100,100):
+      MoveTo(45.45):
+      LineTo(10,50):
+      MoveTo (45.45):
+      LineTo(100,50);
+      Are(10.10,100,100,10,50,100,50):
+      Ellipse (35.65,45,75);
+      Ellipse(65.65.75,75):
+      Arc(45,80,65,90,45,85,65,85):
+      MoveTo (35,60);
+      LineTo (45,60);
+      MoveTo (65,60);
+      LineTo (75.60);
+    end;
+  end;
+end.
