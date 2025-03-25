@@ -1,0 +1,109 @@
+unit Unit1;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, Grids;
+
+type
+  TFormShow = class(TForm)
+    Label1: TLabel;
+    EditNMhs: TEdit;
+    SGMhs: TStringGrid;
+    Label2: TLabel;
+    Edit1: TEdit;
+    ButtonTampilkan: TButton;
+    SGDataKe: TStringGrid;
+    procedure ButtonTampilkanClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormShow: TFormShow;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFormShow.FormShow(Sender: TObject);
+var i: integer;
+begin
+  SGMhs.Cells[0,0]:='No.Urut';
+  SGMhs.Cells[1,0]:='NIM';
+  SGMhs.Cells[2,0]:='Nama';
+  SGMhs.Cells[3,0]:='Kd MK1';
+  SGMhs.Cells[4,0]:='Nilai1';
+  SGMhs.Cells[5,0]:='Kd MK2';
+  SGMhs.Cells[6,0]:='Nilai2';
+  SGMhs.Cells[7,0]:='Kd MK3';
+  SGMhs.Cells[8,0]:='Nilai3';
+  SGMhs.Cells[9,0]:='Kd MK4';
+  SGMhs.Cells[10,0]:='Nilai4';
+  SGDataKe.Cells[0,0]:='NIM';
+  SGDataKe.Cells[1,0]:='Nama';
+  SGDataKe.Cells[2,0]:='Kd MK1';
+  SGDataKe.Cells[3,0]:='Nilai1';
+  SGDataKe.Cells[4,0]:='Kd MK2';
+  SGDataKe.Cells[5,0]:='Nilai2';
+  SGDataKe.Cells[6,0]:='Kd MK3';
+  SGDataKe.Cells[7,0]:='Nilai3';
+  SGDataKe.Cells[8,0]:='Kd MK4';
+  SGDataKe.Cells[9,0]:='Nilai4';
+  for i:=1 to 10 do
+    SGMhs.Cells[0,i]:=IntToStr(i);
+  end;
+
+procedure TFormShow.ButtonTampilkanClick(Sender: TObject);
+  const Nmaks = 100;
+  type MataKuliah = record
+    KodeMK : string;
+    Nilai : string;
+  end;
+  Mahasiswa = record
+    NIM : string;
+    NamaMhs : string;
+    MK : array[1..4] of MataKuliah;
+  end;
+  TabMhs = array[1..Nmaks] of Mahasiswa;
+var Mhs : TabMhs;
+  n, NMhs : integer;
+
+procedure BacaData(NMhs: integer; var Mhs: TabMhs);
+  var i,j: integer;
+  begin
+    for i:=1 to NMhs do
+    begin
+      Mhs[i].NIM:=SGMhs.Cells[1,i];
+      Mhs[i].NamaMhs:=SGMhs.Cells[2,i];
+      for j:=1 to 4 do
+      begin
+        Mhs[i].MK[j].KodeMK:=SGMhs.Cells[2*j+1,i];
+        Mhs[i].MK[j].Nilai:=SGMhs.Cells[2*j+2,i];
+      end;
+    end;
+  end;
+
+Procedure TulisDataKe(Mhs:TabMhs;n:integer);
+  var j: integer;
+  begin
+    SGDataKe.Cells[0,1]:=Mhs[n].NIM;
+    SGDataKe.Cells[1,1]:=Mhs[n].NamaMhs;
+    for j:=1 to 4 do
+    begin
+      SGDataKe.Cells[2*j,1]:=Mhs[n].MK[j].KodeMk;
+      SGDataKe.Cells[2*j+1,1]:=Mhs[n].MK[j].Nilai;
+    end;
+  end;
+
+begin
+  NMhs:=StrToInt(EditNMhs.Text);
+  BacaData(NMhs,Mhs);
+  n:=StrToInt(EditDatake.Text);
+  TulisDataKe(Mhs,n);
+end;
+
+end.
