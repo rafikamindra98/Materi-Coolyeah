@@ -1,0 +1,138 @@
+Review Tugas Matriks
+  •coding read(M[i,j])
+    - buat matriks A ==> M[i,j]:=StrToInt(SG1.Cells[j-1,i-1]) 
+    - buat matriks B ==> M[i,j]:=StrToInt(SG2.Cells[j-1,i-1])
+      ----------------------------------------------------------------------
+      Procedure BacaMatriks(input SG:text, output M:Matriks) --> ini pasti salah, soalnya di delphi bukan "text" istilahnya, tp apaa gitu
+      M[i,j]:=StrToInt(SG.Cells[j-1,i-1]))
+      BacaMatriks(SG1, A)
+
+  •Algo prosedur tambah matriks 
+    -Versi 1 (versi mahasiswa, langsung dikeluarin, terlalu langsung)
+     Procedure tambahmatriks(input P,Q:matriks)
+     Deklarasi
+	i,j:integer
+     ALgoritma
+	for i<--1 to 3 do
+		for j<--1 to 3 do
+			write(P[i,j]+Q[i,j])
+		endfor
+	endfor
+
+    -Versi 2(versi dosen, terasa lebih sopan/etis)
+	Procedure tambahmatriks(input P,Q:matriks)
+	Deklarasi
+	   i,j: integer
+	   C:matriks
+	Algoritma
+	   for i<--1 to 3 do
+	      for j<--1 to 3 do
+	      	C[i,j]<--P[i,j]+Q[i,j]
+	     	write(C[i,j])
+	      endfor
+	   endfor
+
+    -Versi 3
+     Procedure tambahmatriks(input P,Q:matriks, output C:matriks)
+     Deklarasi
+	   	 i,j: integer
+     Algoritma
+		 for i<--1 to 3 do
+			 for j<--1 to 3 do
+				 C[i,j]<--P[i,j]+Q[i,j]
+				 write(C[i,j])
+			 endfor
+		 endfor
+
+	TambahMatriks(A,B,D)
+	Kuadrat(D) --> ini buat apa yaa? lupa
+
+    -Versi 4 (salah)
+     Procedure tambahmatriks(input P,Q:matriks, output C:matriks)
+     Deklarasi
+		 i,j: integer
+		 C: matriks
+     Algoritma
+		 for i<--1 to 3 do
+			 for j<--1 to 3 do
+				 C[i,j]<--P[i,j]+Q[i,j]
+				 write(C[i,j])
+			 endfor
+		 endfor
+	
+     *prosedur versi 4 ini salah karena C dideklarasiin lagi di deklarasi, padhal udah ditulis di output.
+      Jadi kl udh ada output C:matriks, gausah dideklarasiin di deklarasi lg 
+     *write bisa di luar, tapi ntar algonya lebih panjang, nanti ada prosedur menampilkan
+
+  •Amxn Bnxp = Cmxp  (syarat perkalian matriks: kolom matriks pertama=baris matriks kedua)
+   (a11 a12 a13 ... a1n)   (b11 a12 b13 ... b1p)	(a11b11+a1b2+...+a1n.bn1  
+   (a21 a22 a23 ... a2n)   (b21 a22 b23 ... b2p)	(
+   (...................)   (...................)	(	LANJUTAN DI CATATAN ISAN BAGIAN SINI, SOALNYA GAENAKEUN
+   (...................)   (...................) =      (       NULIS MATRIKS DI NOTEPAD
+   (...................)   (...................)	(
+   (am1 am2 am3 ... amn)   (bn1 bn2 bn3 ... bnp)	(
+
+   •Prosedur perkalian matriks
+    -Versi 1 (salah)
+    Procedure (input A:Matriks, input m,n: integer, input B: Matriks, input n,p:integer, output C:matriks) 
+    Deklarasi
+	i,j,k,s:integer
+    Algoritma
+	s<--0
+	for i<--i to m do
+	   for j<--1 to p do
+	      for k<--1 to n do
+		s<--s+A[i,k]*B[k,j]
+	      endfor
+	      C[i,j]<--s
+	   endfor
+	endfor
+	
+	kenapa prosedur versi 1 salah? mari kita coba kotret dulu
+	s=0
+	i=1	j=1	k=1	s=0+A[1,1]*B[1,1]
+			k=2	s=A[1,1]*B[1,1]+A[1,2]*B[2,1]
+			k=3	s=A[1,1]*B[1,1]+A[1,2]*B[2,1]+A[1,3]*B[3,1]
+			...
+			k=n	s=A[1,1]*B[1,1]+A[1,2]*B[2,1]+A[1,3]*B[3,1]+...+A[1,n]*B[n,1]
+		C[1,1]=s=A[1,1]*B[1,1]+A[1,2]*B[2,1]+A[1,3]*B[3,1]+...+A[1,n]*B[n,1]
+
+		j=2	k=1	s=A[1,1]*B[1,1]+A[1,2]*B[2,1]+A[1,3]*B[3,1]+...+A[1,n]*B[n,1]
+		C[1,1]=s=A[1,1]*B[1,1]+A[1,2]*B[2,1]+A[1,3]*B[3,1]+...+A[1,n]*B[n,1]+A[1,1]*A[1,2]
+	
+	*jadi ntar si C[1,1] nya nambah terus, padahal kita mau ngeset tiap elemen hasil perkalian itu nilai awal s nya 0.
+	 Trs yg bener gimana jawabnya?
+
+    -Versi 2 (bener)
+    Procedure (input A:Matriks, input m,n: integer, input B: Matriks, input n,p:integer, output C:matriks) 
+    Deklarasi
+	i,j,k,s:integer
+    Algoritma
+	for i<--i to m do
+	   for j<--1 to p do
+	      s<--0
+	      for k<--1 to n do
+		s<--s+A[i,k]*B[k,j]
+	      endfor
+	      C[i,j]<--s
+	      write(C[i,j])
+	   endfor
+	endfor
+
+	kenapa prosedur versi 2 bener? mari kita coba kotret dulu
+	s=0
+	i=1	j=1	s=0
+			k=1	s=0+A[1,1]*B[1,1]
+			k=2	s=A[1,1]*B[1,1]+A[1,2]*B[2,1]
+			k=3	s=A[1,1]*B[1,1]+A[1,2]*B[2,1]+A[1,3]*B[3,1]
+			...
+			k=n	s=A[1,1]*B[1,1]+A[1,2]*B[2,1]+A[1,3]*B[3,1]+...+A[1,n]*B[n,1]
+		C[1,1]=s=A[1,1]*B[1,1]+A[1,2]*B[2,1]+A[1,3]*B[3,1]+...+A[1,n]*B[n,1]
+
+		j=2	s=0
+			k=1	s=0+A[1,1]*A[1,2]
+	
+	* C[i,j] itu tempat matriks buat nampung nilai s. ibu saranin buat disimpen di C[i,j] dulu, jadi nanti kalau nge-write, nulisnya
+	  write(C[i,j]) terus tinggal dikeluarin output C[i,j]		
+	*pertanyaan, input Det tuh A,B atau A aja?
+	 jawab: 1 aja, kalau bisa nama matriks di functionnya ga A, bebas aja.. misalnya write(Det(E))
