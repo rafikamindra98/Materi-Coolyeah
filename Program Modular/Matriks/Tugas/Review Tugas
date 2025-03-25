@@ -3,7 +3,7 @@ Review Tugas Matriks
     - buat matriks A ==> M[i,j]:=StrToInt(SG1.Cells[j-1,i-1]) 
     - buat matriks B ==> M[i,j]:=StrToInt(SG2.Cells[j-1,i-1])
       ----------------------------------------------------------------------
-      Procedure BacaMatriks(input SG:text, output M:Matriks) --> ini pasti salah, soalnya di delphi bukan "text" istilahnya, tp apaa gitu
+      Procedure BacaMatriks(input SG:text, output M:Matriks) --> ini pasti salah, soalnya di delphi bukan "text" istilahnya, tapi apa gitu
       M[i,j]:=StrToInt(SG.Cells[j-1,i-1]))
       BacaMatriks(SG1, A)
 
