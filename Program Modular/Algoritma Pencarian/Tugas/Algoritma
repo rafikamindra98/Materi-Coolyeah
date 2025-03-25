@@ -1,0 +1,57 @@
+Procedure BacaData(input N:integer; output A:ArrStr)
+Deklarasi
+   i:integer;
+Algoritma
+   for i<--1 to N do
+      read(A[i])
+    endfor
+
+Procedure SeqSearch1(input A:ArrStr; n:integer; x: string; output ketemu: boolean)
+Deklarasi
+   i: integer
+Algoritma
+   i<-- 1
+   while (i < n) and (A[i] ≠ x) do
+      i<-- i + 1
+   if A[i] = x then
+      ketemu<-- true
+   else
+      ketemu<-- false
+    endwhile
+
+Procedure tambahdata(input/output L:arrstr;input n:integer;input x:string; output ketemu:boolean)
+Deklarasi
+   i:integer
+Algoritma
+    i<-- 1
+    while (i < n) and (L[i] ≠ x) do
+       i<-- i + 1
+    if A[i] = x then
+       ketemu<-- true
+    else
+       A[i+1]<--x
+       write(L[i+1])
+     endif;
+
+PROGRAM Data
+DEKLARASI
+const
+   NMax=100;
+type
+   ArrStr=array[1..100] of string
+var
+   N: integer
+   x: string
+   A: ArrStr
+   ketemu: boolean
+ALGORITMA
+   read(N)
+   BacaData(N,A)
+   read(x)
+   SeqSearch1(A,n,x,ketemu)
+   TambahData(A,n,x,ketemu)
+   if ketemu then
+      write('ketemu')
+   else
+      write('Tidak ketemu')
+   endif
