@@ -1,0 +1,119 @@
+unit Unit1;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, Grids;
+
+type
+  TForm1 = class(TForm)
+    SGA: TStringGrid;
+    SGB: TStringGrid;
+    Tampil: TButton;
+    SGM: TStringGrid;
+    SGT: TStringGrid;
+    EditDetA: TEdit;
+    EditDetB: TEdit;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    procedure TampilClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.TampilClick(Sender: TObject);
+  const
+  NBaris=3;
+  NKolom=3;
+  N=3;
+  type
+    Matriks = array[1..NBaris, 1..NKolom] of integer;
+  var
+    A,B,M,T: Matriks;
+
+  procedure BacaMatriksA(Var A:Matriks);
+    var
+    i,j:integer;
+    begin
+      for i:=1 to NBaris do
+        for j:=1 to NKolom do
+          A[i,j]:=StrToInt(SGA.Cells[j-1, i-1]);
+    end;
+
+  procedure BacaMatriksB(Var B:Matriks);
+    var
+    i,j:integer;
+    begin
+      for i:=1 to NBaris do
+        for j:=1 to NKolom do
+          B[i,j]:=StrToInt(SGB.Cells[j-1, i-1]);
+    end;
+
+  procedure KaliMatriks(Var M:Matriks);
+  var
+  i,j,k,S: integer;
+  begin
+    for i:=1 to NBaris do
+    begin
+      for j:=1 to NKolom do
+      begin
+        S:= 0;
+        for k:=1 to N do
+          begin
+          S:= S+ A[i,k]*B[k,j];
+          end;
+          M[i,j]:=S;
+          SGM.Cells[j-1, i-1]:=IntToStr(M[i,j]);
+      end;
+    end;
+  end;
+
+  procedure JumlahMatriks(Var T:Matriks);
+  var
+  i,j: integer;
+  begin
+    for i:=1 to NBaris do
+      for j:=1 to NKolom do
+        T[i,j]:=A[i,j]+B[i,j];
+  end;
+
+  procedure TampilMatriks(Var T:Matriks);
+  var
+  i,j: integer;
+  begin
+    for i:=1 to NBaris do
+      for j:=1 to NKolom do
+        SGT.Cells[j-1, i-1]:=IntToStr(T[i,j]);
+  end;
+
+  function Det (X:Matriks):integer;
+  begin
+    Det:= (X[1,1]*X[2,2]*X[3,3]) + (X[1,2]*X[2,3]*X[3,1]) + (X[1,3]*X[2,1]*X[3,2])
+          - (X[3,1]*X[2,2]*X[1,3]) - (X[3,2]*X[2,3]*X[1,1]) - (X[3,3]*X[2,1]*X[1,2]);
+  end;
+
+  Begin
+  BacaMatriksA(A);
+  BacaMatriksB(B);
+  KaliMatriks(M);
+  JumlahMatriks(T);
+  TampilMatriks(T);
+  EditDetA.Text:=IntToStr(Det(A));
+  EditDetB.Text:=IntToStr(Det(B));
+  end;
+
+end.
