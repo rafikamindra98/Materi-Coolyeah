@@ -1,0 +1,23 @@
+function fpb(input x, y: integer) --> integer
+{mengembalikan nilai fpb(x,y)
+   Algoritma Rekursif
+  basis    : jika y = 0, maka fpb(x,0) = x
+  rekurens : jika y > 0, maka fpb(x,y) = fpb(y, x mod y)}
+DEKLARASI
+    -
+ALGORITMA 
+   if y = 0 then
+      return x                 {basis}
+   else
+      return fpb(y, x mod y)   {rekurens}
+   endif
+
+PROGRAM ALGORITMA REKURSIF FPB
+DEKLARASI
+   var x : integer
+       y : integer
+   function fpb(input x, y: integer) --> integer
+ALGORITMA
+   read(x)
+   read(y)
+   write(fpb(x,y))
