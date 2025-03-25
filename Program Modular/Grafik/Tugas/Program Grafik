@@ -1,0 +1,105 @@
+unit Unit1;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, ExtCtrls;
+
+type
+  TForm1 = class(TForm)
+    Linear: TButton;
+    Image1: TImage;
+    Kuadrat: TButton;
+    Clear: TButton;
+    Label1: TLabel;
+    procedure LinearClick(Sender: TObject);
+    procedure KuadratClick(Sender: TObject);
+    procedure ClearClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.LinearClick(Sender: TObject);
+var
+  i: double;
+  function CanvasX(LojikX:double):integer;
+  begin
+    result:=Round(LojikX+100);
+  end;
+  function CanvasY(LojikY:double):integer;
+  begin
+    result:=Round(100-LojikY);
+  end;
+
+  begin
+    image1.picture:=nil;
+    with image1.Canvas do
+    begin
+      MoveTo(CanvasX(-100), CanvasY(0));
+      LineTo(CanvasX(100), CanvasY(0));
+      MoveTo(CanvasX(0), CanvasY(-100));
+      LineTo(CanvasX(0), CanvasY(150));
+      TextOut(CanvasX(93), CanvasY(1), 'x');
+      TextOut(CanvasX(1), CanvasY(100), 'y');
+      TextOut(CanvasX(67), CanvasY(100), 'y=x');
+    end;
+
+    {Gambar Garis Linear y=x}
+    i:=-100;
+    while i<=100 do
+    begin
+      image1.Canvas.pixels[CanvasX(i), CanvasY(i)]:=clRed;
+      i:=i+0.1;
+    end;
+  end;
+
+procedure TForm1.KuadratClick(Sender: TObject);
+var
+  i: double;
+  function CanvasX(LojikX:double):integer;
+  begin
+    result:=Round(LojikX+100);
+  end;
+  function CanvasY(LojikY:double):integer;
+  begin
+    result:=Round(180-LojikY);
+  end;
+
+  begin
+    image1.picture:=nil;
+    with image1.Canvas do
+    begin
+      MoveTo(CanvasX(-100), CanvasY(0));
+      LineTo(CanvasX(100), CanvasY(0));
+      MoveTo(CanvasX(0), CanvasY(-100));
+      LineTo(CanvasX(0), CanvasY(180));
+      TextOut(CanvasX(93), CanvasY(1), 'x');
+      TextOut(CanvasX(1), CanvasY(180), 'y');
+      TextOut(CanvasX(66), CanvasY(180), 'y=x^2');
+    end;
+
+  {Gambar Kurva}
+  i:=-100;
+  while i<=100 do
+    begin
+      image1.Canvas.pixels[CanvasX(5*i), CanvasY(i*i)]:=clRed;
+      i:=i+0.1;
+    end;
+  end;
+
+  procedure TForm1.ClearClick(Sender: TObject);
+  begin
+    image1.picture:=nil;
+  end;
+
+end.
