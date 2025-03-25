@@ -1,0 +1,105 @@
+procedure BacaData (input N:integer, output A:ArrInt)
+DEKLARASI
+   var i : integer
+ALGORITMA
+   for i<--1 to N do
+      read(L[i])
+
+procedure Tukar(input/output a,b: integer)
+DEKLARASI
+   c: integer
+ALGORITMA
+   c<--a
+   a<--b
+   b<--c
+   for i<--1 downto n-1 do
+      for k<--n to i+1 do
+         if L[k]<L[k-1] then
+           Tukar(L[k],L[k-1])
+         endif
+      endfor
+   endfor
+
+procedure TulisData(input n: integer, input L: ArrInt)
+DEKLARASI
+   var i : integer
+ALGORITMA
+   for i<--1 to n do
+      write(L[i])
+   endfor
+
+procedure PencarianBagiDua(input L:ArrInt, input n: integer, input x: integer, output ketemu: boolean)
+DEKLARASI
+var i, j, k : integer
+ALGORITMA
+   i<--1
+   j<--N
+   ketemu<--false
+   while (not ketemu) and (i<=j) do
+      k<--(i+j) div 2
+      if (A[i] = x) then
+         ketemu<--true
+      else
+         if (L[k] < x) then
+            j<--k-1
+         else
+           i<--k+1
+         endif
+      endif
+   endwhile
+
+procedure SeqSearch(input ketemu: boolean)
+DEKLARASI
+-
+ALGORITMA
+if ketemu then
+  write('Ketemu')
+else
+   write('Tidak ketemu')
+
+procedure SeqSearch(input L:ArrInt, input n:integer, input x:integer, output ketemu:boolean)
+  DEKLARASI
+    i: integer
+  ALGORITMA
+    i<--1
+    while (i<n) and (L[i]<>x) do
+      i<--i+1
+    if L[i]=x then
+      ketemu<--true
+    else
+      ketemu<--false
+    endif
+    endwhile
+
+  procedure TampilHasil(input/output ketemu:boolean)
+    if ketemu then
+      write('Ketemu')
+    else
+      write('Tidak Ketemu')
+    endif
+
+
+PROGRAM ALGORTIMA PENGURUTAN DAN PENCARIAN BAGI DUA
+DEKLARASI
+   type ArrInt : array[1..100] of integer
+   var
+      n: integer
+      x: integer
+      L: ArrInt
+      ketemu : boolean
+      procedure BacaData (input n: integer, output L: ArrInt)
+      procedure Tukar(input n: integer, input/output L: ArrInt)
+      procedure TulisData(input n: integer, input L: ArrInt)
+      procedure PencarianBagiDua(input L:ArrInt, input n: integer, input x: integer, output ketemu: boolean)
+      procedure TampilHasil(ketemu)      
+      procedure TampilHasil (input ketemu: boolean)
+ALGORITMA
+  read(n)
+  BacaData(L,n)
+  Tukar(L,n)
+  write(n)
+  TulisData(L,n)
+  PencarianBagiDua(L,n,x,ketemu)
+  read(n)
+  SeqSearch(L,n,x,ketemu)
+  TampilHasil(ketemu)
