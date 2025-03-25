@@ -1,0 +1,26 @@
+ALGORITMA PENCARIAN BAGI DUA DENGAN KELUARAN BERUPA INDEKS
+Procedure PencarianBagidua (input L: Larikint, input n: integer, input x: integer, output idinteger)
+DEKLARASI
+  I, j: integer
+  k: integer
+
+ALGORITMA:
+  i <-- 1 
+  j <-- n
+  ketemu <-- false
+  while (not ketemu) and (i ≤ j) do 
+    k <-- (i <-- j) div 2
+    if (L[k] = x) then
+      ketemu <-- true 
+    else
+      if (LIk] > x) then
+        j <-- k-1 
+      else
+        i <-- k+1 endif 
+      endif 
+    endwhile
+    if ketemu then 
+      idx <-- k
+    else
+      idx<--(-1)
+    endif
