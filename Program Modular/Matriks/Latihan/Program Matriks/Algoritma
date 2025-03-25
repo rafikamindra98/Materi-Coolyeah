@@ -1,0 +1,29 @@
+Procedure BacaMatriks(input NBaris,NKolom: integer; output M: Matriks)
+Deklarasi
+   i, j: integer
+Algoritma
+   for i:= 1 to NBaris do
+      for j:= 1 to Kolom do
+         read(M[i,j])
+      endfor
+   endfor
+Procedure TampilElemen(input M:Matriks)
+Deklarasi
+   BarisKe, KolomKe: integer
+Algoritma
+   read(BarisKe, KolomKe)
+   write(M[BarisKe, KolomKe])
+Program Tampil
+Deklarasi
+   Const
+      NBarisMaks = 5;
+      NKolomMaks = 5;
+   Type
+      Matriks = array[1..NBarisMaks, 1..NKolomMaks]of integer;
+   Var
+      NBaris, NKolom: integer;
+      M: Matriks;
+Algoritma
+   Read(NBaris, NKolom)
+   BacaMatriks(NBaris,NKolom,M)
+   TampilElemen(M);
