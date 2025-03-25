@@ -1,0 +1,85 @@
+procedure BacaData(input N:integer, output A:ArrInt)
+Deklarasi 
+    var i: integer
+Algoritma
+    for i<--1 to N do
+    read (A[i])
+    endfor
+
+function MaksLarik(input A:ArrInt, input N:integer) --> integer
+Deklarasi
+    var Maks, i:integer
+Algoritma
+    Maks<--A[1]
+    for i<--2 to N do
+   	 if A[i]>Maks then
+     		Maks<--A[i]
+      	endif
+    endfor
+    return Maks
+
+function MinLarik(input A:ArrInt, input N:integer) --> integer
+Deklarasi
+    var Min, i:integer
+Algoritma
+    Min<--A[1]
+    for i<--2 to N do
+     	 if A[i]<Min then
+        	Min<--A[i]
+      	endif
+    endfor
+    return Min
+
+function RataRata(input A:ArrInt, input N:integer) --> real
+Deklarasi
+    var jumlah, i: integer
+          u: real
+Algoritma
+    jumlah<--0
+    for i<--1 to N do
+      jumlah<--jumlah+A[i]
+    endfor
+    u<--jumlah/N
+    return u
+
+function Varians(input A:ArrInt, input N:integer) --> real
+Deklarasi
+    var i: integer
+          S, Avg, V: real
+    function RataRata(input A:ArrInt, input N:integer) --> real
+Algoritma
+	S<--0
+    	Avg<--RataRata(N,A)
+    	for i<--1 to N do
+      		S<--S+sqrt(A[i]-Avg)
+   	endfor
+    	V<--S/(N-1)
+    	return V
+	write(RataRata(A,N))
+
+function StandarDeviasi(input A:ArrInt, input N:integer) --> real
+Deklarasi
+    var D:real
+    function Varians(input A:ArrInt, input N:integer) --> real
+Algoritma
+    D<--sqrt(Varians(A,N))
+    return D
+    write(Varians(A,N))
+
+PROGRAM Statiska
+DEKLARASI
+  	type
+   	 ArrInt=array[1..100] of integer 
+  	var
+          A:ArrInt
+  	  N:integer
+ 	procedure BacaData(input N:integer, output A:ArrInt)
+  	function MaksLarik(input N:integer, input A:ArrInt) --> integer
+        function MinLarik(input N:integer, input A:ArrInt) --> integer
+  	function StandarDeviasi(input N:integer, input A:ArrInt) --> real
+ALGORITMA
+ 	read (N)
+ 	BacaData(N,A)
+        write(Maksimum(N,A)
+	write(Minimum(N,A)
+	write(Standar Deviasi(N,A))
