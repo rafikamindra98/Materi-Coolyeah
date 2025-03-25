@@ -1,0 +1,21 @@
+#Algoritma a^n dengan rekursif
+function Pangkat(input a:integer,input n:integer)-->integer
+DEKLARASI
+ALGORITMA
+   if n<--0 then
+      return 1	{basis}
+   else
+      a*Pangkat(a,n-1)	{rekurensi}
+   endif
+
+__________________________________________________________________
+
+#Algorima Pangkat
+function Pangkat(input a:integer,input n:integer)-->integer
+DEKLARASI
+ALGORITMA
+   if n<--0 then
+      return 1	{basis}
+   else
+      a*Pangkat(a,n-1)	{rekurensi}
+   endif
