@@ -1,0 +1,75 @@
+Procedure BacaMatriksA(output A:matriks)
+Deklarasi
+   i,j:integer
+Algoritma
+   for i<--1 to 3 do
+      for j<--1 to 3 do
+         read(A[i,j])
+      endfor
+   endfor
+
+Procedure bacamatriksB(output B:matriks)
+Deklarasi
+   i,j:integer
+Algoritma
+   for i<--1 to 3 do
+      for j<--1 to 3 do
+         read(B[i,j])
+      endfor
+   endfor
+
+Procedure tambahmatriks(input A,B:matriks)
+Deklarasi
+   i,j:integer
+Algoritma
+   for i<--1 to 3 do
+      for j<--1 to 3 do
+         write(A[i,j]+B[i,j])
+      endfor
+   endfor
+
+Procedure kalimatriks(input A,B:matriks)
+Deklarasi
+   i,j,k,x:integer
+Algoritma
+   for i<--1 to 3 do
+      for j<--1 to 3 do
+         x<--0
+         for k<--1 to 3 do
+            x<--x+(P[i,k]*Q[k,j]
+         endfor
+      write(x)		#menulis hasil x ke setiap cell StringGrid
+      endfor
+   endfor
+
+Function det(input X:matriks)-->integer
+Deklarasi
+Algoritma
+   return(X[1,1]*X[2,2]*X[3,3])+
+         (X[1,2]*X[2,3]*X[3,1])+
+         (X[1,3]*X[2,1]*X[3,2])-
+         (X[3,1]*X[2,2]*X[1,3])-
+         (X[3,2]*X[2,3]*X[1,1])-
+         (X[3,3]*X[2,1]*X[1,2])
+
+Program DuaMatriks3kali3
+Deklarasi
+   const 
+      NBaris = 3
+      NKolom = 3
+      type
+         matriks = array[1..NBaris, 1..NKolom] of integer
+      var
+         A,B : matriks
+      Procedure bacamatriksA(output A:matriks)
+      Procedure bacamatriksB(output B:matriks)
+      Procedure tambahmatriks(input A,B:matriks)
+      Procedure kalimatriks(input A,B:matriks)
+      Function det(input X:matriks)-->integer
+Algoritma
+      bacamatriksA(A)
+      bacamatriksB(B)
+      tambahmatriks(A,B)
+      kalimatriks(A,B)
+      write(det(A))
+      write(det(B))
