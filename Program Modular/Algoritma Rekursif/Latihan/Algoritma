@@ -1,0 +1,13 @@
+function Fak(input n:integer) -> integer
+{mengembalikan nilai n!
+  Algorima rekursif
+  basis : jika n=0, maka 0!=1
+  rekurens : jika n>0, maka n!=nx(n-1)!}
+DEKLARASI
+   tidak ada
+ALGORITMA
+   if n = 0 then
+      return 1 {basis}
+   else
+      retunt n*Fak(n-1)  {rekurensi}
+   endif   
