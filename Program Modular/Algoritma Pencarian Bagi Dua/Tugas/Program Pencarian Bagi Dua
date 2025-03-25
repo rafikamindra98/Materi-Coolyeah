@@ -1,0 +1,104 @@
+unit Unit1;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls;
+
+type
+  TForm1 = class(TForm)
+    EditInput: TEdit;
+    Button1: TButton;
+    ListBox1: TListBox;
+    Cari: TButton;
+    EditCari: TEdit;
+    EditHasilCari: TEdit;
+    EditData: TEdit;
+    Label1: TLabel;
+    Label2: TLabel;
+    procedure Button1Click(Sender: TObject);
+    procedure CariClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+  ListBox1.Items.Add(EditInput.Text);
+  EditInput.Text:='';
+end;
+
+procedure TForm1.CariClick(Sender: TObject);
+type
+  ArrInt=array[1..100] of integer;
+var
+  n, x, idx: integer;
+  L:ArrInt;
+  ketemu: boolean;
+
+  procedure BacaData(n:integer; var L:ArrInt);
+  var
+    i: integer;
+  begin
+    for i:=1 to n do
+    begin
+      L[i]:= StrToInt(ListBox1.Items[i-1]);
+    end;
+  end;
+
+  procedure PencarianBagiDua(L:ArrInt; n:integer; x:integer; Var ketemu:boolean; Var idx:integer);
+  var
+    i,j,k:integer;
+  begin
+    i:=1;
+    j:=n;
+    k:=0;
+    ketemu:=false;
+    while (not ketemu) and (i<=j) do
+    begin
+      k:=(i+j) div 2;
+      if (L[k] = x) then
+        begin
+          ketemu:=true
+        end
+      else
+        if (L[k]<x) then
+        begin
+          j:=k-1
+        end
+      else
+        i:=k+1;
+    end;
+
+    if ketemu then
+      begin
+        idx:=k
+      end
+    else
+      idx:=-1;
+  end;
+
+  BEGIN
+  n:=ListBox1.Count;
+  BacaData(n,L);
+  x:=StrToInt(EditCari.Text);
+  PencarianBagiDua(L,n,x,ketemu,idx);
+  EditHasilCari.Text:=IntToStr(idx);
+
+  if ketemu then
+    EditData.Text:='Ketemu'
+  else
+    EditData.Text:='Tidak ditemukan'
+  END;
+
+end.
