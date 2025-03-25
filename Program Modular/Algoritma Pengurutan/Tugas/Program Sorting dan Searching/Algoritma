@@ -1,0 +1,93 @@
+procedure BacaData (input N:integer, output A:ArrInt)
+DEKLARASI
+   var i : integer
+ALGORITMA
+   for i<--1 to N do
+      read(A[i])
+
+procedure Tukar(input/output a,b: integer)
+DEKLARASI
+   temp: integer
+ALGORITMA
+   temp<--a
+   a<--b
+   b<--temp
+
+procedure SelectionSort(input N: integer, input/output A:ArrInt)
+DEKLARASI
+   i, j: integer
+   imaks: integer
+   maks: integer
+   procedure Tukar(input/output a,b: integer)
+ALGORITMA
+   for i<--n downto 2 do
+      imaks<--i
+      maks<--A[i]
+      for j<-- 1 to i-1 do
+         if A[j] > maks then
+         imaks <-- A[j]
+         endif
+      endfor
+    Tukar(A[i], A[imaks])
+   endfor
+
+procedure HasilSort(input N: integer, input A: ArrInt)
+DEKLARASI
+   var i : integer;
+ALGORITMA
+   for i<--1 to N do
+      write(A[i])
+   endfor
+
+procedure PencarianBagiDua(input A:ArrInt, input N: integer, input x: integer, output ketemu: boolean)
+DEKLARASI
+var i, j, k : integer
+ALGORITMA
+   i<--1
+   j<--N
+   ketemu<--false
+   while (not ketemu) and (i<=j) do
+      k<--(i+j) div 2
+      if (A[i] = x) then
+         ketemu<--true
+      else
+         if (A[k] < x) then
+            j<--k-1
+         else
+           i<--k+1
+         endif
+      endif
+   endwhile
+
+procedure TampilHasil (input ketemu: boolean)
+DEKLARASI
+-
+ALGORITMA
+if ketemu then
+  write('Ketemu')
+else
+   write('Tidak ketemu')
+
+
+PROGRAM ALGORTIMA PENGURUTAN DAN PENCARIAN BAGI DUA
+DEKLARASI
+   const NMaks = 100
+   type ArrInt : array[1..NMaks] of integer
+   var
+      N: integer
+      x: integer
+      A: ArrInt
+      ketemu : boolean
+      procedure BacaData (input N: integer, output A: ArrInt)
+      procedure SelectionSort(input N: integer, input/output A: ArrInt)
+      procedure HasilSort(input N: integer, input A: ArrInt)
+      procedure PencarianBagiDua(input A:ArrInt, input N: integer, input x: integer, output ketemu: boolean)
+      procedure TampilHasil (input ketemu: boolean)
+ALGORITMA
+   read(N)
+   BacaData(N, A)
+   read(x)
+   SelectionSort(N, A)
+   HasilSort(N, A)
+   PencarianBagiDua(A,N,x,ketemu)
+   TampilHasil(ketemu)
