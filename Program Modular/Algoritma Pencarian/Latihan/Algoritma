@@ -1,0 +1,43 @@
+Algoritma Pencarian
+   •i<n --> kalau datanya udah abis
+    L[i]=/x -->kalau datanya sama
+
+    kalau berenti karena datanya abis, maka ketemu false
+    kalau berenti karena ketemu datanya, maka ketemu true
+
+    *nulis prosedur, mau output dulu baru input juga boleh, tapi enaknya input dulu baru output
+
+   • pemrosesan Versi 1 (slide 4 ppt)
+     - n=3
+        L={apel, mangga, jambu}
+        x=mangga
+        i=1	(i<n)=(1<3)=true and (L[1]<>x)=(apel<>mangga)=true
+        i=2	(i<n)=(2<3)=true and (L[2]<>x)=(mangga<>mangga)=false
+        karena false, ga ke i<--i+1, tapi ke "if..."
+        (L[i]=x)=(L[2]=x)=(mangga=mangga)=true	==> ketemu=true
+        keluaran: mangga ditemukan
+
+     - n=3
+       L={apel, mangga, jambu}
+       x=anggur 
+       i=1	(i<n)=(1<3)=true and (L[1]<>x)=(apel<>anggur)=true
+       i=2	(i<n)=(2<3)=true and (L[2]<>x)=(mangga<>anggur)=true
+       i=3	(i<n)=(3<3)=false and (L[3]<>x)=(jambu<>anggur)=true
+       (L[i]=x)=(L[3]=x)=(jambu=anggur)=false	==> ketemu=false
+       keluaran: anggur tidak ditemukan
+
+    • pemrosesan Versi 2 (slide 5 ppt)
+      - n=3
+        L={apel, mangga, jambu}
+        x=mangga
+        i=1
+        ketemu=false
+        (i<=n)=(1<=3)=true and (not ketemu)=(not false)=true
+        (L[1]=x)=(apel=mangga)=false
+        i=2
+        (i<=n)=(2<=3)=true and (not ketemu)=(not false)=true
+        (L[2]=x)=(mangga=mangga)=true  
+        ketemu=true
+
+	i nya ngga nambah, tapi tetep diproses ke atas
+	(i<=n)=(2<=3)=true and (not ketemu)=(not true)=false
