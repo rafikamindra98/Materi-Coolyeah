@@ -1,0 +1,19 @@
+procedure BacaData(input N:integer, output A: ArrStr)
+DEKLARASI
+   i : integer
+ALGORITMA:
+   for i <-- 1 to N do
+      read(A[i])
+   endfor
+
+Program Data
+DEKLARASI
+   type ArrStr=array[1..100] of string
+   var N,k:integer
+   A:ArrStr
+procedure BacaData(input N:integer, output A: LarikInt)
+ALGORITMA
+   read(N)
+   BacaData(N,A)
+   read(k)
+   write(A[k])
