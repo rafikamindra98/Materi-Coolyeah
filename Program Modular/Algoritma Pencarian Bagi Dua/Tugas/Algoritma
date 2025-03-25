@@ -1,7 +1,3 @@
-Nama   :Rafi Kamindra
-NIM    :2201006
-__________________________________________________________________________________________
-
 procedure BacaData(input n:integer output L:ArrInt);
   DEKLARASI
     i: integer
