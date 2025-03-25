@@ -1,0 +1,101 @@
+unit Unit1;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls;
+
+type
+  TForm1 = class(TForm)
+    EditInput: TEdit;
+    Button1: TButton;
+    ListBox1: TListBox;
+    Label1: TLabel;
+    EditCari: TEdit;
+    Cari: TButton;
+    EditHasilCari: TEdit;
+    procedure Button1Click(Sender: TObject);
+    procedure CariClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+  ListBox1.Items.Add(EditInput.Text);
+  EditInput.Text:='';
+end;
+
+
+
+procedure TForm1.CariClick(Sender: TObject);
+const
+  NMax=100;
+type
+  ArrStr=array[1..100] of string;
+var
+  N: integer;
+  x: string;
+  A: ArrStr;
+  ketemu: boolean;
+
+  procedure BacaData(N:integer; Var A:ArrStr);
+  var
+    i: integer;
+  begin
+    for i:=1 to N do
+    begin
+      A[i]:=ListBox1.Items[i-1];
+    end;
+  end;
+
+  procedure SeqSearch1 (A:ArrStr; n:integer; x:string; Var ketemu:boolean);
+  var
+    i: integer;
+  begin
+    i:=1;
+    while (i<n) and (A[i]<>x) do
+      i:=i+1;
+    if A[i]=x then
+      ketemu:=true
+    else
+      ketemu:=false;
+    end;
+
+  procedure TambahData (Var A:ArrStr; n:integer; x:string; Var ketemu:boolean);
+  var
+    i:integer;
+  begin
+    i:=1;
+    while (i<n) and (A[i]<>x) do
+      i:=i+1;
+    if A[i]=x then
+      ketemu:=true
+    else
+      A[i+1]:=x;
+      ListBox1.Items[i+1]:=(A[i+1]);
+    end;
+
+  BEGIN
+  N:=ListBox1.Count-1;
+  BacaData(N,A);
+  x:=EditCari.Text;
+  SeqSearch1(A,n,x,ketemu);
+  TambahData(A,n,x,ketemu);
+  if ketemu then
+    EditHasilCari.Text:='Ketemu'
+  else
+    EditHasilCari.Text:='Tidak Ketemu';
+  END;
+
+end.
