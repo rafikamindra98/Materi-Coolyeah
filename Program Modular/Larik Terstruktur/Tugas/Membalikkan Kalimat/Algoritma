@@ -1,0 +1,17 @@
+Procedure Balikkan
+Deklarasi
+     var 
+        s: string
+        j: integer
+Algoritma
+     for j <-- length(m) downto 1 do
+         s <-- s + m[j]
+     endfor
+     write(s)
+
+Program Utama MembalikkanKalimat
+Deklarasi
+     var m: string
+Algoritma
+     read(m)
+     procedure Balikkan
