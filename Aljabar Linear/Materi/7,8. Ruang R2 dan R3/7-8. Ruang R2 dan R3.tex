@@ -1,0 +1,254 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage{amsmath} % Untuk lingkungan matriks dan perintah matematika lainnya
+\usepackage{amsfonts} % Untuk simbol matematika
+\usepackage{amssymb} % Untuk simbol \mathbb{R}
+\usepackage{geometry} % Untuk mengatur margin
+\usepackage[indonesian]{babel} % Mengatur bahasa Indonesia
+\usepackage{array} % Untuk kolom tabel yang lebih baik
+\usepackage{booktabs} % Untuk garis tabel yang lebih baik
+\usepackage{graphicx} % Untuk menyertakan gambar
+\usepackage{tikz} % Untuk menggambar vektor
+\usetikzlibrary{arrows.meta, positioning, calc}
+\usepackage{hyperref} % Untuk hyperlink (jika diperlukan)
+\usepackage{amsthm} % Untuk lingkungan definisi dan teorema
+\usepackage{esvect}
+\usepackage{enumitem}
+\usepackage{physics}
+
+\geometry{a4paper, margin=1in} % Mengatur margin halaman
+
+% Definisi lingkungan baru
+\newtheorem{definisi}{Definisi}[section]
+\newtheorem{contoh}{Contoh}[section]
+\newtheorem{teorema}{Teorema}[section]
+\newtheorem{fakta}{Fakta}[section]
+\newtheorem{proposisi}{Proposisi}[section]
+
+% Definisi perintah baru untuk kemudahan
+\newcommand{\matriks}[1]{\begin{pmatrix} #1 \end{pmatrix}} % Perintah untuk matriks
+\newcommand{\R}{\mathbb{R}} % Simbol R untuk bilangan real
+\newcommand{\vektor}[1]{\mathbf{#1}} % Perintah untuk vektor tebal
+\newcommand{\vektorkolom}[2]{\begin{pmatrix} #1 \\ #2 \end{pmatrix}} % Vektor kolom 2D
+\newcommand{\vektorkolomtiga}[3]{\begin{pmatrix} #1 \\ #2 \\ #3 \end{pmatrix}} % Vektor kolom 3D
+\newcommand{\determinan}[1]{\left|\begin{matrix}#1\end{matrix}\right|}
+\newcommand{\innerprod}[2]{\langle #1, #2 \rangle} % Hasil kali dalam (opsional)
+\newcommand{\proj}{\text{proj}} % Proyeksi
+
+\title{Ruang Vektor $\R^2$ dan $\R^3$: Operasi, Hasil Kali Titik, dan Hasil Kali Silang}
+\author{Rafi Kamindra 2201006}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Pengantar Ruang $\R^n$}
+Ruang $\R^n$ adalah generalisasi dari ruang $\R^1 = \R$ (garis bilangan real). Secara khusus, $\R^2$ merepresentasikan bidang Kartesius, dan $\R^3$ merepresentasikan ruang tiga dimensi yang kita kenal. Ruang $\R^n$ berfungsi sebagai prototipe atau model dasar untuk semua ruang vektor berdimensi hingga. Memahami $\R^2$ dan $\R^3$ sangat penting karena konsep-konsep di dalamnya seringkali dapat divisualisasikan dan kemudian diperluas ke dimensi yang lebih tinggi.
+
+\section{Ruang Vektor $\R^2$}
+\begin{definisi}
+Himpunan semua pasangan terurut bilangan real $(x,y)$ disebut sebagai ruang-$\R$ dua, dinotasikan $\R^2$. Secara formal:
+\[ \R^2 = \left\{ \vektorkolom{x}{y} : x, y \in \R \right\} \]
+Sebuah elemen di $\R^2$ disebut \textbf{vektor}. Vektor di $\R^2$ dapat dipandang sebagai matriks berukuran $2 \times 1$. Dengan demikian, ruang $\R^2$ dapat dianggap sebagai ruang matriks $M_{2 \times 1}$.
+\end{definisi}
+
+\subsection{Operasi pada Vektor di $\R^2$}
+\subsubsection{Penjumlahan Vektor}
+Jika $\vektor{u} = \vektorkolom{x_1}{y_1}$ dan $\vektor{v} = \vektorkolom{x_2}{y_2}$ adalah dua vektor di $\R^2$, maka \textbf{penjumlahan} $\vektor{u}+\vektor{v}$ didefinisikan sebagai:
+\[ \vektor{u} + \vektor{v} = \vektorkolom{x_1}{y_1} + \vektorkolom{x_2}{y_2} = \vektorkolom{x_1+x_2}{y_1+y_2} \]
+\textbf{Arti Geometris Penjumlahan (Aturan Jajargenjang)}:
+Jika vektor $\vektor{u}$ dan $\vektor{v}$ ditempatkan sedemikian sehingga titik pangkalnya berimpit, maka vektor $\vektor{u}+\vektor{v}$ adalah diagonal dari jajargenjang yang dibentuk oleh $\vektor{u}$ dan $\vektor{v}$. Alternatif lain adalah \textbf{Aturan Segitiga}: tempatkan titik pangkal $\vektor{v}$ pada titik ujung $\vektor{u}$, maka $\vektor{u}+\vektor{v}$ adalah vektor dari titik pangkal $\vektor{u}$ ke titik ujung $\vektor{v}$.
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+    \coordinate (O) at (0,0);
+    \coordinate (U) at (2,3);
+    \coordinate (V) at (4,1);
+    \coordinate (UplusV) at ($(O)!(U)!(V)$); % Ini tidak benar, harusnya O+U+V
+    \coordinate (Sum) at (6,4); % U+V = (2+4, 3+1)
+
+    \draw[-latex, thick] (O) -- (U) node[above left] {$\vektor{u}$};
+    \draw[-latex, thick] (O) -- (V) node[below right] {$\vektor{v}$};
+    \draw[-latex, thick, blue] (O) -- (Sum) node[above right] {$\vektor{u}+\vektor{v}$};
+    \draw[dashed] (U) -- (Sum);
+    \draw[dashed] (V) -- (Sum);
+    \fill (O) circle (1.5pt);
+\end{tikzpicture}
+\end{center}
+
+\subsubsection{Perkalian Skalar}
+Jika $\vektor{u} = \vektorkolom{x}{y}$ adalah vektor di $\R^2$ dan $k$ adalah skalar (bilangan real), maka \textbf{perkalian skalar} $k\vektor{u}$ didefinisikan sebagai:
+\[ k\vektor{u} = k\vektorkolom{x}{y} = \vektorkolom{kx}{ky} \]
+\textbf{Arti Geometris Perkalian Skalar}:
+Vektor $k\vektor{u}$ memiliki panjang $|k|$ kali panjang $\vektor{u}$.
+\begin{itemize}
+    \item Jika $k>0$, $k\vektor{u}$ searah dengan $\vektor{u}$.
+    \item Jika $k<0$, $k\vektor{u}$ berlawanan arah dengan $\vektor{u}$.
+    \item Jika $k=0$, $k\vektor{u} = \vektor{0}$ (vektor nol).
+\end{itemize}
+\begin{center}
+\begin{tikzpicture}[scale=0.7]
+    \coordinate (O) at (0,0);
+    \coordinate (U) at (1,2);
+    \coordinate (kUpos) at (2,4); % k=2
+    \coordinate (kUneg) at (-1,-2); % k=-1
+    \coordinate (kUfrac) at (0.5,1); % k=0.5
+
+    \draw[-latex, thick, gray] (O) -- (U) node[above right, black] {$\vektor{u}$};
+    \draw[-latex, thick, blue] (O) -- (kUpos) node[above right] {$2\vektor{u}$};
+    \draw[-latex, thick, red] (O) -- (kUneg) node[below left] {$-\vektor{u}$};
+    \draw[-latex, thick, green!50!black] (O) -- (kUfrac) node[below right] {$0.5\vektor{u}$};
+    \fill (O) circle (1.5pt) node[below left] {$O$};
+\end{tikzpicture}
+\end{center}
+Operasi-operasi ini (penjumlahan dan perkalian skalar) beserta sifat-sifatnya menjadikan $\R^2$ sebuah ruang vektor. Konsep serupa berlaku untuk $\R^3$.
+
+\section{Ruang Vektor $\R^3$}
+\begin{definisi}
+Himpunan semua tripel terurut bilangan real $(x,y,z)$ disebut sebagai ruang-$\R$ tiga, dinotasikan $\R^3$. Secara formal:
+\[ \R^3 = \left\{ \vektorkolomtiga{x}{y}{z} : x, y, z \in \R \right\} \]
+Operasi penjumlahan vektor dan perkalian skalar di $\R^3$ didefinisikan secara analog dengan di $\R^2$:
+Jika $\vektor{u} = (x_1, y_1, z_1)$ dan $\vektor{v} = (x_2, y_2, z_2)$, dan $k$ skalar:
+\[ \vektor{u} + \vektor{v} = (x_1+x_2, y_1+y_2, z_1+z_2) \]
+\[ k\vektor{u} = (kx_1, ky_1, kz_1) \]
+Interpretasi geometrisnya juga serupa, namun terjadi dalam ruang tiga dimensi.
+\end{definisi}
+
+\section{Hasil Kali Titik (Dot Product)}
+\begin{definisi}
+Misalkan $\vektor{u}$ dan $\vektor{v}$ adalah vektor-vektor di $\R^2$ atau $\R^3$, dan $\theta$ adalah sudut antara $\vektor{u}$ dan $\vektor{v}$ ($0 \le \theta \le \pi$). \textbf{Hasil kali titik} (dot product) atau \textbf{hasil kali skalar Euclidean} dari $\vektor{u}$ dan $\vektor{v}$, dinotasikan $\vektor{u} \cdot \vektor{v}$, didefinisikan sebagai:
+\[ \vektor{u} \cdot \vektor{v} = \begin{cases} \norm{\vektor{u}} \norm{\vektor{v}} \cos \theta, & \text{jika } \vektor{u} \neq \vektor{0} \text{ dan } \vektor{v} \neq \vektor{0} \\ 0, & \text{jika } \vektor{u} = \vektor{0} \text{ atau } \vektor{v} = \vektor{0} \end{cases} \]
+dimana $\norm{\vektor{u}}$ adalah panjang (norma) dari vektor $\vektor{u}$.
+\end{definisi}
+
+\subsection{Rumus Komponen untuk Hasil Kali Titik}
+Jika $\vektor{u} = (u_1, u_2)$ dan $\vektor{v} = (v_1, v_2)$ di $\R^2$, maka:
+\[ \vektor{u} \cdot \vektor{v} = u_1v_1 + u_2v_2 \]
+Jika $\vektor{u} = (u_1, u_2, u_3)$ dan $\vektor{v} = (v_1, v_2, v_3)$ di $\R^3$, maka:
+\[ \vektor{u} \cdot \vektor{v} = u_1v_1 + u_2v_2 + u_3v_3 \]
+Secara umum, untuk $\vektor{u}=(u_1, \dots, u_n)$ dan $\vektor{v}=(v_1, \dots, v_n)$ di $\R^n$:
+\[ \vektor{u} \cdot \vektor{v} = \sum_{i=1}^{n} u_iv_i \]
+Rumus ini dapat diturunkan menggunakan Hukum Kosinus pada segitiga yang dibentuk oleh vektor $\vektor{u}$, $\vektor{v}$, dan $\vektor{u}-\vektor{v}$ (atau $\vektor{v}-\vektor{u}$).
+Hukum Kosinus: $\norm{\vektor{u}-\vektor{v}}^2 = \norm{\vektor{u}}^2 + \norm{\vektor{v}}^2 - 2\norm{\vektor{u}}\norm{\vektor{v}}\cos\theta$.
+Karena $\norm{\vektor{u}}\norm{\vektor{v}}\cos\theta = \vektor{u} \cdot \vektor{v}$, maka
+$\norm{\vektor{u}-\vektor{v}}^2 = \norm{\vektor{u}}^2 + \norm{\vektor{v}}^2 - 2(\vektor{u} \cdot \vektor{v})$.
+Maka, $\vektor{u} \cdot \vektor{v} = \frac{1}{2} (\norm{\vektor{u}}^2 + \norm{\vektor{v}}^2 - \norm{\vektor{u}-\vektor{v}}^2)$.
+Jika kita substitusikan $\norm{\vektor{w}}^2 = \sum w_i^2$:
+$\sum u_i v_i = \frac{1}{2} \left( \sum u_i^2 + \sum v_i^2 - \sum (u_i-v_i)^2 \right)$
+$= \frac{1}{2} \left( \sum u_i^2 + \sum v_i^2 - \sum (u_i^2 - 2u_iv_i + v_i^2) \right)$
+$= \frac{1}{2} \left( \sum u_i^2 + \sum v_i^2 - \sum u_i^2 + 2\sum u_iv_i - \sum v_i^2 \right) = \frac{1}{2} (2\sum u_iv_i) = \sum u_iv_i$.
+
+\subsection{Ortogonalitas}
+\begin{definisi}
+Dua vektor $\vektor{u}$ dan $\vektor{v}$ di $\R^n$ dikatakan \textbf{ortogonal} (tegak lurus), dinotasikan $\vektor{u} \perp \vektor{v}$, jika hasil kali titiknya adalah nol:
+\[ \vektor{u} \cdot \vektor{v} = 0 \]
+Ini konsisten dengan definisi geometris, karena jika $\vektor{u}, \vektor{v} \neq \vektor{0}$, maka $\vektor{u} \cdot \vektor{v}=0$ menyiratkan $\cos\theta=0$, yang berarti $\theta = \pi/2$ (90 derajat).
+\end{definisi}
+
+\subsection{Sifat-sifat Hasil Kali Titik}
+Misalkan $\vektor{u}, \vektor{v}, \vektor{w} \in \R^n$ dan $\alpha \in \R$ adalah skalar. Maka berlaku:
+\begin{enumerate}[label=(\alph*)]
+    \item $\vektor{u} \cdot \vektor{u} = \norm{\vektor{u}}^2 \ge 0$.
+    \item $\vektor{u} \cdot \vektor{u} = 0$ jika dan hanya jika $\vektor{u}=\vektor{0}$.
+    \item $\vektor{u} \cdot \vektor{v} = \vektor{v} \cdot \vektor{u}$ (Sifat Komutatif).
+    \item $(\alpha \vektor{u}) \cdot \vektor{v} = \alpha (\vektor{u} \cdot \vektor{v}) = \vektor{u} \cdot (\alpha \vektor{v})$ (Sifat Homogenitas).
+    \item $\vektor{u} \cdot (\vektor{v} + \vektor{w}) = \vektor{u} \cdot \vektor{v} + \vektor{u} \cdot \vektor{w}$ (Sifat Distributif).
+\end{enumerate}
+
+\section{Proyeksi Ortogonal}
+Proyeksi ortogonal suatu vektor $\vektor{u}$ pada vektor tak nol $\vektor{v}$ adalah "bayangan" vektor $\vektor{u}$ pada garis yang searah dengan $\vektor{v}$.
+\begin{definisi}
+Misalkan $\vektor{u}$ dan $\vektor{v}$ adalah vektor-vektor di $\R^n$, dengan $\vektor{v} \neq \vektor{0}$. \textbf{Proyeksi ortogonal vektor $\vektor{u}$ pada $\vektor{v}$} (atau komponen vektor $\vektor{u}$ sepanjang $\vektor{v}$), dinotasikan $\proj_{\vektor{v}}\vektor{u}$, didefinisikan sebagai:
+\[ \proj_{\vektor{v}}\vektor{u} = \frac{\vektor{u} \cdot \vektor{v}}{\norm{\vektor{v}}^2} \vektor{v} \]
+Vektor $\vektor{w} = \vektor{u} - \proj_{\vektor{v}}\vektor{u}$ disebut \textbf{komponen vektor $\vektor{u}$ yang ortogonal terhadap $\vektor{v}$}. Dapat ditunjukkan bahwa $\vektor{w} \perp \vektor{v}$.
+Jadi, $\vektor{u}$ dapat didekomposisi menjadi dua komponen ortogonal: $\vektor{u} = \proj_{\vektor{v}}\vektor{u} + \vektor{w}$.
+\end{definisi}
+\begin{center}
+\begin{tikzpicture}[scale=0.9]
+    \coordinate (O) at (0,0);
+    \coordinate (V) at (4,0);
+    \coordinate (U) at (2,3);
+    \coordinate (P) at (2,0); % Proyeksi u pada v
+
+    \draw[-latex, thick] (O) -- (V) node[below] {$\vektor{v}$};
+    \draw[-latex, thick] (O) -- (U) node[above left] {$\vektor{u}$};
+    \draw[-latex, thick, blue] (O) -- (P) node[below] {$\proj_{\vektor{v}}\vektor{u}$};
+    \draw[-latex, thick, red] (P) -- (U) node[right] {$\vektor{w} = \vektor{u} - \proj_{\vektor{v}}\vektor{u}$};
+    \draw[dashed, gray] (U) -- (P);
+    \fill (O) circle (1.5pt); \fill (P) circle (1.5pt); \fill (U) circle (1.5pt);
+    \node at (1.7,0.2) {\tiny $\ulcorner$}; % Simbol siku-siku
+\end{tikzpicture}
+\end{center}
+
+\section{Hasil Kali Silang (Cross Product) di $\R^3$}
+Hasil kali silang adalah operasi biner pada dua vektor di ruang tiga dimensi $\R^3$ yang menghasilkan vektor lain yang ortogonal terhadap kedua vektor input.
+
+\begin{definisi}
+Misalkan $\vektor{u}=(u_1, u_2, u_3)$ dan $\vektor{v}=(v_1, v_2, v_3)$ adalah vektor-vektor di $\R^3$. \textbf{Hasil kali silang} dari $\vektor{u}$ dan $\vektor{v}$, dinotasikan $\vektor{u} \cross \vektor{v}$, adalah vektor yang didefinisikan sebagai:
+\[ \vektor{u} \cross \vektor{v} = (u_2v_3 - u_3v_2, u_3v_1 - u_1v_3, u_1v_2 - u_2v_1) \]
+Cara mudah untuk mengingat rumus ini adalah menggunakan notasi determinan formal:
+\[ \vektor{u} \cross \vektor{v} = \determinan{\begin{smallmatrix} \vektor{i} & \vektor{j} & \vektor{k} \\ u_1 & u_2 & u_3 \\ v_1 & v_2 & v_3 \end{smallmatrix}} = 
+\determinan{\begin{smallmatrix} u_2 & u_3 \\ v_2 & v_3 \end{smallmatrix}}\vektor{i} - 
+\determinan{\begin{smallmatrix} u_1 & u_3 \\ v_1 & v_3 \end{smallmatrix}}\vektor{j} + 
+\determinan{\begin{smallmatrix} u_1 & u_2 \\ v_1 & v_2 \end{smallmatrix}}\vektor{k} \]
+dimana $\vektor{i}=(1,0,0)$, $\vektor{j}=(0,1,0)$, dan $\vektor{k}=(0,0,1)$ adalah vektor basis standar di $\R^3$.
+\end{definisi}
+
+\subsection{Sifat-sifat Hasil Kali Silang}
+Misalkan $\vektor{u}, \vektor{v}, \vektor{w} \in \R^3$ dan $\alpha \in \R$ skalar.
+\begin{enumerate}
+    \item $\vektor{u} \cross \vektor{v} = -(\vektor{v} \cross \vektor{u})$ (Antikomutatif).
+    \item $\vektor{u} \cross (\vektor{v} + \vektor{w}) = (\vektor{u} \cross \vektor{v}) + (\vektor{u} \cross \vektor{w})$ (Distributif terhadap penjumlahan).
+    \item $(\vektor{u} + \vektor{v}) \cross \vektor{w} = (\vektor{u} \cross \vektor{w}) + (\vektor{v} \cross \vektor{w})$ (Distributif terhadap penjumlahan).
+    \item $(\alpha \vektor{u}) \cross \vektor{v} = \alpha(\vektor{u} \cross \vektor{v}) = \vektor{u} \cross (\alpha \vektor{v})$ (Asosiatif dengan perkalian skalar).
+    \item $\vektor{u} \cross \vektor{0} = \vektor{0} \cross \vektor{u} = \vektor{0}$.
+    \item $\vektor{u} \cross \vektor{u} = \vektor{0}$.
+    \item $\vektor{u} \cdot (\vektor{u} \cross \vektor{v}) = 0$ (vektor $\vektor{u} \cross \vektor{v}$ ortogonal terhadap $\vektor{u}$).
+    \item $\vektor{v} \cdot (\vektor{u} \cross \vektor{v}) = 0$ (vektor $\vektor{u} \cross \vektor{v}$ ortogonal terhadap $\vektor{v}$).
+    \item $\norm{\vektor{u} \cross \vektor{v}}^2 = \norm{\vektor{u}}^2 \norm{\vektor{v}}^2 - (\vektor{u} \cdot \vektor{v})^2$ (Identitas Lagrange).
+    \item $\norm{\vektor{u} \cross \vektor{v}} = \norm{\vektor{u}}\norm{\vektor{v}}\sin\theta$, dimana $\theta$ adalah sudut antara $\vektor{u}$ dan $\vektor{v}$.
+    \item Vektor-vektor $\vektor{u}, \vektor{v}, \vektor{u} \cross \vektor{v}$ membentuk sistem tangan kanan (jika $\vektor{u}$ dan $\vektor{v}$ tidak kolinear).
+\end{enumerate}
+
+\subsection{Tafsiran Geometris dan Penerapan Hasil Kali Silang}
+\subsubsection{Luas Jajargenjang}
+Besar (norma) dari hasil kali silang $\vektor{u} \cross \vektor{v}$, yaitu $\norm{\vektor{u} \cross \vektor{v}}$, sama dengan luas jajargenjang yang sisinya dibentuk oleh vektor $\vektor{u}$ dan $\vektor{v}$.
+Luas Jajargenjang = $\norm{\vektor{u} \cross \vektor{v}}$.
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+    \coordinate (O) at (0,0);
+    \coordinate (U) at (2,3);
+    \coordinate (V) at (4,1);
+    \coordinate (Sum) at (6,4);
+    \fill[blue!20, opacity=0.5] (O) -- (U) -- (Sum) -- (V) -- cycle;
+    \draw[-latex, thick] (O) -- (U) node[above left] {$\vektor{u}$};
+    \draw[-latex, thick] (O) -- (V) node[below right] {$\vektor{v}$};
+    \draw[dashed] (U) -- (Sum);
+    \draw[dashed] (V) -- (Sum);
+    \fill (O) circle (1.5pt);
+    \node at (3,1.5) {Luas $= \norm{\vektor{u} \cross \vektor{v}}$};
+\end{tikzpicture}
+\end{center}
+Konsekuensinya, luas segitiga yang dibentuk oleh vektor $\vektor{u}$ dan $\vektor{v}$ (dengan titik pangkal sama) adalah $\frac{1}{2}\norm{\vektor{u} \cross \vektor{v}}$.
+
+\subsubsection{Persamaan Bidang yang Melalui Tiga Titik}
+Misalkan $A, B, C$ adalah tiga titik yang tidak segaris di $\R^3$. Vektor $\vec{AB} = B-A$ dan $\vec{AC} = C-A$ terletak pada bidang yang melalui $A, B, C$. Vektor normal $\vektor{n}$ terhadap bidang ini dapat ditemukan dengan menghitung $\vektor{n} = \vec{AB} \cross \vec{AC}$. Jika $\vektor{n}=(n_1, n_2, n_3)$ dan titik $A=(x_0, y_0, z_0)$, maka persamaan bidangnya adalah $n_1(x-x_0) + n_2(y-y_0) + n_3(z-z_0) = 0$.
+
+\begin{contoh}
+Carilah persamaan bidang yang melalui titik $A(1,2,-1)$, $B(2,0,3)$, dan $C(-1,3,2)$.
+$\vec{AB} = (2-1, 0-2, 3-(-1)) = (1,-2,4)$.
+$\vec{AC} = (-1-1, 3-2, 2-(-1)) = (-2,1,3)$.
+$\vektor{n} = \vec{AB} \cross \vec{AC} = \determinan{\begin{smallmatrix} \vektor{i} & \vektor{j} & \vektor{k} \\ 1 & -2 & 4 \\ -2 & 1 & 3 \end{smallmatrix}} = ((-2)(3)-(4)(1))\vektor{i} - ((1)(3)-(4)(-2))\vektor{j} + ((1)(1)-(-2)(-2))\vektor{k}$
+$= (-6-4)\vektor{i} - (3-(-8))\vektor{j} + (1-4)\vektor{k} = -10\vektor{i} - 11\vektor{j} - 3\vektor{k} = (-10,-11,-3)$.
+Persamaan bidang yang melalui $A(1,2,-1)$ dengan normal $\vektor{n}=(-10,-11,-3)$ adalah:
+$-10(x-1) - 11(y-2) - 3(z-(-1)) = 0$
+$-10x + 10 - 11y + 22 - 3z - 3 = 0$
+$-10x - 11y - 3z + 29 = 0$ atau $10x + 11y + 3z - 29 = 0$.
+\end{contoh}
+
+\subsubsection{Volume Paralelepipedum (Hasil Kali Tripel Skalar)}
+Misalkan $\vektor{u}, \vektor{v}, \vektor{w}$ adalah tiga vektor di $\R^3$ yang tidak sebidang dan membentuk sisi-sisi sebuah paralelepipedum (balok genjang). Volume dari paralelepipedum ini adalah nilai absolut dari \textbf{hasil kali tripel skalar} $\vektor{u} \cdot (\vektor{v} \cross \vektor{w})$.
+\[ V = |\vektor{u} \cdot (\vektor{v} \cross \vektor{w})| \]
+Hasil kali tripel skalar juga dapat dihitung sebagai determinan dari matriks yang baris-barisnya (atau kolom-kolomnya) adalah komponen-komponen vektor $\vektor{u}, \vektor{v}, \vektor{w}$:
+\[ \vektor{u} \cdot (\vektor{v} \cross \vektor{w}) = \determinan{\begin{smallmatrix} u_1 & u_2 & u_3 \\ v_1 & v_2 & v_3 \\ w_1 & w_2 & w_3 \end{smallmatrix}} \]
+Jika $\vektor{u} \cdot (\vektor{v} \cross \vektor{w}) = 0$, maka ketiga vektor tersebut koplanar (terletak pada satu bidang).
+
+\end{document}

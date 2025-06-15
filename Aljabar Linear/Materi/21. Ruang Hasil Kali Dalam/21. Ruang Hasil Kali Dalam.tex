@@ -1,0 +1,200 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage{amsmath} % Untuk lingkungan matriks dan perintah matematika lainnya
+\usepackage{amsfonts} % Untuk simbol matematika
+\usepackage{amssymb} % Untuk simbol \mathbb{R}
+\usepackage{geometry} % Untuk mengatur margin
+\usepackage[indonesian]{babel} % Mengatur bahasa Indonesia
+\usepackage{array} % Untuk kolom tabel yang lebih baik
+\usepackage{booktabs} % Untuk garis tabel yang lebih baik
+\usepackage{graphicx} % Untuk menyertakan gambar (jika diperlukan)
+\usepackage{tikz} % Untuk menggambar diagram
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric, fit, calc, chains}
+\usepackage[hidelinks]{hyperref} % Untuk hyperlink tanpa kotak
+\usepackage{amsthm} % Untuk lingkungan definisi dan teorema
+\usepackage{nicematrix} % Untuk matriks dengan garis partisi, jika diperlukan
+\usepackage{palatino} % Menggunakan font Palatino untuk tampilan yang lebih menarik
+\usepackage{setspace} % Untuk mengatur spasi antar baris jika perlu
+\usepackage{titlesec} % Untuk kustomisasi judul seksi
+\usepackage{enumitem} % Untuk kustomisasi daftar
+\usepackage{longtable} % Untuk tabel yang melintasi halaman, jika diperlukan
+
+\geometry{a4paper, margin=1in, headheight=15pt, footskip=30pt} % Mengatur margin halaman
+
+% Kustomisasi Judul Seksi
+\titleformat{\section}{\Large\bfseries\sffamily\color{blue!70!black}}{\thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries\sffamily\color{blue!60!black}}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\sffamily\color{blue!50!black}}{\thesubsubsection}{1em}{}
+
+% Definisi lingkungan baru
+\theoremstyle{definition} % Gaya standar untuk definisi dan contoh
+\newtheorem{definisi}{Definisi}[section]
+\newtheorem{contoh}{Contoh}[section]
+\newtheorem{catatan}{Catatan Penting}[section]
+\theoremstyle{plain} % Gaya standar untuk teorema
+\newtheorem{teorema}{Teorema}[section]
+\newtheorem{proposisi}{Proposisi}[section]
+\newtheorem{akibat}{Akibat}[section]
+
+% Definisi perintah baru untuk kemudahan
+\newcommand{\matriks}[1]{\begin{pmatrix} #1 \end{pmatrix}} % Perintah untuk matriks
+\newcommand{\R}{\mathbb{R}} % Simbol R untuk bilangan real
+\newcommand{\Poly}{\mathbb{P}} % Simbol P untuk polinom
+\newcommand{\vektor}[1]{\mathbf{#1}} % Perintah untuk vektor tebal
+\newcommand{\nol}{\mathbf{0}} % Vektor nol
+\newcommand{\innerprod}[2]{\langle #1, #2 \rangle} % Hasil kali dalam
+\newcommand{\norm}[1]{\| #1 \|} % Norma
+\newcommand{\dimV}{\operatorname{dim}} % Dimensi
+\newcommand{\M}[1]{\mathcal{M}_{#1}} % Simbol M untuk himpunan matriks
+\newcommand{\proj}{\operatorname{proj}} % Proyeksi ortogonal
+
+\title{\textbf{Ruang Hasil Kali Dalam}}
+\author{Rafi Kamindra 2201006}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Definisi Hasil Kali Dalam}
+Dalam studi ruang vektor $\R^n$, kita telah mengenal konsep hasil kali titik (dot product) yang memungkinkan kita mendefinisikan panjang, jarak, dan sudut. Konsep hasil kali dalam (inner product) adalah generalisasi dari hasil kali titik untuk ruang vektor yang lebih abstrak, seperti ruang polinom atau ruang fungsi.
+
+\begin{definisi}
+Misalkan $V$ adalah suatu ruang vektor real. Sebuah \textbf{hasil kali dalam} (inner product) pada $V$ adalah sebuah fungsi yang mengasosiasikan setiap pasangan vektor $\vektor{x}, \vektor{y} \in V$ dengan sebuah bilangan real, dinotasikan $\innerprod{\vektor{x}}{\vektor{y}}$, yang memenuhi empat aksioma berikut untuk semua vektor $\vektor{x}, \vektor{y}, \vektor{z} \in V$ dan semua skalar $k \in \R$:
+\begin{enumerate}[label=(\alph*)]
+    \item \textbf{Aksioma Simetri}: $\innerprod{\vektor{x}}{\vektor{y}} = \innerprod{\vektor{y}}{\vektor{x}}$.
+    \item \textbf{Aksioma Aditivitas}: $\innerprod{\vektor{x}+\vektor{z}}{\vektor{y}} = \innerprod{\vektor{x}}{\vektor{y}} + \innerprod{\vektor{z}}{\vektor{y}}$.
+    \item \textbf{Aksioma Homogenitas}: $\innerprod{k\vektor{x}}{\vektor{y}} = k\innerprod{\vektor{x}}{\vektor{y}}$.
+    \item \textbf{Aksioma Positif Definit}: $\innerprod{\vektor{x}}{\vektor{x}} \ge 0$, dan $\innerprod{\vektor{x}}{\vektor{x}} = 0$ jika dan hanya jika $\vektor{x} = \nol$.
+\end{enumerate}
+Sebuah ruang vektor real $V$ yang dilengkapi dengan sebuah hasil kali dalam disebut \textbf{ruang hasil kali dalam} (real inner product space). Aksioma (b) dan (c) bersama-sama menyiratkan linearitas pada argumen pertama. Karena sifat simetri, ini juga berlaku untuk argumen kedua.
+\end{definisi}
+
+\section{Contoh-contoh Ruang Hasil Kali Dalam}
+\subsection{Hasil Kali Dalam Euclidean Standar di $\R^n$}
+\begin{contoh}
+Untuk ruang vektor $V=\R^n$, \textbf{hasil kali dalam Euclidean standar} (atau hasil kali titik) didefinisikan sebagai:
+\[ \innerprod{\vektor{x}}{\vektor{y}} = \vektor{x} \cdot \vektor{y} = x_1y_1 + x_2y_2 + \dots + x_ny_n \]
+dimana $\vektor{x}=(x_1, \dots, x_n)$ dan $\vektor{y}=(y_1, \dots, y_n)$.
+Ini adalah contoh paling umum dari hasil kali dalam. Dapat diverifikasi bahwa keempat aksioma terpenuhi.
+\end{contoh}
+
+\subsection{Hasil Kali Dalam Euclidean Terbobot}
+\begin{contoh}
+Pada ruang vektor $V=\R^2$, definisikan $\innerprod{\vektor{x}}{\vektor{y}} = 3x_1y_1 + 4x_2y_2$. Ini juga mendefinisikan sebuah hasil kali dalam. Aksioma simetri, aditivitas, dan homogenitas mudah diperiksa. Untuk aksioma positif definit:
+$\innerprod{\vektor{x}}{\vektor{x}} = 3x_1^2 + 4x_2^2 \ge 0$.
+$\innerprod{\vektor{x}}{\vektor{x}} = 0$ jika dan hanya jika $3x_1^2=0$ dan $4x_2^2=0$, yang berarti $x_1=0$ dan $x_2=0$. Jadi $\vektor{x}=\nol$.
+Secara umum, $\innerprod{\vektor{x}}{\vektor{y}} = w_1x_1y_1 + \dots + w_nx_ny_n$ dengan bobot $w_i > 0$ adalah hasil kali dalam di $\R^n$.
+\end{contoh}
+
+\subsection{Hasil Kali Dalam pada Ruang Matriks}
+\begin{contoh}
+Pada ruang vektor $V = \mathbb{M}_{2 \times 2}$ (matriks $2 \times 2$), kita bisa mendefinisikan hasil kali dalam sebagai berikut:
+Jika $U = \matriks{u_{11} & u_{12} \\ u_{21} & u_{22}}$ dan $V = \matriks{v_{11} & v_{12} \\ v_{21} & v_{22}}$, maka
+\[ \innerprod{U}{V} = u_{11}v_{11} + u_{12}v_{12} + u_{21}v_{21} + u_{22}v_{22} \]
+Ini analog dengan hasil kali dalam Euclidean, dimana kita "meratakan" matriks menjadi vektor dan menghitung hasil kali titiknya.
+\end{contoh}
+
+\subsection{Hasil Kali Dalam pada Ruang Polinom}
+\begin{contoh}
+Pada ruang vektor $\Poly_2$, dapat didefinisikan beberapa hasil kali dalam yang berbeda.
+\begin{enumerate}
+    \item \textbf{Evaluasi pada Titik-titik Berbeda}:
+    Misalkan $p(x), q(x) \in \Poly_2$. Didefinisikan:
+    \[ \innerprod{p}{q} = p(0)q(0) + p(\tfrac{1}{2})q(\tfrac{1}{2}) + p(1)q(1) \]
+    Ini merupakan hasil kali dalam yang valid di $\Poly_2$.
+    
+    \item \textbf{Integral Tentu}:
+    \[ \innerprod{f}{g} = \int_{0}^{1} f(t)g(t) dt \]
+    Operasi ini juga memenuhi semua aksioma hasil kali dalam untuk ruang fungsi kontinu $C[0,1]$, dan karena $\Poly_2 \subset C[0,1]$, ini juga merupakan hasil kali dalam yang valid di $\Poly_2$.
+\end{enumerate}
+\end{contoh}
+
+\section{Geometri dalam Ruang Hasil Kali Dalam}
+Konsep hasil kali dalam memungkinkan kita untuk menggeneralisasi konsep-konsep geometris dari $\R^n$ ke ruang vektor abstrak lainnya.
+
+\begin{definisi}
+Misalkan $V$ adalah suatu ruang hasil kali dalam.
+\begin{itemize}
+    \item \textbf{Panjang} atau \textbf{Norma} dari sebuah vektor $\vektor{x} \in V$ didefinisikan sebagai:
+    \[ \norm{\vektor{x}} = \sqrt{\innerprod{\vektor{x}}{\vektor{x}}} \]
+    \item \textbf{Jarak} antara dua vektor $\vektor{x}, \vektor{y} \in V$ didefinisikan sebagai:
+    \[ d(\vektor{x}, \vektor{y}) = \norm{\vektor{x} - \vektor{y}} = \sqrt{\innerprod{\vektor{x}-\vektor{y}}{\vektor{x}-\vektor{y}}} \]
+    \item \textbf{Sudut} $\theta$ antara dua vektor tak nol $\vektor{x}, \vektor{y} \in V$ didefinisikan melalui:
+    \[ \cos \theta = \frac{\innerprod{\vektor{x}}{\vektor{y}}}{\norm{\vektor{x}}\norm{\vektor{y}}}, \quad \text{dimana } 0 \le \theta \le \pi \]
+\end{itemize}
+\end{definisi}
+Keberadaan sudut ini dijamin oleh Pertidaksamaan Cauchy-Schwarz, yang menyatakan bahwa $|\innerprod{\vektor{u}}{\vektor{v}}| \le \norm{\vektor{u}}\norm{\vektor{v}}$.
+
+\subsection{Ortogonalitas}
+\begin{definisi}
+\begin{itemize}
+    \item Dua vektor $\vektor{x}, \vektor{y} \in V$ dikatakan \textbf{saling ortogonal} (tegak lurus), dinotasikan $\vektor{x} \perp \vektor{y}$, jika $\innerprod{\vektor{x}}{\vektor{y}} = 0$.
+    \item Sebuah himpunan vektor $S = \{\vektor{u}_1, \dots, \vektor{u}_n\} \subset V$ dikatakan \textbf{himpunan ortogonal} jika semua pasangan vektor yang berbeda dalam himpunan tersebut saling ortogonal, yaitu $\innerprod{\vektor{u}_i}{\vektor{u}_j}=0$ untuk semua $i \neq j$.
+    \item Sebuah himpunan ortogonal $S$ dikatakan \textbf{himpunan ortonormal} jika setiap vektor dalam himpunan tersebut memiliki panjang (norma) 1, yaitu $\norm{\vektor{u}_i}=1$ untuk semua $i$.
+\end{itemize}
+\end{definisi}
+
+\begin{contoh}
+Himpunan $B = \{(1,0,0), (0,1,0), (0,0,1)\}$ adalah himpunan ortonormal di $\R^3$ terhadap hasil kali dalam Euclidean standar.
+\end{contoh}
+
+\begin{teorema}
+Jika $S = \{\vektor{v}_1, \dots, \vektor{v}_n\}$ adalah himpunan vektor-vektor tak nol yang saling ortogonal dalam suatu ruang hasil kali dalam $V$, maka $S$ bebas linear.
+\end{teorema}
+\begin{proof}
+Misalkan kombinasi linear dari $S$ sama dengan vektor nol:
+\[ k_1\vektor{v}_1 + k_2\vektor{v}_2 + \dots + k_n\vektor{v}_n = \nol \]
+Untuk menunjukkan $S$ bebas linear, kita harus menunjukkan bahwa $k_1=k_2=\dots=k_n=0$.
+Ambil hasil kali dalam dari kedua sisi dengan sebarang vektor $\vektor{v}_j \in S$:
+\[ \innerprod{k_1\vektor{v}_1 + \dots + k_n\vektor{v}_n}{\vektor{v}_j} = \innerprod{\nol}{\vektor{v}_j} = 0 \]
+Dengan menggunakan sifat linearitas hasil kali dalam:
+\[ k_1\innerprod{\vektor{v}_1}{\vektor{v}_j} + \dots + k_j\innerprod{\vektor{v}_j}{\vektor{v}_j} + \dots + k_n\innerprod{\vektor{v}_n}{\vektor{v}_j} = 0 \]
+Karena himpunan $S$ ortogonal, $\innerprod{\vektor{v}_i}{\vektor{v}_j} = 0$ untuk semua $i \neq j$. Persamaan di atas menjadi:
+\[ 0 + \dots + 0 + k_j\innerprod{\vektor{v}_j}{\vektor{v}_j} + 0 + \dots + 0 = 0 \implies k_j \norm{\vektor{v}_j}^2 = 0 \]
+Karena $\vektor{v}_j$ adalah vektor tak nol, maka $\norm{\vektor{v}_j} \neq 0$ dan $\norm{\vektor{v}_j}^2 > 0$. Oleh karena itu, haruslah $k_j=0$.
+Karena ini berlaku untuk setiap $j=1, \dots, n$, maka semua skalar $k_j$ adalah nol. Jadi, $S$ bebas linear.
+\end{proof}
+
+\section{Basis Ortonormal dan Proses Gram-Schmidt}
+\begin{definisi}
+Sebuah basis $B = \{\vektor{u}_1, \dots, \vektor{u}_n\}$ untuk ruang hasil kali dalam $V$ disebut \textbf{basis ortogonal} jika semua vektor di $B$ saling ortogonal. Jika, selain itu, semua vektor di $B$ memiliki panjang 1, maka $B$ disebut \textbf{basis ortonormal}.
+\end{definisi}
+
+Basis ortonormal sangat berguna karena sangat menyederhanakan perhitungan, terutama dalam mencari koordinat vektor.
+
+\begin{teorema}[Koordinat terhadap Basis Ortonormal]
+Misalkan $B = \{\vektor{v}_1, \dots, \vektor{v}_n\}$ adalah basis ortonormal untuk ruang hasil kali dalam $V$. Maka untuk setiap vektor $\vektor{u} \in V$, berlaku:
+\[ \vektor{u} = \innerprod{\vektor{u}}{\vektor{v}_1}\vektor{v}_1 + \innerprod{\vektor{u}}{\vektor{v}_2}\vektor{v}_2 + \dots + \innerprod{\vektor{u}}{\vektor{v}_n}\vektor{v}_n = \sum_{i=1}^{n} \innerprod{\vektor{u}}{\vektor{v}_i}\vektor{v}_i \]
+\end{teorema}
+\begin{akibat}
+Koordinat vektor $\vektor{u}$ terhadap basis ortonormal $B=\{\vektor{v}_1, \dots, \vektor{v}_n\}$ adalah:
+\[ [\vektor{u}]_B = \matriks{\innerprod{\vektor{u}}{\vektor{v}_1} \\ \innerprod{\vektor{u}}{\vektor{v}_2} \\ \vdots \\ \innerprod{\vektor{u}}{\vektor{v}_n}} \]
+\end{akibat}
+
+\subsection{Proses Gram-Schmidt}
+Setiap ruang hasil kali dalam berdimensi hingga pasti memiliki basis ortonormal. Proses Gram-Schmidt adalah sebuah algoritma konstruktif untuk mengubah sebarang basis $B=\{\vektor{u}_1, \dots, \vektor{u}_n\}$ dari suatu ruang hasil kali dalam $V$ menjadi sebuah basis ortogonal $B'=\{\vektor{v}_1, \dots, \vektor{v}_n\}$. Basis ortonormal kemudian dapat diperoleh dengan menormalisasi setiap vektor di $B'$.
+
+\textbf{Langkah-langkah Proses Gram-Schmidt}:
+\begin{enumerate}
+    \item \textbf{Langkah 1}: Ambil vektor pertama dari basis lama dan jadikan vektor pertama dari basis ortogonal.
+    \[ \vektor{v}_1 = \vektor{u}_1 \]
+    \item \textbf{Langkah 2}: Ambil vektor kedua dari basis lama dan proyeksikan pada vektor $\vektor{v}_1$. Komponen ortogonalnya adalah vektor kedua dari basis ortogonal.
+    \[ \vektor{v}_2 = \vektor{u}_2 - \proj_{\vektor{v}_1}\vektor{u}_2 = \vektor{u}_2 - \frac{\innerprod{\vektor{u}_2}{\vektor{v}_1}}{\norm{\vektor{v}_1}^2}\vektor{v}_1 \]
+    \item \textbf{Langkah 3}: Ambil vektor ketiga dari basis lama dan proyeksikan pada subruang yang direntang oleh $\vektor{v}_1$ dan $\vektor{v}_2$. Komponen ortogonalnya adalah vektor ketiga dari basis ortogonal.
+    \[ \vektor{v}_3 = \vektor{u}_3 - \proj_{\vektor{v}_1}\vektor{u}_3 - \proj_{\vektor{v}_2}\vektor{u}_3 = \vektor{u}_3 - \frac{\innerprod{\vektor{u}_3}{\vektor{v}_1}}{\norm{\vektor{v}_1}^2}\vektor{v}_1 - \frac{\innerprod{\vektor{u}_3}{\vektor{v}_2}}{\norm{\vektor{v}_2}^2}\vektor{v}_2 \]
+    \item \textbf{Langkah Umum (Langkah ke-$k$)}:
+    \[ \vektor{v}_k = \vektor{u}_k - \sum_{j=1}^{k-1} \proj_{\vektor{v}_j}\vektor{u}_k = \vektor{u}_k - \sum_{j=1}^{k-1} \frac{\innerprod{\vektor{u}_k}{\vektor{v}_j}}{\norm{\vektor{v}_j}^2}\vektor{v}_j \]
+\end{enumerate}
+Setelah mendapatkan basis ortogonal $B'=\{\vektor{v}_1, \dots, \vektor{v}_n\}$, basis ortonormal $B''=\{\vektor{q}_1, \dots, \vektor{q}_n\}$ diperoleh dengan menormalisasi setiap vektor $\vektor{v}_i$:
+\[ \vektor{q}_i = \frac{\vektor{v}_i}{\norm{\vektor{v}_i}} \]
+
+\subsection{Proyeksi Ortogonal pada Subruang}
+\begin{definisi}
+Misalkan $W$ adalah subruang berdimensi hingga dari suatu ruang hasil kali dalam $V$. \textbf{Proyeksi ortogonal} dari sebuah vektor $\vektor{u} \in V$ pada subruang $W$ dinotasikan $\proj_W \vektor{u}$.
+Jika $B=\{\vektor{v}_1, \dots, \vektor{v}_r\}$ adalah sebuah basis \textbf{ortonormal} untuk $W$, maka:
+\[ \proj_W \vektor{u} = \sum_{i=1}^{r} \innerprod{\vektor{u}}{\vektor{v}_i} \vektor{v}_i \]
+Jika $B$ hanya basis ortogonal (bukan ortonormal), rumusnya adalah:
+\[ \proj_W \vektor{u} = \sum_{i=1}^{r} \frac{\innerprod{\vektor{u}}{\vektor{v}_i}}{\norm{\vektor{v}_i}^2} \vektor{v}_i \]
+Vektor $\proj_W \vektor{u}$ adalah "aproksimasi terbaik" untuk $\vektor{u}$ di dalam subruang $W$.
+\end{definisi}
+
+\end{document}

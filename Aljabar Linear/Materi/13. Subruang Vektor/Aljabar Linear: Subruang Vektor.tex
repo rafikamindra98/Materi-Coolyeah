@@ -1,0 +1,100 @@
+\documentclass{article}
+\usepackage{amsmath} % Untuk lingkungan matriks dan perintah matematika lainnya
+\usepackage{amsfonts} % Untuk simbol
+\usepackage{amssymb} % Untuk simbol \mathbb{R}
+\usepackage{geometry} % Untuk mengatur margin
+\geometry{a4paper, margin=1in}
+
+\title{Aljabar Linear: Subruang Vektor}
+\author{Rafi Kamindra 2201006}
+\date{} % Kosongkan tanggal jika tidak ingin ditampilkan
+
+\newcommand{\vektor}[1]{\mathbf{#1}} % Perintah untuk vektor
+\newcommand{\R}{\mathbb{R}} % Simbol R
+\newcommand{\Poly}{\mathbb{P}} % Simbol P untuk polinom
+\newcommand{\M}{\mathbb{M}} % Simbol M untuk matriks
+
+\begin{document}
+\maketitle
+\pagenumbering{gobble} % Menghilangkan nomor halaman jika tidak diinginkan untuk halaman judul
+
+\section*{Problem}
+\textbf{Selidiki, apakah $U$ merupakan subruang. Jika ya, tentukan basisnya.}
+
+\subsection*{1. $U = \{ (x,y,0) \mid x,y \in \R \} \subset \R^3$.}
+\textbf{Jawaban:}\\
+Untuk menjadi subruang, $U$ harus memenuhi tiga syarat:
+\begin{enumerate}
+    \item \textbf{Mengandung vektor nol}: Vektor nol di $\R^3$ adalah $(0,0,0)$. Jika $x=0$ dan $y=0$, maka $(0,0,0) \in U$. Jadi, syarat pertama terpenuhi.
+    \item \textbf{Tertutup terhadap penjumlahan}: Ambil dua vektor sebarang $\vektor{u}_1 = (x_1, y_1, 0) \in U$ dan $\vektor{u}_2 = (x_2, y_2, 0) \in U$.
+    Maka $\vektor{u}_1 + \vektor{u}_2 = (x_1+x_2, y_1+y_2, 0)$. Karena komponen ketiga adalah 0, dan $x_1+x_2 \in \R$, $y_1+y_2 \in \R$, maka $\vektor{u}_1 + \vektor{u}_2 \in U$. Syarat kedua terpenuhi.
+    \item \textbf{Tertutup terhadap perkalian skalar}: Ambil vektor sebarang $\vektor{u} = (x,y,0) \in U$ dan skalar sebarang $k \in \R$.
+    Maka $k\vektor{u} = k(x,y,0) = (kx, ky, 0)$. Karena komponen ketiga adalah 0, dan $kx \in \R$, $ky \in \R$, maka $k\vektor{u} \in U$. Syarat ketiga terpenuhi.
+\end{enumerate}
+Karena ketiga syarat terpenuhi, $U$ adalah subruang dari $\R^3$.
+Untuk menentukan basisnya, perhatikan bahwa setiap vektor $(x,y,0) \in U$ dapat ditulis sebagai:
+$(x,y,0) = x(1,0,0) + y(0,1,0)$.
+Vektor-vektor $(1,0,0)$ dan $(0,1,0)$ merentang $U$ dan linear independen (karena bukan kelipatan skalar satu sama lain dan membentuk matriks $\begin{pmatrix} 1 & 0 \\ 0 & 1 \\ 0 & 0 \end{pmatrix}$ yang memiliki rank 2).
+Jadi, basis untuk $U$ adalah $B_U = \{(1,0,0), (0,1,0)\}$. Dimensi $U$ adalah 2. (Ini adalah bidang $xy$ di $\R^3$).
+
+\subsection*{2. $U = \{ (x,1,z) \mid x,z \in \R \} \subset \R^3$.}
+\textbf{Jawaban:}\\
+Periksa syarat subruang:
+\begin{enumerate}
+    \item \textbf{Mengandung vektor nol}: Vektor nol di $\R^3$ adalah $(0,0,0)$. Agar $(0,0,0) \in U$, komponen kedua harus 1. Tetapi komponen kedua vektor nol adalah 0. Jadi, $(0,0,0) \notin U$.
+\end{enumerate}
+Karena $U$ tidak mengandung vektor nol, maka $U$ bukan subruang dari $\R^3$.
+
+\subsection*{3. $U = \{ a+bx+cx^2 \mid a+b=0 \} \subset \Poly_2$.}
+\textbf{Jawaban:}\\
+Syarat $a+b=0$ berarti $b=-a$. Jadi, polinom dalam $U$ berbentuk $a - ax + cx^2$.
+Periksa syarat subruang:
+\begin{enumerate}
+    \item \textbf{Mengandung polinom nol}: Polinom nol adalah $0+0x+0x^2$. Di sini $a=0, b=0, c=0$. Apakah $a+b=0$? Ya, $0+0=0$. Jadi, polinom nol ada di $U$.
+    \item \textbf{Tertutup terhadap penjumlahan}: Ambil $p_1(x) = a_1 - a_1x + c_1x^2 \in U$ (karena $a_1+b_1=0 \Rightarrow b_1=-a_1$) dan $p_2(x) = a_2 - a_2x + c_2x^2 \in U$ (karena $a_2+b_2=0 \Rightarrow b_2=-a_2$).
+    $p_1(x) + p_2(x) = (a_1+a_2) - (a_1+a_2)x + (c_1+c_2)x^2$.
+    Misalkan $A = a_1+a_2$, $B = -(a_1+a_2)$, $C = c_1+c_2$. Apakah $A+B=0$?
+    $(a_1+a_2) + (-(a_1+a_2)) = 0$. Ya. Jadi, $p_1(x)+p_2(x) \in U$.
+    \item \textbf{Tertutup terhadap perkalian skalar}: Ambil $p(x) = a - ax + cx^2 \in U$ dan skalar $k \in \R$.
+    $kp(x) = k(a - ax + cx^2) = ka - kax + kcx^2$.
+    Misalkan $A = ka$, $B = -ka$, $C = kc$. Apakah $A+B=0$?
+    $ka + (-ka) = 0$. Ya. Jadi, $kp(x) \in U$.
+\end{enumerate}
+Karena ketiga syarat terpenuhi, $U$ adalah subruang dari $\Poly_2$.
+Untuk menentukan basisnya, polinom $a - ax + cx^2$ dapat ditulis sebagai:
+$a(1-x) + c(x^2)$.
+Vektor-vektor (polinom) $(1-x)$ dan $x^2$ merentang $U$. Apakah mereka linear independen?
+Misalkan $k_1(1-x) + k_2(x^2) = 0+0x+0x^2$.
+$k_1 - k_1x + k_2x^2 = 0$.
+Ini berarti $k_1=0$ (koefisien konstanta), $-k_1=0$ (koefisien $x$), dan $k_2=0$ (koefisien $x^2$).
+Jadi, $k_1=0$ dan $k_2=0$ adalah satu-satunya solusi, sehingga $1-x$ dan $x^2$ linear independen.
+Basis untuk $U$ adalah $B_U = \{1-x, x^2\}$. Dimensi $U$ adalah 2.
+
+\subsection*{4. $U = \{ A = [a_{ij}] \in \M_{2\times2} \mid a_{11}+a_{22}=0 \} \subset \M_{2\times2}$.}
+\textbf{Jawaban:}\\
+Matriks $A = \begin{pmatrix} a_{11} & a_{12} \\ a_{21} & a_{22} \end{pmatrix}$ dengan syarat $a_{11}+a_{22}=0 \Rightarrow a_{22} = -a_{11}$.
+Jadi, matriks dalam $U$ berbentuk $\begin{pmatrix} a_{11} & a_{12} \\ a_{21} & -a_{11} \end{pmatrix}$.
+Periksa syarat subruang:
+\begin{enumerate}
+    \item \textbf{Mengandung matriks nol}: Matriks nol $\begin{pmatrix} 0 & 0 \\ 0 & 0 \end{pmatrix}$. Di sini $a_{11}=0, a_{12}=0, a_{21}=0, a_{22}=0$. Apakah $a_{11}+a_{22}=0$? Ya, $0+0=0$. Jadi, matriks nol ada di $U$.
+    \item \textbf{Tertutup terhadap penjumlahan}: Ambil $A_1 = \begin{pmatrix} a & b \\ c & -a \end{pmatrix} \in U$ dan $A_2 = \begin{pmatrix} d & e \\ f & -d \end{pmatrix} \in U$.
+    $A_1+A_2 = \begin{pmatrix} a+d & b+e \\ c+f & -a-d \end{pmatrix} = \begin{pmatrix} a+d & b+e \\ c+f & -(a+d) \end{pmatrix}$.
+    Misalkan $x_{11} = a+d$ dan $x_{22} = -(a+d)$. Apakah $x_{11}+x_{22}=0$?
+    $(a+d) + (-(a+d)) = 0$. Ya. Jadi, $A_1+A_2 \in U$.
+    \item \textbf{Tertutup terhadap perkalian skalar}: Ambil $A = \begin{pmatrix} a & b \\ c & -a \end{pmatrix} \in U$ dan skalar $k \in \R$.
+    $kA = \begin{pmatrix} ka & kb \\ kc & -ka \end{pmatrix}$.
+    Misalkan $x_{11} = ka$ dan $x_{22} = -ka$. Apakah $x_{11}+x_{22}=0$?
+    $ka + (-ka) = 0$. Ya. Jadi, $kA \in U$.
+\end{enumerate}
+Karena ketiga syarat terpenuhi, $U$ adalah subruang dari $\M_{2\times2}$.
+Untuk menentukan basisnya, matriks $\begin{pmatrix} a_{11} & a_{12} \\ a_{21} & -a_{11} \end{pmatrix}$ dapat ditulis sebagai:
+$a_{11} \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix} + a_{12} \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix} + a_{21} \begin{pmatrix} 0 & 0 \\ 1 & 0 \end{pmatrix}$.
+Matriks-matriks $\begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}$, $\begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}$, $\begin{pmatrix} 0 & 0 \\ 1 & 0 \end{pmatrix}$ merentang $U$.
+Periksa keindependence linear:
+$k_1 \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix} + k_2 \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix} + k_3 \begin{pmatrix} 0 & 0 \\ 1 & 0 \end{pmatrix} = \begin{pmatrix} 0 & 0 \\ 0 & 0 \end{pmatrix}$.
+$\begin{pmatrix} k_1 & k_2 \\ k_3 & -k_1 \end{pmatrix} = \begin{pmatrix} 0 & 0 \\ 0 & 0 \end{pmatrix}$.
+Ini berarti $k_1=0, k_2=0, k_3=0, -k_1=0$.
+Jadi, $k_1=0, k_2=0, k_3=0$ adalah satu-satunya solusi. Matriks-matriks tersebut linear independen.
+Basis untuk $U$ adalah $B_U = \left\{ \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}, \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}, \begin{pmatrix} 0 & 0 \\ 1 & 0 \end{pmatrix} \right\}$. Dimensi $U$ adalah 3.
+
+\end{document}

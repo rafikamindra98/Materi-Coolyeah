@@ -1,0 +1,215 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage{amsmath} % Untuk lingkungan matriks dan perintah matematika lainnya
+\usepackage{amsfonts} % Untuk simbol matematika
+\usepackage{amssymb} % Untuk simbol \mathbb{R}
+\usepackage{geometry} % Untuk mengatur margin
+\usepackage[indonesian]{babel} % Mengatur bahasa Indonesia
+\usepackage{array} % Untuk kolom tabel yang lebih baik
+\usepackage{booktabs} % Untuk garis tabel yang lebih baik
+\usepackage{graphicx} % Untuk menyertakan gambar (jika diperlukan)
+\usepackage{tikz} % Untuk menggambar diagram, jika diperlukan nanti
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric, fit, calc}
+\usepackage{hyperref} % Untuk hyperlink (jika diperlukan)
+\usepackage{amsthm} % Untuk lingkungan definisi dan teorema
+\usepackage{nicematrix} % Untuk matriks dengan garis partisi, jika diperlukan
+\usepackage{palatino} % Menggunakan font Palatino untuk tampilan yang lebih menarik
+\usepackage{setspace} % Untuk mengatur spasi antar baris jika perlu
+\usepackage{titlesec} % Untuk kustomisasi judul seksi
+\usepackage{enumitem} % Untuk kustomisasi daftar
+\usepackage{longtable} % Untuk tabel yang melintasi halaman, jika diperlukan
+\usepackage{enumitem}
+
+\geometry{a4paper, margin=1in, headheight=15pt, footskip=30pt} % Mengatur margin halaman
+
+% Kustomisasi Judul Seksi
+\titleformat{\section}{\Large\bfseries\sffamily\color{blue!70!black}}{\thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries\sffamily\color{blue!60!black}}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\sffamily\color{blue!50!black}}{\thesubsubsection}{1em}{}
+
+% Definisi lingkungan baru
+\theoremstyle{definition} % Gaya standar untuk definisi dan contoh
+\newtheorem{definisi}{Definisi}[section]
+\newtheorem{contoh}{Contoh}[section]
+\newtheorem{catatan}{Catatan}[section]
+\theoremstyle{plain} % Gaya standar untuk teorema
+\newtheorem{teorema}{Teorema}[section]
+\newtheorem{proposisi}{Proposisi}[section]
+\newtheorem{akibat}{Akibat}[section]
+
+% Definisi perintah baru untuk kemudahan
+\newcommand{\matriks}[1]{\begin{pmatrix} #1 \end{pmatrix}} % Perintah untuk matriks
+\newcommand{\R}{\mathbb{R}} % Simbol R untuk bilangan real
+\newcommand{\Poly}{\mathbb{P}} % Simbol P untuk polinom
+\newcommand{\vektor}[1]{\mathbf{#1}} % Perintah untuk vektor tebal
+\newcommand{\nol}{\mathbf{0}} % Vektor nol
+\newcommand{\Transformasi}[1]{T\left(#1\right)} % Notasi Transformasi T(u)
+\newcommand{\kernel}{\operatorname{ker}} % Kernel (operatorname untuk tampilan yang benar)
+\newcommand{\rank}{\operatorname{rank}} % Rank
+\newcommand{\Range}{\operatorname{R}} % Jangkauan (Range)
+\newcommand{\nulitas}{\operatorname{nulitas}} % Nulitas
+\newcommand{\dimV}{\operatorname{dim}} % Dimensi
+\newcommand{\koordinat}[2]{[\vektor{#1}]_{#2}} % Notasi koordinat vektor
+\newcommand{\M}[1]{\mathcal{M}_{#1}} % Simbol M untuk himpunan matriks
+\newcommand{\dettext}[1]{\text{det}(#1)} % Notasi determinan det(A)
+\newcommand{\determinan}[1]{\left| #1 \right|} % Notasi determinan |A|
+\newcommand{\I}{\mathbf{I}} % Matriks identitas
+
+\title{\textbf{Nilai Eigen dan Vektor Eigen}}
+\author{Rafi Kamindra 2201006}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Pengantar Konsep Nilai Eigen dan Vektor Eigen}
+Dalam aljabar linear, nilai eigen dan vektor eigen merupakan konsep fundamental yang muncul ketika kita mempelajari transformasi linear dari suatu ruang vektor ke dirinya sendiri, khususnya yang direpresentasikan oleh matriks persegi. Secara geometris, jika sebuah matriks $A$ dikalikan dengan vektor tak nol $\vektor{x}$, hasilnya adalah vektor $A\vektor{x}$. Vektor eigen adalah vektor-vektor $\vektor{x}$ yang istimewa karena $A\vektor{x}$ memiliki arah yang sama atau berlawanan dengan $\vektor{x}$, hanya berbeda dalam panjangnya. Faktor skala perubahan panjang ini adalah nilai eigen yang bersesuaian.
+
+Konsep ini memiliki aplikasi yang sangat luas, meliputi:
+\begin{itemize}
+    \item \textbf{Analisis Stabilitas Sistem Dinamis}: Menentukan apakah suatu sistem akan konvergen, divergen, atau berosilasi.
+    \item \textbf{Analisis Getaran (Vibrasi)}: Menemukan frekuensi alami dan mode getaran dari struktur mekanik atau sistem fisis.
+    \item \textbf{Mekanika Kuantum}: Nilai eigen berkaitan dengan tingkat energi yang mungkin dari suatu sistem kuantum.
+    \item \textbf{Analisis Komponen Utama (PCA)} dalam statistik dan machine learning: Mengidentifikasi arah-arah variansi terbesar dalam data.
+    \item \textbf{Diagonalisasi Matriks}: Menyederhanakan matriks menjadi bentuk diagonal, yang mempermudah perhitungan pangkat matriks dan solusi sistem persamaan diferensial.
+\end{itemize}
+Pemahaman yang baik tentang nilai eigen dan vektor eigen akan membuka pintu ke banyak topik lanjutan dalam matematika terapan dan berbagai disiplin ilmu lainnya.
+
+\section{Definisi Formal Nilai Eigen dan Vektor Eigen}
+\begin{definisi}
+Misalkan $A$ adalah sebuah matriks persegi berukuran $n \times n$ dengan entri-entri bilangan real (atau kompleks).
+\begin{itemize}
+    \item Sebuah skalar $\lambda \in \R$ (atau $\mathbb{C}$) disebut \textbf{nilai eigen} (eigenvalue) atau \textbf{nilai karakteristik} dari $A$ jika terdapat sebuah vektor tak nol $\vektor{x} \in \R^n$ (atau $\mathbb{C}^n$) sedemikian sehingga:
+    \[ A\vektor{x} = \lambda\vektor{x} \]
+    \item Vektor tak nol $\vektor{x}$ tersebut disebut \textbf{vektor eigen} (eigenvector) atau \textbf{vektor karakteristik} dari $A$ yang bersesuaian (atau berpadanan) dengan nilai eigen $\lambda$.
+\end{itemize}
+\end{definisi}
+Persamaan $A\vektor{x} = \lambda\vektor{x}$ adalah persamaan fundamental dalam teori nilai eigen. Untuk mencari nilai eigen dan vektor eigen, kita dapat menulis ulang persamaan ini sebagai:
+\[ A\vektor{x} - \lambda\vektor{x} = \nol \implies A\vektor{x} - \lambda I_n\vektor{x} = \nol \implies (A - \lambda I_n)\vektor{x} = \nol \]
+dimana $I_n$ adalah matriks identitas $n \times n$ dan $\nol$ adalah vektor nol $n \times 1$.
+Agar $\lambda$ menjadi nilai eigen, harus ada solusi tak nol $\vektor{x}$ untuk sistem persamaan linear homogen $(A - \lambda I_n)\vektor{x} = \nol$. Sistem homogen ini memiliki solusi tak nol jika dan hanya jika matriks koefisien $(A - \lambda I_n)$ adalah singular (tidak invertibel), yang berarti determinannya nol.
+
+\begin{definisi}
+\begin{itemize}
+    \item Persamaan $\dettext{A - \lambda I_n} = 0$ disebut \textbf{persamaan karakteristik} dari matriks $A$.
+    \item Polinom $p(\lambda) = \dettext{A - \lambda I_n}$ disebut \textbf{polinom karakteristik} dari matriks $A$. Ini adalah polinom dalam $\lambda$ berderajat $n$ jika $A$ berukuran $n \times n$.
+\end{itemize}
+Akar-akar dari persamaan karakteristik (yaitu, solusi untuk $\lambda$ dari $\dettext{A - \lambda I_n} = 0$) adalah nilai-nilai eigen dari matriks $A$.
+\end{definisi}
+
+\section{Prosedur Menentukan Nilai Eigen dan Vektor Eigen}
+Langkah-langkah umum untuk menemukan nilai eigen dan vektor eigen dari matriks persegi $A$ adalah sebagai berikut:
+\begin{enumerate}
+    \item \textbf{Bentuk Matriks $A - \lambda I$}:
+    Kurangkan $\lambda$ dari setiap entri diagonal utama matriks $A$ untuk mendapatkan matriks $A - \lambda I$.
+
+    \item \textbf{Bentuk dan Selesaikan Persamaan Karakteristik}:
+    Hitung determinan dari $A - \lambda I$, yaitu $\dettext{A - \lambda I}$.
+    Selesaikan persamaan karakteristik $\dettext{A - \lambda I} = 0$ untuk $\lambda$. Akar-akar dari persamaan ini adalah nilai-nilai eigen dari $A$.
+
+    \item \textbf{Tentukan Vektor Eigen untuk Setiap Nilai Eigen}:
+    Untuk setiap nilai eigen $\lambda_k$ yang ditemukan pada langkah 2, substitusikan kembali ke dalam persamaan $(A - \lambda_k I)\vektor{x} = \nol$.
+    Selesaikan sistem persamaan linear homogen ini untuk menemukan vektor-vektor tak nol $\vektor{x}$. Vektor-vektor ini adalah vektor eigen yang bersesuaian dengan $\lambda_k$. Himpunan semua solusi (termasuk vektor nol) membentuk ruang eigen $E_{\lambda_k}$.
+\end{enumerate}
+
+\section{Ruang Eigen}
+\begin{definisi}
+Misalkan $\lambda$ adalah sebuah nilai eigen dari matriks $A$. Himpunan semua vektor $\vektor{x}$ yang memenuhi $A\vektor{x} = \lambda\vektor{x}$ (termasuk vektor nol) disebut \textbf{ruang eigen} dari $A$ yang bersesuaian dengan nilai eigen $\lambda$. Ruang eigen ini dinotasikan sebagai $E_{\lambda}$.
+Secara formal, $E_{\lambda} = \{ \vektor{x} \in \R^n \mid (A - \lambda I)\vektor{x} = \nol \}$.
+Ini berarti $E_{\lambda}$ adalah kernel (ruang nol) dari matriks $A - \lambda I$. Oleh karena itu, $E_{\lambda}$ adalah subruang dari $\R^n$.
+Dimensi dari ruang eigen $E_{\lambda}$ disebut \textbf{multiplisitas geometris} dari nilai eigen $\lambda$. Basis untuk $E_{\lambda}$ terdiri dari himpunan vektor-vektor eigen yang bebas linear yang merentang $E_{\lambda}$.
+\end{definisi}
+
+\section{Contoh-Contoh Perhitungan Nilai dan Vektor Eigen}
+
+\subsection*{Contoh 1: Matriks $A = \matriks{1 & 1 \\ 2 & 2}$}
+\begin{enumerate}
+    \item \textbf{Persamaan Karakteristik}:
+    $A - \lambda I = \matriks{1-\lambda & 1 \\ 2 & 2-\lambda}$.
+    $\dettext{A - \lambda I} = (1-\lambda)(2-\lambda) - (1)(2) = 2 - 3\lambda + \lambda^2 - 2 = \lambda^2 - 3\lambda$.
+    Persamaan karakteristik: $\lambda^2 - 3\lambda = 0$.
+
+    \item \textbf{Nilai Eigen}:
+    $\lambda(\lambda - 3) = 0 \implies \lambda_1 = 0, \lambda_2 = 3$.
+
+    \item \textbf{Vektor Eigen}:
+    \begin{itemize}
+        \item Untuk $\lambda_1 = 0$: $(A - 0I)\vektor{x} = \nol \implies \matriks{1 & 1 \\ 2 & 2} \matriks{x_1 \\ x_2} = \matriks{0 \\ 0}$.
+        Sistem: $x_1 + x_2 = 0$. Misalkan $x_2 = t$, maka $x_1 = -t$.
+        Vektor eigen: $\vektor{x} = t\matriks{-1 \\ 1}$. Basis $E_0 = \left\{\matriks{-1 \\ 1}\right\}$. $\dimV(E_0)=1$.
+
+        \item Untuk $\lambda_2 = 3$: $(A - 3I)\vektor{x} = \nol \implies \matriks{-2 & 1 \\ 2 & -1} \matriks{x_1 \\ x_2} = \matriks{0 \\ 0}$.
+        Sistem: $-2x_1 + x_2 = 0 \implies x_2 = 2x_1$. Misalkan $x_1 = s$, maka $x_2 = 2s$.
+        Vektor eigen: $\vektor{x} = s\matriks{1 \\ 2}$. Basis $E_3 = \left\{\matriks{1 \\ 2}\right\}$. $\dimV(E_3)=1$.
+    \end{itemize}
+\end{enumerate}
+
+\subsection*{Contoh 2: Matriks $D = \matriks{0 & 1 & 0 \\ 0 & 0 & 2 \\ 0 & 0 & 0}$}
+\begin{enumerate}
+    \item \textbf{Persamaan Karakteristik}: $D$ adalah matriks segitiga atas.
+    $\dettext{D - \lambda I} = \determinan{\begin{smallmatrix} -\lambda & 1 & 0 \\ 0 & -\lambda & 2 \\ 0 & 0 & -\lambda \end{smallmatrix}} = (-\lambda)(-\lambda)(-\lambda) = -\lambda^3$.
+    Persamaan karakteristik: $-\lambda^3 = 0$.
+
+    \item \textbf{Nilai Eigen}:
+    $\lambda^3 = 0 \implies \lambda = 0$ (dengan multiplisitas aljabar 3).
+
+    \item \textbf{Vektor Eigen} untuk $\lambda = 0$:
+    $(D - 0I)\vektor{x} = D\vektor{x} = \nol \implies \matriks{0 & 1 & 0 \\ 0 & 0 & 2 \\ 0 & 0 & 0} \matriks{x_1 \\ x_2 \\ x_3} = \matriks{0 \\ 0 \\ 0}$.
+    Sistem: $x_2 = 0$ dan $2x_3 = 0 \implies x_3 = 0$. $x_1$ adalah variabel bebas.
+    Misalkan $x_1 = t$.
+    Vektor eigen: $\vektor{x} = t\matriks{1 \\ 0 \\ 0}$. Basis $E_0 = \left\{\matriks{1 \\ 0 \\ 0}\right\}$. $\dimV(E_0)=1$.
+    \textit{Catatan}: Multiplisitas aljabar $\lambda=0$ adalah 3, tetapi multiplisitas geometrisnya adalah 1. Matriks ini tidak terdiagonalkan.
+\end{enumerate}
+
+\subsection*{Contoh 3: Matriks $E = \matriks{4 & 0 & 1 \\ 2 & 3 & 2 \\ 1 & 0 & 4}$}
+\begin{enumerate}
+    \item \textbf{Persamaan Karakteristik}:
+    $\dettext{E - \lambda I} = \determinan{\begin{smallmatrix} 4-\lambda & 0 & 1 \\ 2 & 3-\lambda & 2 \\ 1 & 0 & 4-\lambda \end{smallmatrix}}$.
+    Ekspansi sepanjang kolom kedua: $(3-\lambda) \determinan{\begin{smallmatrix} 4-\lambda & 1 \\ 1 & 4-\lambda \end{smallmatrix}}$
+    $= (3-\lambda) [ (4-\lambda)^2 - 1^2 ] = (3-\lambda) [ (4-\lambda-1)(4-\lambda+1) ]$
+    $= (3-\lambda)(3-\lambda)(5-\lambda) = (3-\lambda)^2(5-\lambda)$.
+    Persamaan karakteristik: $(3-\lambda)^2(5-\lambda) = 0$.
+
+    \item \textbf{Nilai Eigen}:
+    $\lambda_1 = 3$ (multiplisitas aljabar 2), $\lambda_2 = 5$ (multiplisitas aljabar 1).
+
+    \item \textbf{Vektor Eigen}:
+    \begin{itemize}
+        \item Untuk $\lambda_1 = 3$: $(E - 3I)\vektor{x} = \nol \implies \matriks{1 & 0 & 1 \\ 2 & 0 & 2 \\ 1 & 0 & 1} \matriks{x_1 \\ x_2 \\ x_3} = \matriks{0 \\ 0 \\ 0}$.
+        Sistem: $x_1 + x_3 = 0 \implies x_1 = -x_3$. $x_2$ adalah variabel bebas.
+        Misalkan $x_2 = s, x_3 = t$. Maka $x_1 = -t$.
+        Vektor eigen: $\vektor{x} = \matriks{-t \\ s \\ t} = s\matriks{0 \\ 1 \\ 0} + t\matriks{-1 \\ 0 \\ 1}$.
+        Basis $E_3 = \left\{\matriks{0 \\ 1 \\ 0}, \matriks{-1 \\ 0 \\ 1}\right\}$. $\dimV(E_3)=2$.
+        (Multiplisitas geometris = multiplisitas aljabar, jadi $E$ terdiagonalkan sejauh ini).
+
+        \item Untuk $\lambda_2 = 5$: $(E - 5I)\vektor{x} = \nol \implies \matriks{-1 & 0 & 1 \\ 2 & -2 & 2 \\ 1 & 0 & -1} \matriks{x_1 \\ x_2 \\ x_3} = \matriks{0 \\ 0 \\ 0}$.
+        Dari baris pertama: $-x_1+x_3=0 \implies x_1=x_3$.
+        Dari baris kedua: $2x_1-2x_2+2x_3=0 \implies x_1-x_2+x_3=0$. Substitusi $x_1=x_3$: $x_1-x_2+x_1=0 \implies 2x_1-x_2=0 \implies x_2=2x_1$.
+        Misalkan $x_1 = t$. Maka $x_3=t, x_2=2t$.
+        Vektor eigen: $\vektor{x} = t\matriks{1 \\ 2 \\ 1}$. Basis $E_5 = \left\{\matriks{1 \\ 2 \\ 1}\right\}$. $\dimV(E_5)=1$.
+    \end{itemize}
+    Matriks $E$ terdiagonalkan karena total dimensi ruang eigen adalah $2+1=3$.
+\end{enumerate}
+(Contoh untuk $B, C, F, G$ dapat ditambahkan dengan cara serupa jika diperlukan, mengikuti pola di atas.)
+
+\section{Sifat-sifat Penting Nilai Eigen dan Vektor Eigen}
+\begin{itemize}
+    \item \textbf{Matriks Segitiga}: Nilai-nilai eigen dari matriks segitiga (atas atau bawah) adalah entri-entri pada diagonal utamanya.
+    \item \textbf{Invertibilitas}: Matriks persegi $A$ invertibel jika dan hanya jika $\lambda=0$ bukan merupakan nilai eigen dari $A$.
+    \item \textbf{Jumlah Nilai Eigen}: Matriks $n \times n$ memiliki paling banyak $n$ nilai eigen yang berbeda (terhitung dengan multiplisitas aljabar, ia memiliki tepat $n$ nilai eigen jika kita memperhitungkan akar kompleks).
+    \item \textbf{Kebebasan Linear Vektor Eigen}: Vektor-vektor eigen yang bersesuaian dengan nilai-nilai eigen yang \textit{berbeda} selalu bebas linear.
+    \item \textbf{Multiplisitas}: Untuk setiap nilai eigen $\lambda$ dari matriks $A$:
+    \[ 1 \le (\text{multiplisitas geometris dari } \lambda) \le (\text{multiplisitas aljabar dari } \lambda) \]
+    \item \textbf{Matriks Simetris Real}: Jika $A$ adalah matriks simetris real ($A=A^T$), maka:
+    \begin{itemize}
+        \item Semua nilai eigen $A$ adalah bilangan real.
+        \item Vektor-vektor eigen yang bersesuaian dengan nilai-nilai eigen yang berbeda adalah ortogonal.
+        \item $A$ selalu dapat didiagonalkan secara ortogonal (yaitu, terdapat matriks ortogonal $P$ sehingga $P^TAP=D$).
+    \end{itemize}
+    \item \textbf{Determinan dan Trace}: Jika $\lambda_1, \dots, \lambda_n$ adalah nilai-nilai eigen dari matriks $A$ (termasuk multiplisitasnya), maka:
+    \begin{itemize}
+        \item $\dettext{A} = \lambda_1 \lambda_2 \cdots \lambda_n$.
+        \item $\text{trace}(A) = \sum_{i=1}^n a_{ii} = \lambda_1 + \lambda_2 + \dots + \lambda_n$.
+    \end{itemize}
+\end{itemize}
+
+\end{document}

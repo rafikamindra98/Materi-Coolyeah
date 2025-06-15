@@ -1,0 +1,145 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage{amsmath} % Untuk lingkungan matriks dan perintah matematika lainnya
+\usepackage{amsfonts} % Untuk simbol matematika
+\usepackage{amssymb} % Untuk simbol \mathbb{R}
+\usepackage{geometry} % Untuk mengatur margin
+\usepackage[indonesian]{babel} % Mengatur bahasa Indonesia
+\usepackage{array} % Untuk kolom tabel yang lebih baik
+\usepackage{booktabs} % Untuk garis tabel yang lebih baik
+\usepackage{graphicx} % Untuk menyertakan gambar (jika diperlukan)
+\usepackage{hyperref} % Untuk hyperlink (jika diperlukan)
+\usepackage{amsthm} % Untuk lingkungan definisi dan teorema
+
+\geometry{a4paper, margin=1in} % Mengatur margin halaman
+
+% Definisi lingkungan baru
+\newtheorem{definisi}{Definisi}[section]
+\newtheorem{contoh}{Contoh}[section]
+\newtheorem{teorema}{Teorema}[section]
+\newtheorem{fakta}{Fakta}[section]
+\newtheorem{proposisi}{Proposisi}[section]
+
+% Definisi perintah baru untuk kemudahan
+\newcommand{\matriks}[1]{\begin{pmatrix} #1 \end{pmatrix}} % Perintah untuk matriks
+\newcommand{\R}{\mathbb{R}} % Simbol R untuk bilangan real
+\newcommand{\Poly}{\mathbb{P}} % Simbol P untuk polinom
+\newcommand{\M}[1]{\mathcal{M}_{#1}} % Simbol M untuk himpunan matriks
+\newcommand{\vektor}[1]{\mathbf{#1}} % Perintah untuk vektor tebal
+\newcommand{\nol}{\mathbf{0}} % Vektor nol
+\newcommand{\spanof}[1]{\text{span}(#1)} % Perintah untuk span
+
+\title{Kombinasi Linear dan Himpunan Merentang}
+\author{Rafi Kamindra 2201006}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Kombinasi Linear}
+\begin{definisi}
+Misalkan $V$ suatu ruang vektor atas lapangan $\R$ (bilangan real). Sebuah vektor $\vektor{u} \in V$ dikatakan \textbf{kombinasi linear} dari himpunan vektor $\{\vektor{v}_1, \vektor{v}_2, \dots, \vektor{v}_n\} \subset V$ jika terdapat skalar-skalar $\alpha_1, \alpha_2, \dots, \alpha_n \in \R$ sedemikian sehingga:
+\[ \vektor{u} = \alpha_1\vektor{v}_1 + \alpha_2\vektor{v}_2 + \dots + \alpha_n\vektor{v}_n \]
+Skalar-skalar $\alpha_1, \alpha_2, \dots, \alpha_n$ disebut \textbf{koefisien} dari kombinasi linear tersebut.
+\end{definisi}
+\textbf{Catatan Khusus}: Jika himpunan hanya terdiri dari satu vektor $\vektor{v}$, maka $\vektor{u}$ adalah kombinasi linear dari $\vektor{v}$ jika $\vektor{u} = \alpha \vektor{v}$ untuk suatu skalar $\alpha$. Artinya, $\vektor{u}$ adalah kelipatan skalar dari $\vektor{v}$.
+
+\begin{contoh}
+\begin{enumerate}
+    \item Vektor $\vektor{u} = \matriks{2 \\ 4} \in \R^2$ adalah kombinasi linear dari $\vektor{v} = \matriks{1 \\ 2} \in \R^2$, karena $\vektor{u} = 2\vektor{v}$. Di sini, $\alpha_1 = 2$.
+
+    \item Polinom $p(x) = 2+x-4x^2 \in \Poly_2$ adalah kombinasi linear dari $q(x)=1+x-x^2$ dan $r(x)=x+2x^2$, karena
+    $p(x) = 2q(x) + (-1)r(x)$.
+    Cek: $2(1+x-x^2) - (x+2x^2) = 2+2x-2x^2 - x - 2x^2 = 2 + (2-1)x + (-2-2)x^2 = 2+x-4x^2$.
+    Koefisiennya adalah $\alpha_1=2$ dan $\alpha_2=-1$.
+
+    \item Apakah $\vektor{u} = \matriks{1 \\ 1 \\ 1}$ merupakan kombinasi linear dari $\vektor{v} = \matriks{1 \\ 0 \\ 2}$ dan $\vektor{w} = \matriks{1 \\ 0 \\ 1}$?
+    Kita mencari skalar $\alpha_1, \alpha_2$ sehingga $\alpha_1\vektor{v} + \alpha_2\vektor{w} = \vektor{u}$.
+    \[ \alpha_1 \matriks{1 \\ 0 \\ 2} + \alpha_2 \matriks{1 \\ 0 \\ 1} = \matriks{\alpha_1 + \alpha_2 \\ 0 \\ 2\alpha_1 + \alpha_2} = \matriks{1 \\ 1 \\ 1} \]
+    Dari komponen kedua, kita mendapatkan $0=1$, yang merupakan kontradiksi. Jadi, tidak ada skalar $\alpha_1, \alpha_2$ yang memenuhi.
+    Maka, $\vektor{u}$ \textbf{bukan} kombinasi linear dari $\vektor{v}$ dan $\vektor{w}$.
+\end{enumerate}
+\end{contoh}
+
+\section{Ruang yang Direntang (Span)}
+\begin{definisi}
+Misalkan $V$ suatu ruang vektor dan $S = \{\vektor{u}_1, \vektor{u}_2, \dots, \vektor{u}_k\}$ adalah sebuah himpunan (berhingga) vektor-vektor di $V$. \textbf{Ruang yang direntang} (atau \textbf{dibangun}) oleh $S$, dinotasikan $\spanof{S}$ atau $\spanof{\vektor{u}_1, \dots, \vektor{u}_k}$, adalah himpunan dari semua kemungkinan kombinasi linear dari vektor-vektor di $S$.
+\[ \spanof{S} = \{ \alpha_1\vektor{u}_1 + \alpha_2\vektor{u}_2 + \dots + \alpha_k\vektor{u}_k \mid \alpha_i \in \R \} \]
+Jika $S = \emptyset$ (himpunan kosong), maka didefinisikan $\spanof{\emptyset} = \{\nol\}$ (himpunan yang hanya berisi vektor nol).
+\end{definisi}
+Penting untuk dicatat bahwa $\spanof{S}$ selalu merupakan subruang dari $V$.
+
+\begin{contoh}
+\begin{enumerate}
+    \item Ruang yang direntang oleh $S_1 = \{(1,0)\}$ di $\R^2$ adalah:
+    \[ \spanof{S_1} = \{k(1,0) \mid k \in \R\} = \{(k,0) \mid k \in \R\} \]
+    Jika dilihat sebagai himpunan titik di bidang Kartesius, $\spanof{S_1}$ adalah sumbu-x.
+    \textbf{Fakta}:
+    \begin{itemize}
+        \item Jelas bahwa $\spanof{S_1} \neq \R^2$.
+        \item Jika $S_2 = \{(2,0)\}$, maka $\spanof{S_1} = \spanof{S_2}$ karena setiap kelipatan dari $(1,0)$ juga merupakan kelipatan dari $(2,0)$ (dengan skalar yang berbeda), dan sebaliknya. Misalnya, $(k,0) = \frac{k}{2}(2,0)$.
+    \end{itemize}
+
+    \item Ruang yang direntang oleh $S_2 = \{(1,1)\}$ di $\R^2$ adalah:
+    \[ \spanof{S_2} = \{k(1,1) \mid k \in \R\} = \{(k,k) \mid k \in \R\} \]
+    Jika dilihat sebagai himpunan titik, $\spanof{S_2}$ adalah garis $y=x$.
+    \textbf{Fakta}:
+    \begin{itemize}
+        \item Jelas bahwa $\spanof{S_1} \neq \spanof{S_2}$ dari contoh sebelumnya.
+        \item Vektor tak nol di $\spanof{S_1} \cap \spanof{S_2}$?
+        Misalkan $\vektor{v} \in \spanof{S_1} \cap \spanof{S_2}$. Maka $\vektor{v} = (k,0)$ dan $\vektor{v} = (m,m)$ untuk suatu $k,m \in \R$.
+        Jadi $(k,0) = (m,m)$, yang berarti $k=m$ dan $0=m$. Maka $m=0$ dan $k=0$.
+        Jadi, satu-satunya vektor di irisan tersebut adalah vektor nol $(0,0)$.
+    \end{itemize}
+
+    \item Ruang yang direntang oleh $U = \{(1,0), (0,1)\}$ di $\R^2$ adalah:
+    \[ \spanof{U} = \{\alpha(1,0) + \beta(0,1) \mid \alpha, \beta \in \R\} = \{(\alpha, \beta) \mid \alpha, \beta \in \R\} = \R^2 \]
+    Jadi, himpunan $\{(1,0), (0,1)\}$ merentang seluruh ruang $\R^2$.
+
+    \item Ruang yang direntang oleh $U = \{1+x, -1+x+x^2\}$ di $\Poly_2$ adalah:
+    \[ \spanof{U} = \{k(1+x) + l(-1+x+x^2) \mid k,l \in \R \} \]
+    \[ = \{(k-l) + (k+l)x + lx^2 \mid k,l \in \R \} \]
+    Ini adalah subruang dari $\Poly_2$.
+\end{enumerate}
+\end{contoh}
+
+\section{Himpunan Merentang (Spanning Set)}
+Pertanyaan penting muncul: mungkinkah setiap vektor $\vektor{u}$ dalam suatu ruang vektor $V$ dapat ditulis sebagai kombinasi linear dari suatu himpunan vektor $\{\vektor{v}_1, \dots, \vektor{v}_n\} \subset V$?
+Jika jawabannya ya, berarti persamaan vektor $\vektor{u} = \alpha_1\vektor{v}_1 + \dots + \alpha_n\vektor{v}_n$ selalu mempunyai solusi untuk skalar $\alpha_1, \dots, \alpha_n$ untuk setiap $\vektor{u} \in V$.
+Jika demikian, kita katakan bahwa himpunan $\{\vektor{v}_1, \dots, \vektor{v}_n\}$ merentang atau membangun $V$.
+
+\begin{definisi}
+Misalkan $V$ suatu ruang vektor, dan $S \subseteq V$. Himpunan $S$ dikatakan \textbf{merentang} (atau \textbf{membangun}) $V$ jika $\spanof{S} = V$.
+Dengan kata lain, $S$ merentang $V$ jika setiap vektor di $V$ dapat ditulis sebagai kombinasi linear dari vektor-vektor di $S$.
+\end{definisi}
+
+\begin{contoh}
+Buktikan bahwa $U = \{(1,1), (1,-1)\}$ merentang $\R^2$.
+\textbf{Bukti}:
+Kita perlu menunjukkan bahwa setiap vektor $\vektor{w} = (a,b) \in \R^2$ dapat ditulis sebagai kombinasi linear dari vektor-vektor di $U$.
+Misalkan $(a,b) = \alpha_1(1,1) + \alpha_2(1,-1) = (\alpha_1+\alpha_2, \alpha_1-\alpha_2)$.
+Ini menghasilkan sistem persamaan:
+\begin{align*} \alpha_1 + \alpha_2 &= a \\ \alpha_1 - \alpha_2 &= b \end{align*}
+Jumlahkan kedua persamaan: $2\alpha_1 = a+b \Rightarrow \alpha_1 = \frac{a+b}{2}$.
+Kurangkan persamaan kedua dari pertama: $2\alpha_2 = a-b \Rightarrow \alpha_2 = \frac{a-b}{2}$.
+Karena kita selalu dapat menemukan $\alpha_1$ dan $\alpha_2$ untuk setiap $a,b \in \R$, maka $U$ merentang $\R^2$.
+\end{contoh}
+
+\subsection{Menentukan Apakah Suatu Himpunan Merentang Ruang Vektor}
+Untuk menentukan apakah himpunan vektor $S = \{\vektor{v}_1, \dots, \vektor{v}_k\}$ merentang ruang vektor $V$ (misalnya $\R^n$, $\Poly_m$, $\M_{pq}$), kita ambil sebarang vektor $\vektor{w} \in V$ dan coba tulis $\vektor{w}$ sebagai kombinasi linear dari vektor-vektor di $S$:
+\[ \vektor{w} = c_1\vektor{v}_1 + c_2\vektor{v}_2 + \dots + c_k\vektor{v}_k \]
+Ini akan menghasilkan sistem persamaan linear dalam variabel $c_1, \dots, c_k$. Himpunan $S$ merentang $V$ jika dan hanya jika sistem ini konsisten untuk \textbf{setiap} pilihan $\vektor{w} \in V$.
+\begin{itemize}
+    \item Jika $V = \R^n$: Representasikan $\vektor{v}_i$ dan $\vektor{w}$ sebagai vektor kolom. Bentuk matriks augmented $[ \vektor{v}_1 \vektor{v}_2 \dots \vektor{v}_k | \vektor{w} ]$. Himpunan $S$ merentang $\R^n$ jika sistem ini konsisten untuk semua $\vektor{w}$. Ini terjadi jika rank matriks koefisien $[\vektor{v}_1 \dots \vektor{v}_k]$ adalah $n$. Jika $k < n$, $S$ tidak mungkin merentang $\R^n$. Jika $k \ge n$, kita perlu memeriksa rank.
+    \item Jika $V = \Poly_m$: Representasikan polinom sebagai vektor koordinat terhadap basis standar. Kemudian lakukan analisis seperti pada $\R^{m+1}$.
+    \item Jika $V = \M_{pq}$: Representasikan matriks sebagai vektor koordinat (misalnya, dengan "meratakan" matriks menjadi vektor baris atau kolom). Kemudian lakukan analisis seperti pada $\R^{pq}$.
+\end{itemize}
+
+\begin{teorema}
+Misalkan $S = \{\vektor{v}_1, \vektor{v}_2, \dots, \vektor{v}_k\}$ adalah himpunan vektor-vektor di $\R^n$.
+\begin{enumerate}
+    \item Jika $k < n$, maka $S$ tidak merentang $\R^n$.
+    \item Jika $k \ge n$, maka $S$ merentang $\R^n$ jika dan hanya jika rank dari matriks $A = [\vektor{v}_1 \vektor{v}_2 \dots \vektor{v}_k]$ (dimana $\vektor{v}_i$ adalah vektor kolom) adalah $n$. (Artinya, bentuk eselon baris dari $A$ memiliki $n$ pivot).
+\end{enumerate}
+\end{teorema}
+
+\end{document}

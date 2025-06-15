@@ -1,0 +1,207 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage{amsmath} % Untuk lingkungan matriks dan perintah matematika lainnya
+\usepackage{amsfonts} % Untuk simbol matematika
+\usepackage{amssymb} % Untuk simbol \mathbb{R}
+\usepackage{geometry} % Untuk mengatur margin
+\usepackage[indonesian]{babel} % Mengatur bahasa Indonesia
+\usepackage{array} % Untuk kolom tabel yang lebih baik
+\usepackage{booktabs} % Untuk garis tabel yang lebih baik
+\usepackage{graphicx} % Untuk menyertakan gambar (jika diperlukan)
+\usepackage{hyperref} % Untuk hyperlink (jika diperlukan)
+\usepackage{amsthm} % Untuk lingkungan definisi dan teorema
+\usepackage{enumitem} % Untuk kustomisasi label pada enumerate
+\usepackage{nicematrix} % Untuk matriks dengan garis partisi
+\usepackage{palatino} % Menggunakan font Palatino untuk tampilan yang lebih menarik
+\usepackage{listings} % Untuk kode (jika diperlukan)
+\usepackage{systeme} % Untuk sistem persamaan
+
+\geometry{a4paper, margin=1in, headheight=15pt} % Mengatur margin halaman
+
+% Definisi lingkungan baru
+\theoremstyle{definition} % Gaya standar untuk definisi dan contoh
+\newtheorem{definisi}{Definisi}[section]
+\newtheorem{contoh}{Contoh}[section]
+\newtheorem{catatan}{Catatan}[section]
+\theoremstyle{plain} % Gaya standar untuk teorema
+\newtheorem{teorema}{Teorema}[section]
+\newtheorem{fakta}{Fakta}[section]
+\newtheorem{proposisi}{Proposisi}[section]
+\newtheorem{akibat}{Akibat}[section]
+
+% Definisi perintah baru untuk kemudahan
+\newcommand{\matriks}[1]{\begin{pmatrix} #1 \end{pmatrix}} % Perintah untuk matriks
+\newcommand{\R}{\mathbb{R}} % Simbol R untuk bilangan real
+\newcommand{\Poly}{\mathbb{P}} % Simbol P untuk polinom
+\newcommand{\vektor}[1]{\mathbf{#1}} % Perintah untuk vektor tebal
+\newcommand{\nol}{\mathbf{0}} % Vektor nol
+\newcommand{\Transformasi}[1]{T\left(#1\right)} % Notasi Transformasi
+\newcommand{\TransformasiKurung}[1]{T[#1]} % Notasi Transformasi dengan kurung siku
+\newcommand{\kernel}{\text{ker}} % Kernel
+\newcommand{\rank}{\text{rank}} % Rank
+\newcommand{\Range}{\text{R}} % Jangkauan (Range)
+\newcommand{\nulitas}{\text{nulitas}} % Nulitas
+
+\title{Transformasi Linear}
+\author{Rafi Kamindra}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Definisi Transformasi Linear}
+Dalam aljabar linear, transformasi linear adalah fungsi antara dua ruang vektor yang mempertahankan operasi penjumlahan vektor dan perkalian skalar.
+
+\begin{definisi}
+Misalkan $V$ dan $W$ masing-masing adalah ruang vektor atas lapangan skalar $\R$. Sebuah transformasi (pemetaan) $T: V \longrightarrow W$ dikatakan \textbf{linear} jika untuk semua vektor $\vektor{u}, \vektor{v} \in V$ dan semua skalar $\alpha \in \R$ berlaku kedua sifat berikut:
+\begin{enumerate}[label=(\roman*)]
+    \item \textbf{Aditivitas}: $\Transformasi{\vektor{u} + \vektor{v}} = \Transformasi{\vektor{u}} + \Transformasi{\vektor{v}}$
+    \item \textbf{Homogenitas}: $\Transformasi{\alpha \vektor{u}} = \alpha \Transformasi{\vektor{u}}$
+\end{enumerate}
+Jika $\Transformasi{\vektor{v}} = \vektor{w}$, maka $\vektor{w}$ disebut \textbf{peta} (image) dari $\vektor{v}$ oleh $T$, dan $\vektor{v}$ disebut \textbf{prapeta} (preimage) dari $\vektor{w}$.
+\end{definisi}
+Kedua sifat di atas dapat digabungkan menjadi satu syarat: $T(\alpha\vektor{u} + \beta\vektor{v}) = \alpha T(\vektor{u}) + \beta T(\vektor{v})$ untuk semua $\vektor{u},\vektor{v} \in V$ dan semua skalar $\alpha, \beta \in \R$.
+
+\begin{fakta}
+Jika $T: V \longrightarrow W$ adalah transformasi linear, maka $T$ memetakan vektor nol di $V$ ke vektor nol di $W$, yaitu $\Transformasi{\nol_V} = \nol_W$.
+\end{fakta}
+\begin{proof}
+Kita dapat menulis $\nol_V = 0\vektor{u}$ untuk suatu $\vektor{u} \in V$. Dengan menggunakan sifat homogenitas (ii):
+\[ \Transformasi{\nol_V} = \Transformasi{0\vektor{u}} = 0 \Transformasi{\vektor{u}} \]
+Karena $0$ dikalikan vektor apapun di $W$ menghasilkan vektor nol di $W$, maka $0 \Transformasi{\vektor{u}} = \nol_W$.
+Jadi, $\Transformasi{\nol_V} = \nol_W$.
+\end{proof}
+Fakta ini sering digunakan sebagai tes awal: jika $\Transformasi{\nol_V} \neq \nol_W$, maka $T$ pasti tidak linear. Namun, jika $\Transformasi{\nol_V} = \nol_W$, belum tentu $T$ linear; kedua aksioma utama tetap harus diperiksa.
+
+\section{Contoh-Contoh Transformasi Linear dan Bukan Linear}
+
+\begin{contoh}[Pemetaan Nol dan Pemetaan Identitas]
+\begin{enumerate}
+    \item \textbf{Pemetaan Nol}: Misalkan $V$ dan $W$ adalah ruang vektor. Definisikan pemetaan $T_0: V \longrightarrow W$ dengan $\TransformasiKurung{\vektor{x}} = \nol_W$ untuk setiap $\vektor{x} \in V$.
+    Kita periksa kelinearannya:
+    \begin{itemize}
+        \item $T_0[\vektor{u}+\vektor{v}] = \nol_W$. Juga, $T_0[\vektor{u}] + T_0[\vektor{v}] = \nol_W + \nol_W = \nol_W$. Jadi, $T_0[\vektor{u}+\vektor{v}] = T_0[\vektor{u}] + T_0[\vektor{v}]$.
+        \item $T_0[\alpha\vektor{u}] = \nol_W$. Juga, $\alpha T_0[\vektor{u}] = \alpha \nol_W = \nol_W$. Jadi, $T_0[\alpha\vektor{u}] = \alpha T_0[\vektor{u}]$.
+    \end{itemize}
+    Karena kedua sifat terpenuhi, pemetaan nol $T_0$ adalah transformasi linear.
+
+    \item \textbf{Pemetaan Identitas}: Misalkan $V$ suatu ruang vektor. Definisikan pemetaan $I: V \longrightarrow V$ dengan $\TransformasiKurung{\vektor{x}} = \vektor{x}$ untuk setiap $\vektor{x} \in V$.
+    \begin{itemize}
+        \item $I[\vektor{u}+\vektor{v}] = \vektor{u}+\vektor{v}$. Juga, $I[\vektor{u}] + I[\vektor{v}] = \vektor{u} + \vektor{v}$. Jadi, $I[\vektor{u}+\vektor{v}] = I[\vektor{u}] + I[\vektor{v}]$.
+        \item $I[\alpha\vektor{u}] = \alpha\vektor{u}$. Juga, $\alpha I[\vektor{u}] = \alpha\vektor{u}$. Jadi, $I[\alpha\vektor{u}] = \alpha I[\vektor{u}]$.
+    \end{itemize}
+    Karena kedua sifat terpenuhi, pemetaan identitas $I$ adalah transformasi linear.
+\end{enumerate}
+\end{contoh}
+
+\begin{contoh}[Transformasi Tidak Linear]
+Definisikan pemetaan $T: \R^2 \longrightarrow \R^2$ dengan $T[(x,y)] = (x+y, y+2)$ untuk $(x,y) \in \R^2$.
+Periksa apakah $T$ linear.
+\textbf{Solusi}:
+Kita periksa apakah $T$ memetakan vektor nol ke vektor nol.
+$T[(0,0)] = (0+0, 0+2) = (0,2)$.
+Karena $T[(0,0)] = (0,2) \neq (0,0)$ (vektor nol di $\R^2$), maka $T$ \textbf{bukan} transformasi linear.
+\end{contoh}
+
+\begin{contoh}[Transformasi Linear dari $\R^2$ ke $\R^2$]
+Didefinisikan pemetaan $T: \R^2 \longrightarrow \R^2$ dengan $T[(x,y)] = (x+2y, 3x-y)$.
+\begin{itemize}
+    \item Tentukan peta dari $\vektor{u}=(1,2)$ dan prapeta dari $(1,1)$.
+    \item Periksa, apakah $T$ linear.
+\end{itemize}
+\textbf{Solusi}:
+\begin{itemize}
+    \item Peta dari $\vektor{u}=(1,2)$ adalah $T[(1,2)] = (1+2(2), 3(1)-2) = (1+4, 3-2) = (5,1)$.
+    \item Prapeta dari $(1,1)$ adalah $(x,y) \in \R^2$ yang memenuhi $T[(x,y)] = (1,1)$.
+    $(x+2y, 3x-y) = (1,1)$. Ini menghasilkan sistem:
+    \begin{align*} x + 2y &= 1 \\ 3x - y &= 1 \end{align*}
+    Dari persamaan kedua, $y = 3x-1$. Substitusi ke persamaan pertama:
+    $x + 2(3x-1) = 1 \Rightarrow x + 6x - 2 = 1 \Rightarrow 7x = 3 \Rightarrow x = 3/7$.
+    Maka $y = 3(3/7) - 1 = 9/7 - 7/7 = 2/7$.
+    Jadi, prapeta dari $(1,1)$ adalah $(3/7, 2/7)$.
+
+    \item Periksa kelinearan $T$:
+    Ambil $\vektor{u}=(x_1,y_1)$, $\vektor{v}=(x_2,y_2) \in \R^2$, dan $\alpha \in \R$.
+    \begin{enumerate}[label=(\roman*)]
+        \item Aditivitas:
+        \begin{align*}
+        T[\vektor{u}+\vektor{v}] &= T[(x_1+x_2, y_1+y_2)] \\
+        &= ((x_1+x_2) + 2(y_1+y_2), 3(x_1+x_2) - (y_1+y_2)) \\
+        &= (x_1+2y_1 + x_2+2y_2, 3x_1-y_1 + 3x_2-y_2) \\
+        &= (x_1+2y_1, 3x_1-y_1) + (x_2+2y_2, 3x_2-y_2) \\
+        &= T[\vektor{u}] + T[\vektor{v}].
+        \end{align*}
+        \item Homogenitas:
+        \begin{align*}
+        T[\alpha\vektor{u}] &= T[(\alpha x_1, \alpha y_1)] \\
+        &= (\alpha x_1 + 2\alpha y_1, 3\alpha x_1 - \alpha y_1) \\
+        &= \alpha(x_1+2y_1, 3x_1-y_1) \\
+        &= \alpha T[\vektor{u}].
+        \end{align*}
+    \end{enumerate}
+    Karena kedua sifat terpenuhi, $T$ adalah transformasi linear.
+\end{itemize}
+\end{contoh}
+
+\begin{contoh}[Transformasi Matriks]
+Didefinisikan pemetaan $T: \R^3 \longrightarrow \R^2$ dengan $T[\vektor{u}] = A\vektor{u}$ dimana $A = \matriks{1 & -2 & 1 \\ 2 & 0 & 3}$.
+Peta dari $\vektor{u}=(1,2,3)^T$ adalah $A\vektor{u} = \matriks{1 & -2 & 1 \\ 2 & 0 & 3} \matriks{1 \\ 2 \\ 3} = \matriks{1-4+3 \\ 2+0+9} = \matriks{0 \\ 11}$.
+Transformasi yang didefinisikan oleh perkalian matriks selalu linear.
+Ambil $\vektor{u}, \vektor{v} \in \R^3$ dan $\alpha \in \R$.
+\begin{enumerate}[label=(\roman*)]
+    \item $T[\vektor{u}+\vektor{v}] = A(\vektor{u}+\vektor{v}) = A\vektor{u} + A\vektor{v}$ (sifat distributif perkalian matriks) $= T[\vektor{u}] + T[\vektor{v}]$.
+    \item $T[\alpha\vektor{u}] = A(\alpha\vektor{u}) = \alpha(A\vektor{u})$ (sifat asosiatif skalar pada perkalian matriks) $= \alpha T[\vektor{u}]$.
+\end{enumerate}
+Jadi, $T$ adalah transformasi linear. Secara umum, setiap transformasi matriks $T_A: \R^n \to \R^m$ yang didefinisikan oleh $T_A(\vektor{x}) = A\vektor{x}$ (dimana $A$ adalah matriks $m \times n$) adalah transformasi linear.
+\end{contoh}
+
+\begin{contoh}[Transformasi pada Ruang Polinom]
+Didefinisikan pemetaan $T: \Poly_2 \longrightarrow \Poly_2$ dengan $T[a+bx+cx^2] = a+(b+c)x+cx^2$.
+Ambil $\vektor{u} = a+bx+cx^2$, $\vektor{v} = d+ex+fx^2 \in \Poly_2$, dan $\alpha \in \R$.
+\begin{enumerate}[label=(\roman*)]
+    \item $T[\vektor{u}+\vektor{v}] = T[(a+d)+(b+e)x+(c+f)x^2]$
+    $= (a+d) + ((b+e)+(c+f))x + (c+f)x^2$
+    $= (a+d) + (b+c+e+f)x + (c+f)x^2$.
+    $T[\vektor{u}] + T[\vektor{v}] = (a+(b+c)x+cx^2) + (d+(e+f)x+fx^2)$
+    $= (a+d) + (b+c+e+f)x + (c+f)x^2$.
+    Jadi, $T[\vektor{u}+\vektor{v}] = T[\vektor{u}] + T[\vektor{v}]$.
+    \item $T[\alpha\vektor{u}] = T[\alpha a + \alpha b x + \alpha c x^2]$
+    $= (\alpha a) + (\alpha b + \alpha c)x + (\alpha c)x^2$
+    $= \alpha (a + (b+c)x + cx^2) = \alpha T[\vektor{u}]$.
+\end{enumerate}
+Karena kedua sifat terpenuhi, $T$ adalah transformasi linear.
+\end{contoh}
+
+\section{Cara Mendefinisikan Transformasi Linear}
+Misalkan $V$ dan $W$ masing-masing adalah ruang vektor. Ada dua cara utama untuk mendefinisikan transformasi linear $T: V \longrightarrow W$:
+\begin{enumerate}
+    \item \textbf{Menyatakan peta setiap vektor di $V$ secara eksplisit} (dengan rumus umum).
+    Contoh: $T[(x,y)] = (x+2y, 3x-y)$.
+    \item \textbf{Menentukan peta dari vektor-vektor basis untuk $V$}.
+    Jika $B=\{\vektor{v}_1, \dots, \vektor{v}_n\}$ adalah basis untuk $V$, dan kita mengetahui $T[\vektor{v}_1], \dots, T[\vektor{v}_n]$, maka peta dari sebarang vektor $\vektor{x} \in V$ dapat ditentukan.
+    Karena $\vektor{x} = c_1\vektor{v}_1 + \dots + c_n\vektor{v}_n$ untuk skalar unik $c_i$, maka karena kelinearan $T$:
+    \[ T[\vektor{x}] = T[c_1\vektor{v}_1 + \dots + c_n\vektor{v}_n] = c_1T[\vektor{v}_1] + \dots + c_n T[\vektor{v}_n] \]
+\end{enumerate}
+
+\begin{contoh}
+Definisikan transformasi linear $T: \R^2 \longrightarrow \R^2$ dimana $T[(1,0)]=(1,2)$ dan $T[(0,1)]=(2,-3)$.
+\begin{itemize}
+    \item Apa hasil pemetaan $(3,4)$ oleh $T$?
+    \item Secara umum, apa rumus $T[(a,b)]$?
+\end{itemize}
+\textbf{Solusi}:
+Basis standar untuk $\R^2$ adalah $B=\{\vektor{e}_1=(1,0), \vektor{e}_2=(0,1)\}$.
+Sebarang vektor $(a,b) \in \R^2$ dapat ditulis sebagai $(a,b) = a(1,0) + b(0,1) = a\vektor{e}_1 + b\vektor{e}_2$.
+Maka,
+\begin{align*}
+T[(a,b)] &= T[a\vektor{e}_1 + b\vektor{e}_2] \\
+&= aT[\vektor{e}_1] + bT[\vektor{e}_2] \quad (\text{karena } T \text{ linear}) \\
+&= a(1,2) + b(2,-3) \\
+&= (a,2a) + (2b,-3b) \\
+&= (a+2b, 2a-3b)
+\end{align*}
+Ini adalah rumus umum untuk $T[(a,b)]$.
+Untuk $(3,4)$: $a=3, b=4$.
+$T[(3,4)] = (3+2(4), 2(3)-3(4)) = (3+8, 6-12) = (11, -6)$.
+\end{contoh}
+
+\end{document}

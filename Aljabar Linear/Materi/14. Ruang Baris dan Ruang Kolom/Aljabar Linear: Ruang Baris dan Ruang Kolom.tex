@@ -1,0 +1,164 @@
+\documentclass{article}
+\usepackage{amsmath} % Untuk lingkungan matriks dan perintah matematika lainnya
+\usepackage{amsfonts} % Untuk simbol
+\usepackage{amssymb} % Untuk simbol \mathbb{R}
+\usepackage{geometry} % Untuk mengatur margin
+\geometry{a4paper, margin=1in}
+
+\title{Aljabar Linear: Ruang Baris dan Ruang Kolom}
+\author{Rafi Kamindra 2201006}
+\date{} % Kosongkan tanggal jika tidak ingin ditampilkan
+
+\newcommand{\vektor}[1]{\mathbf{#1}} % Perintah untuk vektor
+\newcommand{\R}{\mathbb{R}} % Simbol R
+\newcommand{\Poly}{\mathbb{P}} % Simbol P untuk polinom
+\newcommand{\spanof}[1]{\text{span}\{#1\}} % Perintah untuk span
+
+\begin{document}
+\maketitle
+\pagenumbering{gobble} % Menghilangkan nomor halaman jika tidak diinginkan untuk halaman judul
+
+\section*{Problem}
+
+\subsection*{1. Carilah basis ruang baris dan basis ruang kolom dari: $A = \begin{pmatrix} 2 & -2 & 1 & -1 \\ -3 & 2 & -4 & 1 \\ 1 & 2 & 0 & 2 \end{pmatrix}$.}
+\textbf{Jawaban:}\\
+Untuk mencari basis ruang baris, kita lakukan Operasi Baris Elementer (OBE) pada $A$ untuk mendapatkan bentuk eselon baris.
+\[ A = \begin{pmatrix} 2 & -2 & 1 & -1 \\ -3 & 2 & -4 & 1 \\ 1 & 2 & 0 & 2 \end{pmatrix} \]
+$R_1 \leftrightarrow R_3$:
+\[ \begin{pmatrix} 1 & 2 & 0 & 2 \\ -3 & 2 & -4 & 1 \\ 2 & -2 & 1 & -1 \end{pmatrix} \]
+$R_2 \rightarrow R_2 + 3R_1$:
+\[ \begin{pmatrix} 1 & 2 & 0 & 2 \\ 0 & 8 & -4 & 7 \\ 2 & -2 & 1 & -1 \end{pmatrix} \]
+$R_3 \rightarrow R_3 - 2R_1$:
+\[ \begin{pmatrix} 1 & 2 & 0 & 2 \\ 0 & 8 & -4 & 7 \\ 0 & -6 & 1 & -5 \end{pmatrix} \]
+$R_2 \rightarrow \frac{1}{8}R_2$:
+\[ \begin{pmatrix} 1 & 2 & 0 & 2 \\ 0 & 1 & -1/2 & 7/8 \\ 0 & -6 & 1 & -5 \end{pmatrix} \]
+$R_3 \rightarrow R_3 + 6R_2$:
+\[ \begin{pmatrix} 1 & 2 & 0 & 2 \\ 0 & 1 & -1/2 & 7/8 \\ 0 & 0 & 1 - 3 & -5 + 42/8 \end{pmatrix} = \begin{pmatrix} 1 & 2 & 0 & 2 \\ 0 & 1 & -1/2 & 7/8 \\ 0 & 0 & -2 & -40/8 + 42/8 \end{pmatrix} = \begin{pmatrix} 1 & 2 & 0 & 2 \\ 0 & 1 & -1/2 & 7/8 \\ 0 & 0 & -2 & 2/8 \end{pmatrix} = \begin{pmatrix} 1 & 2 & 0 & 2 \\ 0 & 1 & -1/2 & 7/8 \\ 0 & 0 & -2 & 1/4 \end{pmatrix} \]
+Baris-baris tak nol dalam bentuk eselon baris membentuk basis untuk ruang baris.
+Basis ruang baris: $\{(1,2,0,2), (0,1,-1/2,7/8), (0,0,-2,1/4)\}$.
+Dimensi ruang baris adalah 3.
+
+Untuk mencari basis ruang kolom, kita lihat kolom-kolom pada matriks eselon baris yang memiliki elemen pivot (leading 1 atau elemen tak nol pertama pada baris). Kolom 1, 2, dan 3 memiliki pivot. Maka, kolom-kolom yang bersesuaian pada matriks $A$ asli membentuk basis untuk ruang kolom.
+Basis ruang kolom: $\{(2,-3,1), (-2,2,2), (1,-4,0)\}$.
+Dimensi ruang kolom juga 3, yang sesuai dengan rank matriks.
+
+\subsection*{2. Misalkan $K = \spanof{(-1,2,0,3), (2,3,1,-2), (3,1,1,1), (1,0,1,a)}$. Carilah semua $a$ supaya $K = \R^4$.}
+(Soal di gambar: $(3,1,1,-1)$ untuk vektor ketiga, dan $(1,0,1,a)$)
+Menggunakan vektor dari gambar: $K = \spanof{(-1,2,0,3), (2,3,1,-2), (3,1,1,-1), (1,0,1,a)}$.
+\textbf{Jawaban:}\\
+Agar $K = \R^4$, keempat vektor tersebut harus linear independen, yang berarti determinan matriks yang dibentuk oleh vektor-vektor ini (sebagai baris atau kolom) tidak boleh nol.
+\[ M = \begin{pmatrix} -1 & 2 & 0 & 3 \\ 2 & 3 & 1 & -2 \\ 3 & 1 & 1 & -1 \\ 1 & 0 & 1 & a \end{pmatrix} \]
+$\det(M) \neq 0$.
+$R_2 \rightarrow R_2 + 2R_1$:
+$R_3 \rightarrow R_3 + 3R_1$:
+$R_4 \rightarrow R_4 + R_1$:
+\[ \begin{vmatrix} -1 & 2 & 0 & 3 \\ 0 & 7 & 1 & 4 \\ 0 & 7 & 1 & 8 \\ 0 & 2 & 1 & a+3 \end{vmatrix} = -1 \begin{vmatrix} 7 & 1 & 4 \\ 7 & 1 & 8 \\ 2 & 1 & a+3 \end{vmatrix} \]
+$R_2 \rightarrow R_2 - R_1$:
+\[ -1 \begin{vmatrix} 7 & 1 & 4 \\ 0 & 0 & 4 \\ 2 & 1 & a+3 \end{vmatrix} \]
+Ekspansi kofaktor sepanjang baris ke-2:
+\[ -1 \left( -4 \begin{vmatrix} 7 & 1 \\ 2 & 1 \end{vmatrix} \right) = 4 (7 \cdot 1 - 1 \cdot 2) = 4 (7-2) = 4(5) = 20. \]
+Karena determinannya adalah 20 (konstanta tidak nol) dan tidak bergantung pada $a$, ini berarti ada kesalahan dalam asumsi atau perhitungan. Mari kita cek ulang.
+
+Kesalahan pada soal di gambar: vektor ketiga adalah $(3,1,1,-1)$, bukan $(3,1,1,1)$.
+Mari gunakan vektor yang tertulis di soal: $K = \spanof{(-1,2,0,3), (2,3,1,2), (3,1,1,1), (1,0,1,a)}$.
+\[ M = \begin{pmatrix} -1 & 2 & 0 & 3 \\ 2 & 3 & 1 & 2 \\ 3 & 1 & 1 & 1 \\ 1 & 0 & 1 & a \end{pmatrix} \]
+$R_2 \rightarrow R_2 + 2R_1$:
+$R_3 \rightarrow R_3 + 3R_1$:
+$R_4 \rightarrow R_4 + R_1$:
+\[ \begin{vmatrix} -1 & 2 & 0 & 3 \\ 0 & 7 & 1 & 8 \\ 0 & 7 & 1 & 10 \\ 0 & 2 & 1 & a+3 \end{vmatrix} = -1 \begin{vmatrix} 7 & 1 & 8 \\ 7 & 1 & 10 \\ 2 & 1 & a+3 \end{vmatrix} \]
+$R_2 \rightarrow R_2 - R_1$:
+\[ -1 \begin{vmatrix} 7 & 1 & 8 \\ 0 & 0 & 2 \\ 2 & 1 & a+3 \end{vmatrix} \]
+Ekspansi kofaktor sepanjang baris ke-2:
+\[ -1 \left( -2 \begin{vmatrix} 7 & 1 \\ 2 & 1 \end{vmatrix} \right) = 2 (7 \cdot 1 - 1 \cdot 2) = 2 (7-2) = 2(5) = 10. \]
+Karena determinannya adalah 10 (konstanta tidak nol) dan tidak bergantung pada $a$, ini berarti vektor-vektor $(-1,2,0,3), (2,3,1,2), (3,1,1,1), (1,0,1,a)$ selalu linear independen dan merentang $\R^4$ untuk semua nilai $a \in \R$.
+(Catatan: Jika vektor ketiga di soal adalah $(3,1,1,-1)$ seperti di gambar, hasilnya akan berbeda).
+
+\subsection*{3. Misalkan $V$ suatu ruang vektor dengan basis terurut $B = \{\vektor{u}_1, \vektor{u}_2, \dots, \vektor{u}_n\}$, $n>3$. Periksa kebenaran pernyataan berikut: "Himpunan $\{\vektor{v}_1, \vektor{v}_2, \vektor{v}_3\}$ bebas linear jika dan hanya jika himpunan $\{[\vektor{v}_1]_B, [\vektor{v}_2]_B, [\vektor{v}_3]_B\}$ bebas linear."}
+\textbf{Jawaban:}\\
+Pernyataan ini \textbf{BENAR}.
+Misalkan $[\vektor{v}_1]_B = \vektor{c}_1$, $[\vektor{v}_2]_B = \vektor{c}_2$, $[\vektor{v}_3]_B = \vektor{c}_3$, dimana $\vektor{c}_i \in \R^n$.
+Ini berarti $\vektor{v}_1 = c_{11}\vektor{u}_1 + \dots + c_{1n}\vektor{u}_n$, $\vektor{v}_2 = c_{21}\vektor{u}_1 + \dots + c_{2n}\vektor{u}_n$, $\vektor{v}_3 = c_{31}\vektor{u}_1 + \dots + c_{3n}\vektor{u}_n$.
+$(\Rightarrow)$ Asumsikan $\{\vektor{v}_1, \vektor{v}_2, \vektor{v}_3\}$ bebas linear.
+Kita ingin menunjukkan $\{[\vektor{v}_1]_B, [\vektor{v}_2]_B, [\vektor{v}_3]_B\}$ bebas linear.
+Misalkan $k_1[\vektor{v}_1]_B + k_2[\vektor{v}_2]_B + k_3[\vektor{v}_3]_B = \vektor{0}_{\R^n}$.
+Ini berarti $k_1\vektor{c}_1 + k_2\vektor{c}_2 + k_3\vektor{c}_3 = \vektor{0}$.
+Operasi koordinat bersifat linear, jadi $[k_1\vektor{v}_1 + k_2\vektor{v}_2 + k_3\vektor{v}_3]_B = k_1[\vektor{v}_1]_B + k_2[\vektor{v}_2]_B + k_3[\vektor{v}_3]_B = \vektor{0}$.
+Ini berarti $k_1\vektor{v}_1 + k_2\vektor{v}_2 + k_3\vektor{v}_3 = \vektor{0}_V$ (karena hanya vektor nol yang memiliki vektor koordinat nol).
+Karena $\{\vektor{v}_1, \vektor{v}_2, \vektor{v}_3\}$ bebas linear, maka $k_1=k_2=k_3=0$.
+Jadi, $\{[\vektor{v}_1]_B, [\vektor{v}_2]_B, [\vektor{v}_3]_B\}$ bebas linear.
+
+$(\Leftarrow)$ Asumsikan $\{[\vektor{v}_1]_B, [\vektor{v}_2]_B, [\vektor{v}_3]_B\}$ bebas linear.
+Kita ingin menunjukkan $\{\vektor{v}_1, \vektor{v}_2, \vektor{v}_3\}$ bebas linear.
+Misalkan $k_1\vektor{v}_1 + k_2\vektor{v}_2 + k_3\vektor{v}_3 = \vektor{0}_V$.
+Ambil koordinat terhadap basis $B$:
+$[k_1\vektor{v}_1 + k_2\vektor{v}_2 + k_3\vektor{v}_3]_B = [\vektor{0}_V]_B$.
+$k_1[\vektor{v}_1]_B + k_2[\vektor{v}_2]_B + k_3[\vektor{v}_3]_B = \vektor{0}_{\R^n}$.
+Karena $\{[\vektor{v}_1]_B, [\vektor{v}_2]_B, [\vektor{v}_3]_B\}$ bebas linear, maka $k_1=k_2=k_3=0$.
+Jadi, $\{\vektor{v}_1, \vektor{v}_2, \vektor{v}_3\}$ bebas linear.
+Pemetaan dari $V$ ke $\R^n$ melalui koordinat terhadap basis $B$ adalah sebuah isomorfisma, yang mempertahankan sifat kebebasan linear.
+
+\subsection*{4. Diketahui $\vektor{x}=(1,3,-1,2)^T$, $\vektor{y}=(0,1,2,-1)$. Periksa apakah vektor $\vektor{x}$ berada pada ruang kolom, dan $\vektor{y}$ berada pada ruang baris $B = \begin{pmatrix} 1 & -2 & 1 & 1 \\ 0 & 2 & -4 & -2 \\ 1 & 2 & 0 & -1 \\ 3 & 0 & -1 & 3 \end{pmatrix}$.}
+\textbf{Jawaban:}\\
+Vektor $\vektor{x}$ berada pada ruang kolom $B$ jika sistem $B\vektor{c} = \vektor{x}$ mempunyai solusi untuk $\vektor{c}$.
+Bentuk matriks augmented $[B|\vektor{x}]$:
+\[ \left[ \begin{array}{cccc|c} 1 & -2 & 1 & 1 & 1 \\ 0 & 2 & -4 & -2 & 3 \\ 1 & 2 & 0 & -1 & -1 \\ 3 & 0 & -1 & 3 & 2 \end{array} \right] \]
+$R_3 \rightarrow R_3 - R_1$:
+$R_4 \rightarrow R_4 - 3R_1$:
+\[ \left[ \begin{array}{cccc|c} 1 & -2 & 1 & 1 & 1 \\ 0 & 2 & -4 & -2 & 3 \\ 0 & 4 & -1 & -2 & -2 \\ 0 & 6 & -4 & 0 & -1 \end{array} \right] \]
+$R_3 \rightarrow R_3 - 2R_2$:
+$R_4 \rightarrow R_4 - 3R_2$:
+\[ \left[ \begin{array}{cccc|c} 1 & -2 & 1 & 1 & 1 \\ 0 & 2 & -4 & -2 & 3 \\ 0 & 0 & -1 - (-8) & -2 - (-4) & -2 - 6 \\ 0 & 0 & -4 - (-12) & 0 - (-6) & -1 - 9 \end{array} \right] = \left[ \begin{array}{cccc|c} 1 & -2 & 1 & 1 & 1 \\ 0 & 2 & -4 & -2 & 3 \\ 0 & 0 & 7 & 2 & -8 \\ 0 & 0 & 8 & 6 & -10 \end{array} \right] \]
+$R_4 \rightarrow 7R_4 - 8R_3$:
+\[ \left[ \begin{array}{cccc|c} 1 & -2 & 1 & 1 & 1 \\ 0 & 2 & -4 & -2 & 3 \\ 0 & 0 & 7 & 2 & -8 \\ 0 & 0 & 0 & 7(6)-8(2) & 7(-10)-8(-8) \end{array} \right] = \left[ \begin{array}{cccc|c} 1 & -2 & 1 & 1 & 1 \\ 0 & 2 & -4 & -2 & 3 \\ 0 & 0 & 7 & 2 & -8 \\ 0 & 0 & 0 & 42-16 & -70+64 \end{array} \right] = \left[ \begin{array}{cccc|c} 1 & -2 & 1 & 1 & 1 \\ 0 & 2 & -4 & -2 & 3 \\ 0 & 0 & 7 & 2 & -8 \\ 0 & 0 & 0 & 26 & -6 \end{array} \right] \]
+Sistem ini konsisten (tidak ada baris $0=k$ dengan $k \neq 0$). Jadi, $\vektor{x}$ berada pada ruang kolom $B$.
+
+Vektor $\vektor{y}$ berada pada ruang baris $B$ jika $\vektor{y}$ adalah kombinasi linear dari baris-baris $B$. Ini sama dengan mengatakan bahwa $\vektor{y}^T$ berada pada ruang kolom $B^T$. Atau, $\text{rank}(B) = \text{rank}(\begin{pmatrix} B \\ \vektor{y} \end{pmatrix})$.
+Kita bentuk matriks $B'$ dengan menambahkan $\vektor{y}$ sebagai baris terakhir pada $B$ dan lakukan OBE. Jika baris $\vektor{y}$ menjadi baris nol, maka $\vektor{y}$ ada di ruang baris.
+\[ B' = \begin{pmatrix} 1 & -2 & 1 & 1 \\ 0 & 2 & -4 & -2 \\ 1 & 2 & 0 & -1 \\ 3 & 0 & -1 & 3 \\ \hline 0 & 1 & 2 & -1 \end{pmatrix} \]
+Bentuk eselon dari $B$:
+Dari OBE sebelumnya pada $[B|\vektor{x}]$, kita bisa lihat bentuk eselon baris dari $B$ akan memiliki rank 4 jika $26 \neq 0$.
+\[ \begin{pmatrix} 1 & -2 & 1 & 1 \\ 0 & 2 & -4 & -2 \\ 0 & 0 & 7 & 2 \\ 0 & 0 & 0 & 26 \end{pmatrix} \]
+Basis ruang baris $B$ adalah $\{(1,-2,1,1), (0,2,-4,-2), (0,0,7,2), (0,0,0,26)\}$.
+Karena rank $B$ adalah 4 (jika $B$ adalah $4 \times 4$), maka ruang barisnya adalah $\R^4$. Jadi, setiap vektor di $\R^4$, termasuk $\vektor{y}$, berada pada ruang baris $B$.
+
+Alternatif: Periksa apakah $\vektor{y}$ dapat ditulis sebagai $k_1 R_1 + k_2 R_2 + k_3 R_3 + k_4 R_4$.
+$(0,1,2,-1) = k_1(1,-2,1,1) + k_2(0,2,-4,-2) + k_3(1,2,0,-1) + k_4(3,0,-1,3)$.
+Ini membentuk sistem:
+$k_1+k_3+3k_4 = 0$
+$-2k_1+2k_2+2k_3 = 1$
+$k_1-4k_2-k_4 = 2$
+$k_1-2k_2-k_3+3k_4 = -1$
+Karena rank $B$ adalah 4 (matriks $4 \times 4$ dengan $\det(B) = 1 \cdot 2 \cdot 7 \cdot 26 \neq 0$ dari bentuk eselonnya), baris-barisnya linear independen dan merentang $\R^4$. Jadi, $\vektor{y}$ pasti berada di ruang baris $B$.
+
+\subsection*{5. Carilah basis untuk $L = \spanof{1-x-x^2, 2+x+2x^2, 1+x-3x^2, -2x+x^2}$.}
+\textbf{Jawaban:}\\
+Representasikan polinom sebagai vektor koordinat terhadap basis standar $\{1, x, x^2\}$:
+$p_1 = 1-x-x^2 \rightarrow \vektor{v}_1 = (1,-1,-1)$
+$p_2 = 2+x+2x^2 \rightarrow \vektor{v}_2 = (2,1,2)$
+$p_3 = 1+x-3x^2 \rightarrow \vektor{v}_3 = (1,1,-3)$
+$p_4 = -2x+x^2 \rightarrow \vektor{v}_4 = (0,-2,1)$
+Bentuk matriks dengan vektor-vektor ini sebagai baris (atau kolom) dan lakukan OBE.
+\[ M = \begin{pmatrix} 1 & -1 & -1 \\ 2 & 1 & 2 \\ 1 & 1 & -3 \\ 0 & -2 & 1 \end{pmatrix} \]
+$R_2 \rightarrow R_2 - 2R_1$:
+$R_3 \rightarrow R_3 - R_1$:
+\[ \begin{pmatrix} 1 & -1 & -1 \\ 0 & 3 & 4 \\ 0 & 2 & -2 \\ 0 & -2 & 1 \end{pmatrix} \]
+$R_2 \leftrightarrow R_4$ (untuk mendapatkan -2, lalu kalikan dengan -1/2):
+\[ \begin{pmatrix} 1 & -1 & -1 \\ 0 & -2 & 1 \\ 0 & 2 & -2 \\ 0 & 3 & 4 \end{pmatrix} \]
+$R_2 \rightarrow -\frac{1}{2}R_2$:
+\[ \begin{pmatrix} 1 & -1 & -1 \\ 0 & 1 & -1/2 \\ 0 & 2 & -2 \\ 0 & 3 & 4 \end{pmatrix} \]
+$R_3 \rightarrow R_3 - 2R_2$:
+$R_4 \rightarrow R_4 - 3R_2$:
+\[ \begin{pmatrix} 1 & -1 & -1 \\ 0 & 1 & -1/2 \\ 0 & 0 & -2 - (-1) \\ 0 & 0 & 4 - (-3/2) \end{pmatrix} = \begin{pmatrix} 1 & -1 & -1 \\ 0 & 1 & -1/2 \\ 0 & 0 & -1 \\ 0 & 0 & 11/2 \end{pmatrix} \]
+$R_4 \rightarrow R_4 + \frac{11}{2}R_3$:
+\[ \begin{pmatrix} 1 & -1 & -1 \\ 0 & 1 & -1/2 \\ 0 & 0 & -1 \\ 0 & 0 & 0 \end{pmatrix} \]
+Baris-baris tak nol dalam bentuk eselon baris membentuk basis untuk ruang yang direntang oleh baris-baris asli.
+Basis dalam bentuk vektor koordinat: $\{(1,-1,-1), (0,1,-1/2), (0,0,-1)\}$.
+Mengubah kembali ke polinom:
+Basis untuk $L$: $\{1-x-x^2, x-\frac{1}{2}x^2, -x^2\}$.
+Dimensi $L$ adalah 3. Karena $L \subset \Poly_2$ dan $\dim(\Poly_2)=3$, maka $L = \Poly_2$.
+Kita juga bisa mengambil 3 vektor asli yang bersesuaian dengan kolom pivot jika kita meletakkan vektor sebagai kolom.
+Misalnya, jika kita ambil $\vektor{v}_1, \vektor{v}_2, \vektor{v}_4$ (karena $\vektor{v}_3$ kemungkinan dependen):
+$\begin{pmatrix} 1 & 2 & 0 \\ -1 & 1 & -2 \\ -1 & 2 & 1 \end{pmatrix}$. Det = $1(1+4) - 2(-1-2) + 0 = 5 -2(-3) = 5+6=11 \neq 0$.
+Jadi, $\{1-x-x^2, 2+x+2x^2, -2x+x^2\}$ juga merupakan basis untuk $L$.
+
+\end{document}

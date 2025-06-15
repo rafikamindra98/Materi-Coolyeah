@@ -1,0 +1,240 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage{amsmath} % Untuk lingkungan matriks dan perintah matematika lainnya
+\usepackage{amsfonts} % Untuk simbol matematika
+\usepackage{amssymb} % Untuk simbol \mathbb{R}
+\usepackage{geometry} % Untuk mengatur margin
+\usepackage[indonesian]{babel} % Mengatur bahasa Indonesia
+\usepackage{array} % Untuk kolom tabel yang lebih baik
+\usepackage{booktabs} % Untuk garis tabel yang lebih baik
+\usepackage{graphicx} % Untuk menyertakan gambar (jika diperlukan)
+\usepackage{hyperref} % Untuk hyperlink (jika diperlukan)
+\usepackage{amsthm} % Untuk lingkungan definisi dan teorema
+\usepackage{nicematrix} % Untuk matriks dengan garis partisi
+\usepackage{systeme}
+
+\geometry{a4paper, margin=1in} % Mengatur margin halaman
+
+% Definisi lingkungan baru
+\newtheorem{definisi}{Definisi}[section]
+\newtheorem{contoh}{Contoh}[section]
+\newtheorem{teorema}{Teorema}[section]
+\newtheorem{fakta}{Fakta}[section]
+\newtheorem{proposisi}{Proposisi}[section]
+
+% Definisi perintah baru untuk kemudahan
+\newcommand{\matriks}[1]{\begin{pmatrix} #1 \end{pmatrix}} % Perintah untuk matriks
+\newcommand{\R}{\mathbb{R}} % Simbol R untuk bilangan real
+\newcommand{\M}[1]{\mathcal{M}_{#1}} % Simbol M untuk himpunan matriks
+\newcommand{\rank}{\text{rank}} % Perintah untuk rank
+\newcommand{\vektor}[1]{\mathbf{#1}} % Perintah untuk vektor
+\newcommand{\determinan}[1]{\left| #1 \right|} % Notasi determinan |A|
+\newcommand{\dettext}[1]{\text{det}(#1)} % Notasi determinan det(A)
+\newcommand{\adj}{\text{Adj}} % Perintah untuk Adjoin
+
+\title{Determinan: Metode Kofaktor, Invers Matriks, dan Aturan Cramer}
+\author{Rafi Kamindra 2201006}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Minor dan Kofaktor}
+Metode ekspansi kofaktor adalah salah satu cara untuk menghitung determinan matriks persegi berordo $n \times n$, terutama berguna untuk $n \ge 3$.
+
+\subsection{Minor Entri Matriks}
+\begin{definisi}
+Misalkan $A = [a_{ij}]$ adalah matriks persegi berukuran $n \times n$. \textbf{Minor} dari entri $a_{ij}$, dinotasikan sebagai $\tilde{M}_{ij}$, adalah determinan dari submatriks $(n-1) \times (n-1)$ yang diperoleh dengan cara menghapus baris ke-$i$ dan kolom ke-$j$ dari matriks $A$.
+\end{definisi}
+Perhatikan bahwa minor $\tilde{M}_{ij}$ itu sendiri adalah sebuah nilai skalar (determinan), bukan matriks. (Catatan: Terdapat variasi notasi, terkadang $M_{ij}$ digunakan untuk merujuk pada determinan submatriks tersebut, dan submatriksnya sendiri tidak diberi notasi khusus dalam konteks ini atau disebut submatriks minor). Dalam konteks slide yang diberikan, $\tilde{M}_{ij}$ merujuk pada \textit{matriks minor}, dan $|\tilde{M}_{ij}|$ adalah determinannya. Kita akan mengikuti definisi bahwa minor entri $a_{ij}$ adalah determinan dari submatriksnya. Jadi, kita notasikan minor entri $a_{ij}$ sebagai $M_{ij} = |\tilde{M}_{ij}|$.
+
+\begin{contoh}
+Perhatikan matriks $A = \matriks{0 & 3 & -1 \\ 1 & 1 & -3 \\ -3 & 2 & 0}$.
+Berikut adalah beberapa submatriks minor dan minor entri yang bersesuaian:
+\begin{itemize}
+    \item Submatriks minor untuk $a_{11}$ adalah $\tilde{M}_{11} = \matriks{1 & -3 \\ 2 & 0}$. Minor $M_{11} = \determinan{\begin{smallmatrix} 1 & -3 \\ 2 & 0 \end{smallmatrix}} = (1)(0) - (-3)(2) = 0 - (-6) = 6$.
+    \item Submatriks minor untuk $a_{22}$ adalah $\tilde{M}_{22} = \matriks{0 & -1 \\ -3 & 0}$. Minor $M_{22} = \determinan{\begin{smallmatrix} 0 & -1 \\ -3 & 0 \end{smallmatrix}} = (0)(0) - (-1)(-3) = 0 - 3 = -3$.
+    \item Submatriks minor untuk $a_{23}$ adalah $\tilde{M}_{23} = \matriks{0 & 3 \\ -3 & 2}$. Minor $M_{23} = \determinan{\begin{smallmatrix} 0 & 3 \\ -3 & 2 \end{smallmatrix}} = (0)(2) - (3)(-3) = 0 - (-9) = 9$.
+\end{itemize}
+\end{contoh}
+
+\subsection{Kofaktor Entri Matriks}
+\begin{definisi}
+Misalkan $A = [a_{ij}]$ adalah matriks persegi $n \times n$. \textbf{Kofaktor} dari entri $a_{ij}$, dinotasikan $C_{ij}$ (atau $c_{ij}$), didefinisikan sebagai:
+\[ C_{ij} = (-1)^{i+j} M_{ij} \]
+dimana $M_{ij}$ adalah minor dari entri $a_{ij}$.
+Faktor $(-1)^{i+j}$ menentukan tanda kofaktor. Tanda ini mengikuti pola papan catur:
+\[ \matriks{+ & - & + & \cdots \\ - & + & - & \cdots \\ + & - & + & \cdots \\ \vdots & \vdots & \vdots & \ddots} \]
+\end{definisi}
+
+\begin{contoh}
+Perhatikan matriks $A = \matriks{0 & 3 & -1 \\ 1 & 1 & -3 \\ -3 & 2 & 0}$ dari contoh sebelumnya.
+\begin{itemize}
+    \item Kofaktor $C_{11}$: $i=1, j=1$. $M_{11}=6$.
+    $C_{11} = (-1)^{1+1} M_{11} = (1)(6) = 6$.
+    \item Kofaktor $C_{23}$: $i=2, j=3$. $M_{23}=9$.
+    $C_{23} = (-1)^{2+3} M_{23} = (-1)(9) = -9$.
+    \item Kofaktor $C_{32}$: $i=3, j=2$. $\tilde{M}_{32} = \matriks{0 & -1 \\ 1 & -3}$. $M_{32} = (0)(-3) - (-1)(1) = 0 - (-1) = 1$.
+    $C_{32} = (-1)^{3+2} M_{32} = (-1)(1) = -1$.
+\end{itemize}
+\end{contoh}
+
+\section{Menghitung Determinan Menggunakan Ekspansi Kofaktor}
+\begin{teorema}[Ekspansi Kofaktor]
+Misalkan $A \in M_{n \times n}$. Determinan dari $A$ dapat dihitung dengan menjumlahkan hasil kali entri-entri pada satu baris (atau satu kolom) dengan kofaktor-kofaktornya yang bersesuaian.
+\begin{enumerate}
+    \item \textbf{Ekspansi kofaktor sepanjang baris ke-$i$}:
+    \[ \dettext{A} = \sum_{j=1}^{n} a_{ij}C_{ij} = a_{i1}C_{i1} + a_{i2}C_{i2} + \cdots + a_{in}C_{in} \]
+    \item \textbf{Ekspansi kofaktor sepanjang kolom ke-$j$}:
+    \[ \dettext{A} = \sum_{i=1}^{n} a_{ij}C_{ij} = a_{1j}C_{1j} + a_{2j}C_{2j} + \cdots + a_{nj}C_{nj} \]
+\end{enumerate}
+Hasil determinan akan sama tidak peduli baris atau kolom mana yang dipilih untuk ekspansi.
+\textbf{Tips}: Pilihlah baris atau kolom dengan jumlah entri nol terbanyak untuk mempermudah perhitungan.
+\end{teorema}
+
+\begin{contoh}
+Hitung determinan matriks $A = \matriks{1 & 3 & 2 \\ 1 & 1 & -3 \\ 3 & 2 & -1}$.
+\textbf{Solusi menggunakan ekspansi kofaktor pada baris pertama}:
+\begin{align*}
+\dettext{A} &= a_{11}C_{11} + a_{12}C_{12} + a_{13}C_{13} \\
+&= 1 \cdot (-1)^{1+1} \determinan{\begin{smallmatrix} 1 & -3 \\ 2 & -1 \end{smallmatrix}} + 3 \cdot (-1)^{1+2} \determinan{\begin{smallmatrix} 1 & -3 \\ 3 & -1 \end{smallmatrix}} + 2 \cdot (-1)^{1+3} \determinan{\begin{smallmatrix} 1 & 1 \\ 3 & 2 \end{smallmatrix}} \\
+&= 1(1)((1)(-1) - (-3)(2)) + 3(-1)((1)(-1) - (-3)(3)) + 2(1)((1)(2) - (1)(3)) \\
+&= 1(-1 - (-6)) - 3(-1 - (-9)) + 2(2 - 3) \\
+&= 1(-1+6) - 3(-1+9) + 2(-1) \\
+&= 1(5) - 3(8) + 2(-1) \\
+&= 5 - 24 - 2 = -21.
+\end{align*}
+\textbf{Solusi menggunakan ekspansi kofaktor pada kolom ketiga} (untuk perbandingan):
+\begin{align*}
+\dettext{A} &= a_{13}C_{13} + a_{23}C_{23} + a_{33}C_{33} \\
+&= 2 \cdot (-1)^{1+3} \determinan{\begin{smallmatrix} 1 & 1 \\ 3 & 2 \end{smallmatrix}} + (-3) \cdot (-1)^{2+3} \determinan{\begin{smallmatrix} 1 & 3 \\ 3 & 2 \end{smallmatrix}} + (-1) \cdot (-1)^{3+3} \determinan{\begin{smallmatrix} 1 & 3 \\ 1 & 1 \end{smallmatrix}} \\
+&= 2(1)(1 \cdot 2 - 1 \cdot 3) - 3(-1)(1 \cdot 2 - 3 \cdot 3) - 1(1)(1 \cdot 1 - 3 \cdot 1) \\
+&= 2(2-3) + 3(2-9) - 1(1-3) \\
+&= 2(-1) + 3(-7) - 1(-2) \\
+&= -2 - 21 + 2 = -21.
+\end{align*}
+Hasilnya sama, yaitu $\dettext{A} = -21$.
+\end{contoh}
+
+\begin{contoh}
+Hitung determinan matriks $B = \matriks{1 & 2 & -3 \\ 2 & 0 & -3 \\ 2 & 0 & -1}$.
+\textbf{Solusi menggunakan ekspansi kofaktor pada kolom kedua} (karena ada banyak nol):
+\begin{align*}
+\dettext{B} &= a_{12}C_{12} + a_{22}C_{22} + a_{32}C_{32} \\
+&= 2 \cdot (-1)^{1+2} \determinan{\begin{smallmatrix} 2 & -3 \\ 2 & -1 \end{smallmatrix}} + 0 \cdot C_{22} + 0 \cdot C_{32} \\
+&= 2(-1)((2)(-1) - (-3)(2)) + 0 + 0 \\
+&= -2(-2 - (-6)) = -2(-2+6) = -2(4) = -8.
+\end{align*}
+\end{contoh}
+
+\section{Matriks Adjoin dan Invers Matriks}
+\subsection{Matriks Kofaktor dan Matriks Adjoin}
+\begin{definisi}
+Misalkan $A=[a_{ij}] \in M_n$. \textbf{Matriks kofaktor} dari $A$, dinotasikan $C_A$ atau $K(A)$, adalah matriks yang entri-entrinya adalah kofaktor-kofaktor dari $A$:
+\[ C_A = [C_{ij}] = \matriks{
+C_{11} & C_{12} & \cdots & C_{1n} \\
+C_{21} & C_{22} & \cdots & C_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+C_{n1} & C_{n2} & \cdots & C_{nn}
+} \]
+Transpose dari matriks kofaktor disebut \textbf{matriks adjoin} (atau adjoin klasik) dari $A$, dinotasikan $\adj(A)$.
+\[ \adj(A) = (C_A)^T \]
+\end{definisi}
+
+\begin{contoh}
+Tentukan matriks adjoin dari $A = \matriks{1 & 3 & 2 \\ 1 & 1 & -3 \\ 3 & 2 & -1}$.
+Kofaktor-kofaktornya adalah:
+$C_{11} = (-1)^{1+1} \determinan{\begin{smallmatrix} 1 & -3 \\ 2 & -1 \end{smallmatrix}} = -1 - (-6) = 5$
+$C_{12} = (-1)^{1+2} \determinan{\begin{smallmatrix} 1 & -3 \\ 3 & -1 \end{smallmatrix}} = -(-1 - (-9)) = -(8) = -8$
+$C_{13} = (-1)^{1+3} \determinan{\begin{smallmatrix} 1 & 1 \\ 3 & 2 \end{smallmatrix}} = 2 - 3 = -1$
+$C_{21} = (-1)^{2+1} \determinan{\begin{smallmatrix} 3 & 2 \\ 2 & -1 \end{smallmatrix}} = -(-3 - 4) = -(-7) = 7$
+$C_{22} = (-1)^{2+2} \determinan{\begin{smallmatrix} 1 & 2 \\ 3 & -1 \end{smallmatrix}} = -1 - 6 = -7$
+$C_{23} = (-1)^{2+3} \determinan{\begin{smallmatrix} 1 & 3 \\ 3 & 2 \end{smallmatrix}} = -(2 - 9) = -(-7) = 7$
+$C_{31} = (-1)^{3+1} \determinan{\begin{smallmatrix} 3 & 2 \\ 1 & -3 \end{smallmatrix}} = -9 - 2 = -11$
+$C_{32} = (-1)^{3+2} \determinan{\begin{smallmatrix} 1 & 2 \\ 1 & -3 \end{smallmatrix}} = -(-3 - 2) = -(-5) = 5$
+$C_{33} = (-1)^{3+3} \determinan{\begin{smallmatrix} 1 & 3 \\ 1 & 1 \end{smallmatrix}} = 1 - 3 = -2$
+Matriks kofaktor: $C_A = \matriks{5 & -8 & -1 \\ 7 & -7 & 7 \\ -11 & 5 & -2}$.
+Matriks adjoin: $\adj(A) = (C_A)^T = \matriks{5 & 7 & -11 \\ -8 & -7 & 5 \\ -1 & 7 & -2}$.
+\end{contoh}
+
+\subsection{Rumus Invers Menggunakan Adjoin}
+\begin{teorema}
+Misalkan $A \in M_{n \times n}$. Jika $\dettext{A} \neq 0$, maka $A$ invertibel dan inversnya diberikan oleh:
+\[ A^{-1} = \frac{1}{\dettext{A}} \adj(A) \]
+\end{teorema}
+
+\begin{contoh}
+Gunakan teorema di atas untuk mencari invers dari $A = \matriks{1 & 3 & 2 \\ 1 & 1 & -3 \\ 3 & 2 & -1}$.
+Dari contoh sebelumnya, $\dettext{A} = -21$ dan $\adj(A) = \matriks{5 & 7 & -11 \\ -8 & -7 & 5 \\ -1 & 7 & -2}$.
+Maka,
+\[ A^{-1} = \frac{1}{-21} \matriks{5 & 7 & -11 \\ -8 & -7 & 5 \\ -1 & 7 & -2} = \matriks{-\frac{5}{21} & -\frac{7}{21} & \frac{11}{21} \\ \frac{8}{21} & \frac{7}{21} & -\frac{5}{21} \\ \frac{1}{21} & -\frac{7}{21} & \frac{2}{21}} \]
+(Catatan: Pada slide, $\adj(A)$ adalah transpose dari matriks kofaktor. Rumus $A^{-1}$ menggunakan $\adj(A)$ yang sudah ditranspose. Di contoh slide sepertinya $\adj(A)$ yang ditulis adalah matriks kofaktornya, dan $A^{-1} = \frac{1}{|A|} [C_A]^T$. Ini adalah notasi yang konsisten.)
+
+\end{contoh}
+
+\subsection{Metode Pencarian Invers Matriks Menggunakan OBE}
+Selain menggunakan adjoin, invers matriks $A \in M_n$ dapat dicari dengan metode OBE:
+\begin{enumerate}
+    \item Bentuk matriks blok $[A | I_n]$, dimana $I_n$ adalah matriks identitas $n \times n$.
+    \item Terapkan serangkaian OBE pada matriks blok ini dengan tujuan mengubah blok $A$ menjadi $I_n$.
+    \item Jika $A$ berhasil diubah menjadi $I_n$, maka blok $I_n$ akan berubah menjadi $A^{-1}$. Jadi, hasil akhirnya adalah $[I_n | A^{-1}]$.
+    \item Jika dalam proses OBE, matriks $A$ tidak dapat diubah menjadi $I_n$ (misalnya, muncul baris nol di blok kiri), maka $A$ tidak mempunyai invers (singular).
+\end{enumerate}
+
+\begin{contoh}
+Tentukan invers dari $A = \matriks{1 & 2 \\ 2 & 1}$.
+Bentuk matriks blok $[A|I_2]$:
+$\left[ \begin{NiceArray}{cc|cc} 1 & 2 & 1 & 0 \\ 2 & 1 & 0 & 1 \end{NiceArray} \right]$
+$R_2 \to R_2 - 2R_1$:
+$\left[ \begin{NiceArray}{cc|cc} 1 & 2 & 1 & 0 \\ 0 & -3 & -2 & 1 \end{NiceArray} \right]$
+$R_2 \to -\frac{1}{3}R_2$:
+$\left[ \begin{NiceArray}{cc|cc} 1 & 2 & 1 & 0 \\ 0 & 1 & 2/3 & -1/3 \end{NiceArray} \right]$
+$R_1 \to R_1 - 2R_2$:
+$\left[ \begin{NiceArray}{cc|cc} 1 & 0 & 1 - 2(2/3) & 0 - 2(-1/3) \\ 0 & 1 & 2/3 & -1/3 \end{NiceArray} \right] = \left[ \begin{NiceArray}{cc|cc} 1 & 0 & 1 - 4/3 & 2/3 \\ 0 & 1 & 2/3 & -1/3 \end{NiceArray} \right]$
+$= \left[ \begin{NiceArray}{cc|cc} 1 & 0 & -1/3 & 2/3 \\ 0 & 1 & 2/3 & -1/3 \end{NiceArray} \right]$.
+Jadi, $A^{-1} = \matriks{-1/3 & 2/3 \\ 2/3 & -1/3}$.
+\end{contoh}
+
+\section{Sifat Determinan Invers Matriks}
+\begin{teorema}
+Jika $A$ adalah matriks invertibel, maka $\dettext{A^{-1}} = \frac{1}{\dettext{A}}$.
+\end{teorema}
+\begin{proof}
+Karena $A$ invertibel, $AA^{-1} = I$. Menggunakan sifat $\dettext{XY} = \dettext{X}\dettext{Y}$, kita punya:
+$\dettext{AA^{-1}} = \dettext{I}$.
+$\dettext{A} \dettext{A^{-1}} = 1$.
+Karena $A$ invertibel, $\dettext{A} \neq 0$. Maka, kita dapat membagi dengan $\dettext{A}$:
+$\dettext{A^{-1}} = \frac{1}{\dettext{A}}$.
+\end{proof}
+
+\section{Aturan Cramer untuk Solusi SPL}
+\begin{teorema}[Aturan Cramer]
+Misalkan $A\vektor{X}=\vektor{B}$ adalah sistem $n$ persamaan linear dalam $n$ variabel, dimana $A \in M_n$ dan $\dettext{A} \neq 0$. Maka sistem tersebut memiliki solusi unik yang diberikan oleh:
+\[ x_j = \frac{\dettext{A_j}}{\dettext{A}}, \quad \text{untuk } j=1, 2, \dots, n \]
+dimana $A_j$ adalah matriks yang diperoleh dengan mengganti kolom ke-$j$ dari $A$ dengan vektor kolom $\vektor{B}$.
+\end{teorema}
+\textbf{Catatan}: Aturan Cramer umumnya tidak efisien secara komputasi untuk sistem besar dibandingkan eliminasi Gauss, tetapi berguna untuk analisis teoretis dan sistem kecil.
+
+\begin{contoh}
+Gunakan Aturan Cramer untuk mencari solusi $x_1, x_2, x_3$ dari SPL:\\
+\sysdelim
+\systeme{
+x_1 - x_2 + 2x_3 = 1,
+x_2 - 2x_3 = 1,
+-x_1 + 3x_3 = 1
+}\\
+\textbf{Solusi:}\\
+Matriks koefisien $A = \matriks{1 & -1 & 2 \\ 0 & 1 & -2 \\ -1 & 0 & 3}$. Vektor $\vektor{B} = \matriks{1 \\ 1 \\ 1}$.
+$\dettext{A} = 1\determinan{\begin{smallmatrix} 1 & -2 \\ 0 & 3 \end{smallmatrix}} - (-1)\determinan{\begin{smallmatrix} 0 & -2 \\ -1 & 3 \end{smallmatrix}} + 2\determinan{\begin{smallmatrix} 0 & 1 \\ -1 & 0 \end{smallmatrix}}$
+$= 1(3-0) + 1(0-2) + 2(0-(-1)) = 3 - 2 + 2 = 3$.
+Karena $\dettext{A} \neq 0$, kita bisa menggunakan Aturan Cramer.
+$A_1 = \matriks{1 & -1 & 2 \\ 1 & 1 & -2 \\ 1 & 0 & 3}$. $\dettext{A_1} = 1(3-0) - (-1)(3-(-2)) + 2(0-1) = 3 + 5 - 2 = 6$.
+$A_2 = \matriks{1 & 1 & 2 \\ 0 & 1 & -2 \\ -1 & 1 & 3}$. $\dettext{A_2} = 1(3-(-2)) - 1(0-2) + 2(0-(-1)) = 5 + 2 + 2 = 9$.
+$A_3 = \matriks{1 & -1 & 1 \\ 0 & 1 & 1 \\ -1 & 0 & 1}$. $\dettext{A_3} = 1(1-0) - (-1)(0-(-1)) + 1(0-(-1)) = 1 + 1 + 1 = 3$.
+Maka solusinya adalah:
+$x_1 = \frac{\dettext{A_1}}{\dettext{A}} = \frac{6}{3} = 2$.
+$x_2 = \frac{\dettext{A_2}}{\dettext{A}} = \frac{9}{3} = 3$.
+$x_3 = \frac{\dettext{A_3}}{\dettext{A}} = \frac{3}{3} = 1$.
+Jadi, $\vektor{X} = \matriks{2 \\ 3 \\ 1}$.
+\end{contoh}
+
+\end{document}

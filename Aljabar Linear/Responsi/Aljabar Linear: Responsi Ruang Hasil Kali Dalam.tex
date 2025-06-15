@@ -1,0 +1,81 @@
+\documentclass{article}
+\usepackage{amsmath} % Untuk lingkungan matriks dan perintah matematika lainnya
+\usepackage{amsfonts} % Untuk simbol
+\usepackage{amssymb} % Untuk simbol \mathbb{R}
+\usepackage{geometry} % Untuk mengatur margin
+\geometry{a4paper, margin=1in}
+
+\title{Aljabar Linear: Responsi Ruang Hasil Kali Dalam}
+\author{Rafi Kamindra 2201006}
+\date{} % Kosongkan tanggal jika tidak ingin ditampilkan
+
+\newcommand{\R}{\mathbb{R}} % Simbol R
+\newcommand{\Poly}{\mathbb{P}} % Simbol P untuk polinom
+\newcommand{\innerprod}[2]{\langle #1, #2 \rangle} % Hasil kali dalam
+\newcommand{\vektor}[1]{\mathbf{#1}} % Perintah untuk vektor
+
+\begin{document}
+\maketitle
+\pagenumbering{gobble} % Menghilangkan nomor halaman jika tidak diinginkan untuk halaman judul
+
+\section*{Problem}
+
+\subsection*{1. Untuk $\vektor{x}=(x_1, x_2)$, $\vektor{y}=(y_1, y_2)$, didefinisikan $\innerprod{\vektor{x}}{\vektor{y}} := x_1y_1$. Periksa, apakah ini mendefinisikan perkalian dalam di $\R^2$.}
+\textbf{Jawaban:}\\
+Untuk mendefinisikan perkalian dalam, operasi $\innerprod{\cdot}{\cdot}$ harus memenuhi aksioma-aksioma berikut:
+\begin{enumerate}
+    \item \textbf{Simetri}: $\innerprod{\vektor{x}}{\vektor{y}} = \innerprod{\vektor{y}}{\vektor{x}}$.
+    $\innerprod{\vektor{x}}{\vektor{y}} = x_1y_1$.
+    $\innerprod{\vektor{y}}{\vektor{x}} = y_1x_1$.
+    Karena $x_1y_1 = y_1x_1$, aksioma simetri terpenuhi.
+
+    \item \textbf{Aditivitas (Linearitas pada argumen pertama)}: $\innerprod{\vektor{x}+\vektor{z}}{\vektor{y}} = \innerprod{\vektor{x}}{\vektor{y}} + \innerprod{\vektor{z}}{\vektor{y}}$.
+    Misalkan $\vektor{z}=(z_1, z_2)$.
+    $\vektor{x}+\vektor{z} = (x_1+z_1, x_2+z_2)$.
+    $\innerprod{\vektor{x}+\vektor{z}}{\vektor{y}} = (x_1+z_1)y_1 = x_1y_1 + z_1y_1$.
+    $\innerprod{\vektor{x}}{\vektor{y}} + \innerprod{\vektor{z}}{\vektor{y}} = x_1y_1 + z_1y_1$.
+    Karena $x_1y_1 + z_1y_1 = x_1y_1 + z_1y_1$, aksioma aditivitas terpenuhi.
+
+    \item \textbf{Homogenitas (Linearitas pada argumen pertama)}: $\innerprod{k\vektor{x}}{\vektor{y}} = k\innerprod{\vektor{x}}{\vektor{y}}$.
+    $k\vektor{x} = (kx_1, kx_2)$.
+    $\innerprod{k\vektor{x}}{\vektor{y}} = (kx_1)y_1 = k(x_1y_1)$.
+    $k\innerprod{\vektor{x}}{\vektor{y}} = k(x_1y_1)$.
+    Karena $k(x_1y_1) = k(x_1y_1)$, aksioma homogenitas terpenuhi.
+    (Catatan: Karena simetri, linearitas pada argumen pertama mengakibatkan linearitas pada argumen kedua).
+
+    \item \textbf{Positif Definit}: $\innerprod{\vektor{x}}{\vektor{x}} \ge 0$, dan $\innerprod{\vektor{x}}{\vektor{x}} = 0$ jika dan hanya jika $\vektor{x}=\vektor{0}$.
+    $\innerprod{\vektor{x}}{\vektor{x}} = x_1x_1 = x_1^2$.
+    $x_1^2 \ge 0$ selalu terpenuhi.
+    Sekarang periksa kondisi $\innerprod{\vektor{x}}{\vektor{x}} = 0$ jika dan hanya jika $\vektor{x}=\vektor{0}$.
+    Jika $\innerprod{\vektor{x}}{\vektor{x}} = 0$, maka $x_1^2 = 0$, yang berarti $x_1=0$.
+    Namun, ini tidak mengharuskan $x_2=0$.
+    Misalkan $\vektor{x}=(0,1)$. Maka $\vektor{x} \neq \vektor{0}$.
+    Tetapi $\innerprod{\vektor{x}}{\vektor{x}} = \innerprod{(0,1)}{(0,1)} = 0 \cdot 0 = 0$.
+    Karena ada vektor tak nol $\vektor{x}=(0,1)$ sedemikian sehingga $\innerprod{\vektor{x}}{\vektor{x}}=0$, aksioma positif definit tidak terpenuhi.
+\end{enumerate}
+Karena aksioma positif definit tidak terpenuhi, maka $\innerprod{\vektor{x}}{\vektor{y}} = x_1y_1$ \textbf{tidak} mendefinisikan perkalian dalam di $\R^2$.
+
+\subsection*{2. Perhatikan ruang $\Poly_2$ yang dilengkapi dengan perkalian dalam $\innerprod{f}{g} := \int_{0}^{1} f(t)g(t)dt$. Carilah semua vektor yang ortogonal terhadap $h=1-x$.}
+\textbf{Jawaban:}\\
+Misalkan $u(x) = a+bx+cx^2$ adalah vektor (polinom) di $\Poly_2$ yang ortogonal terhadap $h(x)=1-x$.
+Ini berarti $\innerprod{u(x)}{h(x)} = 0$.
+$\innerprod{a+bx+cx^2}{1-x} = \int_{0}^{1} (a+bt+ct^2)(1-t) dt = 0$.
+$\int_{0}^{1} (a+bt+ct^2 - at - bt^2 - ct^3) dt = 0$.
+$\int_{0}^{1} (a + (b-a)t + (c-b)t^2 - ct^3) dt = 0$.
+$\left[ at + (b-a)\frac{t^2}{2} + (c-b)\frac{t^3}{3} - c\frac{t^4}{4} \right]_{0}^{1} = 0$.
+$a(1) + (b-a)\frac{1}{2} + (c-b)\frac{1}{3} - c\frac{1}{4} - (0) = 0$.
+$a + \frac{b}{2} - \frac{a}{2} + \frac{c}{3} - \frac{b}{3} - \frac{c}{4} = 0$.
+Kelompokkan berdasarkan $a, b, c$:
+$a(1 - \frac{1}{2}) + b(\frac{1}{2} - \frac{1}{3}) + c(\frac{1}{3} - \frac{1}{4}) = 0$.
+$a(\frac{1}{2}) + b(\frac{3-2}{6}) + c(\frac{4-3}{12}) = 0$.
+$\frac{1}{2}a + \frac{1}{6}b + \frac{1}{12}c = 0$.
+Kalikan dengan 12 untuk menghilangkan pecahan:
+$6a + 2b + c = 0$.
+Semua vektor $u(x) = a+bx+cx^2 \in \Poly_2$ yang memenuhi $6a+2b+c=0$ ortogonal terhadap $h=1-x$.
+Ini adalah subruang dari $\Poly_2$. Jika kita ingin basis untuk subruang ini:
+Misalkan $a=s$ dan $b=t$ adalah parameter bebas.
+Maka $c = -6s - 2t$.
+Jadi, $u(x) = s + tx + (-6s-2t)x^2 = s(1-6x^2) + t(x-2x^2)$.
+Basis untuk ruang vektor yang ortogonal terhadap $h=1-x$ adalah $\{1-6x^2, x-2x^2\}$.
+
+\end{document}

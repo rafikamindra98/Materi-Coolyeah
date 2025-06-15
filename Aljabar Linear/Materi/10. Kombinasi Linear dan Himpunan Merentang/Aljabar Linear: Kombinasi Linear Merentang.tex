@@ -1,0 +1,142 @@
+\documentclass{article}
+\usepackage{amsmath} % Untuk lingkungan matriks dan perintah matematika lainnya
+\usepackage{amsfonts} % Untuk simbol
+\usepackage{amssymb} % Untuk simbol \mathbb{R}
+\usepackage{geometry} % Untuk mengatur margin
+\geometry{a4paper, margin=1in}
+
+\title{Aljabar Linear: Kombinasi Linear Merentang}
+\author{Rafi Kamindra 2201006}
+\date{} % Kosongkan tanggal jika tidak ingin ditampilkan
+
+\newcommand{\vektor}[1]{\mathbf{#1}} % Perintah untuk vektor
+\newcommand{\R}{\mathbb{R}} % Simbol R
+\newcommand{\Poly}{\mathbb{P}} % Simbol P untuk polinom
+
+\begin{document}
+\maketitle
+\pagenumbering{gobble} % Menghilangkan nomor halaman jika tidak diinginkan untuk halaman judul
+
+\section*{Problem}
+
+\subsection*{1. Periksa apakah $U = \{(1,2), (2,3)\}$ merentang $\R^2$.}
+\textbf{Jawaban:}\\
+Untuk merentang $\R^2$, dua vektor di $\R^2$ harus linear independen. Kita dapat memeriksa ini dengan melihat apakah determinan matriks yang dibentuk oleh vektor-vektor ini tidak nol.
+Misalkan $\vektor{u}_1 = (1,2)$ dan $\vektor{u}_2 = (2,3)$.
+Matriks $A = \begin{pmatrix} 1 & 2 \\ 2 & 3 \end{pmatrix}$.
+$\det(A) = (1)(3) - (2)(2) = 3 - 4 = -1$.
+Karena $\det(A) = -1 \neq 0$, maka vektor-vektor tersebut linear independen dan oleh karena itu merentang $\R^2$.
+Jadi, $U$ merentang $\R^2$.
+
+\subsection*{2. Untuk $r$ yang mana, $U = \{(1,2), (r,5)\}$ merentang $\R^2$?}
+\textbf{Jawaban:}\\
+Agar $U$ merentang $\R^2$, vektor-vektor $(1,2)$ dan $(r,5)$ harus linear independen. Ini berarti determinan matriks yang dibentuk oleh vektor-vektor ini tidak boleh nol.
+Matriks $A = \begin{pmatrix} 1 & r \\ 2 & 5 \end{pmatrix}$.
+$\det(A) = (1)(5) - (r)(2) = 5 - 2r$.
+Agar merentang $\R^2$, $\det(A) \neq 0$.
+$5 - 2r \neq 0 \Rightarrow 2r \neq 5 \Rightarrow r \neq \frac{5}{2}$.
+Jadi, $U$ merentang $\R^2$ untuk semua $r \in \R$ kecuali $r = \frac{5}{2}$.
+
+\subsection*{3. Periksa, apakah $U = \{(1,2,-1), (0,2,-1), (1,-3,1), (1,3,4)\}$ merentang $\R^3$.}
+\textbf{Jawaban:}\\
+Untuk merentang $\R^3$, kita membutuhkan minimal 3 vektor linear independen. Di sini kita memiliki 4 vektor. Kita perlu memeriksa apakah rank dari matriks yang dibentuk oleh vektor-vektor ini adalah 3.
+Misalkan $\vektor{u}_1 = (1,2,-1)$, $\vektor{u}_2 = (0,2,-1)$, $\vektor{u}_3 = (1,-3,1)$, $\vektor{u}_4 = (1,3,4)$.
+Bentuk matriks $A$ dengan vektor-vektor ini sebagai kolom (atau baris, hasilnya akan sama untuk rank):
+\[ A = \begin{pmatrix} 1 & 0 & 1 & 1 \\ 2 & 2 & -3 & 3 \\ -1 & -1 & 1 & 4 \end{pmatrix} \]
+Lakukan Operasi Baris Elementer (OBE):
+$R_2 \rightarrow R_2 - 2R_1$:
+\[ \begin{pmatrix} 1 & 0 & 1 & 1 \\ 0 & 2 & -5 & 1 \\ -1 & -1 & 1 & 4 \end{pmatrix} \]
+$R_3 \rightarrow R_3 + R_1$:
+\[ \begin{pmatrix} 1 & 0 & 1 & 1 \\ 0 & 2 & -5 & 1 \\ 0 & -1 & 2 & 5 \end{pmatrix} \]
+$R_2 \leftrightarrow R_3$ (untuk mendapatkan 1 utama lebih mudah):
+\[ \begin{pmatrix} 1 & 0 & 1 & 1 \\ 0 & -1 & 2 & 5 \\ 0 & 2 & -5 & 1 \end{pmatrix} \]
+$R_2 \rightarrow -R_2$:
+\[ \begin{pmatrix} 1 & 0 & 1 & 1 \\ 0 & 1 & -2 & -5 \\ 0 & 2 & -5 & 1 \end{pmatrix} \]
+$R_3 \rightarrow R_3 - 2R_2$:
+\[ \begin{pmatrix} 1 & 0 & 1 & 1 \\ 0 & 1 & -2 & -5 \\ 0 & 0 & -5 - (-4) & 1 - (-10) \end{pmatrix} = \begin{pmatrix} 1 & 0 & 1 & 1 \\ 0 & 1 & -2 & -5 \\ 0 & 0 & -1 & 11 \end{pmatrix} \]
+Matriks ini dalam bentuk eselon baris dan memiliki 3 baris tak nol. Jadi, rank matriks adalah 3.
+Karena rank matriks adalah 3, yang sama dengan dimensi $\R^3$, maka himpunan vektor $U$ merentang $\R^3$.
+
+\subsection*{4. Periksa, apakah $U = \{(2,1,-1), (1,3,1), (1,-2,-2)\}$ merentang $\R^3$.}
+\textbf{Jawaban:}\\
+Untuk merentang $\R^3$, tiga vektor di $\R^3$ harus linear independen. Kita periksa determinan matriks yang dibentuk oleh vektor-vektor ini.
+Misalkan $\vektor{u}_1 = (2,1,-1)$, $\vektor{u}_2 = (1,3,1)$, $\vektor{u}_3 = (1,-2,-2)$.
+\[ A = \begin{pmatrix} 2 & 1 & 1 \\ 1 & 3 & -2 \\ -1 & 1 & -2 \end{pmatrix} \]
+(Soal asli mungkin (1,-2,-2) untuk vektor ketiga, jika (1,3,1) dan (1,-2,-2) adalah vektor kedua dan ketiga. Jika (1,3,1) adalah vektor kedua dan (1,-2,-2) adalah vektor ketiga, maka matriks yang benar adalah:)
+\[ A = \begin{pmatrix} 2 & 1 & 1 \\ 1 & 3 & -2 \\ -1 & 1 & -2 \end{pmatrix} \text{ (menggunakan urutan soal)} \]
+\[ A = \begin{pmatrix} 2 & 1 & 1 \\ 1 & 3 & -2 \\ -1 & 1 & -2 \end{pmatrix} \text{ (jika vektor ketiga adalah (1,-2,-2) dari soal)} \]
+Mari kita gunakan vektor-vektor yang tertulis: $\vektor{u}_1=(2,1,-1)$, $\vektor{u}_2=(1,3,1)$, $\vektor{u}_3=(1,-2,-2)$.
+\[ A = \begin{pmatrix} 2 & 1 & 1 \\ 1 & 3 & -2 \\ -1 & -2 & -2 \end{pmatrix} \]
+$\det(A) = 2 \begin{vmatrix} 3 & -2 \\ -2 & -2 \end{vmatrix} - 1 \begin{vmatrix} 1 & -2 \\ -1 & -2 \end{vmatrix} + 1 \begin{vmatrix} 1 & 3 \\ -1 & -2 \end{vmatrix}$
+$= 2(-6 - 4) - 1(-2 - 2) + 1(-2 - (-3))$
+$= 2(-10) - 1(-4) + 1(1)$
+$= -20 + 4 + 1 = -15$.
+Karena $\det(A) = -15 \neq 0$, vektor-vektor tersebut linear independen dan merentang $\R^3$.
+
+\subsection*{5. Periksa, apakah $U = \{(1,1,-1), (1,0,2)\}$ merentang $\R^3$.}
+\textbf{Jawaban:}\\
+Untuk merentang $\R^3$, kita membutuhkan minimal 3 vektor linear independen. Himpunan $U$ hanya memiliki 2 vektor. Dua vektor hanya dapat merentang sebuah bidang (subruang berdimensi 2) atau sebuah garis (subruang berdimensi 1) di $\R^3$, tetapi tidak dapat merentang seluruh $\R^3$ (yang berdimensi 3).
+Jadi, $U$ tidak merentang $\R^3$.
+
+\subsection*{6. Diketahui $\vektor{u}=(1,2,0)$, $\vektor{v}=(-1,2,3)$, $\vektor{w}=(1,2,c)$. Carilah semua $c \in \R$ sehingga $\vektor{u}, \vektor{v}, \vektor{w}$ merentang $\R^3$.}
+\textbf{Jawaban:}\\
+Agar $\vektor{u}, \vektor{v}, \vektor{w}$ merentang $\R^3$, mereka harus linear independen. Ini berarti determinan matriks yang dibentuk oleh vektor-vektor ini tidak boleh nol.
+\[ A = \begin{pmatrix} 1 & -1 & 1 \\ 2 & 2 & 2 \\ 0 & 3 & c \end{pmatrix} \]
+$\det(A) = 1 \begin{vmatrix} 2 & 2 \\ 3 & c \end{vmatrix} - (-1) \begin{vmatrix} 2 & 2 \\ 0 & c \end{vmatrix} + 1 \begin{vmatrix} 2 & 2 \\ 0 & 3 \end{vmatrix}$
+$= 1(2c - 6) + 1(2c - 0) + 1(6 - 0)$
+$= 2c - 6 + 2c + 6 = 4c$.
+Agar merentang $\R^3$, $\det(A) \neq 0$.
+$4c \neq 0 \Rightarrow c \neq 0$.
+Jadi, $\vektor{u}, \vektor{v}, \vektor{w}$ merentang $\R^3$ untuk semua $c \in \R$ kecuali $c=0$.
+
+\subsection*{7. Periksa, apakah $U = \{1+x-x^2, -x-x^2, 2+x+x^2\}$ merentang $\Poly_2$.}
+\textbf{Jawaban:}\\
+Ruang polinom $\Poly_2$ (polinom derajat paling tinggi 2) memiliki basis standar $\{1, x, x^2\}$ dan berdimensi 3. Kita dapat merepresentasikan polinom-polinom dalam $U$ sebagai vektor koordinat terhadap basis standar ini.
+$p_1(x) = 1+x-x^2 \rightarrow \vektor{p}_1 = (1,1,-1)$
+$p_2(x) = -x-x^2 \rightarrow \vektor{p}_2 = (0,-1,-1)$
+$p_3(x) = 2+x+x^2 \rightarrow \vektor{p}_3 = (2,1,1)$
+Kita periksa apakah vektor-vektor koordinat ini linear independen dengan menghitung determinan matriks yang dibentuk olehnya.
+\[ A = \begin{pmatrix} 1 & 0 & 2 \\ 1 & -1 & 1 \\ -1 & -1 & 1 \end{pmatrix} \]
+$\det(A) = 1 \begin{vmatrix} -1 & 1 \\ -1 & 1 \end{vmatrix} - 0 \begin{vmatrix} 1 & 1 \\ -1 & 1 \end{vmatrix} + 2 \begin{vmatrix} 1 & -1 \\ -1 & -1 \end{vmatrix}$
+$= 1(-1 - (-1)) - 0 + 2(-1 - 1)$
+$= 1(0) + 2(-2) = -4$.
+Karena $\det(A) = -4 \neq 0$, vektor-vektor koordinat tersebut linear independen. Oleh karena itu, polinom-polinom dalam $U$ juga linear independen dan merentang $\Poly_2$.
+
+\subsection*{8. Diketahui $\vektor{u}=(1,2,0)$, $\vektor{v}=(-1,2,3)$. Carilah suatu vektor $\vektor{w} \in \R^3$ sehingga $\vektor{u}, \vektor{v}, \vektor{w}$ merentang $\R^3$.}
+\textbf{Jawaban:}\\
+Untuk merentang $\R^3$, $\vektor{u}, \vektor{v}, \vektor{w}$ harus linear independen. Vektor $\vektor{u}$ dan $\vektor{v}$ jelas linear independen (bukan kelipatan skalar satu sama lain). Kita perlu memilih $\vektor{w}$ sehingga $\vektor{w}$ tidak terletak pada bidang yang direntang oleh $\vektor{u}$ dan $\vektor{v}$. Cara mudah adalah memilih $\vektor{w}$ yang ortogonal terhadap bidang tersebut, misalnya $\vektor{w} = \vektor{u} \times \vektor{v}$.
+$\vektor{w} = \vektor{u} \times \vektor{v} = \begin{vmatrix} \vektor{i} & \vektor{j} & \vektor{k} \\ 1 & 2 & 0 \\ -1 & 2 & 3 \end{vmatrix}$
+$= \vektor{i}(2 \cdot 3 - 0 \cdot 2) - \vektor{j}(1 \cdot 3 - 0 \cdot (-1)) + \vektor{k}(1 \cdot 2 - 2 \cdot (-1))$
+$= \vektor{i}(6) - \vektor{j}(3) + \vektor{k}(2+2) = 6\vektor{i} - 3\vektor{j} + 4\vektor{k} = (6, -3, 4)$.
+Jadi, salah satu contoh $\vektor{w}$ adalah $(6,-3,4)$.
+Kita bisa periksa determinannya: $\begin{vmatrix} 1 & -1 & 6 \\ 2 & 2 & -3 \\ 0 & 3 & 4 \end{vmatrix} = 1(8 - (-9)) - (-1)(8-0) + 6(6-0) = 1(17) + 1(8) + 6(6) = 17+8+36 = 61 \neq 0$.
+Jadi, $\vektor{u}, \vektor{v}, \vektor{w}=(6,-3,4)$ merentang $\R^3$.
+(Banyak pilihan lain untuk $\vektor{w}$, selama $\det(\begin{pmatrix} \vektor{u} & \vektor{v} & \vektor{w} \end{pmatrix}) \neq 0$. Misalnya, $\vektor{w}=(0,0,1)$ juga bisa:
+$\begin{vmatrix} 1 & -1 & 0 \\ 2 & 2 & 0 \\ 0 & 3 & 1 \end{vmatrix} = 1 \begin{vmatrix} 2 & 2 \\ 0 & 3 \end{vmatrix} = 1(6-0) = 6 \neq 0$.)
+
+\subsection*{9. Diketahui $\vektor{u}=(1,1,1)$. Carilah $\vektor{v}, \vektor{w} \in \R^3$ sehingga $\vektor{u}, \vektor{v}, \vektor{w}$ merentang $\R^3$.}
+\textbf{Jawaban:}\\
+Kita perlu memilih $\vektor{v}$ yang tidak kolinear dengan $\vektor{u}$, dan $\vektor{w}$ yang tidak terletak pada bidang yang direntang oleh $\vektor{u}$ dan $\vektor{v}$.
+Misalkan $\vektor{v} = (1,0,0)$. Vektor ini tidak kolinear dengan $\vektor{u}$.
+Sekarang cari $\vektor{w}$ yang linear independen dari $\vektor{u}$ dan $\vektor{v}$. Kita bisa pilih $\vektor{w} = \vektor{u} \times \vektor{v}$.
+$\vektor{w} = \vektor{u} \times \vektor{v} = \begin{vmatrix} \vektor{i} & \vektor{j} & \vektor{k} \\ 1 & 1 & 1 \\ 1 & 0 & 0 \end{vmatrix}$
+$= \vektor{i}(1 \cdot 0 - 1 \cdot 0) - \vektor{j}(1 \cdot 0 - 1 \cdot 1) + \vektor{k}(1 \cdot 0 - 1 \cdot 1)$
+$= \vektor{i}(0) - \vektor{j}(-1) + \vektor{k}(-1) = 0\vektor{i} + 1\vektor{j} - 1\vektor{k} = (0, 1, -1)$.
+Jadi, $\vektor{v}=(1,0,0)$ dan $\vektor{w}=(0,1,-1)$ adalah contoh yang memenuhi.
+Kita periksa determinannya: $\begin{vmatrix} 1 & 1 & 0 \\ 1 & 0 & 1 \\ 1 & 0 & -1 \end{vmatrix} = 1 \begin{vmatrix} 0 & 1 \\ 0 & -1 \end{vmatrix} - 1 \begin{vmatrix} 1 & 1 \\ 1 & -1 \end{vmatrix} + 0 = 1(0) - 1(-1-1) = -1(-2) = 2 \neq 0$.
+Jadi, $\vektor{u}=(1,1,1), \vektor{v}=(1,0,0), \vektor{w}=(0,1,-1)$ merentang $\R^3$.
+(Banyak pilihan lain, misalnya $\vektor{v}=(0,1,0)$ dan $\vektor{w}=(0,0,1)$.)
+
+\subsection*{10. Apakah tiga vektor tak nol $\vektor{u}, \vektor{v}, \vektor{w} \in \R^2$ pasti merentang $\R^2$?}
+\textbf{Jawaban:}\\
+Tidak pasti.
+Untuk merentang $\R^2$, kita hanya memerlukan dua vektor linear independen. Jika kita memiliki tiga vektor di $\R^2$, himpunan tersebut pasti linear dependen (karena dimensi $\R^2$ adalah 2).
+Namun, meskipun linear dependen, himpunan tersebut masih bisa merentang $\R^2$ asalkan setidaknya dua di antaranya linear independen.
+Contoh:
+$\vektor{u}=(1,0)$, $\vektor{v}=(0,1)$, $\vektor{w}=(1,1)$. Ketiganya tak nol.
+Himpunan $\{\vektor{u}, \vektor{v}\}$ sudah merentang $\R^2$. Jadi, $\{\vektor{u}, \vektor{v}, \vektor{w}\}$ juga merentang $\R^2$.
+Contoh tidak merentang:
+$\vektor{u}=(1,0)$, $\vektor{v}=(2,0)$, $\vektor{w}=(3,0)$. Ketiganya tak nol, tetapi semuanya kolinear. Himpunan ini hanya merentang garis (sumbu-x), bukan seluruh $\R^2$.
+Jadi, tiga vektor tak nol $\vektor{u}, \vektor{v}, \vektor{w} \in \R^2$ tidak pasti merentang $\R^2$. Mereka akan merentang $\R^2$ jika dan hanya jika setidaknya dua dari vektor tersebut linear independen.
+
+\end{document}

@@ -1,0 +1,225 @@
+\documentclass{article}
+\usepackage{amsmath} % Untuk lingkungan matriks dan perintah matematika lainnya
+\usepackage{amsfonts} % Untuk simbol
+\usepackage{amssymb} % Untuk simbol \mathbb{R}
+\usepackage{geometry} % Untuk mengatur margin
+\usepackage{graphicx} % Untuk menyertakan gambar (jika diperlukan untuk ilustrasi)
+\usepackage{tikz} % Untuk menggambar vektor (opsional, bisa diganti deskripsi)
+\usepackage{systeme}
+\usetikzlibrary{arrows.meta}
+\geometry{a4paper, margin=1in}
+
+\title{Aljabar Linear: Ruang \(R^2\) dan \(R^3\)}
+\author{Rafi Kamindra 2201006}
+\date{} % Kosongkan tanggal jika tidak ingin ditampilkan
+
+
+\newcommand{\vektor}[1]{\mathbf{#1}} % Perintah untuk vektor
+\newcommand{\vecAB}[2]{\overrightarrow{#1#2}} % Perintah untuk vektor dari dua titik
+
+\begin{document}
+\maketitle
+\pagenumbering{gobble} % Menghilangkan nomor halaman jika tidak diinginkan untuk halaman judul
+
+\section*{Latihan 1}
+
+\subsection*{1. Diketahui vektor-vektor $\vektor{u}=(1,2)$, $\vektor{v}=(3,-1)$, $\vektor{w}=(4,2)$.}
+
+\subsubsection*{a. Gambarkan ilustrasi vektor-vektor: $3\vektor{u}$, $-2\vektor{v}$, $\vektor{u}+2\vektor{v}$, $\vektor{w}-\vektor{u}$.}
+\textbf{Jawaban:}\\
+Perhitungan vektor:
+\begin{itemize}
+    \item $3\vektor{u} = 3(1,2) = (3,6)$
+    \item $-2\vektor{v} = -2(3,-1) = (-6,2)$
+    \item $\vektor{u}+2\vektor{v} = (1,2) + 2(3,-1) = (1,2) + (6,-2) = (1+6, 2-2) = (7,0)$
+    \item $\vektor{w}-\vektor{u} = (4,2) - (1,2) = (4-1, 2-2) = (3,0)$
+\end{itemize}
+Untuk ilustrasi, kita akan menggambar vektor-vektor ini pada sistem koordinat Kartesius.
+\begin{itemize}
+    \item $3\vektor{u}$: Vektor dari titik pangkal (0,0) ke titik ujung (3,6).
+    \item $-2\vektor{v}$: Vektor dari titik pangkal (0,0) ke titik ujung (-6,2).
+    \item $\vektor{u}+2\vektor{v}$: Vektor dari titik pangkal (0,0) ke titik ujung (7,0).
+    \item $\vektor{w}-\vektor{u}$: Vektor dari titik pangkal (0,0) ke titik ujung (3,0).
+\end{itemize}
+
+\subsubsection*{b. Carilah $k, l$ yang memenuhi $k\vektor{u}+l\vektor{v}=\vektor{w}$. Gambarkan ilustrasi geometrisnya.}
+\textbf{Jawaban:}\\
+$k(1,2) + l(3,-1) = (4,2)$
+$(k, 2k) + (3l, -l) = (4,2)$
+$(k+3l, 2k-l) = (4,2)$
+Ini menghasilkan sistem persamaan linear:
+\systeme{
+k + 3l = 4 \quad (1),
+2k - l = 2 \quad (2)
+}
+Dari (2), $l = 2k-2$. Substitusikan ke (1):
+$k + 3(2k-2) = 4$
+$k + 6k - 6 = 4$
+$7k = 10 \Rightarrow k = \frac{10}{7}$.
+Substitusikan $k$ ke $l = 2k-2$:
+$l = 2(\frac{10}{7}) - 2 = \frac{20}{7} - \frac{14}{7} = \frac{6}{7}$.
+Jadi, $k = \frac{10}{7}$ dan $l = \frac{6}{7}$.
+Ilustrasi geometrisnya adalah $\vektor{w}$ sebagai hasil dari penjumlahan vektor $\frac{10}{7}\vektor{u}$ dan $\frac{6}{7}\vektor{v}$ menggunakan aturan jajargenjang atau segitiga.
+
+\subsubsection*{c. Terkait dengan bagian b, bagaimana kalau $\vektor{w}$ diganti dengan sebarang vektor $\vektor{z} \in \mathbb{R}^2$, apakah $k$ dan $l$ selalu ada?}
+\textbf{Jawaban:}\\
+Misalkan $\vektor{z} = (z_1, z_2)$. Kita ingin mencari $k,l$ sehingga $k\vektor{u}+l\vektor{v}=\vektor{z}$.
+$k(1,2) + l(3,-1) = (z_1, z_2)$
+$k+3l = z_1$
+$2k-l = z_2$
+Sistem ini memiliki solusi unik jika determinan matriks koefisiennya tidak nol:
+$\begin{vmatrix} 1 & 3 \\ 2 & -1 \end{vmatrix} = (1)(-1) - (3)(2) = -1 - 6 = -7$.
+Karena determinan $-7 \neq 0$, maka sistem selalu memiliki solusi unik untuk $k$ dan $l$ untuk setiap vektor $\vektor{z} \in \mathbb{R}^2$. Ini berarti $\vektor{u}$ dan $\vektor{v}$ adalah basis untuk $\mathbb{R}^2$ karena mereka linear independen.
+
+\subsection*{2. Diketahui vektor-vektor $A=(4,-2,0)$, $B=(5,1,2)$, $C=(3,-2,-1)$.}
+
+\subsubsection*{a. Carilah $r, s$ yang memenuhi $rA+sB=C$.}
+\textbf{Jawaban:}\\
+$r(4,-2,0) + s(5,1,2) = (3,-2,-1)$
+$(4r, -2r, 0) + (5s, s, 2s) = (3,-2,-1)$
+$(4r+5s, -2r+s, 2s) = (3,-2,-1)$
+Sistem persamaan:
+\systeme{
+4r + 5s = 3 \quad (1),
+-2r + s = -2 \quad (2),
+2s = -1 \quad (3)
+}
+Dari (3), $s = -1/2$.
+Substitusikan $s$ ke (2):
+$-2r - 1/2 = -2 \Rightarrow -2r = -2 + 1/2 = -3/2 \Rightarrow r = (-3/2) / (-2) = 3/4$.
+Periksa dengan (1):
+$4(3/4) + 5(-1/2) = 3 - 5/2 = 6/2 - 5/2 = 1/2$.
+Hasilnya $1/2 \neq 3$. Ini berarti tidak ada $r, s$ yang memenuhi persamaan tersebut. Sistem ini tidak konsisten.
+
+\subsubsection*{b. Adakah $\alpha, \beta, \gamma$ yang tidak semuanya nol sehingga $\alpha A + \beta B + \gamma C = 0$?}
+\textbf{Jawaban:}\\
+Ini adalah pertanyaan tentang kebergantungan linear. Jika ada $\alpha, \beta, \gamma$ yang tidak semuanya nol yang memenuhi persamaan tersebut, maka vektor $A, B, C$ adalah dependen linear.
+$\alpha(4,-2,0) + \beta(5,1,2) + \gamma(3,-2,-1) = (0,0,0)$
+$4\alpha + 5\beta + 3\gamma = 0$
+$-2\alpha + \beta - 2\gamma = 0$
+$2\beta - \gamma = 0 \Rightarrow \gamma = 2\beta$.
+Substitusikan $\gamma = 2\beta$ ke persamaan lain:
+$4\alpha + 5\beta + 3(2\beta) = 0 \Rightarrow 4\alpha + 5\beta + 6\beta = 0 \Rightarrow 4\alpha + 11\beta = 0$.
+$-2\alpha + \beta - 2(2\beta) = 0 \Rightarrow -2\alpha + \beta - 4\beta = 0 \Rightarrow -2\alpha - 3\beta = 0 \Rightarrow 2\alpha = -3\beta \Rightarrow \alpha = -\frac{3}{2}\beta$.
+Substitusikan $\alpha$ ke $4\alpha + 11\beta = 0$:
+$4(-\frac{3}{2}\beta) + 11\beta = 0 \Rightarrow -6\beta + 11\beta = 0 \Rightarrow 5\beta = 0 \Rightarrow \beta = 0$.
+Jika $\beta = 0$, maka $\alpha = -\frac{3}{2}(0) = 0$, dan $\gamma = 2(0) = 0$.
+Karena satu-satunya solusi adalah $\alpha=\beta=\gamma=0$, maka vektor $A, B, C$ adalah linear independen.
+Jadi, tidak ada $\alpha, \beta, \gamma$ yang tidak semuanya nol sehingga $\alpha A + \beta B + \gamma C = 0$.
+
+\subsubsection*{c. Jika $D$ sebarang vektor di $\mathbb{R}^3$, apakah $\alpha A + \beta B + \gamma C = D$ mempunyai solusi?}
+\textbf{Jawaban:}\\
+Karena $A, B, C$ adalah tiga vektor yang linear independen di $\mathbb{R}^3$ (seperti yang ditunjukkan di bagian b), mereka membentuk basis untuk $\mathbb{R}^3$. Oleh karena itu, setiap vektor $D \in \mathbb{R}^3$ dapat ditulis sebagai kombinasi linear dari $A, B, C$. Jadi, sistem $\alpha A + \beta B + \gamma C = D$ selalu mempunyai solusi unik untuk $\alpha, \beta, \gamma$.
+
+\subsubsection*{d. Pandang $B, C$ sebagai titik-titik di $\mathbb{R}^3$ dan asumsikan titik $(x,y,z)$ terletak pada garis yang melalui $B$ dan $C$. Berikan sebuah persamaan untuk masing-masing $x, y$ dan $z$.}
+\textbf{Jawaban:}\\
+Vektor arah garis adalah $\vec{BC} = C - B = (3,-2,-1) - (5,1,2) = (3-5, -2-1, -1-2) = (-2, -3, -3)$.
+Persamaan parametrik garis yang melalui titik $B(5,1,2)$ dengan vektor arah $\vec{d}=(-2,-3,-3)$ adalah:
+$P(t) = B + t\vec{d}$
+$(x,y,z) = (5,1,2) + t(-2,-3,-3)$
+$(x,y,z) = (5-2t, 1-3t, 2-3t)$.
+Jadi, persamaan untuk masing-masing $x, y, z$ adalah:
+$x = 5 - 2t$
+$y = 1 - 3t$
+$z = 2 - 3t$
+dimana $t \in \mathbb{R}$.
+
+\section*{Latihan 2}
+
+\subsection*{1. Diketahui vektor-vektor $\vektor{r}=(1,2)$, $\vektor{s}=(2,3)$. Jika $\vektor{t} \perp \vektor{r}$ dan $\vektor{t} \perp \vektor{s}$, buktikan $\vektor{t} \perp \vektor{z}$ untuk setiap $\vektor{z} \in \mathbb{R}^2$.}
+\textbf{Jawaban:}\\
+Jika $\vektor{t} \perp \vektor{r}$, maka $\vektor{t} \cdot \vektor{r} = 0$.
+Jika $\vektor{t} \perp \vektor{s}$, maka $\vektor{t} \cdot \vektor{s} = 0$.
+Misalkan $\vektor{t} = (t_1, t_2)$.
+$\vektor{t} \cdot \vektor{r} = (t_1, t_2) \cdot (1,2) = t_1 + 2t_2 = 0 \quad (1)$.
+$\vektor{t} \cdot \vektor{s} = (t_1, t_2) \cdot (2,3) = 2t_1 + 3t_2 = 0 \quad (2)$.
+Dari (1), $t_1 = -2t_2$. Substitusikan ke (2):
+$2(-2t_2) + 3t_2 = 0 \Rightarrow -4t_2 + 3t_2 = 0 \Rightarrow -t_2 = 0 \Rightarrow t_2 = 0$.
+Maka $t_1 = -2(0) = 0$.
+Jadi, $\vektor{t} = (0,0)$, yaitu vektor nol.
+Setiap vektor $\vektor{z} \in \mathbb{R}^2$ dapat ditulis sebagai $\vektor{z} = (z_1, z_2)$.
+Maka $\vektor{t} \cdot \vektor{z} = (0,0) \cdot (z_1, z_2) = 0 \cdot z_1 + 0 \cdot z_2 = 0$.
+Karena $\vektor{t} \cdot \vektor{z} = 0$, maka $\vektor{t} \perp \vektor{z}$ untuk setiap $\vektor{z} \in \mathbb{R}^2$.
+Catatan: Ini berlaku karena $\vektor{r}$ dan $\vektor{s}$ linear independen (bukan kelipatan satu sama lain) dan membentuk basis untuk $\mathbb{R}^2$. Satu-satunya vektor yang ortogonal terhadap semua vektor di $\mathbb{R}^2$ (atau terhadap basis $\mathbb{R}^2$) adalah vektor nol.
+
+\subsection*{2. Diketahui vektor-vektor $\vektor{x}=(4,-2,0)$, $\vektor{y}=(5,1,2)$, $\vektor{z}=(1,3,2)$. Carilah semua vektor $\vektor{b}$ yang ortogonal terhadap $\vektor{x}, \vektor{y}, \vektor{z}$ ($\vektor{b} \perp \vektor{x}, \vektor{b} \perp \vektor{y}, \vektor{b} \perp \vektor{z}$).}
+\textbf{Jawaban:}\\
+Misalkan $\vektor{b} = (b_1, b_2, b_3)$.
+$\vektor{b} \perp \vektor{x} \Rightarrow \vektor{b} \cdot \vektor{x} = 0 \Rightarrow 4b_1 - 2b_2 + 0b_3 = 0 \Rightarrow 4b_1 - 2b_2 = 0 \Rightarrow 2b_1 = b_2$.
+$\vektor{b} \perp \vektor{y} \Rightarrow \vektor{b} \cdot \vektor{y} = 0 \Rightarrow 5b_1 + b_2 + 2b_3 = 0$.
+$\vektor{b} \perp \vektor{z} \Rightarrow \vektor{b} \cdot \vektor{z} = 0 \Rightarrow b_1 + 3b_2 + 2b_3 = 0$.
+Substitusikan $b_2 = 2b_1$ ke persamaan kedua dan ketiga:
+$5b_1 + (2b_1) + 2b_3 = 0 \Rightarrow 7b_1 + 2b_3 = 0 \quad (1)$.
+$b_1 + 3(2b_1) + 2b_3 = 0 \Rightarrow b_1 + 6b_1 + 2b_3 = 0 \Rightarrow 7b_1 + 2b_3 = 0 \quad (2)$.
+Persamaan (1) dan (2) identik. Dari $7b_1 + 2b_3 = 0$, kita dapatkan $2b_3 = -7b_1 \Rightarrow b_3 = -\frac{7}{2}b_1$.
+Jadi, $b_1$ adalah variabel bebas. Misalkan $b_1 = t$.
+Maka $b_2 = 2t$ dan $b_3 = -\frac{7}{2}t$.
+Vektor $\vektor{b} = (t, 2t, -\frac{7}{2}t) = t(1, 2, -\frac{7}{2})$.
+Jika kita ingin menghindari pecahan, kita bisa memilih $t=2k$, sehingga $\vektor{b} = (2k, 4k, -7k) = k(2, 4, -7)$.
+Semua vektor $\vektor{b}$ yang ortogonal terhadap $\vektor{x}, \vektor{y}, \vektor{z}$ adalah kelipatan skalar dari vektor $(2, 4, -7)$. Ini berarti $\vektor{x}, \vektor{y}, \vektor{z}$ terletak pada satu bidang yang normalnya adalah $(2,4,-7)$.
+
+\subsection*{3. Jika $\vektor{u} \perp \vektor{v}$ dan $\vektor{v} \perp \vektor{w}$, apakah $\vektor{u} \perp \vektor{w}$?}
+\textbf{Jawaban:}\\
+Tidak selalu.
+Contoh di $\mathbb{R}^3$:
+Misalkan $\vektor{u} = (1,0,0)$, $\vektor{v} = (0,1,0)$, $\vektor{w} = (1,0,0)$.
+$\vektor{u} \cdot \vektor{v} = (1)(0) + (0)(1) + (0)(0) = 0$, jadi $\vektor{u} \perp \vektor{v}$.
+$\vektor{v} \cdot \vektor{w} = (0)(1) + (1)(0) + (0)(0) = 0$, jadi $\vektor{v} \perp \vektor{w}$.
+Tetapi $\vektor{u} \cdot \vektor{w} = (1)(1) + (0)(0) + (0)(0) = 1 \neq 0$. Jadi $\vektor{u}$ tidak ortogonal terhadap $\vektor{w}$.
+Dalam kasus ini, $\vektor{u}$ dan $\vektor{w}$ adalah vektor yang sama (atau kolinear).
+Ortogonalitas tidak bersifat transitif.
+
+\section*{Latihan 3}
+
+\subsection*{1. Diketahui titik-titik $A(1,2,-3)$, $B(3,0,-2)$, $C(4,2,-1)$. Tentukan:}
+
+\subsubsection*{a. Vektor-vektor $\vektor{u}=\vecAB{A}{B}$, $\vektor{v}=\vecAB{B}{C}$.}
+\textbf{Jawaban:}\\
+$\vektor{u} = \vecAB{A}{B} = B - A = (3,0,-2) - (1,2,-3) = (3-1, 0-2, -2-(-3)) = (2, -2, 1)$.
+$\vektor{v} = \vecAB{B}{C} = C - B = (4,2,-1) - (3,0,-2) = (4-3, 2-0, -1-(-2)) = (1, 2, 1)$.
+
+\subsubsection*{b. Vektor $\vektor{w}=\vektor{u}+2\vektor{v}$ dan panjang $||\vektor{w}||$.}
+\textbf{Jawaban:}\\
+$\vektor{w} = \vektor{u} + 2\vektor{v} = (2,-2,1) + 2(1,2,1) = (2,-2,1) + (2,4,2) = (2+2, -2+4, 1+2) = (4, 2, 3)$.
+$||\vektor{w}|| = \sqrt{4^2 + 2^2 + 3^2} = \sqrt{16 + 4 + 9} = \sqrt{29}$.
+
+\subsubsection*{c. Kosinus sudut $\theta$ antara $\vektor{u}$ dan $\vektor{v}$.}
+\textbf{Jawaban:}\\
+$\vektor{u} \cdot \vektor{v} = ||\vektor{u}|| \cdot ||\vektor{v}|| \cos \theta$.
+$\vektor{u} \cdot \vektor{v} = (2)(1) + (-2)(2) + (1)(1) = 2 - 4 + 1 = -1$.
+$||\vektor{u}|| = \sqrt{2^2 + (-2)^2 + 1^2} = \sqrt{4+4+1} = \sqrt{9} = 3$.
+$||\vektor{v}|| = \sqrt{1^2 + 2^2 + 1^2} = \sqrt{1+4+1} = \sqrt{6}$.
+$\cos \theta = \frac{\vektor{u} \cdot \vektor{v}}{||\vektor{u}|| \cdot ||\vektor{v}||} = \frac{-1}{3 \sqrt{6}} = \frac{-1}{3\sqrt{6}} \cdot \frac{\sqrt{6}}{\sqrt{6}} = \frac{-\sqrt{6}}{18}$.
+
+\subsubsection*{d. Vektor satuan $\vektor{a}$ yang searah dengan $\vektor{u}$.}
+\textbf{Jawaban:}\\
+$\vektor{a} = \frac{\vektor{u}}{||\vektor{u}||} = \frac{(2,-2,1)}{3} = (\frac{2}{3}, -\frac{2}{3}, \frac{1}{3})$.
+
+\subsection*{2. Diketahui titik-titik $A(4,-2,0)$, $B(5,1,2)$, $C(3,-2,-1)$. Tentukan:}
+
+\subsubsection*{a. Vektor-vektor $\vektor{u}=\vecAB{C}{A}$, $\vektor{v}=\vecAB{C}{B}$.}
+\textbf{Jawaban:}\\
+$\vektor{u} = \vecAB{C}{A} = A - C = (4,-2,0) - (3,-2,-1) = (4-3, -2-(-2), 0-(-1)) = (1, 0, 1)$.
+$\vektor{v} = \vecAB{C}{B} = B - C = (5,1,2) - (3,-2,-1) = (5-3, 1-(-2), 2-(-1)) = (2, 3, 3)$.
+
+\subsubsection*{b. Hasil kali titik $\vektor{u} \cdot \vektor{v}$.}
+\textbf{Jawaban:}\\
+$\vektor{u} \cdot \vektor{v} = (1)(2) + (0)(3) + (1)(3) = 2 + 0 + 3 = 5$.
+
+\subsubsection*{c. Vektor proyeksi $\vektor{u}$ pada $\vektor{v}$.}
+\textbf{Jawaban:}\\
+Vektor proyeksi $\vektor{u}$ pada $\vektor{v}$ adalah $\text{proj}_{\vektor{v}}\vektor{u} = \frac{\vektor{u} \cdot \vektor{v}}{||\vektor{v}||^2} \vektor{v}$.
+$||\vektor{v}||^2 = 2^2 + 3^2 + 3^2 = 4 + 9 + 9 = 22$.
+$\text{proj}_{\vektor{v}}\vektor{u} = \frac{5}{22} (2,3,3) = (\frac{10}{22}, \frac{15}{22}, \frac{15}{22}) = (\frac{5}{11}, \frac{15}{22}, \frac{15}{22})$.
+
+\subsubsection*{d. Luas segitiga dengan titik-titik sudut $A, B, C$.}
+\textbf{Jawaban:}\\
+Luas segitiga $ABC = \frac{1}{2} ||\vecAB{C}{A} \times \vecAB{C}{B}|| = \frac{1}{2} ||\vektor{u} \times \vektor{v}||$.
+$\vektor{u} \times \vektor{v} = \begin{vmatrix} \vektor{i} & \vektor{j} & \vektor{k} \\ 1 & 0 & 1 \\ 2 & 3 & 3 \end{vmatrix}$
+$= \vektor{i}(0 \cdot 3 - 1 \cdot 3) - \vektor{j}(1 \cdot 3 - 1 \cdot 2) + \vektor{k}(1 \cdot 3 - 0 \cdot 2)$
+$= \vektor{i}(0-3) - \vektor{j}(3-2) + \vektor{k}(3-0)$
+$= -3\vektor{i} - 1\vektor{j} + 3\vektor{k} = (-3, -1, 3)$.
+$||\vektor{u} \times \vektor{v}|| = \sqrt{(-3)^2 + (-1)^2 + 3^2} = \sqrt{9+1+9} = \sqrt{19}$.
+Luas segitiga $ABC = \frac{1}{2} \sqrt{19}$.
+
+\end{document}

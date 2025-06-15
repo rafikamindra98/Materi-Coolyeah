@@ -1,0 +1,142 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage{amsmath} % Untuk lingkungan matriks dan perintah matematika lainnya
+\usepackage{amsfonts} % Untuk simbol
+\usepackage{amssymb} % Untuk simbol \mathbb{R}
+\usepackage{geometry} % Untuk mengatur margin
+\usepackage{enumitem} % Untuk kustomisasi itemize/enumerate
+\usepackage[bahasa]{babel} % Mengatur bahasa Indonesia
+\usepackage{array} % Untuk kolom tabel yang lebih baik
+\usepackage{booktabs} % Untuk garis tabel yang lebih baik
+
+\geometry{a4paper, margin=1in}
+
+\title{Aljabar Linear: Latihan Soal SPL dan Basis}
+\author{Rafi Kamindra 2201006}
+\date{} % Kosongkan tanggal jika tidak ingin ditampilkan
+
+\newcommand{\vektor}[1]{\mathbf{#1}} % Perintah untuk vektor
+\newcommand{\R}{\mathbb{R}} % Simbol R
+\newcommand{\Poly}{\mathbb{P}} % Simbol P untuk polinom
+\newcommand{\M}{\mathbb{M}} % Simbol M untuk matriks
+\newcommand{\spanof}[1]{\text{span}\{#1\}} % Perintah untuk span
+\newcommand{\rank}{\text{rank}} % Perintah untuk rank
+\newcommand{\nulitas}{\text{nulitas}} % Nulitas
+\newcommand{\kernel}{\text{ker}} % Kernel
+\newcommand{\matriks}[1]{\begin{pmatrix} #1 \end{pmatrix}} % Perintah untuk matriks
+
+\begin{document}
+\maketitle
+\pagenumbering{gobble} % Menghilangkan nomor halaman jika tidak diinginkan untuk halaman judul
+
+\section*{Materi: Basis}
+
+\subsection*{1. Periksa apakah himpunan vektor $S = \{ (1,2,1), (2,9,0), (3,3,4) \}$ membentuk basis untuk $\R^3$.}
+\textbf{Jawaban:}\\
+Untuk memeriksa apakah $S$ membentuk basis untuk $\R^3$, kita perlu menunjukkan bahwa vektor-vektor dalam $S$ adalah linear independen dan merentang $\R^3$. Karena $\dim(\R^3)=3$ dan $S$ memiliki 3 vektor, kita cukup menunjukkan bahwa vektor-vektor tersebut linear independen dengan memeriksa apakah determinan matriks yang kolom-kolomnya adalah vektor-vektor ini tidak nol.
+Misalkan $A = \matriks{1 & 2 & 3 \\ 2 & 9 & 3 \\ 1 & 0 & 4}$.
+$\det(A) = 1 \begin{vmatrix} 9 & 3 \\ 0 & 4 \end{vmatrix} - 2 \begin{vmatrix} 2 & 3 \\ 1 & 4 \end{vmatrix} + 3 \begin{vmatrix} 2 & 9 \\ 1 & 0 \end{vmatrix}$
+$= 1(36-0) - 2(8-3) + 3(0-9)$
+$= 36 - 2(5) + 3(-9) = 36 - 10 - 27 = -1$.
+Karena $\det(A) = -1 \neq 0$, vektor-vektor tersebut linear independen dan oleh karena itu membentuk basis untuk $\R^3$.
+
+\subsection*{2. Tentukan apakah himpunan polinom $S = \{1-x, 5+3x-2x^2, 1+3x-x^2\}$ adalah basis untuk $\Poly_2$.}
+\textbf{Jawaban:}\\
+Ruang polinom $\Poly_2$ memiliki dimensi 3. Kita perlu memeriksa apakah 3 polinom dalam $S$ linear independen. Representasikan polinom sebagai vektor koordinat terhadap basis standar $B_{std}=\{1,x,x^2\}$:
+$p_1 = 1-x \rightarrow \vektor{v}_1 = (1,-1,0)$
+$p_2 = 5+3x-2x^2 \rightarrow \vektor{v}_2 = (5,3,-2)$
+$p_3 = 1+3x-x^2 \rightarrow \vektor{v}_3 = (1,3,-1)$
+Bentuk matriks $A$ dari vektor-vektor koordinat ini:
+$A = \matriks{1 & 5 & 1 \\ -1 & 3 & 3 \\ 0 & -2 & -1}$.
+$\det(A) = 1 \begin{vmatrix} 3 & 3 \\ -2 & -1 \end{vmatrix} - 5 \begin{vmatrix} -1 & 3 \\ 0 & -1 \end{vmatrix} + 1 \begin{vmatrix} -1 & 3 \\ 0 & -2 \end{vmatrix}$
+$= 1(-3 - (-6)) - 5(1 - 0) + 1(2 - 0)$
+$= 1(3) - 5(1) + 1(2) = 3 - 5 + 2 = 0$.
+Karena $\det(A) = 0$, polinom-polinom tersebut linear dependen dan oleh karena itu \textbf{tidak} membentuk basis untuk $\Poly_2$.
+
+\subsection*{3. Carilah basis dan dimensi dari ruang solusi sistem persamaan linear homogen berikut:
+\begin{align*} x_1 + 2x_2 - x_3 &= 0 \\ 2x_1 + 5x_2 + 2x_3 &= 0 \\ x_1 + 4x_2 + 7x_3 &= 0 \end{align*}}
+\textbf{Jawaban:}\\
+Bentuk matriks augmented dan lakukan OBE:
+$\left[ \begin{array}{ccc|c} 1 & 2 & -1 & 0 \\ 2 & 5 & 2 & 0 \\ 1 & 4 & 7 & 0 \end{array} \right] \xrightarrow{R_2 \to R_2 - 2R_1} \left[ \begin{array}{ccc|c} 1 & 2 & -1 & 0 \\ 0 & 1 & 4 & 0 \\ 1 & 4 & 7 & 0 \end{array} \right]$
+$\xrightarrow{R_3 \to R_3 - R_1} \left[ \begin{array}{ccc|c} 1 & 2 & -1 & 0 \\ 0 & 1 & 4 & 0 \\ 0 & 2 & 8 & 0 \end{array} \right] \xrightarrow{R_3 \to R_3 - 2R_2} \left[ \begin{array}{ccc|c} 1 & 2 & -1 & 0 \\ 0 & 1 & 4 & 0 \\ 0 & 0 & 0 & 0 \end{array} \right]$
+$\xrightarrow{R_1 \to R_1 - 2R_2} \left[ \begin{array}{ccc|c} 1 & 0 & -9 & 0 \\ 0 & 1 & 4 & 0 \\ 0 & 0 & 0 & 0 \end{array} \right]$.
+Sistem yang bersesuaian adalah $x_1 - 9x_3 = 0 \Rightarrow x_1 = 9x_3$ dan $x_2 + 4x_3 = 0 \Rightarrow x_2 = -4x_3$.
+Misalkan $x_3 = t$. Maka solusi umumnya adalah $(9t, -4t, t) = t(9, -4, 1)$.
+Basis untuk ruang solusi adalah $\{(9, -4, 1)\}$.
+Dimensi ruang solusi adalah 1.
+
+\subsection*{4. Periksa apakah himpunan vektor $S = \{(1,0,0,0), (1,1,0,0), (1,1,1,0), (1,1,1,1)\}$ merupakan basis untuk $\R^4$.}
+\textbf{Jawaban:}\\
+Kita periksa determinan matriks yang kolom-kolomnya (atau baris-barisnya) adalah vektor-vektor dalam $S$:
+$A = \matriks{1 & 1 & 1 & 1 \\ 0 & 1 & 1 & 1 \\ 0 & 0 & 1 & 1 \\ 0 & 0 & 0 & 1}$.
+Karena $A$ adalah matriks segitiga atas, determinannya adalah hasil kali elemen-elemen diagonalnya.
+$\det(A) = 1 \cdot 1 \cdot 1 \cdot 1 = 1$.
+Karena $\det(A) = 1 \neq 0$, vektor-vektor tersebut linear independen. Karena ada 4 vektor linear independen di $\R^4$ (yang berdimensi 4), maka $S$ membentuk basis untuk $\R^4$.
+
+\subsection*{5. Tentukan koordinat vektor $\vektor{v}=(5,-1,9)$ relatif terhadap basis $S = \{\vektor{v}_1=(1,2,1), \vektor{v}_2=(2,9,0), \vektor{v}_3=(3,3,4)\}$ untuk $\R^3$.}
+\textbf{Jawaban:}\\
+Kita ingin mencari skalar $c_1, c_2, c_3$ sehingga $\vektor{v} = c_1\vektor{v}_1 + c_2\vektor{v}_2 + c_3\vektor{v}_3$.
+$(5,-1,9) = c_1(1,2,1) + c_2(2,9,0) + c_3(3,3,4)$.
+Ini menghasilkan sistem:
+\begin{align*} c_1 + 2c_2 + 3c_3 &= 5 \\ 2c_1 + 9c_2 + 3c_3 &= -1 \\ c_1 + 0c_2 + 4c_3 &= 9 \end{align*}
+Matriks augmented: $\left[ \begin{array}{ccc|c} 1 & 2 & 3 & 5 \\ 2 & 9 & 3 & -1 \\ 1 & 0 & 4 & 9 \end{array} \right]$.
+Setelah OBE, kita dapatkan: $\left[ \begin{array}{ccc|c} 1 & 0 & 0 & 1 \\ 0 & 1 & 0 & -1 \\ 0 & 0 & 1 & 2 \end{array} \right]$.
+Jadi $c_1=1, c_2=-1, c_3=2$.
+Koordinat vektor $\vektor{v}$ relatif terhadap basis $S$ adalah $[\vektor{v}]_S = (1,-1,2)^T$.
+
+\section*{Materi: Sistem Persamaan Linear (SPL)}
+
+\subsection*{1. Selesaikan sistem persamaan linear berikut menggunakan eliminasi Gauss-Jordan:
+\begin{align*} x_1 + 3x_2 - 2x_3 &= 0 \\ 2x_1 + 6x_2 - 5x_3 - 2x_4 &= -1 \\ 5x_3 + 10x_4 &= 5 \\ 2x_1 + 6x_2 + 8x_4 &= 6 \end{align*}}
+\textbf{Jawaban:}\\
+Matriks augmented:
+$\left[ \begin{array}{cccc|c} 1 & 3 & -2 & 0 & 0 \\ 2 & 6 & -5 & -2 & -1 \\ 0 & 0 & 5 & 10 & 5 \\ 2 & 6 & 0 & 8 & 6 \end{array} \right]$
+$R_2 \to R_2 - 2R_1$, $R_4 \to R_4 - 2R_1$:
+$\left[ \begin{array}{cccc|c} 1 & 3 & -2 & 0 & 0 \\ 0 & 0 & -1 & -2 & -1 \\ 0 & 0 & 5 & 10 & 5 \\ 0 & 0 & 4 & 8 & 6 \end{array} \right]$
+$R_2 \to -R_2$:
+$\left[ \begin{array}{cccc|c} 1 & 3 & -2 & 0 & 0 \\ 0 & 0 & 1 & 2 & 1 \\ 0 & 0 & 5 & 10 & 5 \\ 0 & 0 & 4 & 8 & 6 \end{array} \right]$
+$R_3 \to R_3 - 5R_2$, $R_4 \to R_4 - 4R_2$:
+$\left[ \begin{array}{cccc|c} 1 & 3 & -2 & 0 & 0 \\ 0 & 0 & 1 & 2 & 1 \\ 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 2 \end{array} \right]$
+Baris terakhir $0x_1+0x_2+0x_3+0x_4 = 2$ (yaitu $0=2$) menunjukkan bahwa sistem ini \textbf{tidak konsisten} (tidak ada solusi).
+
+\subsection*{2. Tentukan apakah sistem homogen berikut memiliki solusi non-trivial:
+\begin{align*} x_1 + x_2 + 2x_3 &= 0 \\ -x_1 - 2x_2 + 3x_3 &= 0 \\ 3x_1 - 7x_2 + 4x_3 &= 0 \end{align*}}
+\textbf{Jawaban:}\\
+Bentuk matriks koefisien $A = \matriks{1 & 1 & 2 \\ -1 & -2 & 3 \\ 3 & -7 & 4}$.
+Hitung determinan $A$:
+$\det(A) = 1 \begin{vmatrix} -2 & 3 \\ -7 & 4 \end{vmatrix} - 1 \begin{vmatrix} -1 & 3 \\ 3 & 4 \end{vmatrix} + 2 \begin{vmatrix} -1 & -2 \\ 3 & -7 \end{vmatrix}$
+$= 1(-8 - (-21)) - 1(-4 - 9) + 2(7 - (-6))$
+$= 1(13) - 1(-13) + 2(13) = 13 + 13 + 26 = 52$.
+Karena $\det(A) = 52 \neq 0$, matriks $A$ invertibel.
+Menurut Teorema Ekivalensi (Equivalent Statements), jika $A$ invertibel, maka sistem homogen $AX=0$ hanya memiliki solusi trivial.
+Jadi, sistem ini \textbf{hanya memiliki solusi trivial} $(0,0,0)$.
+
+\subsection*{3. Untuk nilai $k$ berapakah sistem berikut memiliki (a) tidak ada solusi, (b) solusi unik, (c) banyak solusi?
+\begin{align*} x - y &= 3 \\ 2x - 2y &= k \end{align*}}
+\textbf{Jawaban:}\\
+Matriks augmented: $\left[ \begin{array}{cc|c} 1 & -1 & 3 \\ 2 & -2 & k \end{array} \right]$.
+$R_2 \to R_2 - 2R_1$: $\left[ \begin{array}{cc|c} 1 & -1 & 3 \\ 0 & 0 & k-6 \end{array} \right]$.
+\begin{enumerate}[label=(\alph*)]
+    \item \textbf{Tidak ada solusi}: Jika $k-6 \neq 0$, yaitu $k \neq 6$. Maka baris terakhir adalah $0=k-6$, yang merupakan kontradiksi.
+    \item \textbf{Solusi unik}: Tidak mungkin, karena kolom kedua tidak memiliki pivot. Ini berarti jika ada solusi, pasti ada variabel bebas.
+    \item \textbf{Banyak solusi}: Jika $k-6 = 0$, yaitu $k=6$. Maka baris terakhir adalah $0=0$. Persamaan yang tersisa adalah $x-y=3$. Misalkan $y=t$, maka $x=3+t$. Solusinya adalah $(3+t, t)$, yang merupakan banyak solusi.
+\end{enumerate}
+
+\subsection*{4. Carilah solusi sistem $AX=B$ jika $A^{-1} = \matriks{1 & 2 \\ 3 & 4}$ dan $B = \matriks{5 \\ 6}$.}
+\textbf{Jawaban:}\\
+Jika $AX=B$ dan $A$ invertibel, maka $X = A^{-1}B$.
+$X = \matriks{1 & 2 \\ 3 & 4} \matriks{5 \\ 6} = \matriks{1(5)+2(6) \\ 3(5)+4(6)} = \matriks{5+12 \\ 15+24} = \matriks{17 \\ 39}$.
+Jadi, $x_1=17, x_2=39$.
+
+\subsection*{5. Tentukan kondisi pada $b_1, b_2, b_3$ agar sistem berikut konsisten:
+\begin{align*} x_1 + x_2 + 2x_3 &= b_1 \\ x_1 + x_3 &= b_2 \\ 2x_1 + x_2 + 3x_3 &= b_3 \end{align*}}
+\textbf{Jawaban:}\\
+Matriks augmented: $\left[ \begin{array}{ccc|c} 1 & 1 & 2 & b_1 \\ 1 & 0 & 1 & b_2 \\ 2 & 1 & 3 & b_3 \end{array} \right]$.
+$R_2 \to R_2 - R_1$, $R_3 \to R_3 - 2R_1$:
+$\left[ \begin{array}{ccc|c} 1 & 1 & 2 & b_1 \\ 0 & -1 & -1 & b_2-b_1 \\ 0 & -1 & -1 & b_3-2b_1 \end{array} \right]$.
+$R_2 \to -R_2$: $\left[ \begin{array}{ccc|c} 1 & 1 & 2 & b_1 \\ 0 & 1 & 1 & b_1-b_2 \\ 0 & -1 & -1 & b_3-2b_1 \end{array} \right]$.
+$R_3 \to R_3 + R_2$: $\left[ \begin{array}{ccc|c} 1 & 1 & 2 & b_1 \\ 0 & 1 & 1 & b_1-b_2 \\ 0 & 0 & 0 & (b_3-2b_1) + (b_1-b_2) \end{array} \right]$.
+Baris terakhir adalah $0x_1+0x_2+0x_3 = b_3-b_1-b_2$.
+Agar sistem konsisten, maka $b_3-b_1-b_2 = 0$.
+Jadi, kondisi yang harus dipenuhi adalah $b_3 = b_1+b_2$.
+
+\end{document}

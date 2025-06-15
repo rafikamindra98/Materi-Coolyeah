@@ -1,0 +1,83 @@
+\documentclass{article}
+\usepackage{amsmath} % Untuk lingkungan matriks dan perintah matematika lainnya
+\usepackage{amsfonts} % Untuk simbol
+\usepackage{amssymb} % Untuk simbol \mathbb{R}
+\usepackage{geometry} % Untuk mengatur margin
+\geometry{a4paper, margin=1in}
+
+\title{Aljabar Linear: Ujian Tengah Semester 2021}
+\author{Rafi Kamindra 2201006}
+\date{} % Kosongkan tanggal jika tidak ingin ditampilkan
+
+\newcommand{\vektor}[1]{\mathbf{#1}} % Perintah untuk vektor
+\newcommand{\R}{\mathbb{R}} % Simbol R
+\newcommand{\Poly}{\mathbb{P}} % Simbol P untuk polinom
+\newcommand{\M}{\mathbb{M}} % Simbol M untuk matriks
+\newcommand{\spanof}[1]{\text{span}\{#1\}} % Perintah untuk span
+
+\begin{document}
+\maketitle
+\pagenumbering{gobble} % Menghilangkan nomor halaman jika tidak diinginkan untuk halaman judul
+
+\section*{Bagian A}
+\textbf{Nyatakan BENAR atau SALAH terhadap pernyataan berikut. Berikan alasan.}
+
+\subsection*{1. Subruang $D = \{ a+bx+cx^2 \mid a=c \}$ mempunyai basis $\{1+x+x^2\}$.}
+\textbf{Jawaban: SALAH.}\\
+\textbf{Alasan:}\\
+Sebuah polinom $p(x) = a+bx+cx^2$ berada di $D$ jika $a=c$. Jadi, bentuk umum polinom di $D$ adalah $a+bx+ax^2 = a(1+x^2) + b(x)$.
+Ini menunjukkan bahwa $D$ direntang oleh himpunan $\{1+x^2, x\}$. Kedua polinom ini linear independen (karena bukan kelipatan skalar satu sama lain). Jadi, basis untuk $D$ adalah $\{1+x^2, x\}$, dan $\dim(D)=2$.
+Polinom $1+x+x^2$ memang anggota $D$ (karena $a=1, c=1$, sehingga $a=c$). Namun, satu vektor tidak dapat menjadi basis untuk ruang berdimensi 2. Himpunan $\{1+x+x^2\}$ hanya merentang subruang berdimensi 1, yaitu $\{k(1+x+x^2) \mid k \in \R\}$, yang bukan merupakan seluruh $D$. Sebagai contoh, polinom $x \in D$ (dengan $a=0, c=0, b=1$) tidak dapat dihasilkan oleh $k(1+x+x^2)$.
+
+\subsection*{2. Matriks $\begin{pmatrix} 1 & 6 & 7 \\ 2 & 6 & 8 \\ 3 & 6 & c \end{pmatrix}$ pasti mempunyai rank 3 untuk semua $c \in \R$.}
+\textbf{Jawaban: SALAH.}\\
+\textbf{Alasan:}\\
+Sebuah matriks $3 \times 3$ mempunyai rank 3 jika dan hanya jika determinannya tidak nol.
+Misalkan $A = \begin{pmatrix} 1 & 6 & 7 \\ 2 & 6 & 8 \\ 3 & 6 & c \end{pmatrix}$.
+$\det(A) = 1 \begin{vmatrix} 6 & 8 \\ 6 & c \end{vmatrix} - 6 \begin{vmatrix} 2 & 8 \\ 3 & c \end{vmatrix} + 7 \begin{vmatrix} 2 & 6 \\ 3 & 6 \end{vmatrix}$
+$= 1(6c - 48) - 6(2c - 24) + 7(12 - 18)$
+$= 6c - 48 - 12c + 144 + 7(-6)$
+$= 6c - 48 - 12c + 144 - 42$
+$= -6c + 54$.
+Agar rank matriks kurang dari 3, determinannya harus nol:
+$-6c + 54 = 0 \Rightarrow 6c = 54 \Rightarrow c = 9$.
+Jika $c=9$, maka $\det(A)=0$, sehingga rank matriks $A$ kurang dari 3.
+Oleh karena itu, pernyataan bahwa matriks tersebut pasti mempunyai rank 3 untuk semua $c \in \R$ adalah salah.
+
+\section*{Bagian B}
+\textbf{Perhatikan matriks dan vektor}
+\[ F = \begin{pmatrix} 1 & -1 & 2 \\ -1 & -2 & 0 \\ 2 & 1 & 2 \end{pmatrix}, \quad \vektor{u} = (3,0,r). \]
+
+\subsection*{i. Tentukan semua $r$ sehingga vektor $\vektor{u}$ berada di ruang baris matriks $F$.}
+\textbf{Jawaban:}\\
+Vektor $\vektor{u}$ berada di ruang baris matriks $F$ jika $\vektor{u}$ dapat ditulis sebagai kombinasi linear dari baris-baris $F$.
+Baris-baris $F$ adalah $\vektor{r}_1 = (1,-1,2)$, $\vektor{r}_2 = (-1,-2,0)$, $\vektor{r}_3 = (2,1,2)$.
+Kita cari basis untuk ruang baris $F$ dengan melakukan OBE pada $F$:
+\[ F = \begin{pmatrix} 1 & -1 & 2 \\ -1 & -2 & 0 \\ 2 & 1 & 2 \end{pmatrix} \]
+$R_2 \rightarrow R_2 + R_1$:
+\[ \begin{pmatrix} 1 & -1 & 2 \\ 0 & -3 & 2 \\ 2 & 1 & 2 \end{pmatrix} \]
+$R_3 \rightarrow R_3 - 2R_1$:
+\[ \begin{pmatrix} 1 & -1 & 2 \\ 0 & -3 & 2 \\ 0 & 3 & -2 \end{pmatrix} \]
+$R_3 \rightarrow R_3 + R_2$:
+\[ \begin{pmatrix} 1 & -1 & 2 \\ 0 & -3 & 2 \\ 0 & 0 & 0 \end{pmatrix} \]
+Basis untuk ruang baris $F$ adalah $\{(1,-1,2), (0,-3,2)\}$. Rank $F$ adalah 2.
+Agar $\vektor{u}=(3,0,r)$ berada di ruang baris $F$, maka $\vektor{u}$ harus merupakan kombinasi linear dari vektor basis ruang baris:
+$(3,0,r) = k_1(1,-1,2) + k_2(0,-3,2)$
+$(3,0,r) = (k_1, -k_1-3k_2, 2k_1+2k_2)$.
+Dari komponen pertama: $k_1 = 3$.
+Dari komponen kedua: $-k_1-3k_2 = 0 \Rightarrow -3-3k_2 = 0 \Rightarrow 3k_2 = -3 \Rightarrow k_2 = -1$.
+Dari komponen ketiga: $r = 2k_1+2k_2 = 2(3) + 2(-1) = 6 - 2 = 4$.
+Jadi, $r=4$.
+
+\subsection*{ii. Tentukan basis ruang kolom matriks $F$.}
+\textbf{Jawaban:}\\
+Dari bentuk eselon baris matriks $F$ yang diperoleh di atas:
+\[ \begin{pmatrix} 1 & -1 & 2 \\ 0 & -3 & 2 \\ 0 & 0 & 0 \end{pmatrix} \]
+Elemen pivot (elemen tak nol pertama pada baris tak nol) terdapat pada kolom 1 dan kolom 2.
+Maka, kolom-kolom yang bersesuaian pada matriks $F$ asli membentuk basis untuk ruang kolom $F$.
+Kolom pertama $F$: $(1,-1,2)^T$.
+Kolom kedua $F$: $(-1,-2,1)^T$.
+Jadi, basis untuk ruang kolom $F$ adalah $\left\{ \begin{pmatrix} 1 \\ -1 \\ 2 \end{pmatrix}, \begin{pmatrix} -1 \\ -2 \\ 1 \end{pmatrix} \right\}$.
+Atau ditulis sebagai vektor baris: $\{(1,-1,2), (-1,-2,1)\}$.
+
+\end{document}

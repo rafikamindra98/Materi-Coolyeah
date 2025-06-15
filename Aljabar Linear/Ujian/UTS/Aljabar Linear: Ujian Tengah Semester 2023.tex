@@ -1,0 +1,111 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\title{Aljabar Linear: Ujian Tengah Semester 2023}
+\author{Rafi Kamindra 2201006}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Soal dan Jawaban Aljabar Linier}
+
+Berikut adalah salinan soal dari gambar yang Anda berikan beserta jawaban dan penjelasannya.
+
+\subsection*{Bagian A}
+
+Nyatakan \textbf{BENAR} atau \textbf{SALAH} terhadap pernyataan berikut. Berikan alasan.
+
+\subsubsection*{1. Himpunan $I = \{a + (2b)x + (a - b)x^2 \in P_2 \mid a, b \in \mathbb{R}\}$ adalah subruang yang berdimensi 3.}
+
+\paragraph{Jawaban:} \textbf{SALAH.}
+
+\paragraph{Alasan:}
+Sebuah vektor (polinomial) $p(x)$ di dalam himpunan $I$ dapat ditulis sebagai:
+\begin{align*}
+p(x) &= a + 2bx + (a-b)x^2 \\
+&= a + 2bx + ax^2 - bx^2 \\
+&= a(1 + x^2) + b(2x - x^2)
+\end{align*}
+
+Dari bentuk di atas, kita dapat melihat bahwa setiap elemen di $I$ merupakan kombinasi linear dari dua polinomial, yaitu $\{1+x^2\}$ dan $\{2x - x^2\}$. Kedua polinomial ini saling bebas linear, karena tidak ada skalar $c$ sehingga $(1+x^2) = c(2x - x^2)$.
+
+Oleh karena itu, himpunan $\{1+x^2, 2x - x^2\}$ adalah basis untuk subruang $I$. Karena basisnya terdiri dari 2 vektor, maka \textbf{dimensi dari subruang $I$ adalah 2}, bukan 3. Ruang polinom $P_2$ sendiri memiliki dimensi 3 dengan basis standar $\{1, x, x^2\}$.
+
+\subsubsection*{2. Setiap matriks persegi $A = [a_{ij}]$ dengan $a_{ij} \neq 0$, untuk setiap $1 \le i, j \le n$ selalu mempunyai rank $n$.}
+
+\paragraph{Jawaban:} \textbf{SALAH.}
+
+\paragraph{Alasan:}
+Rank sebuah matriks adalah jumlah baris (atau kolom) yang bebas linear. Meskipun semua entri matriks tidak nol, baris atau kolomnya bisa saja tidak bebas linear (bergantung linear).
+
+Sebagai \textbf{contoh penyangkal (counterexample)}, ambil matriks persegi $2 \times 2$:
+$$A = \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}$$
+Semua entri $a_{ij} \neq 0$. Namun, baris kedua adalah kelipatan dari baris pertama (Baris 2 = 1 $\times$ Baris 1). Ini berarti baris-barisnya tidak bebas linear.
+
+Dengan melakukan Operasi Baris Elementer (OBE):
+$$ \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix} \xrightarrow{R_2 - R_1} \begin{bmatrix} 1 & 1 \\ 0 & 0 \end{bmatrix} $$
+Bentuk eselon baris dari matriks A hanya memiliki satu baris tak-nol, sehingga \textbf{rank(A) = 1}, yang mana tidak sama dengan $n=2$.
+
+\subsection*{Bagian B}
+
+\subsubsection*{3. Perhatikan matriks}
+$$ A = \begin{bmatrix} 1 & -2 & 1 & -1 \\ -1 & 1 & 0 & 0 \\ 0 & -1 & 1 & -1 \end{bmatrix} $$
+
+\paragraph{i. Berikan 2 buah basis berbeda untuk ruang kolom ($C_A$).}
+
+\paragraph{Jawaban:}
+Untuk menemukan basis ruang kolom, kita perlu mencari bentuk eselon baris dari matriks A untuk mengidentifikasi kolom-kolom pivot.
+$$ \begin{bmatrix} 1 & -2 & 1 & -1 \\ -1 & 1 & 0 & 0 \\ 0 & -1 & 1 & -1 \end{bmatrix} \xrightarrow{R_2 + R_1} \begin{bmatrix} 1 & -2 & 1 & -1 \\ 0 & -1 & 1 & -1 \\ 0 & -1 & 1 & -1 \end{bmatrix} \xrightarrow{R_3 - R_2} \begin{bmatrix} 1 & -2 & 1 & -1 \\ 0 & -1 & 1 & -1 \\ 0 & 0 & 0 & 0 \end{bmatrix} $$
+Kolom pivot berada di kolom 1 dan kolom 2. Maka, basis untuk ruang kolom $C_A$ dapat diambil dari kolom 1 dan kolom 2 pada matriks \textbf{A} asli.
+
+\paragraph{Basis 1:}
+$$ B_1 = \left\{ \begin{bmatrix} 1 \\ -1 \\ 0 \end{bmatrix}, \begin{bmatrix} -2 \\ 1 \\ -1 \end{bmatrix} \right\} $$
+
+Untuk mencari basis kedua yang berbeda, kita bisa membuat kombinasi linear dari vektor-vektor pada basis pertama. Misalkan $v_1 = \begin{bmatrix} 1 \\ -1 \\ 0 \end{bmatrix}$ dan $v_2 = \begin{bmatrix} -2 \\ 1 \\ -1 \end{bmatrix}$.
+\begin{itemize}
+    \item Vektor baru 1: $v'_1 = v_1 + v_2 = \begin{bmatrix} 1 \\ -1 \\ 0 \end{bmatrix} + \begin{bmatrix} -2 \\ 1 \\ -1 \end{bmatrix} = \begin{bmatrix} -1 \\ 0 \\ -1 \end{bmatrix}$
+    \item Vektor baru 2: $v'_2 = v_1 - v_2 = \begin{bmatrix} 1 \\ -1 \\ 0 \end{bmatrix} - \begin{bmatrix} -2 \\ 1 \\ -1 \end{bmatrix} = \begin{bmatrix} 3 \\ -2 \\ 1 \end{bmatrix}$
+\end{itemize}
+Kedua vektor baru ini ($v'_1$ dan $v'_2$) juga bebas linear dan merentang ruang kolom yang sama.
+
+\paragraph{Basis 2:}
+$$ B_2 = \left\{ \begin{bmatrix} -1 \\ 0 \\ -1 \end{bmatrix}, \begin{bmatrix} 3 \\ -2 \\ 1 \end{bmatrix} \right\} $$
+
+\paragraph{ii. Tentukan semua $r$ sehingga $u = (0, -2, 2, r)$ berada di ruang baris matriks A.}
+
+\paragraph{Jawaban:}
+Sebuah vektor berada di ruang baris jika ia dapat dinyatakan sebagai kombinasi linear dari vektor-vektor basis ruang baris. Basis untuk ruang baris dapat diambil dari baris-baris tak-nol pada bentuk eselon baris matriks A.
+
+Dari perhitungan sebelumnya, basis untuk ruang baris A adalah: \\
+$w_1 = (1, -2, 1, -1)$ \\
+$w_2 = (0, -1, 1, -1)$
+
+Kita mencari skalar $c_1$ dan $c_2$ sehingga:
+\begin{align*}
+u &= c_1 w_1 + c_2 w_2 \\
+(0, -2, 2, r) &= c_1(1, -2, 1, -1) + c_2(0, -1, 1, -1) \\
+(0, -2, 2, r) &= (c_1, -2c_1 - c_2, c_1 + c_2, -c_1 - c_2)
+\end{align*}
+
+Dengan menyamakan komponen-komponen vektor, kita mendapatkan sistem persamaan linear:
+\begin{enumerate}
+    \item $c_1 = 0$
+    \item $-2c_1 - c_2 = -2$
+    \item $c_1 + c_2 = 2$
+    \item $-c_1 - c_2 = r$
+\end{enumerate}
+
+Substitusi nilai $c_1=0$ dari persamaan (1) ke persamaan (2):
+$-2(0) - c_2 = -2 \implies c_2 = 2$.
+
+Kita verifikasi dengan persamaan (3):
+$c_1 + c_2 = 0 + 2 = 2$. (Sesuai)
+
+Terakhir, kita cari nilai $r$ menggunakan persamaan (4):
+$r = -c_1 - c_2 = -(0) - (2) = -2$.
+
+Jadi, nilai $r$ yang memenuhi adalah \textbf{-2}.
+
+\end{document}

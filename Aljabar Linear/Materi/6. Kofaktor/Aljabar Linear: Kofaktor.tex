@@ -1,0 +1,182 @@
+\documentclass{article}
+\usepackage{amsmath} % Untuk lingkungan matriks dan perintah matematika lainnya
+\usepackage{amsfonts} % Untuk simbol
+\usepackage{amssymb} % Untuk simbol \mathbb{R}
+\usepackage{geometry} % Untuk mengatur margin
+\usepackage{systeme} % Untuk sistem persamaan linear
+\geometry{a4paper, margin=1in}
+
+\title{Aljabar Linear: Kofaktor}
+\author{Rafi Kamindra 2201006}
+\date{} % Kosongkan tanggal jika tidak ingin ditampilkan
+
+\begin{document}
+\maketitle
+\pagenumbering{gobble} % Menghilangkan nomor halaman jika tidak diinginkan untuk halaman judul
+
+\section*{Latihan}
+
+\subsection*{1. Hitunglah determinan dari $A = \begin{pmatrix} 1 & 1 & -2 & 1 \\ -1 & 1 & 3 & -1 \\ 2 & -1 & 4 & 1 \\ 0 & -1 & 2 & -1 \end{pmatrix}$}
+\textbf{Jawaban:}\\
+Misalkan $D_A = \begin{vmatrix} 1 & 1 & -2 & 1 \\ -1 & 1 & 3 & -1 \\ 2 & -1 & 4 & 1 \\ 0 & -1 & 2 & -1 \end{vmatrix}$.
+Ekspansi kofaktor sepanjang baris ke-4 (karena ada elemen 0):
+\begin{align*} D_A &= 0(-1)^{4+1} M_{41} + (-1)(-1)^{4+2} \begin{vmatrix} 1 & -2 & 1 \\ -1 & 3 & -1 \\ 2 & 4 & 1 \end{vmatrix} \\ & \quad + 2(-1)^{4+3} \begin{vmatrix} 1 & 1 & 1 \\ -1 & 1 & -1 \\ 2 & -1 & 1 \end{vmatrix} + (-1)(-1)^{4+4} \begin{vmatrix} 1 & 1 & -2 \\ -1 & 1 & 3 \\ 2 & -1 & 4 \end{vmatrix} \end{align*}
+Hitung determinan 3x3:
+\begin{align*} \begin{vmatrix} 1 & -2 & 1 \\ -1 & 3 & -1 \\ 2 & 4 & 1 \end{vmatrix} &= 1(3 - (-4)) - (-2)(-1 - (-2)) + 1(-4 - 6) \\ &= 1(7) + 2(1) + 1(-10) = 7 + 2 - 10 = -1 \end{align*}
+\begin{align*} \begin{vmatrix} 1 & 1 & 1 \\ -1 & 1 & -1 \\ 2 & -1 & 1 \end{vmatrix} &= 1(1 - 1) - 1(-1 - (-2)) + 1(1 - 2) \\ &= 1(0) - 1(1) + 1(-1) = 0 - 1 - 1 = -2 \end{align*}
+\begin{align*} \begin{vmatrix} 1 & 1 & -2 \\ -1 & 1 & 3 \\ 2 & -1 & 4 \end{vmatrix} &= 1(4 - (-3)) - 1(-4 - 6) + (-2)(1 - 2) \\ &= 1(7) - 1(-10) - 2(-1) = 7 + 10 + 2 = 19 \end{align*}
+Maka,
+\begin{align*} D_A &= 0 + (-1)(1)(-1) + 2(-1)(-2) + (-1)(1)(19) \\ &= 1 + 4 - 19 \\ &= -14 \end{align*}
+
+\subsection*{2. Tentukan matriks adjoin dari $B = \begin{pmatrix} 2 & 2 & -3 \\ 0 & 1 & 2 \\ 0 & 2 & 2 \end{pmatrix}$. Gunakan matriks adjoin ini untuk mendapatkan $B^{-1}$.}
+\textbf{Jawaban:}\\
+Matriks kofaktor $C_{ij} = (-1)^{i+j} M_{ij}$:
+$C_{11} = (-1)^{1+1} \begin{vmatrix} 1 & 2 \\ 2 & 2 \end{vmatrix} = 1(2-4) = -2$
+$C_{12} = (-1)^{1+2} \begin{vmatrix} 0 & 2 \\ 0 & 2 \end{vmatrix} = -1(0-0) = 0$
+$C_{13} = (-1)^{1+3} \begin{vmatrix} 0 & 1 \\ 0 & 2 \end{vmatrix} = 1(0-0) = 0$
+$C_{21} = (-1)^{2+1} \begin{vmatrix} 2 & -3 \\ 2 & 2 \end{vmatrix} = -1(4 - (-6)) = -1(10) = -10$
+$C_{22} = (-1)^{2+2} \begin{vmatrix} 2 & -3 \\ 0 & 2 \end{vmatrix} = 1(4-0) = 4$
+$C_{23} = (-1)^{2+3} \begin{vmatrix} 2 & 2 \\ 0 & 2 \end{vmatrix} = -1(4-0) = -4$
+$C_{31} = (-1)^{3+1} \begin{vmatrix} 2 & -3 \\ 1 & 2 \end{vmatrix} = 1(4 - (-3)) = 7$
+$C_{32} = (-1)^{3+2} \begin{vmatrix} 2 & -3 \\ 0 & 2 \end{vmatrix} = -1(4-0) = -4$
+$C_{33} = (-1)^{3+3} \begin{vmatrix} 2 & 2 \\ 0 & 1 \end{vmatrix} = 1(2-0) = 2$
+Matriks Kofaktor: $K(B) = \begin{pmatrix} -2 & 0 & 0 \\ -10 & 4 & -4 \\ 7 & -4 & 2 \end{pmatrix}$.
+Matriks Adjoin: $\text{adj}(B) = K(B)^T = \begin{pmatrix} -2 & -10 & 7 \\ 0 & 4 & -4 \\ 0 & -4 & 2 \end{pmatrix}$.
+Untuk mencari $B^{-1}$, kita butuh $\det(B)$. Ekspansi sepanjang kolom pertama:
+$\det(B) = 2 \begin{vmatrix} 1 & 2 \\ 2 & 2 \end{vmatrix} - 0 \cdot M_{21} + 0 \cdot M_{31} = 2(2-4) = 2(-2) = -4$.
+$B^{-1} = \frac{1}{\det(B)} \text{adj}(B) = \frac{1}{-4} \begin{pmatrix} -2 & -10 & 7 \\ 0 & 4 & -4 \\ 0 & -4 & 2 \end{pmatrix} = \begin{pmatrix} 1/2 & 5/2 & -7/4 \\ 0 & -1 & 1 \\ 0 & 1 & -1/2 \end{pmatrix}$.
+
+\subsection*{3. Gunakan metode Cramer untuk mendapatkan solusi $x_2$ untuk SPL \\
+\sysdelim..
+\systeme{
+2x_1 - x_2 = 2,
+x_1 + x_2 - x_3 = 3,
+-x_1 + x_3 = 1
+}}
+\textbf{Jawaban:}\\
+SPL dalam bentuk matriks $Ax=b$:
+$\begin{pmatrix} 2 & -1 & 0 \\ 1 & 1 & -1 \\ -1 & 0 & 1 \end{pmatrix} \begin{pmatrix} x_1 \\ x_2 \\ x_3 \end{pmatrix} = \begin{pmatrix} 2 \\ 3 \\ 1 \end{pmatrix}$.
+$\det(A) = 2 \begin{vmatrix} 1 & -1 \\ 0 & 1 \end{vmatrix} - (-1) \begin{vmatrix} 1 & -1 \\ -1 & 1 \end{vmatrix} + 0 \begin{vmatrix} 1 & 1 \\ -1 & 0 \end{vmatrix}$
+$= 2(1-0) + 1(1-1) + 0 = 2(1) + 1(0) = 2$.
+Untuk mencari $x_2$, kita bentuk matriks $A_2$ dengan mengganti kolom kedua $A$ dengan $b$:
+$A_2 = \begin{pmatrix} 2 & 2 & 0 \\ 1 & 3 & -1 \\ -1 & 1 & 1 \end{pmatrix}$.
+$\det(A_2) = 2 \begin{vmatrix} 3 & -1 \\ 1 & 1 \end{vmatrix} - 2 \begin{vmatrix} 1 & -1 \\ -1 & 1 \end{vmatrix} + 0 \begin{vmatrix} 1 & 3 \\ -1 & 1 \end{vmatrix}$
+$= 2(3 - (-1)) - 2(1-1) + 0 = 2(4) - 2(0) = 8$.
+$x_2 = \frac{\det(A_2)}{\det(A)} = \frac{8}{2} = 4$.
+
+\subsection*{4. Tentukan determinan dari $A = \begin{pmatrix} b+c & c+a & b+a \\ a & b & c \\ 1 & 1 & 1 \end{pmatrix}$}
+\textbf{Jawaban:}\\
+$D_A = \begin{vmatrix} b+c & c+a & b+a \\ a & b & c \\ 1 & 1 & 1 \end{vmatrix}$.
+$R_1 \rightarrow R_1 + R_2$:
+\[ D_A = \begin{vmatrix} a+b+c & a+b+c & a+b+c \\ a & b & c \\ 1 & 1 & 1 \end{vmatrix} \]
+Faktorkan $(a+b+c)$ dari baris pertama:
+\[ D_A = (a+b+c) \begin{vmatrix} 1 & 1 & 1 \\ a & b & c \\ 1 & 1 & 1 \end{vmatrix} \]
+Karena baris pertama dan baris ketiga identik, maka determinan matriks ini adalah 0.
+Jadi, $D_A = (a+b+c) \cdot 0 = 0$.
+
+\subsection*{5. Tentukan semua $k \in \mathbb{R}$ sehingga SPL berikut mempunyai solusi. \\
+\sysdelim..
+\systeme{
+2x_1 - x_2 + x_3 = 2,
+-x_1 + x_2 - kx_3 = 3,
+-x_1 - x_2 + x_3 = -1
+}}
+\textbf{Jawaban:}\\
+SPL mempunyai solusi jika rank matriks koefisien sama dengan rank matriks augmented, atau jika matriks koefisien non-singular (determinannya tidak nol), maka SPL pasti punya solusi unik. Jika determinan matriks koefisien nol, kita perlu cek konsistensi.
+Matriks koefisien $A = \begin{pmatrix} 2 & -1 & 1 \\ -1 & 1 & -k \\ -1 & -1 & 1 \end{pmatrix}$.
+$\det(A) = 2(1-k) - (-1)(-1-k) + 1(1-(-1))$
+$= 2 - 2k - (1+k) + 2 = 2 - 2k - 1 - k + 2 = 3 - 3k$.
+Jika $\det(A) \neq 0$, yaitu $3-3k \neq 0 \Rightarrow 3k \neq 3 \Rightarrow k \neq 1$, maka SPL mempunyai solusi unik.
+Jika $\det(A) = 0$, yaitu $k=1$:
+Matriks augmented menjadi $\left[ \begin{array}{ccc|c} 2 & -1 & 1 & 2 \\ -1 & 1 & -1 & 3 \\ -1 & -1 & 1 & -1 \end{array} \right]$.
+$R_1 \leftrightarrow R_2$: $\left[ \begin{array}{ccc|c} -1 & 1 & -1 & 3 \\ 2 & -1 & 1 & 2 \\ -1 & -1 & 1 & -1 \end{array} \right]$.
+$R_1 \rightarrow -R_1$: $\left[ \begin{array}{ccc|c} 1 & -1 & 1 & -3 \\ 2 & -1 & 1 & 2 \\ -1 & -1 & 1 & -1 \end{array} \right]$.
+$R_2 \rightarrow R_2 - 2R_1$: $\left[ \begin{array}{ccc|c} 1 & -1 & 1 & -3 \\ 0 & 1 & -1 & 8 \\ -1 & -1 & 1 & -1 \end{array} \right]$.
+$R_3 \rightarrow R_3 + R_1$: $\left[ \begin{array}{ccc|c} 1 & -1 & 1 & -3 \\ 0 & 1 & -1 & 8 \\ 0 & -2 & 2 & -4 \end{array} \right]$.
+$R_3 \rightarrow R_3 + 2R_2$: $\left[ \begin{array}{ccc|c} 1 & -1 & 1 & -3 \\ 0 & 1 & -1 & 8 \\ 0 & 0 & 0 & 12 \end{array} \right]$.
+Baris ketiga $0 = 12$ adalah kontradiksi. Jadi, jika $k=1$, SPL tidak mempunyai solusi.
+Kesimpulan: SPL mempunyai solusi untuk semua $k \in \mathbb{R}$ kecuali $k=1$. Jadi, $k \neq 1$.
+
+\subsection*{6. Tentukan semua $r$ sehingga $A = \begin{pmatrix} 1 & 2 & 4 \\ 3 & 1 & 6 \\ r & 3 & 2 \end{pmatrix}$ tidak mempunyai invers.}
+\textbf{Jawaban:}\\
+Matriks tidak mempunyai invers jika determinannya nol.
+$\det(A) = 1(1 \cdot 2 - 6 \cdot 3) - 2(3 \cdot 2 - 6 \cdot r) + 4(3 \cdot 3 - 1 \cdot r)$
+$= 1(2 - 18) - 2(6 - 6r) + 4(9 - r)$
+$= -16 - 12 + 12r + 36 - 4r$
+$= 8r + 8$.
+Agar tidak mempunyai invers, $\det(A) = 0$:
+$8r + 8 = 0 \Rightarrow 8r = -8 \Rightarrow r = -1$.
+
+\subsection*{7. Buktikan: Jika A mempunyai invers maka adj(A) juga mempunyai invers dan berlaku: $[\text{adj}(A)]^{-1} = \frac{1}{\det(A)} A = \text{adj}(A^{-1})$.}
+\textbf{Jawaban:}\\
+Diketahui $A^{-1} = \frac{1}{\det(A)} \text{adj}(A)$.
+Maka $\text{adj}(A) = \det(A) A^{-1}$.
+Untuk menunjukkan $\text{adj}(A)$ mempunyai invers, kita cari determinannya.
+$\det(\text{adj}(A)) = \det(\det(A) A^{-1})$. Jika $A$ adalah $n \times n$, maka $\det(cA) = c^n \det(A)$.
+$\det(\text{adj}(A)) = (\det(A))^n \det(A^{-1}) = (\det(A))^n \frac{1}{\det(A)} = (\det(A))^{n-1}$.
+Karena $A$ mempunyai invers, $\det(A) \neq 0$. Maka $(\det(A))^{n-1} \neq 0$ (kecuali jika $n=1$ dan $\det(A)$ bisa 0, tapi untuk invers biasanya $n \ge 2$). Jadi $\text{adj}(A)$ mempunyai invers.
+
+Sekarang buktikan $[\text{adj}(A)]^{-1} = \frac{1}{\det(A)} A$:
+Kita tahu $A \cdot \text{adj}(A) = \det(A) I$.
+Kalikan kedua sisi dengan $A^{-1}$ dari kiri:
+$A^{-1} (A \cdot \text{adj}(A)) = A^{-1} (\det(A) I)$
+$(A^{-1}A) \text{adj}(A) = \det(A) (A^{-1}I)$
+$I \cdot \text{adj}(A) = \det(A) A^{-1}$
+$\text{adj}(A) = \det(A) A^{-1}$.
+Kalikan kedua sisi dengan $[\text{adj}(A)]^{-1}$ dari kiri:
+$[\text{adj}(A)]^{-1} \text{adj}(A) = [\text{adj}(A)]^{-1} (\det(A) A^{-1})$
+$I = \det(A) [\text{adj}(A)]^{-1} A^{-1}$.
+Kalikan kedua sisi dengan $A$ dari kanan:
+$IA = \det(A) [\text{adj}(A)]^{-1} A^{-1} A$
+$A = \det(A) [\text{adj}(A)]^{-1} I$
+$A = \det(A) [\text{adj}(A)]^{-1}$.
+Maka $[\text{adj}(A)]^{-1} = \frac{1}{\det(A)} A$. (Terbukti bagian pertama)
+
+Sekarang buktikan $[\text{adj}(A)]^{-1} = \text{adj}(A^{-1})$:
+Dari $A^{-1} = \frac{1}{\det(A^{-1})} \text{adj}(A^{-1})$.
+Maka $\text{adj}(A^{-1}) = \det(A^{-1}) (A^{-1})^{-1} = \frac{1}{\det(A)} A$.
+Karena kita sudah membuktikan $[\text{adj}(A)]^{-1} = \frac{1}{\det(A)} A$, maka
+$[\text{adj}(A)]^{-1} = \text{adj}(A^{-1})$. (Terbukti bagian kedua)
+
+\subsection*{8. Buktikan: Jika $A \in M_n$ maka $\det[\text{adj}(A)] = [\det(A)]^{n-1}$.}
+\textbf{Jawaban:}\\
+Kita menggunakan identitas $A \cdot \text{adj}(A) = \det(A) I_n$.
+Ambil determinan dari kedua sisi:
+$\det(A \cdot \text{adj}(A)) = \det(\det(A) I_n)$.
+$\det(A) \cdot \det(\text{adj}(A)) = (\det(A))^n \det(I_n)$.
+$\det(A) \cdot \det(\text{adj}(A)) = (\det(A))^n \cdot 1$.
+Jika $\det(A) \neq 0$:
+Kita bisa membagi kedua sisi dengan $\det(A)$:
+$\det(\text{adj}(A)) = \frac{(\det(A))^n}{\det(A)} = (\det(A))^{n-1}$.
+Jika $\det(A) = 0$:
+Maka $A \cdot \text{adj}(A) = 0 \cdot I_n = O$ (matriks nol).
+Jika $A$ adalah matriks nol, maka $\text{adj}(A)$ juga matriks nol (untuk $n>1$), sehingga $\det(\text{adj}(A))=0$. Dan $(\det(A))^{n-1} = 0^{n-1} = 0$. Jadi $0=0$.
+Jika $A$ bukan matriks nol tetapi $\det(A)=0$, maka $A$ tidak punya invers, rank $A < n$.
+Jika rank $A \le n-2$, maka semua minor $(n-1) \times (n-1)$ adalah nol, sehingga $\text{adj}(A) = O$. Maka $\det(\text{adj}(A))=0$. Dan $(\det(A))^{n-1} = 0^{n-1} = 0$.
+Jika rank $A = n-1$, maka $\text{adj}(A) \neq O$. Namun, karena $A \cdot \text{adj}(A) = O$, dan $A \neq O$, maka $\text{adj}(A)$ haruslah matriks yang kolom-kolomnya merupakan solusi dari $Ax=0$. Karena rank $A = n-1$, ruang solusi $Ax=0$ berdimensi 1. Ini berarti semua kolom $\text{adj}(A)$ adalah kelipatan dari satu vektor tak nol. Akibatnya, kolom-kolom $\text{adj}(A)$ dependen linear (jika $n>1$), sehingga $\det(\text{adj}(A))=0$. Dan $(\det(A))^{n-1} = 0^{n-1} = 0$.
+Jadi, formula berlaku untuk semua kasus.
+
+\subsection*{9. Tentukan determinan dari $A = \begin{pmatrix} k & 2 & 4 \\ 3 & 1 & k-2 \\ 1 & k+1 & 2 \end{pmatrix}$.}
+\textbf{Jawaban:}\\
+$\det(A) = k \begin{vmatrix} 1 & k-2 \\ k+1 & 2 \end{vmatrix} - 2 \begin{vmatrix} 3 & k-2 \\ 1 & 2 \end{vmatrix} + 4 \begin{vmatrix} 3 & 1 \\ 1 & k+1 \end{vmatrix}$
+$= k(2 - (k-2)(k+1)) - 2(6 - (k-2)) + 4(3(k+1) - 1)$
+$= k(2 - (k^2 - k - 2)) - 2(6 - k + 2) + 4(3k + 3 - 1)$
+$= k(2 - k^2 + k + 2) - 2(8 - k) + 4(3k + 2)$
+$= k(4 + k - k^2) - 16 + 2k + 12k + 8$
+$= 4k + k^2 - k^3 - 16 + 2k + 12k + 8$
+$= -k^3 + k^2 + (4+2+12)k + (-16+8)$
+$= -k^3 + k^2 + 18k - 8$.
+
+\subsection*{10. Misalkan $A, B \in M_n$. Jika masing-masing SPL, $AX=C$ dan $BX=C$, mempunyai solusi tunggal, apakah $(AB)X=C$ harus mempunyai solusi tunggal? Jelaskan.}
+\textbf{Jawaban:}\\
+Jika $AX=C$ mempunyai solusi tunggal, maka $A$ harus mempunyai invers, sehingga $\det(A) \neq 0$.
+Jika $BX=C$ mempunyai solusi tunggal, maka $B$ harus mempunyai invers, sehingga $\det(B) \neq 0$.
+Untuk SPL $(AB)X=C$ mempunyai solusi tunggal, matriks $(AB)$ harus mempunyai invers.
+Matriks $(AB)$ mempunyai invers jika dan only jika $\det(AB) \neq 0$.
+Kita tahu bahwa $\det(AB) = \det(A) \cdot \det(B)$.
+Karena $\det(A) \neq 0$ dan $\det(B) \neq 0$, maka hasil kalinya $\det(A) \cdot \det(B) \neq 0$.
+Jadi, $\det(AB) \neq 0$.
+Karena $\det(AB) \neq 0$, maka $(AB)$ mempunyai invers, dan SPL $(AB)X=C$ mempunyai solusi tunggal.
+Ya, $(AB)X=C$ harus mempunyai solusi tunggal.
+
+\end{document}

@@ -1,0 +1,163 @@
+\documentclass{article}
+\usepackage{amsmath} % Untuk lingkungan matriks dan perintah matematika lainnya
+\usepackage{amsfonts} % Untuk simbol M_2
+\usepackage{geometry} % Untuk mengatur margin
+\geometry{a4paper, margin=1in}
+
+\title{Aljabar Linear: Operasi Baris}
+\author{Rafi Kamindra 2201006}
+\date{} % Kosongkan tanggal jika tidak ingin ditampilkan
+
+\begin{document}
+\maketitle
+\pagenumbering{gobble} % Menghilangkan nomor halaman jika tidak diinginkan untuk halaman judul
+
+\section*{Latihan}
+
+\subsection*{1. Ubahlah semua matriks berikut menjadi bentuk eselon}
+$A = \begin{pmatrix} 1 & 2 & 0 \\ -2 & 2 & 3 \\ 3 & -1 & 2 \end{pmatrix}$ \quad
+$B = \begin{pmatrix} 2 & 0 & 1 & -1 \\ -4 & 2 & -3 & 1 \\ 6 & 0 & -4 & 3 \end{pmatrix}$
+
+\textbf{Jawaban:}
+Untuk matriks A:
+\[ A = \begin{pmatrix} 1 & 2 & 0 \\ -2 & 2 & 3 \\ 3 & -1 & 2 \end{pmatrix} \]
+$R_2 \rightarrow R_2 + 2R_1$:
+\[ \begin{pmatrix} 1 & 2 & 0 \\ 0 & 6 & 3 \\ 3 & -1 & 2 \end{pmatrix} \]
+$R_3 \rightarrow R_3 - 3R_1$:
+\[ \begin{pmatrix} 1 & 2 & 0 \\ 0 & 6 & 3 \\ 0 & -7 & 2 \end{pmatrix} \]
+$R_2 \rightarrow \frac{1}{6}R_2$:
+\[ \begin{pmatrix} 1 & 2 & 0 \\ 0 & 1 & 1/2 \\ 0 & -7 & 2 \end{pmatrix} \]
+$R_3 \rightarrow R_3 + 7R_2$:
+\[ \begin{pmatrix} 1 & 2 & 0 \\ 0 & 1 & 1/2 \\ 0 & 0 & 2 + 7/2 \end{pmatrix} = \begin{pmatrix} 1 & 2 & 0 \\ 0 & 1 & 1/2 \\ 0 & 0 & 11/2 \end{pmatrix} \]
+Ini adalah bentuk eselon dari matriks A.
+
+Untuk matriks B:
+\[ B = \begin{pmatrix} 2 & 0 & 1 & -1 \\ -4 & 2 & -3 & 1 \\ 6 & 0 & -4 & 3 \end{pmatrix} \]
+$R_1 \rightarrow \frac{1}{2}R_1$:
+\[ \begin{pmatrix} 1 & 0 & 1/2 & -1/2 \\ -4 & 2 & -3 & 1 \\ 6 & 0 & -4 & 3 \end{pmatrix} \]
+$R_2 \rightarrow R_2 + 4R_1$:
+\[ \begin{pmatrix} 1 & 0 & 1/2 & -1/2 \\ 0 & 2 & -3+2 & 1-2 \\ 6 & 0 & -4 & 3 \end{pmatrix} = \begin{pmatrix} 1 & 0 & 1/2 & -1/2 \\ 0 & 2 & -1 & -1 \\ 6 & 0 & -4 & 3 \end{pmatrix} \]
+$R_3 \rightarrow R_3 - 6R_1$:
+\[ \begin{pmatrix} 1 & 0 & 1/2 & -1/2 \\ 0 & 2 & -1 & -1 \\ 0 & 0 & -4-3 & 3+3 \end{pmatrix} = \begin{pmatrix} 1 & 0 & 1/2 & -1/2 \\ 0 & 2 & -1 & -1 \\ 0 & 0 & -7 & 6 \end{pmatrix} \]
+$R_2 \rightarrow \frac{1}{2}R_2$:
+\[ \begin{pmatrix} 1 & 0 & 1/2 & -1/2 \\ 0 & 1 & -1/2 & -1/2 \\ 0 & 0 & -7 & 6 \end{pmatrix} \]
+Ini adalah bentuk eselon dari matriks B.
+
+\subsection*{2. Ubahlah semua matriks berikut menjadi bentuk eselon tereduksi}
+$A = \begin{pmatrix} 1 & -1 & 1 \\ -2 & -2 & 3 \\ 1 & -1 & 0 \end{pmatrix}$ \quad
+$B = \begin{pmatrix} 0 & 0 & 2 \\ 2 & 2 & -3 \\ -1 & 0 & -2 \end{pmatrix}$
+
+\textbf{Jawaban:}
+Untuk matriks A:
+\[ A = \begin{pmatrix} 1 & -1 & 1 \\ -2 & -2 & 3 \\ 1 & -1 & 0 \end{pmatrix} \]
+$R_2 \rightarrow R_2 + 2R_1$:
+\[ \begin{pmatrix} 1 & -1 & 1 \\ 0 & -4 & 5 \\ 1 & -1 & 0 \end{pmatrix} \]
+$R_3 \rightarrow R_3 - R_1$:
+\[ \begin{pmatrix} 1 & -1 & 1 \\ 0 & -4 & 5 \\ 0 & 0 & -1 \end{pmatrix} \]
+$R_2 \rightarrow -\frac{1}{4}R_2$:
+\[ \begin{pmatrix} 1 & -1 & 1 \\ 0 & 1 & -5/4 \\ 0 & 0 & -1 \end{pmatrix} \]
+$R_3 \rightarrow -R_3$:
+\[ \begin{pmatrix} 1 & -1 & 1 \\ 0 & 1 & -5/4 \\ 0 & 0 & 1 \end{pmatrix} \]
+$R_1 \rightarrow R_1 + R_2$:
+\[ \begin{pmatrix} 1 & 0 & 1 - 5/4 \\ 0 & 1 & -5/4 \\ 0 & 0 & 1 \end{pmatrix} = \begin{pmatrix} 1 & 0 & -1/4 \\ 0 & 1 & -5/4 \\ 0 & 0 & 1 \end{pmatrix} \]
+$R_1 \rightarrow R_1 + \frac{1}{4}R_3$:
+\[ \begin{pmatrix} 1 & 0 & 0 \\ 0 & 1 & -5/4 \\ 0 & 0 & 1 \end{pmatrix} \]
+$R_2 \rightarrow R_2 + \frac{5}{4}R_3$:
+\[ \begin{pmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{pmatrix} \]
+Ini adalah bentuk eselon tereduksi dari matriks A (matriks identitas).
+
+Untuk matriks B:
+\[ B = \begin{pmatrix} 0 & 0 & 2 \\ 2 & 2 & -3 \\ -1 & 0 & -2 \end{pmatrix} \]
+Tukar $R_1$ dan $R_3$:
+\[ \begin{pmatrix} -1 & 0 & -2 \\ 2 & 2 & -3 \\ 0 & 0 & 2 \end{pmatrix} \]
+$R_1 \rightarrow -R_1$:
+\[ \begin{pmatrix} 1 & 0 & 2 \\ 2 & 2 & -3 \\ 0 & 0 & 2 \end{pmatrix} \]
+$R_2 \rightarrow R_2 - 2R_1$:
+\[ \begin{pmatrix} 1 & 0 & 2 \\ 0 & 2 & -3-4 \\ 0 & 0 & 2 \end{pmatrix} = \begin{pmatrix} 1 & 0 & 2 \\ 0 & 2 & -7 \\ 0 & 0 & 2 \end{pmatrix} \]
+$R_2 \rightarrow \frac{1}{2}R_2$:
+\[ \begin{pmatrix} 1 & 0 & 2 \\ 0 & 1 & -7/2 \\ 0 & 0 & 2 \end{pmatrix} \]
+$R_3 \rightarrow \frac{1}{2}R_3$:
+\[ \begin{pmatrix} 1 & 0 & 2 \\ 0 & 1 & -7/2 \\ 0 & 0 & 1 \end{pmatrix} \]
+$R_1 \rightarrow R_1 - 2R_3$:
+\[ \begin{pmatrix} 1 & 0 & 0 \\ 0 & 1 & -7/2 \\ 0 & 0 & 1 \end{pmatrix} \]
+$R_2 \rightarrow R_2 + \frac{7}{2}R_3$:
+\[ \begin{pmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{pmatrix} \]
+Ini adalah bentuk eselon tereduksi dari matriks B (matriks identitas).
+
+\subsection*{3. Carilah rank dari matriks-matriks berikut}
+$A = \begin{pmatrix} 0 & 2 & 3 \\ -2 & -1 & 3 \\ 2 & -1 & 3 \end{pmatrix}$ \quad
+$B = \begin{pmatrix} 1 & 0 & 2 & -2 \\ -3 & 2 & -6 & 6 \\ -2 & 1 & -4 & 4 \end{pmatrix}$
+
+\textbf{Jawaban:}
+Rank matriks adalah jumlah baris tak nol dalam bentuk eselonnya.
+
+Untuk matriks A:
+\[ A = \begin{pmatrix} 0 & 2 & 3 \\ -2 & -1 & 3 \\ 2 & -1 & 3 \end{pmatrix} \]
+Tukar $R_1$ dan $R_2$:
+\[ \begin{pmatrix} -2 & -1 & 3 \\ 0 & 2 & 3 \\ 2 & -1 & 3 \end{pmatrix} \]
+$R_1 \rightarrow -\frac{1}{2}R_1$:
+\[ \begin{pmatrix} 1 & 1/2 & -3/2 \\ 0 & 2 & 3 \\ 2 & -1 & 3 \end{pmatrix} \]
+$R_3 \rightarrow R_3 - 2R_1$:
+\[ \begin{pmatrix} 1 & 1/2 & -3/2 \\ 0 & 2 & 3 \\ 0 & -1-1 & 3+3 \end{pmatrix} = \begin{pmatrix} 1 & 1/2 & -3/2 \\ 0 & 2 & 3 \\ 0 & -2 & 6 \end{pmatrix} \]
+$R_3 \rightarrow R_3 + R_2$:
+\[ \begin{pmatrix} 1 & 1/2 & -3/2 \\ 0 & 2 & 3 \\ 0 & 0 & 9 \end{pmatrix} \]
+Bentuk eselon memiliki 3 baris tak nol. Jadi, rank(A) = 3.
+
+Untuk matriks B:
+\[ B = \begin{pmatrix} 1 & 0 & 2 & -2 \\ -3 & 2 & -6 & 6 \\ -2 & 1 & -4 & 4 \end{pmatrix} \]
+$R_2 \rightarrow R_2 + 3R_1$:
+\[ \begin{pmatrix} 1 & 0 & 2 & -2 \\ 0 & 2 & 0 & 0 \\ -2 & 1 & -4 & 4 \end{pmatrix} \]
+$R_3 \rightarrow R_3 + 2R_1$:
+\[ \begin{pmatrix} 1 & 0 & 2 & -2 \\ 0 & 2 & 0 & 0 \\ 0 & 1 & 0 & 0 \end{pmatrix} \]
+$R_2 \rightarrow \frac{1}{2}R_2$:
+\[ \begin{pmatrix} 1 & 0 & 2 & -2 \\ 0 & 1 & 0 & 0 \\ 0 & 1 & 0 & 0 \end{pmatrix} \]
+$R_3 \rightarrow R_3 - R_2$:
+\[ \begin{pmatrix} 1 & 0 & 2 & -2 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 0 \end{pmatrix} \]
+Bentuk eselon memiliki 2 baris tak nol. Jadi, rank(B) = 2.
+
+\subsection*{4. Carilah nilai $a, b$ sehingga matriks berikut mempunyai rank 3}
+$A = \begin{pmatrix} 1 & 2 & 1 \\ -1 & a & 0 \\ 2 & -1 & b \end{pmatrix}$
+
+\textbf{Jawaban:}
+Agar matriks A memiliki rank 3, determinannya tidak boleh nol ($\det(A) \neq 0$).
+\begin{align*} \det(A) &= 1 \begin{vmatrix} a & 0 \\ -1 & b \end{vmatrix} - 2 \begin{vmatrix} -1 & 0 \\ 2 & b \end{vmatrix} + 1 \begin{vmatrix} -1 & a \\ 2 & -1 \end{vmatrix} \\ &= 1(ab - 0) - 2(-b - 0) + 1(1 - 2a) \\ &= ab + 2b + 1 - 2a \end{align*}
+Agar rank A = 3, maka $ab + 2b + 1 - 2a \neq 0$.
+Ini berarti $b(a+2) - (2a-1) \neq 0$.
+Atau $b \neq \frac{2a-1}{a+2}$, dengan syarat $a \neq -2$.
+
+Jika $a = -2$:
+$\det(A) = (-2)b + 2b + 1 - 2(-2) = -2b + 2b + 1 + 4 = 5$.
+Karena $\det(A) = 5 \neq 0$ ketika $a=-2$, maka matriks akan selalu memiliki rank 3 untuk $a=-2$, berapapun nilai $b$.
+
+Jadi, kondisi agar rank A = 3 adalah:
+\begin{itemize}
+    \item Jika $a \neq -2$, maka $b \neq \frac{2a-1}{a+2}$.
+    \item Jika $a = -2$, rank A selalu 3 untuk semua nilai $b$.
+\end{itemize}
+Secara umum, $ab - 2a + 2b + 1 \neq 0$.
+
+\subsection*{5. Jika $A \in M_3$ dan semua entrinya sama, berapa rank A?}
+\textbf{Jawaban:}
+Misalkan semua entri matriks A adalah $k$.
+Maka $A = \begin{pmatrix} k & k & k \\ k & k & k \\ k & k & k \end{pmatrix}$.
+
+Jika $k=0$, maka $A = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix}$. Rank(A) = 0.
+
+Jika $k \neq 0$:
+Lakukan operasi baris elementer:
+$R_2 \rightarrow R_2 - R_1$:
+\[ \begin{pmatrix} k & k & k \\ 0 & 0 & 0 \\ k & k & k \end{pmatrix} \]
+$R_3 \rightarrow R_3 - R_1$:
+\[ \begin{pmatrix} k & k & k \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix} \]
+Jika $k \neq 0$, kita bisa membuat elemen pertama baris pertama menjadi 1 dengan $R_1 \rightarrow \frac{1}{k}R_1$:
+\[ \begin{pmatrix} 1 & 1 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix} \]
+Bentuk eselon ini memiliki satu baris tak nol.
+Jadi, jika $k \neq 0$, rank(A) = 1.
+
+Kesimpulan:
+\begin{itemize}
+    \item Jika semua entri adalah 0, rank(A) = 0.
+    \item Jika semua entri sama dan tidak nol, rank(A) = 1.
+\end{itemize}
+
+\end{document}

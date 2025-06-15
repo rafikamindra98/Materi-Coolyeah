@@ -1,0 +1,155 @@
+\documentclass{article}
+\usepackage{amsmath} % Untuk lingkungan matriks dan perintah matematika lainnya
+\usepackage{amsfonts} % Untuk simbol
+\usepackage{amssymb} % Untuk simbol \mathbb{R}
+\usepackage{geometry} % Untuk mengatur margin
+\geometry{a4paper, margin=1in}
+
+\title{Aljabar Linear: Kernel dan Range}
+\author{Rafi Kamindra 2201006}
+\date{} % Kosongkan tanggal jika tidak ingin ditampilkan
+
+\newcommand{\vektor}[1]{\mathbf{#1}} % Perintah untuk vektor
+\newcommand{\R}{\mathbb{R}} % Simbol R
+\newcommand{\Poly}{\mathbb{P}} % Simbol P untuk polinom
+\newcommand{\M}{\mathbb{M}} % Simbol M untuk matriks
+\newcommand{\Transformasi}[1]{T(#1)} % Notasi Transformasi
+\newcommand{\kernel}{\text{ker}} % Kernel
+\newcommand{\jangkauan}{\text{R}} % Jangkauan (Range)
+\newcommand{\nulitas}{\text{nulitas}} % Nulitas
+\newcommand{\rank}{\text{rank}} % Rank
+
+\begin{document}
+\maketitle
+\pagenumbering{gobble} % Menghilangkan nomor halaman jika tidak diinginkan untuk halaman judul
+
+\section*{Problem}
+
+\subsection*{1. Diketahui transformasi $T: \R^2 \rightarrow \R^3$, dengan $T[(x,y)] = (x-y, 2x+y, x+y)$. Periksa, apakah $T$ linear. Berapa nulitas dan rank $T$? Apakah setiap elemen $\vektor{y} \in \R^3$ mempunyai prapeta di $\R^2$?}
+\textbf{Jawaban:}\\
+\textbf{a. Periksa apakah $T$ linear:}\\
+Syarat 1: $T(\vektor{u}+\vektor{v}) = T(\vektor{u}) + T(\vektor{v})$.
+Misalkan $\vektor{u}=(x_1,y_1)$ dan $\vektor{v}=(x_2,y_2)$.
+$T(\vektor{u}+\vektor{v}) = T((x_1+x_2, y_1+y_2))$
+$= ((x_1+x_2)-(y_1+y_2), 2(x_1+x_2)+(y_1+y_2), (x_1+x_2)+(y_1+y_2))$
+$= (x_1-y_1+x_2-y_2, 2x_1+y_1+2x_2+y_2, x_1+y_1+x_2+y_2)$.
+$T(\vektor{u}) = (x_1-y_1, 2x_1+y_1, x_1+y_1)$.
+$T(\vektor{v}) = (x_2-y_2, 2x_2+y_2, x_2+y_2)$.
+$T(\vektor{u}) + T(\vektor{v}) = (x_1-y_1+x_2-y_2, 2x_1+y_1+2x_2+y_2, x_1+y_1+x_2+y_2)$.
+Syarat 1 terpenuhi.
+
+Syarat 2: $T(k\vektor{u}) = kT(\vektor{u})$.
+$T(k\vektor{u}) = T((kx_1, ky_1)) = (kx_1-ky_1, 2kx_1+ky_1, kx_1+ky_1)$
+$= k(x_1-y_1, 2x_1+y_1, x_1+y_1) = kT(\vektor{u})$.
+Syarat 2 terpenuhi.
+Karena kedua syarat terpenuhi, $T$ adalah transformasi linear.
+
+\textbf{b. Nulitas dan Rank $T$}:\\
+Matriks standar untuk $T$ adalah $A = \begin{pmatrix} T(1,0) & T(0,1) \end{pmatrix}$.
+$T(1,0) = (1-0, 2(1)+0, 1+0) = (1,2,1)$.
+$T(0,1) = (0-1, 2(0)+1, 0+1) = (-1,1,1)$.
+Jadi, $A = \begin{pmatrix} 1 & -1 \\ 2 & 1 \\ 1 & 1 \end{pmatrix}$.
+Untuk mencari kernel (ruang nol), kita selesaikan $A\vektor{x} = \vektor{0}$:
+$\begin{pmatrix} 1 & -1 \\ 2 & 1 \\ 1 & 1 \end{pmatrix} \begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix}$.
+$x-y=0 \Rightarrow x=y$.
+$2x+y=0 \Rightarrow 2x+x=0 \Rightarrow 3x=0 \Rightarrow x=0$.
+Maka $y=0$.
+Satu-satunya solusi adalah $(x,y)=(0,0)$. Jadi $\kernel(T) = \{\vektor{0}\}$.
+Nulitas $T = \dim(\kernel(T)) = 0$.
+Menurut teorema rank-nulitas: $\rank(T) + \nulitas(T) = \dim(\text{domain})$.
+$\rank(T) + 0 = \dim(\R^2) = 2$.
+Jadi, $\rank(T) = 2$.
+Basis untuk jangkauan (ruang kolom A) adalah kolom-kolom $A$ karena mereka linear independen: $\{(1,2,1), (-1,1,1)\}$.
+
+\textbf{c. Apakah setiap elemen $\vektor{w} \in \R^3$ mempunyai prapeta di $\R^2$?}
+Tidak. Jangkauan $T$, yaitu $R(T)$, adalah subruang dari $\R^3$ yang berdimensi 2 (rank $T = 2$). Ini berarti $R(T)$ adalah sebuah bidang di $\R^3$. Hanya vektor-vektor $\vektor{w}$ yang terletak pada bidang ini yang mempunyai prapeta. Vektor di $\R^3$ yang tidak terletak pada bidang ini tidak akan mempunyai prapeta.
+Jadi, tidak setiap elemen $\vektor{w} \in \R^3$ mempunyai prapeta di $\R^2$. Transformasi ini tidak surjektif (onto).
+
+\subsection*{2. Diketahui transformasi $T: \R^3 \rightarrow \R^3$, dengan $T[(x,y,z)] = (2x-y+z, x+2y-z, -x+y+3z)$. Carilah basis $\kernel(T)$ dan basis $R(T)$.}
+\textbf{Jawaban:}\\
+Matriks standar untuk $T$: $A = \begin{pmatrix} 2 & -1 & 1 \\ 1 & 2 & -1 \\ -1 & 1 & 3 \end{pmatrix}$.
+\textbf{Basis $\kernel(T)$}: Selesaikan $A\vektor{x} = \vektor{0}$.
+$\left[ \begin{array}{ccc|c} 2 & -1 & 1 & 0 \\ 1 & 2 & -1 & 0 \\ -1 & 1 & 3 & 0 \end{array} \right]$
+$R_1 \leftrightarrow R_2$: $\left[ \begin{array}{ccc|c} 1 & 2 & -1 & 0 \\ 2 & -1 & 1 & 0 \\ -1 & 1 & 3 & 0 \end{array} \right]$
+$R_2 \rightarrow R_2 - 2R_1$: $\left[ \begin{array}{ccc|c} 1 & 2 & -1 & 0 \\ 0 & -5 & 3 & 0 \\ -1 & 1 & 3 & 0 \end{array} \right]$
+$R_3 \rightarrow R_3 + R_1$: $\left[ \begin{array}{ccc|c} 1 & 2 & -1 & 0 \\ 0 & -5 & 3 & 0 \\ 0 & 3 & 2 & 0 \end{array} \right]$
+$R_3 \rightarrow 5R_3 + 3R_2$: $\left[ \begin{array}{ccc|c} 1 & 2 & -1 & 0 \\ 0 & -5 & 3 & 0 \\ 0 & 0 & 10+9 & 0 \end{array} \right] = \left[ \begin{array}{ccc|c} 1 & 2 & -1 & 0 \\ 0 & -5 & 3 & 0 \\ 0 & 0 & 19 & 0 \end{array} \right]$.
+Dari $19z=0 \Rightarrow z=0$.
+Dari $-5y+3z=0 \Rightarrow -5y+0=0 \Rightarrow y=0$.
+Dari $x+2y-z=0 \Rightarrow x+0-0=0 \Rightarrow x=0$.
+Satu-satunya solusi adalah $(0,0,0)$. Jadi $\kernel(T) = \{\vektor{0}\}$.
+Basis untuk $\kernel(T)$ adalah himpunan kosong $\emptyset$, dan $\nulitas(T)=0$.
+
+\textbf{Basis $R(T)$}: Jangkauan $T$ adalah ruang kolom matriks $A$.
+Karena $\nulitas(T)=0$, maka $\rank(T) = \dim(\R^3) - \nulitas(T) = 3-0=3$.
+Karena ranknya 3, kolom-kolom matriks $A$ linear independen dan membentuk basis untuk $R(T)$.
+Basis $R(T) = \{(2,1,-1), (-1,2,1), (1,-1,3)\}$. (Karena $R(T)$ adalah $\R^3$, basis standar $\R^3$ juga bisa menjadi basisnya).
+
+\subsection*{3. Carilah basis untuk kernel dan jangkauan dari $T: \Poly_2 \rightarrow \Poly_2$ dengan $T[a+bx+cx^2] = (a+2b-c) + (-a+b+c)x + (2a-b-c)x^2$.}
+\textbf{Jawaban:}\\
+Representasikan $T$ dengan matriks terhadap basis standar $\{1,x,x^2\}$.
+$T(1) = (1-0x-0x^2) + (-1+0+0)x + (2-0-0)x^2 = 1-x+2x^2 \rightarrow (1,-1,2)$.
+$T(x) = (0+2-0) + (0+1+0)x + (0-1-0)x^2 = 2+x-x^2 \rightarrow (2,1,-1)$.
+$T(x^2) = (0+0-1) + (0+0+1)x + (0+0-1)x^2 = -1+x-x^2 \rightarrow (-1,1,-1)$.
+Matriks standar $A = \begin{pmatrix} 1 & 2 & -1 \\ -1 & 1 & 1 \\ 2 & -1 & -1 \end{pmatrix}$.
+
+\textbf{Basis $\kernel(T)$}: Selesaikan $A\vektor{v} = \vektor{0}$ dimana $\vektor{v}=(a,b,c)^T$.
+$\left[ \begin{array}{ccc|c} 1 & 2 & -1 & 0 \\ -1 & 1 & 1 & 0 \\ 2 & -1 & -1 & 0 \end{array} \right]$
+$R_2 \rightarrow R_2 + R_1$: $\left[ \begin{array}{ccc|c} 1 & 2 & -1 & 0 \\ 0 & 3 & 0 & 0 \\ 2 & -1 & -1 & 0 \end{array} \right]$
+$R_3 \rightarrow R_3 - 2R_1$: $\left[ \begin{array}{ccc|c} 1 & 2 & -1 & 0 \\ 0 & 3 & 0 & 0 \\ 0 & -5 & 1 & 0 \end{array} \right]$
+Dari $R_2: 3b=0 \Rightarrow b=0$.
+Substitusikan $b=0$ ke $R_3: -5(0)+c=0 \Rightarrow c=0$.
+Substitusikan $b=0, c=0$ ke $R_1: a+2(0)-0=0 \Rightarrow a=0$.
+Jadi $a=b=c=0$. Maka $\kernel(T) = \{0+0x+0x^2\}$, yaitu polinom nol.
+Basis untuk $\kernel(T)$ adalah $\emptyset$, dan $\nulitas(T)=0$.
+
+\textbf{Basis $R(T)$}:
+Karena $\nulitas(T)=0$, maka $\rank(T) = \dim(\Poly_2) - 0 = 3$.
+Karena ranknya 3, jangkauannya adalah seluruh $\Poly_2$.
+Basis untuk $R(T)$ bisa berupa basis standar $\Poly_2$, yaitu $\{1, x, x^2\}$.
+Atau, kolom-kolom matriks $A$ (yang merupakan $T(1), T(x), T(x^2)$):
+$\{1-x+2x^2, 2+x-x^2, -1+x-x^2\}$.
+
+\textbf{Apakah ada $\vektor{u} \neq \vektor{v} \in \Poly_2$ sehingga $T(\vektor{u}) = T(\vektor{v})$?}\\
+Jika $T(\vektor{u}) = T(\vektor{v})$, maka $T(\vektor{u}) - T(\vektor{v}) = \vektor{0}$. Karena $T$ linear, $T(\vektor{u}-\vektor{v}) = \vektor{0}$.
+Ini berarti $\vektor{u}-\vektor{v} \in \kernel(T)$.
+Karena $\kernel(T) = \{\vektor{0}\}$, maka $\vektor{u}-\vektor{v} = \vektor{0}$, yang berarti $\vektor{u} = \vektor{v}$.
+Jadi, tidak ada $\vektor{u} \neq \vektor{v}$ sehingga $T(\vektor{u}) = T(\vektor{v})$. Transformasi ini injektif (satu-satu).
+
+\subsection*{4. Jika $T: \R^2 \rightarrow \R^4$ linear. Jelaskan, mengapa dipastikan ada $\vektor{u} \in \R^4$ yang tidak mempunyai prapeta di $\R^2$.}
+\textbf{Jawaban:}\\
+Dimensi domain adalah $\dim(\R^2) = 2$.
+Menurut teorema rank-nulitas, $\rank(T) + \nulitas(T) = \dim(\text{domain}) = 2$.
+Karena $\nulitas(T) \ge 0$, maka $\rank(T) = 2 - \nulitas(T) \le 2$.
+Jangkauan $T$, yaitu $R(T)$, adalah subruang dari kodomain $\R^4$.
+Dimensi jangkauan adalah $\dim(R(T)) = \rank(T)$.
+Jadi, $\dim(R(T)) \le 2$.
+Karena kodomain adalah $\R^4$ yang berdimensi 4, dan jangkauan $T$ memiliki dimensi paling besar 2, maka $R(T)$ tidak mungkin sama dengan $\R^4$.
+Ini berarti $R(T)$ adalah subruang sejati dari $\R^4$.
+Oleh karena itu, pasti ada vektor $\vektor{u} \in \R^4$ yang tidak berada dalam $R(T)$, yang berarti $\vektor{u}$ tidak mempunyai prapeta di $\R^2$. Transformasi ini tidak surjektif.
+
+\subsection*{5. Misalkan $T: V \rightarrow W$ linear, dan $B=\{\vektor{u}_1, \dots, \vektor{u}_n\}$ basis untuk $V$.}
+\subsubsection*{a. Buktikan bahwa $B' = \{T[\vektor{u}_1], \dots, T[\vektor{u}_n]\}$ membangun $R(T)$.}
+\textbf{Jawaban:}\\
+Jangkauan $T$, $R(T)$, adalah himpunan semua vektor $\vektor{w} \in W$ sedemikian sehingga $\vektor{w} = T(\vektor{v})$ untuk suatu $\vektor{v} \in V$.
+Ambil sebarang $\vektor{y} \in R(T)$. Maka ada $\vektor{x} \in V$ sehingga $T(\vektor{x}) = \vektor{y}$.
+Karena $B=\{\vektor{u}_1, \dots, \vektor{u}_n\}$ adalah basis untuk $V$, maka $\vektor{x}$ dapat ditulis sebagai kombinasi linear dari vektor-vektor basis:
+$\vektor{x} = c_1\vektor{u}_1 + c_2\vektor{u}_2 + \dots + c_n\vektor{u}_n$ untuk suatu skalar $c_1, \dots, c_n$.
+Karena $T$ linear:
+$\vektor{y} = T(\vektor{x}) = T(c_1\vektor{u}_1 + c_2\vektor{u}_2 + \dots + c_n\vektor{u}_n)$
+$= c_1 T(\vektor{u}_1) + c_2 T(\vektor{u}_2) + \dots + c_n T(\vektor{u}_n)$.
+Ini menunjukkan bahwa setiap vektor $\vektor{y}$ di $R(T)$ dapat ditulis sebagai kombinasi linear dari vektor-vektor dalam himpunan $B' = \{T[\vektor{u}_1], \dots, T[\vektor{u}_n]\}$.
+Oleh karena itu, $B'$ membangun (merentang) $R(T)$.
+
+\subsubsection*{b. Apakah $B'$ juga basis untuk $R(T)$?}
+\textbf{Jawaban:}\\
+Tidak selalu. $B'$ membangun $R(T)$, tetapi $B'$ belum tentu linear independen.
+$B'$ adalah basis untuk $R(T)$ jika dan hanya jika vektor-vektor dalam $B'$ linear independen.
+Vektor-vektor $T(\vektor{u}_1), \dots, T(\vektor{u}_n)$ linear independen jika dan hanya jika transformasi $T$ adalah injektif (satu-satu), yang berarti $\kernel(T) = \{\vektor{0}\}$.
+Jika $T$ tidak injektif (yaitu $\kernel(T) \neq \{\vektor{0}\}$), maka $\nulitas(T) > 0$.
+Dari teorema rank-nulitas, $\rank(T) = \dim(V) - \nulitas(T) = n - \nulitas(T)$.
+Jika $\nulitas(T) > 0$, maka $\rank(T) < n$.
+Dimensi $R(T)$ adalah $\rank(T)$. Jadi, jika $\rank(T) < n$, maka himpunan $B'$ yang terdiri dari $n$ vektor tidak mungkin menjadi basis untuk $R(T)$ (karena basisnya harus memiliki $\rank(T)$ vektor). Dalam kasus ini, $B'$ akan linear dependen.
+Jadi, $B'$ adalah basis untuk $R(T)$ jika dan hanya jika $T$ injektif (kernelnya hanya vektor nol).
+
+\end{document}

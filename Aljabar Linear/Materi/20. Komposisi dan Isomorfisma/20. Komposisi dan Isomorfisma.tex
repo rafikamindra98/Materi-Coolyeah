@@ -1,0 +1,175 @@
+\documentclass[a4paper, 12pt]{article}
+
+% --- PREAMBLE ---
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath} % Untuk lingkungan matematika tingkat lanjut
+\usepackage{amssymb} % Untuk simbol matematika tambahan
+\usepackage{amsthm}  % Untuk lingkungan teorema
+\usepackage[a4paper, top=3cm, bottom=3cm, left=3cm, right=3cm, marginparwidth=1.75cm]{geometry} % Mengatur margin halaman
+
+% --- PENGATURAN LINGKUNGAN TEOREMA ---
+% Ini akan membuat penomoran yang konsisten untuk definisi, teorema, contoh, dll.
+\theoremstyle{definition}
+\newtheorem{definisi}{Definisi}[section]
+\newtheorem{contoh}{Contoh}[section]
+
+\theoremstyle{plain}
+\newtheorem{teorema}{Teorema}[section]
+\newtheorem{proposisi}{Proposisi}[section]
+
+\theoremstyle{remark}
+\newtheorem*{bukti}{Bukti}
+\newtheorem*{catatan}{Catatan}
+
+% --- INFORMASI DOKUMEN ---
+\title{\textbf{Komposisi dan Isomorfisma}}
+\author{Rafi Kamindra 2201006}
+\date{}
+
+\begin{document}
+\maketitle
+
+% =================================
+% BAB 1: KOMPOSISI TRANSFORMASI LINEAR
+% =================================
+\section{Komposisi Transformasi Linear}
+
+\begin{definisi}[Komposisi]
+Misalkan $U, V, W$ adalah ruang vektor. Diberikan dua transformasi linear $S: U \longrightarrow V$ dan $T: V \longrightarrow W$. \textbf{Komposisi} dari $T$ dan $S$, yang dinotasikan sebagai $TS: U \longrightarrow W$, didefinisikan oleh:
+\[
+(TS)(u) = T(S(u))
+\]
+untuk setiap vektor $u \in U$.
+\end{definisi}
+
+\begin{teorema}
+Jika $S: U \longrightarrow V$ dan $T: V \longrightarrow W$ keduanya adalah transformasi linear, maka komposisinya, $TS: U \longrightarrow W$, juga merupakan transformasi linear.
+\end{teorema}
+
+\begin{bukti}
+Ambil sebarang $u_1, u_2 \in U$ dan skalar $k$. Kita perlu menunjukkan dua hal:
+\begin{enumerate}
+    \item \textbf{Aditivitas:} $(TS)(u_1 + u_2) = (TS)(u_1) + (TS)(u_2)$
+    \begin{align*}
+        (TS)(u_1 + u_2) &= T(S(u_1 + u_2)) && \text{(Definisi komposisi)} \\
+                       &= T(S(u_1) + S(u_2)) && \text{(Karena S linear)} \\
+                       &= T(S(u_1)) + T(S(u_2)) && \text{(Karena T linear)} \\
+                       &= (TS)(u_1) + (TS)(u_2) && \text{(Definisi komposisi)}
+    \end{align*}
+    \item \textbf{Homogenitas:} $(TS)(ku_1) = k(TS)(u_1)$
+    \begin{align*}
+        (TS)(ku_1) &= T(S(ku_1)) && \text{(Definisi komposisi)} \\
+                     &= T(kS(u_1)) && \text{(Karena S linear)} \\
+                     &= kT(S(u_1)) && \text{(Karena T linear)} \\
+                     &= k(TS)(u_1) && \text{(Definisi komposisi)}
+    \end{align*}
+\end{enumerate}
+Karena kedua sifat terpenuhi, maka $TS$ adalah transformasi linear.
+\end{bukti}
+
+\begin{contoh}
+Diberikan transformasi $S: \mathbb{R}^2 \to \mathbb{R}^2$ dan $T: \mathbb{R}^2 \to \mathbb{R}^2$ dengan:
+\[
+S(x, y) = (x-y, 2x+y) \quad \text{dan} \quad T(x, y) = (-x+y, x+3y)
+\]
+Matriks standar untuk $S$ dan $T$ adalah:
+\[
+[S] = \begin{pmatrix} 1 & -1 \\ 2 & 1 \end{pmatrix}, \quad [T] = \begin{pmatrix} -1 & 1 \\ 1 & 3 \end{pmatrix}
+\]
+Matriks untuk komposisi $TS$ adalah hasil perkalian matriks $[T][S]$:
+\[
+[TS] = [T][S] = \begin{pmatrix} -1 & 1 \\ 1 & 3 \end{pmatrix} \begin{pmatrix} 1 & -1 \\ 2 & 1 \end{pmatrix} = \begin{pmatrix} (-1)(1)+(1)(2) & (-1)(-1)+(1)(1) \\ (1)(1)+(3)(2) & (1)(-1)+(3)(1) \end{pmatrix} = \begin{pmatrix} 1 & 2 \\ 7 & 2 \end{pmatrix}
+\]
+\end{contoh}
+
+
+% =================================
+% BAB 2: ISOMORFISMA
+% =================================
+\section{Isomorfisma}
+
+Isomorfisma adalah konsep yang mengidentifikasi dua ruang vektor yang secara struktural identik. Konsep ini dibangun dari sifat-sifat pemetaan (transformasi).
+
+% --- SUB-BAB 2.1: PEMETAAN SATU-SATU ---
+\subsection{Pemetaan Satu-satu (Injektif)}
+
+\begin{definisi}
+Sebuah transformasi linear $T: U \longrightarrow V$ dikatakan \textbf{satu-satu} (atau \textbf{injektif}) jika untuk setiap $u, v \in U$, berlaku:
+\[
+T(u) = T(v) \implies u = v
+\]
+Dengan kata lain, setiap vektor di jangkauan (range) $T$ dipetakan oleh tepat satu vektor dari domain $U$.
+\end{definisi}
+
+\begin{teorema}
+Transformasi linear $T: U \longrightarrow V$ bersifat satu-satu jika dan hanya jika kernel (ruang nol) dari $T$ hanya berisi vektor nol.
+\[
+T \text{ adalah satu-satu} \iff \ker(T) = \{0_U\}
+\]
+\end{teorema}
+
+\begin{bukti}
+($\Rightarrow$) Asumsikan $T$ satu-satu. Kita tahu bahwa $T(0_U) = 0_V$, jadi $0_U \in \ker(T)$. Ambil sebarang $u \in \ker(T)$, maka $T(u) = 0_V$. Karena $T(u) = T(0_U)$ dan $T$ satu-satu, maka haruslah $u = 0_U$. Jadi, $\ker(T) = \{0_U\}$.
+
+($\Leftarrow$) Asumsikan $\ker(T) = \{0_U\}$. Ambil sebarang $u, v \in U$ sehingga $T(u) = T(v)$. Maka, $T(u) - T(v) = 0_V$. Karena $T$ linear, $T(u-v) = 0_V$. Ini berarti $u-v \in \ker(T)$. Karena $\ker(T) = \{0_U\}$, maka $u-v = 0_U$, yang berarti $u=v$. Jadi, $T$ adalah satu-satu.
+\end{bukti}
+
+% --- SUB-BAB 2.2: PEMETAAN PADA ---
+\subsection{Pemetaan Pada (Surjektif)}
+
+\begin{definisi}
+Sebuah transformasi linear $T: U \longrightarrow V$ dikatakan \textbf{pada} (atau \textbf{surjektif}) jika jangkauannya (range) sama dengan kodomainnya.
+\[
+T \text{ adalah pada} \iff R(T) = V
+\]
+Artinya, untuk setiap $v \in V$, terdapat setidaknya satu $u \in U$ sehingga $T(u) = v$.
+\end{definisi}
+
+\begin{teorema}
+Transformasi linear $T: U \longrightarrow V$ bersifat pada jika dan hanya jika rank dari $T$ sama dengan dimensi dari kodomain $V$.
+\[
+T \text{ adalah pada} \iff \text{rank}(T) = \dim(V)
+\]
+di mana $\text{rank}(T) = \dim(R(T))$.
+\end{teorema}
+
+\begin{catatan}
+Teorema ini merupakan konsekuensi langsung dari definisi dan Teorema Rank-Nulitas: $\text{rank}(T) + \text{nulitas}(T) = \dim(U)$.
+\end{catatan}
+
+% --- SUB-BAB 2.3: ISOMORFISMA ---
+\subsection{Isomorfisma}
+
+\begin{definisi}
+Transformasi linear $T: V \longrightarrow W$ disebut sebuah \textbf{isomorfisma} jika ia bersifat \textbf{satu-satu (injektif)} dan \textbf{pada (surjektif)}. Jika terdapat sebuah isomorfisma antara $V$ dan $W$, maka ruang vektor $V$ dan $W$ dikatakan \textbf{isomorfik}, dinotasikan $V \cong W$.
+\end{definisi}
+
+\begin{teorema}
+Misalkan $T: V \longrightarrow W$ adalah transformasi linear, dengan $V$ dan $W$ adalah ruang vektor berdimensi hingga dan $\dim(V) = \dim(W)$. Maka pernyataan berikut ekuivalen:
+\begin{enumerate}
+    \item $T$ adalah satu-satu.
+    \item $T$ adalah pada.
+    \item $T$ adalah isomorfisma.
+\end{enumerate}
+\end{teorema}
+
+\begin{bukti}
+Ini adalah akibat langsung dari Teorema Rank-Nulitas: $\dim(R(T)) + \dim(\ker(T)) = \dim(V)$.
+Jika $\dim(V) = \dim(W)$, maka:
+\begin{itemize}
+    \item $T$ satu-satu $\iff \ker(T) = \{0\} \iff \dim(\ker(T))=0$.
+    \item Berdasarkan teorema, ini berarti $\dim(R(T)) = \dim(V) = \dim(W)$.
+    \item $\dim(R(T)) = \dim(W) \iff T$ adalah pada.
+\end{itemize}
+Jadi, dalam kasus ini, sifat satu-satu dan pada adalah ekuivalen.
+\end{bukti}
+
+\begin{teorema}
+Setiap ruang vektor $V$ berdimensi $n$ isomorfik dengan $\mathbb{R}^n$.
+\end{teorema}
+
+\begin{catatan}
+Teorema ini sangat penting karena menyatakan bahwa semua ruang vektor dengan dimensi yang sama pada dasarnya memiliki struktur yang sama. Kita bisa mempelajari sifat-sifat $\mathbb{R}^n$ untuk memahami sifat-sifat ruang vektor abstrak lainnya yang berdimensi $n$.
+\end{catatan}
+
+\end{document}

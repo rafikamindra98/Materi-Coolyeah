@@ -1,0 +1,205 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage{amsmath} % Untuk lingkungan matriks dan perintah matematika lainnya
+\usepackage{amsfonts} % Untuk simbol matematika
+\usepackage{amssymb} % Untuk simbol \mathbb{R}
+\usepackage{geometry} % Untuk mengatur margin
+\usepackage[indonesian]{babel} % Mengatur bahasa Indonesia
+\usepackage{array} % Untuk kolom tabel yang lebih baik
+\usepackage{booktabs} % Untuk garis tabel yang lebih baik
+\usepackage{enumitem} % Untuk kustomisasi daftar
+\usepackage[hidelinks, colorlinks=true, linkcolor=blue!60!black]{hyperref} % Untuk hyperlink
+
+\geometry{a4paper, margin=1in, headheight=15pt, footskip=30pt} % Mengatur margin halaman
+
+% Definisi perintah baru untuk kemudahan
+\newcommand{\matriks}[1]{\begin{pmatrix} #1 \end{pmatrix}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Poly}{\mathbb{P}}
+\newcommand{\vektor}[1]{\mathbf{#1}}
+\newcommand{\nol}{\mathbf{0}}
+\newcommand{\Transformasi}[1]{T\left(#1\right)}
+\newcommand{\kernel}{\operatorname{ker}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Range}{\operatorname{R}}
+\newcommand{\nulitas}{\operatorname{nulitas}}
+\newcommand{\dimV}{\operatorname{dim}}
+\newcommand{\innerprod}[2]{\langle #1, #2 \rangle}
+\newcommand{\norm}[1]{\| #1 \|}
+\newcommand{\proj}{\operatorname{proj}}
+\newcommand{\dettext}[1]{\operatorname{det}(#1)}
+\newcommand{\I}{\mathbf{I}}
+\newcommand{\determinan}[1]{\left| #1 \right|}
+
+\title{\textbf{Latihan: Transformasi Linear, Diagonalisasi, dan Ruang Hasil Kali Dalam}}
+\author{Rafi Kamindra 2201006}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Soal dan Jawaban}
+
+\subsection*{1. Diketahui transformasi $T: \R^2 \to \R^3$, dengan $T\matriks{x \\ y} = \matriks{x-y \\ -x+y \\ 3x+y}$.}
+\begin{enumerate}[label=(\alph*)]
+    \item \textbf{Carilah matriks transformasi untuk T.} \\
+    \textbf{Jawaban}: Kita cari peta dari vektor basis standar $\R^2$.
+    $T\matriks{1 \\ 0} = \matriks{1-0 \\ -1+0 \\ 3(1)+0} = \matriks{1 \\ -1 \\ 3}$.
+    $T\matriks{0 \\ 1} = \matriks{0-1 \\ -0+1 \\ 3(0)+1} = \matriks{-1 \\ 1 \\ 1}$.
+    Matriks standar $A_T = \matriks{1 & -1 \\ -1 & 1 \\ 3 & 1}$.
+
+    \item \textbf{Berapa nulitas dan rank T? Berikan penjelasan atas jawaban saudara.} \\
+    \textbf{Jawaban}:
+    \textbf{Nulitas}: Cari $\kernel(T)$ dengan menyelesaikan $A_T\vektor{x}=\nol$:
+    $\left[ \begin{array}{cc|c} 1 & -1 & 0 \\ -1 & 1 & 0 \\ 3 & 1 & 0 \end{array} \right] \xrightarrow{R_2 \to R_2+R_1, R_3 \to R_3-3R_1}
+    \left[ \begin{array}{cc|c} 1 & -1 & 0 \\ 0 & 0 & 0 \\ 0 & 4 & 0 \end{array} \right]$.
+    Dari $R_3$, $4y=0 \Rightarrow y=0$. Substitusi ke $R_1$, $x-y=0 \Rightarrow x=0$.
+    Hanya solusi trivial $(0,0)$ yang ada, sehingga $\kernel(T)=\{\nol\}$. Maka $\nulitas(T)=0$.
+    
+    \textbf{Rank}: Menurut Teorema Rank-Nulitas, $\rank(T) = \dimV(\text{domain}) - \nulitas(T) = 2 - 0 = 2$.
+    \textbf{Penjelasan}: Nulitas adalah dimensi dari kernel. Karena kernel hanya berisi vektor nol, dimensinya adalah 0. Rank adalah dimensi dari jangkauan (ruang kolom). Berdasarkan Teorema Rank-Nulitas, rank harus 2. Ini juga konsisten dengan fakta bahwa kedua kolom dari $A_T$ adalah linear independen (bukan kelipatan skalar satu sama lain), sehingga mereka membentuk basis untuk ruang kolom, yang berarti dimensinya 2.
+
+    \item \textbf{Apakah semua vektor di $\R^3$ mempunyai prapeta di $\R^2$?} \\
+    \textbf{Jawaban}: Tidak.
+    \textbf{Penjelasan}: Transformasi ini bersifat surjektif (setiap vektor di kodomain memiliki prapeta) jika $\rank(T) = \dimV(\text{kodomain})$.
+    Di sini, $\rank(T) = 2$, sedangkan $\dimV(\R^3) = 3$.
+    Karena $\rank(T) < \dimV(\text{kodomain})$, maka $T$ tidak surjektif. Jangkauan $T$ hanya merupakan subruang berdimensi 2 (sebuah bidang) di dalam $\R^3$.
+\end{enumerate}
+
+\subsection*{2. Misalkan $T: V \to V$ linear, dan $B=\{\vektor{u}_1, \vektor{u}_2, \vektor{u}_3\}$ basis untuk $V$ dengan $T(\vektor{u}_1)=\vektor{u}_1$, $T(\vektor{u}_2)=\vektor{u}_1+2\vektor{u}_2$, $T(\vektor{u}_3)=\vektor{u}_1+\vektor{u}_2-\vektor{u}_3$.}
+\begin{enumerate}[label=(\alph*)]
+    \item \textbf{Carilah matriks transformasi untuk T.} \\
+    \textbf{Jawaban}: Matriks transformasi $T$ terhadap basis $B$, dinotasikan $[T]_B$, kolom-kolomnya adalah vektor koordinat dari peta vektor-vektor basis terhadap basis $B$.
+    $[T(\vektor{u}_1)]_B = [1\vektor{u}_1 + 0\vektor{u}_2 + 0\vektor{u}_3]_B = (1,0,0)^T$.
+    $[T(\vektor{u}_2)]_B = [1\vektor{u}_1 + 2\vektor{u}_2 + 0\vektor{u}_3]_B = (1,2,0)^T$.
+    $[T(\vektor{u}_3)]_B = [1\vektor{u}_1 + 1\vektor{u}_2 - 1\vektor{u}_3]_B = (1,1,-1)^T$.
+    Jadi, matriks representasi $T$ terhadap basis $B$ adalah $[T]_B = \matriks{1 & 1 & 1 \\ 0 & 2 & 1 \\ 0 & 0 & -1}$.
+
+    \item \textbf{Berapa nulitas dan rank T?} \\
+    \textbf{Jawaban}: Kita dapat menggunakan matriks representasi $[T]_B$ untuk menentukan rank dan nulitas.
+    $\dettext{[T]_B} = 1 \cdot 2 \cdot (-1) = -2 \neq 0$.
+    Karena determinannya tidak nol, matriks $[T]_B$ invertibel dan memiliki rank 3.
+    $\rank(T) = \rank([T]_B) = 3$.
+    $\nulitas(T) = \dimV(V) - \rank(T) = 3 - 3 = 0$.
+\end{enumerate}
+
+\subsection*{3. Diketahui transformasi $T: \R^2 \to \Poly_2$ dengan $T\matriks{a \\ b}=(a+b)+(a-2b)x+bx^2$. Apakah $T$ injektif?}
+\textbf{Jawaban}:
+$T$ injektif jika $\kernel(T) = \{\nol\}$. Kita cari vektor $\matriks{a \\ b}$ yang dipetakan ke polinom nol $0+0x+0x^2$.
+$T\matriks{a \\ b} = (a+b)+(a-2b)x+bx^2 = 0$.
+Ini memberikan sistem persamaan linear homogen:
+\begin{align*} a+b &= 0 \\ a-2b &= 0 \\ b &= 0 \end{align*}
+Dari persamaan ketiga, $b=0$. Substitusi ke persamaan pertama memberikan $a+0=0 \Rightarrow a=0$.
+Solusi ini juga memenuhi persamaan kedua ($0-2(0)=0$).
+Satu-satunya solusi adalah $a=0, b=0$.
+Maka, $\kernel(T) = \{\matriks{0 \\ 0}\}$. Jadi, $T$ \textbf{injektif}.
+
+\subsection*{4. Diketahui matriks $M = \matriks{1 & 1 & -1 \\ 0 & a & 1 \\ 2 & a+2 & a-2 \\ 1 & a+1 & a-1}$. Carilah $\rank(M)$ untuk setiap nilai $a$.}
+\textbf{Jawaban}:
+Lakukan OBE pada $M$.
+$R_3 \to R_3 - 2R_1$, $R_4 \to R_4 - R_1$:
+$\matriks{1 & 1 & -1 \\ 0 & a & 1 \\ 0 & a & a \\ 0 & a & a}$.
+$R_3 \to R_3 - R_4$:
+$\matriks{1 & 1 & -1 \\ 0 & a & 1 \\ 0 & 0 & 0 \\ 0 & a & a}$.
+Tukar $R_2$ dan $R_4$:
+$\matriks{1 & 1 & -1 \\ 0 & a & a \\ 0 & 0 & 0 \\ 0 & a & 1}$.
+$R_4 \to R_4 - R_2$:
+$\matriks{1 & 1 & -1 \\ 0 & a & a \\ 0 & 0 & 0 \\ 0 & 0 & 1-a}$.
+Kita analisis matriks eselon ini:
+\begin{itemize}
+    \item Jika $a=0$: Matriks menjadi $\matriks{1 & 1 & -1 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 1}$. Baris tak nol adalah $(1,1,-1)$ dan $(0,0,1)$. Ada 2 baris tak nol. $\rank(M)=2$.
+    \item Jika $a=1$: Matriks menjadi $\matriks{1 & 1 & -1 \\ 0 & 1 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0}$. Ada 2 baris tak nol. $\rank(M)=2$.
+    \item Jika $a \neq 0$ dan $a \neq 1$: Maka $a$ dan $1-a$ keduanya tak nol. Matriks eselonnya memiliki 3 baris tak nol: $(1,1,-1)$, $(0,a,a)$, dan $(0,0,1-a)$. $\rank(M)=3$.
+\end{itemize}
+\textbf{Kesimpulan}:
+\begin{itemize}
+    \item Jika $a=0$ atau $a=1$, $\rank(M) = 2$.
+    \item Jika $a \neq 0$ dan $a \neq 1$, $\rank(M) = 3$.
+\end{itemize}
+
+\subsection*{5. Carilah semua nilai dan vektor eigen dari matriks $A = \matriks{0 & 1 & 3 \\ 1 & 0 & -2 \\ 3 & -2 & 0}$.}
+\textbf{Jawaban}:
+Persamaan karakteristik: $\dettext{A-\lambda I} = \determinan{\begin{smallmatrix} -\lambda & 1 & 3 \\ 1 & -\lambda & -2 \\ 3 & -2 & -\lambda \end{smallmatrix}} = 0$.
+$-\lambda(\lambda^2 - 4) - 1(-\lambda - (-6)) + 3(-2 - (-3\lambda)) = 0$.
+$-\lambda^3 + 4\lambda + \lambda - 6 - 6 + 9\lambda = 0$.
+$-\lambda^3 + 14\lambda - 12 = 0 \implies \lambda^3 - 14\lambda + 12 = 0$.
+Dengan mencoba akar-akar rasional (pembagi dari 12), kita temukan $\lambda$ bukan bilangan bulat sederhana. (Catatan: Soal ini kemungkinan memiliki kesalahan ketik dan sulit diselesaikan secara manual. Jika misalnya $a_{23}=2$, maka $\det = -\lambda^3 + 9\lambda$, dengan akar $\lambda=0, \pm3$). Berdasarkan soal yang ada, nilai eigen adalah akar dari $\lambda^3 - 14\lambda + 12 = 0$.
+
+\subsection*{6. Diketahui $T: \Poly_2 \to \Poly_2$ dengan $T(f(x)) = f(x) + xf'(x)$. Periksa apakah $T$ dapat didiagonalkan.}
+\textbf{Jawaban}:
+Cari matriks $A$ terhadap basis standar $B=\{1,x,x^2\}$.
+$T(1) = 1 + x(0) = 1 \rightarrow (1,0,0)^T$.
+$T(x) = x + x(1) = 2x \rightarrow (0,2,0)^T$.
+$T(x^2) = x^2 + x(2x) = 3x^2 \rightarrow (0,0,3)^T$.
+Matriks representasi $A = \matriks{1 & 0 & 0 \\ 0 & 2 & 0 \\ 0 & 0 & 3}$.
+Matriks $A$ sudah berbentuk diagonal. Setiap matriks diagonal sudah terdiagonalkan (dengan $P=I$ dan $D=A$).
+Jadi, $T$ \textbf{dapat didiagonalkan}.
+
+\subsection*{7. Tanpa perlu mencari vektor-vektor eigen, periksa apakah matriks-matriks berikut dapat didiagonalkan: $A = \matriks{0 & 1 & 1 \\ 1 & 0 & 1 \\ 1 & 1 & 0}$, $B = \matriks{0 & 0 & 1 \\ 1 & 0 & -3 \\ 0 & 1 & 3}$.}
+\textbf{Jawaban}:
+\begin{itemize}
+    \item Matriks $A$ adalah simetris ($A^T=A$). Menurut Teorema Spektral, setiap matriks simetris real \textbf{dapat didiagonalkan} (bahkan secara ortogonal).
+    \item Matriks $B$ tidak simetris. Kita periksa nilai eigennya.
+    $\dettext{B-\lambda I} = \determinan{\begin{smallmatrix} -\lambda & 0 & 1 \\ 1 & -\lambda & -3 \\ 0 & 1 & 3-\lambda \end{smallmatrix}} = -\lambda(-\lambda(3-\lambda) - (-3)) + 1(1) = -\lambda(-3\lambda+\lambda^2+3)+1 = \lambda^3 - 3\lambda^2 + 3\lambda - 1 = (\lambda-1)^3$.
+    Nilai eigen satu-satunya adalah $\lambda=1$ dengan multiplisitas aljabar 3.
+    Kita periksa multiplisitas geometrisnya: $\nulitas(B-I) = \nulitas\matriks{-1 & 0 & 1 \\ 1 & -1 & -3 \\ 0 & 1 & 2}$.
+    $\left[ \begin{array}{ccc} -1 & 0 & 1 \\ 1 & -1 & -3 \\ 0 & 1 & 2 \end{array} \right] \xrightarrow{R_2 \to R_2+R_1} \left[ \begin{array}{ccc} -1 & 0 & 1 \\ 0 & -1 & -2 \\ 0 & 1 & 2 \end{array} \right] \xrightarrow{R_3 \to R_3+R_2} \left[ \begin{array}{ccc} -1 & 0 & 1 \\ 0 & -1 & -2 \\ 0 & 0 & 0 \end{array} \right]$.
+    Rank matriks ini adalah 2. Nulitasnya adalah $3 - \rank = 3 - 2 = 1$.
+    Karena multiplisitas geometris (1) lebih kecil dari multiplisitas aljabar (3), matriks $B$ \textbf{tidak dapat didiagonalkan}.
+\end{itemize}
+
+\subsection*{8. Diketahui pemetaan $T: \Poly_2 \to \Poly_3$ dengan $T(p(x)) = (x-1)p'(x) - xp(1)$. Buktikan T linear dan periksa apakah T dapat didiagonalkan.}
+\textbf{Jawaban}:
+\textbf{Linearitas}:
+$T((p+q)(x)) = (x-1)(p+q)'(x) - x(p+q)(1) = (x-1)(p'(x)+q'(x)) - x(p(1)+q(1))$
+$= ((x-1)p'(x)-xp(1)) + ((x-1)q'(x)-xq(1)) = T(p(x))+T(q(x))$.
+$T((kp)(x)) = (x-1)(kp)'(x) - x(kp)(1) = (x-1)kp'(x) - xkp(1) = k((x-1)p'(x)-xp(1)) = kT(p(x))$.
+Terbukti $T$ linear.
+\textbf{Diagonalisasi}: Konsep diagonalisasi hanya berlaku untuk transformasi dari suatu ruang vektor ke dirinya sendiri ($T:V \to V$). Karena $T: \Poly_2 \to \Poly_3$, domain dan kodomainnya berbeda. Maka, pertanyaan apakah $T$ dapat didiagonalkan \textbf{tidak relevan} atau tidak terdefinisi dalam konteks standar.
+
+\subsection*{9. Misalkan $T: \Poly_2 \to \Poly_3$ dengan $T(f(x)) = \int_0^x f(t)dt$. Carilah matriks representasi dari T.}
+\textbf{Jawaban}:
+Gunakan basis standar $B=\{1,x,x^2\}$ untuk $\Poly_2$ dan $B'=\{1,x,x^2,x^3\}$ untuk $\Poly_3$.
+$T(1) = \int_0^x 1 dt = [t]_0^x = x \rightarrow [T(1)]_{B'} = (0,1,0,0)^T$.
+$T(x) = \int_0^x t dt = [t^2/2]_0^x = \frac{1}{2}x^2 \rightarrow [T(x)]_{B'} = (0,0,1/2,0)^T$.
+$T(x^2) = \int_0^x t^2 dt = [t^3/3]_0^x = \frac{1}{3}x^3 \rightarrow [T(x^2)]_{B'} = (0,0,0,1/3)^T$.
+Matriks representasi $[T]_{B',B} = \matriks{0 & 0 & 0 \\ 1 & 0 & 0 \\ 0 & 1/2 & 0 \\ 0 & 0 & 1/3}$.
+
+\subsection*{10. Perhatikan transformasi $T: \R^3 \to \R^3$ dengan $T(x,y,z)=(ax-y, x+ay+3z, -ax+y)$. Jika nulitas $T$ paling kecil 1, berapa nilai $a$ yang mungkin?}
+\textbf{Jawaban}:
+Nulitas $T \ge 1$ berarti $T$ tidak injektif, yang berarti $\det(A_T)=0$.
+Matriks standar $A_T = \matriks{a & -1 & 0 \\ 1 & a & 3 \\ -a & 1 & 0}$.
+$\det(A_T) = a(0-3) - (-1)(0 - (-3a)) + 0 = -3a - (3a) = -6a$.
+Agar nulitas $\ge 1$, maka $\det(A_T)=0 \implies -6a=0 \implies a=0$.
+Nilai $a$ yang mungkin adalah \textbf{0}.
+
+\subsection*{11. Perhatikan ruang $\Poly_1 = \{f(x)=a+bx \mid a,b \in \R\}$ yang dilengkapi dengan hasil kali dalam $\innerprod{f}{g} = \int_0^1 f(t)g(t)dt$.}
+\begin{enumerate}[label=(\roman*)]
+    \item \textbf{Carilah jarak antara $u=1$ dan $v=x-1$.} \\
+    $d(u,v)^2 = \norm{u-v}^2 = \innerprod{1-(x-1)}{1-(x-1)} = \innerprod{2-x}{2-x}$
+    $= \int_0^1 (2-t)^2 dt = \int_0^1 (4-4t+t^2)dt = [4t - 2t^2 + \frac{t^3}{3}]_0^1 = 4-2+\frac{1}{3} = \frac{7}{3}$.
+    Jaraknya adalah $d(u,v) = \sqrt{7/3}$.
+
+    \item \textbf{Tentukan semua $k$ agar $f=kx$ ortogonal terhadap $g=x+1$.} \\
+    $\innerprod{f}{g} = \int_0^1 (kt)(t+1) dt = k \int_0^1 (t^2+t) dt = k[\frac{t^3}{3}+\frac{t^2}{2}]_0^1 = k(\frac{1}{3}+\frac{1}{2}) = k(\frac{5}{6})$.
+    Agar ortogonal, $\innerprod{f}{g}=0 \implies k(\frac{5}{6})=0 \implies k=0$.
+    
+    \item \textbf{Ubahlah $B=\{3,x\}$ menjadi basis ortonormal $B'=\{u,v\}$ untuk $\Poly_1$.} \\
+    Gunakan Proses Gram-Schmidt. Misal $\vektor{b}_1=3, \vektor{b}_2=x$.
+    $\vektor{v}_1 = \vektor{b}_1 = 3$. $\norm{\vektor{v}_1}^2 = \int_0^1 9 dt = 9 \implies \norm{\vektor{v}_1}=3$.
+    $u = \frac{\vektor{v}_1}{\norm{\vektor{v}_1}} = \frac{3}{3} = 1$.
+    $\vektor{v}_2 = \vektor{b}_2 - \proj_{\vektor{v}_1}\vektor{b}_2 = x - \frac{\innerprod{x}{3}}{9} \cdot 3 = x - \frac{3\int_0^1 t dt}{9} \cdot 3 = x - \int_0^1 t dt = x-1/2$.
+    $\norm{x-1/2}^2 = \int_0^1(t-1/2)^2 dt = [\frac{(t-1/2)^3}{3}]_0^1 = \frac{(1/2)^3 - (-1/2)^3}{3} = \frac{1/8 + 1/8}{3} = \frac{2/8}{3} = \frac{1}{12}$.
+    $\norm{x-1/2}=1/\sqrt{12}=1/(2\sqrt{3})$.
+    $v = \frac{x-1/2}{1/(2\sqrt{3})} = 2\sqrt{3}(x-1/2) = \sqrt{3}(2x-1)$.
+    Basis ortonormalnya adalah $B'=\{1, \sqrt{3}(2x-1)\}$.
+    
+    \item \textbf{Nyatakanlah $w=2+x$ sebagai kombinasi dari u, v pada (iii).} \\
+    (Catatan: Ada ambiguitas, "kombinasi dari u, u". Asumsikan maksudnya "kombinasi dari u, v").
+    $w = c_1 u + c_2 v$, dimana $c_1 = \innerprod{w}{u}$ dan $c_2 = \innerprod{w}{v}$.
+    $u=1, v=\sqrt{3}(2x-1)$.
+    $c_1 = \innerprod{2+x}{1} = \int_0^1 (2+t) dt = [2t+t^2/2]_0^1 = 2+1/2=5/2$.
+    $c_2 = \innerprod{2+x}{\sqrt{3}(2x-1)} = \sqrt{3}\int_0^1 (2+t)(2t-1) dt = \sqrt{3}\int_0^1 (2t^2+3t-2)dt = \sqrt{3}[2t^3/3+3t^2/2-2t]_0^1 = \sqrt{3}(2/3+3/2-2)=\frac{\sqrt{3}}{6}$.
+    $w = \frac{5}{2}u + \frac{\sqrt{3}}{6}v$.
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,145 @@
+\documentclass{article}
+\usepackage{amsmath} % Untuk lingkungan matriks dan perintah matematika lainnya
+\usepackage{amsfonts} % Untuk simbol
+\usepackage{amssymb} % Untuk simbol \mathbb{R}
+\usepackage{geometry} % Untuk mengatur margin
+\geometry{a4paper, margin=1in}
+\usepackage{esvect}
+
+\title{Aljabar Linear: Ruang Hasil Kali Dalam}
+\author{Rafi Kamindra 2201006}
+\date{} % Kosongkan tanggal jika tidak ingin ditampilkan
+
+\newcommand{\R}{\mathbb{R}} % Simbol R
+\newcommand{\Poly}{\mathbb{P}} % Simbol P untuk polinom
+\newcommand{\innerprod}[2]{\langle #1, #2 \rangle} % Hasil kali dalam
+\newcommand{\norm}[1]{\| #1 \|} % Norma
+\newcommand{\spanof}[1]{\text{span}\{#1\}} % Perintah untuk span
+\newcommand{\vektor}[1]{\mathbf{#1}} % Perintah untuk vektor tebal
+
+\begin{document}
+\maketitle
+\pagenumbering{gobble} % Menghilangkan nomor halaman jika tidak diinginkan untuk halaman judul
+
+\section*{Problem}
+\textbf{$\Poly_2$ adalah ruang hasil kali dalam melalui $\innerprod{f}{g} = \int_{0}^{1} f(t)g(t)dt$.}
+
+\subsection*{a. Hitung $\|-\frac{1}{2} - \frac{1}{2}x\|$.}
+\textbf{Jawaban:}\\
+Misalkan $h(x) = -\frac{1}{2} - \frac{1}{2}x$.
+$\norm{h(x)}^2 = \innerprod{h(x)}{h(x)} = \int_{0}^{1} \left(-\frac{1}{2} - \frac{1}{2}t\right) \left(-\frac{1}{2} - \frac{1}{2}t\right) dt$
+$= \int_{0}^{1} \left(\frac{1}{4} + \frac{1}{2}t + \frac{1}{4}t^2\right) dt$
+$= \left[ \frac{1}{4}t + \frac{1}{2}\frac{t^2}{2} + \frac{1}{4}\frac{t^3}{3} \right]_{0}^{1}$
+$= \left[ \frac{1}{4}t + \frac{1}{4}t^2 + \frac{1}{12}t^3 \right]_{0}^{1}$
+$= \left(\frac{1}{4} + \frac{1}{4} + \frac{1}{12}\right) - (0)$
+$= \frac{1}{2} + \frac{1}{12} = \frac{6}{12} + \frac{1}{12} = \frac{7}{12}$.
+Maka, $\norm{-\frac{1}{2} - \frac{1}{2}x} = \sqrt{\frac{7}{12}} = \frac{\sqrt{7}}{\sqrt{12}} = \frac{\sqrt{7}}{2\sqrt{3}} = \frac{\sqrt{21}}{6}$.
+
+\subsection*{b. Untuk $u=x$ dan $v=x^2$, perlihatkan bahwa $|\innerprod{u}{v}| \le \norm{u}\norm{v}$.}
+\textbf{Jawaban:}\\
+Ini adalah pertidaksamaan Cauchy-Schwarz.
+$\innerprod{u}{v} = \innerprod{x}{x^2} = \int_{0}^{1} t \cdot t^2 dt = \int_{0}^{1} t^3 dt = \left[ \frac{t^4}{4} \right]_{0}^{1} = \frac{1}{4}$.
+Jadi, $|\innerprod{u}{v}| = \frac{1}{4}$.
+
+$\norm{u}^2 = \innerprod{x}{x} = \int_{0}^{1} t \cdot t dt = \int_{0}^{1} t^2 dt = \left[ \frac{t^3}{3} \right]_{0}^{1} = \frac{1}{3}$.
+Maka $\norm{u} = \sqrt{\frac{1}{3}} = \frac{1}{\sqrt{3}}$.
+
+$\norm{v}^2 = \innerprod{x^2}{x^2} = \int_{0}^{1} t^2 \cdot t^2 dt = \int_{0}^{1} t^4 dt = \left[ \frac{t^5}{5} \right]_{0}^{1} = \frac{1}{5}$.
+Maka $\norm{v} = \sqrt{\frac{1}{5}} = \frac{1}{\sqrt{5}}$.
+
+$\norm{u}\norm{v} = \frac{1}{\sqrt{3}} \cdot \frac{1}{\sqrt{5}} = \frac{1}{\sqrt{15}}$.
+Kita perlu membandingkan $\frac{1}{4}$ dan $\frac{1}{\sqrt{15}}$.
+$\frac{1}{4} = \frac{\sqrt{15}}{4\sqrt{15}}$ dan $\frac{1}{\sqrt{15}} = \frac{4}{4\sqrt{15}}$.
+Karena $\sqrt{15} < \sqrt{16} = 4$, maka $\sqrt{15} < 4$.
+Jadi, $\frac{\sqrt{15}}{4\sqrt{15}} < \frac{4}{4\sqrt{15}}$, yang berarti $\frac{1}{4} < \frac{1}{\sqrt{15}}$.
+Sehingga $|\innerprod{u}{v}| \le \norm{u}\norm{v}$ terbukti ($\frac{1}{4} \le \frac{1}{\sqrt{15}}$).
+
+\subsection*{c. Perlihatkan pula bahwa $\norm{u+v} \le \norm{u} + \norm{v}$.}
+\textbf{Jawaban:}\\
+Ini adalah pertidaksamaan segitiga.
+$u+v = x+x^2$.
+$\norm{u+v}^2 = \innerprod{x+x^2}{x+x^2} = \int_{0}^{1} (t+t^2)(t+t^2) dt = \int_{0}^{1} (t^2 + 2t^3 + t^4) dt$
+$= \left[ \frac{t^3}{3} + 2\frac{t^4}{4} + \frac{t^5}{5} \right]_{0}^{1} = \left[ \frac{t^3}{3} + \frac{t^4}{2} + \frac{t^5}{5} \right]_{0}^{1}$
+$= \frac{1}{3} + \frac{1}{2} + \frac{1}{5} = \frac{10+15+6}{30} = \frac{31}{30}$.
+Maka $\norm{u+v} = \sqrt{\frac{31}{30}}$.
+
+$\norm{u} + \norm{v} = \frac{1}{\sqrt{3}} + \frac{1}{\sqrt{5}} = \frac{\sqrt{5}+\sqrt{3}}{\sqrt{15}}$.
+Kita perlu membandingkan $\sqrt{\frac{31}{30}}$ dengan $\frac{\sqrt{5}+\sqrt{3}}{\sqrt{15}}$.
+Kuadratkan kedua sisi:
+$\left(\sqrt{\frac{31}{30}}\right)^2 = \frac{31}{30} \approx 1.033$.
+$\left(\frac{\sqrt{5}+\sqrt{3}}{\sqrt{15}}\right)^2 = \frac{(\sqrt{5}+\sqrt{3})^2}{15} = \frac{5 + 2\sqrt{15} + 3}{15} = \frac{8 + 2\sqrt{15}}{15}$.
+$2\sqrt{15} \approx 2 \times 3.87 = 7.74$.
+Maka $\frac{8 + 7.74}{15} = \frac{15.74}{15} \approx 1.049$.
+Karena $1.033 \le 1.049$, maka $\norm{u+v} \le \norm{u} + \norm{v}$ terbukti.
+(Lebih formal: $\frac{31}{30} \le \frac{8+2\sqrt{15}}{15} \Leftrightarrow 31 \cdot 15 \le 30(8+2\sqrt{15}) \Leftrightarrow 31 \le 2(8+2\sqrt{15}) \Leftrightarrow 31 \le 16+4\sqrt{15} \Leftrightarrow 15 \le 4\sqrt{15} \Leftrightarrow 225 \le 16 \cdot 15 = 240$. Pernyataan $225 \le 240$ benar.)
+
+\section*{Problem}
+\textbf{Perhatikan ruang $\Poly_2 = \{f=a+bx+cx^2 \mid a,b,c \in \R\}$ yang dilengkapi dengan hasil kali dalam $\innerprod{f}{g} = \int_{0}^{1} f(t)g(t)dt$.}
+
+\subsection*{i. Periksa, apakah $u=1-x$ ortogonal terhadap $v=x$.}
+\textbf{Jawaban:}\\
+$\innerprod{u}{v} = \int_{0}^{1} (1-t)(t) dt = \int_{0}^{1} (t-t^2) dt = \left[ \frac{t^2}{2} - \frac{t^3}{3} \right]_{0}^{1}$
+$= (\frac{1}{2} - \frac{1}{3}) - 0 = \frac{3-2}{6} = \frac{1}{6}$.
+Karena $\innerprod{u}{v} = \frac{1}{6} \neq 0$, maka $u=1-x$ \textbf{tidak} ortogonal terhadap $v=x$.
+
+\subsection*{ii. Carilah semua vektor $u \in V$ (seharusnya $u \in \Poly_2$) yang ortogonal terhadap $v=1$.}
+\textbf{Jawaban:}\\
+Misalkan $u(x) = a+bx+cx^2$. Kita ingin $\innerprod{u}{v} = 0$.
+$\innerprod{a+bx+cx^2}{1} = \int_{0}^{1} (a+bt+ct^2)(1) dt = \int_{0}^{1} (a+bt+ct^2) dt$
+$= \left[ at + \frac{bt^2}{2} + \frac{ct^3}{3} \right]_{0}^{1} = a + \frac{b}{2} + \frac{c}{3}$.
+Agar ortogonal, $a + \frac{b}{2} + \frac{c}{3} = 0$.
+Ini adalah persamaan bidang dalam ruang koefisien $(a,b,c)$.
+Semua polinom $u(x) = a+bx+cx^2$ dimana $a + \frac{b}{2} + \frac{c}{3} = 0$ (atau $6a+3b+2c=0$) ortogonal terhadap $v=1$.
+
+\subsection*{iii. Tentukan panjang vektor $w=1+x$.}
+\textbf{Jawaban:}\\
+$\norm{w}^2 = \innerprod{1+x}{1+x} = \int_{0}^{1} (1+t)(1+t) dt = \int_{0}^{1} (1+2t+t^2) dt$
+$= \left[ t + \frac{2t^2}{2} + \frac{t^3}{3} \right]_{0}^{1} = \left[ t + t^2 + \frac{t^3}{3} \right]_{0}^{1}$
+$= (1+1+\frac{1}{3}) - 0 = 2 + \frac{1}{3} = \frac{7}{3}$.
+Maka $\norm{w} = \sqrt{\frac{7}{3}} = \frac{\sqrt{7}}{\sqrt{3}} = \frac{\sqrt{21}}{3}$.
+
+\subsection*{iv. Ubahlah $B=\{1,x,x^2\}$ menjadi basis ortonormal $B'$ untuk $\Poly_2$.}
+\textbf{Jawaban:}\\
+Gunakan proses Gram-Schmidt. Misalkan $\vektor{v}_1=1, \vektor{v}_2=x, \vektor{v}_3=x^2$.
+Langkah 1: $\vektor{w}_1 = \vektor{v}_1 = 1$.
+$\norm{\vektor{w}_1}^2 = \innerprod{1}{1} = \int_{0}^{1} 1 \cdot 1 dt = [t]_0^1 = 1$. Maka $\norm{\vektor{w}_1}=1$.
+$\vektor{q}_1 = \frac{\vektor{w}_1}{\norm{\vektor{w}_1}} = \frac{1}{1} = 1$.
+
+Langkah 2: $\vektor{w}_2 = \vektor{v}_2 - \text{proj}_{\vektor{w}_1}\vektor{v}_2 = \vektor{v}_2 - \frac{\innerprod{\vektor{v}_2}{\vektor{w}_1}}{\norm{\vektor{w}_1}^2}\vektor{w}_1$.
+$\innerprod{\vektor{v}_2}{\vektor{w}_1} = \innerprod{x}{1} = \int_{0}^{1} t \cdot 1 dt = [\frac{t^2}{2}]_0^1 = \frac{1}{2}$.
+$\vektor{w}_2 = x - \frac{1/2}{1} \cdot 1 = x - \frac{1}{2}$.
+$\norm{\vektor{w}_2}^2 = \innerprod{x-\frac{1}{2}}{x-\frac{1}{2}} = \int_{0}^{1} (t-\frac{1}{2})^2 dt = \int_{0}^{1} (t^2-t+\frac{1}{4}) dt$
+$= [\frac{t^3}{3} - \frac{t^2}{2} + \frac{t}{4}]_0^1 = \frac{1}{3} - \frac{1}{2} + \frac{1}{4} = \frac{4-6+3}{12} = \frac{1}{12}$.
+Maka $\norm{\vektor{w}_2} = \sqrt{\frac{1}{12}} = \frac{1}{2\sqrt{3}}$.
+$\vektor{q}_2 = \frac{\vektor{w}_2}{\norm{\vektor{w}_2}} = \frac{x-1/2}{1/(2\sqrt{3})} = 2\sqrt{3}(x-\frac{1}{2}) = \sqrt{3}(2x-1)$.
+
+Langkah 3: $\vektor{w}_3 = \vektor{v}_3 - \text{proj}_{\vektor{w}_1}\vektor{v}_3 - \text{proj}_{\vektor{w}_2}\vektor{v}_3 = \vektor{v}_3 - \frac{\innerprod{\vektor{v}_3}{\vektor{w}_1}}{\norm{\vektor{w}_1}^2}\vektor{w}_1 - \frac{\innerprod{\vektor{v}_3}{\vektor{w}_2}}{\norm{\vektor{w}_2}^2}\vektor{w}_2$.
+$\innerprod{\vektor{v}_3}{\vektor{w}_1} = \innerprod{x^2}{1} = \int_{0}^{1} t^2 dt = [\frac{t^3}{3}]_0^1 = \frac{1}{3}$.
+$\innerprod{\vektor{v}_3}{\vektor{w}_2} = \innerprod{x^2}{x-\frac{1}{2}} = \int_{0}^{1} t^2(t-\frac{1}{2}) dt = \int_{0}^{1} (t^3-\frac{1}{2}t^2) dt$
+$= [\frac{t^4}{4} - \frac{1}{2}\frac{t^3}{3}]_0^1 = \frac{1}{4} - \frac{1}{6} = \frac{3-2}{12} = \frac{1}{12}$.
+$\vektor{w}_3 = x^2 - \frac{1/3}{1}(1) - \frac{1/12}{1/12}(x-\frac{1}{2}) = x^2 - \frac{1}{3} - (x-\frac{1}{2})$
+$= x^2 - x - \frac{1}{3} + \frac{1}{2} = x^2 - x + \frac{-2+3}{6} = x^2 - x + \frac{1}{6}$.
+$\norm{\vektor{w}_3}^2 = \innerprod{x^2-x+\frac{1}{6}}{x^2-x+\frac{1}{6}} = \int_{0}^{1} (t^2-t+\frac{1}{6})^2 dt$
+$= \int_{0}^{1} (t^4 - 2t^3 + \frac{4}{3}t^2 - \frac{1}{3}t + \frac{1}{36}) dt$ (Perhitungan ini cukup panjang)
+$= [\frac{t^5}{5} - \frac{2t^4}{4} + \frac{4t^3}{9} - \frac{t^2}{6} + \frac{t}{36}]_0^1$
+$= \frac{1}{5} - \frac{1}{2} + \frac{4}{9} - \frac{1}{6} + \frac{1}{36} = \frac{36 - 90 + 80 - 30 + 5}{180} = \frac{1}{180}$.
+Maka $\norm{\vektor{w}_3} = \sqrt{\frac{1}{180}} = \frac{1}{6\sqrt{5}}$.
+$\vektor{q}_3 = \frac{\vektor{w}_3}{\norm{\vektor{w}_3}} = \frac{x^2-x+1/6}{1/(6\sqrt{5})} = 6\sqrt{5}(x^2-x+\frac{1}{6}) = \sqrt{5}(6x^2-6x+1)$.
+
+Basis ortonormal $B' = \{\vektor{q}_1, \vektor{q}_2, \vektor{q}_3\} = \{1, \sqrt{3}(2x-1), \sqrt{5}(6x^2-6x+1)\}$.
+
+\subsection*{v. Tentukan proyeksi ortogonal $u=1-x$ pada subruang $W=\spanof{1,x}$.}
+\textbf{Jawaban:}\\
+Kita sudah memiliki basis ortogonal untuk $W$ dari langkah sebelumnya (sebelum dinormalisasi): $\vektor{w}_1=1$, $\vektor{w}_2=x-\frac{1}{2}$.
+$\text{proj}_W u = \frac{\innerprod{u}{\vektor{w}_1}}{\norm{\vektor{w}_1}^2}\vektor{w}_1 + \frac{\innerprod{u}{\vektor{w}_2}}{\norm{\vektor{w}_2}^2}\vektor{w}_2$.
+$u=1-x$.
+$\innerprod{u}{\vektor{w}_1} = \innerprod{1-x}{1} = \int_{0}^{1} (1-t)(1) dt = [t-\frac{t^2}{2}]_0^1 = 1-\frac{1}{2} = \frac{1}{2}$.
+$\norm{\vektor{w}_1}^2 = 1$.
+$\innerprod{u}{\vektor{w}_2} = \innerprod{1-x}{x-\frac{1}{2}} = \int_{0}^{1} (1-t)(t-\frac{1}{2}) dt = \int_{0}^{1} (t-\frac{1}{2}-t^2+\frac{1}{2}t) dt$
+$= \int_{0}^{1} (-t^2 + \frac{3}{2}t - \frac{1}{2}) dt = [-\frac{t^3}{3} + \frac{3}{4}t^2 - \frac{1}{2}t]_0^1$
+$= -\frac{1}{3} + \frac{3}{4} - \frac{1}{2} = \frac{-4+9-6}{12} = -\frac{1}{12}$.
+$\norm{\vektor{w}_2}^2 = \frac{1}{12}$.
+$\text{proj}_W u = \frac{1/2}{1}(1) + \frac{-1/12}{1/12}(x-\frac{1}{2}) = \frac{1}{2} - 1(x-\frac{1}{2}) = \frac{1}{2} - x + \frac{1}{2} = 1-x$.
+Proyeksi ortogonal $u=1-x$ pada $W=\spanof{1,x}$ adalah $1-x$ itu sendiri. Ini masuk akal karena $u=1-x$ sudah berada dalam $W$ (merupakan kombinasi linear dari $1$ dan $x$).
+
+\end{document}

@@ -1,0 +1,248 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage{amsmath} % Untuk lingkungan matriks dan perintah matematika lainnya
+\usepackage{amsfonts} % Untuk simbol matematika
+\usepackage{amssymb} % Untuk simbol \mathbb{R}
+\usepackage{geometry} % Untuk mengatur margin
+\usepackage[indonesian]{babel} % Mengatur bahasa Indonesia
+\usepackage{array} % Untuk kolom tabel yang lebih baik
+\usepackage{booktabs} % Untuk garis tabel yang lebih baik
+\usepackage{graphicx} % Untuk menyertakan gambar (jika diperlukan)
+\usepackage{tikz} % Untuk menggambar diagram
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric, fit, calc}
+\usepackage{hyperref} % Untuk hyperlink (jika diperlukan)
+\usepackage{amsthm} % Untuk lingkungan definisi dan teorema
+\usepackage{nicematrix} % Untuk matriks dengan garis partisi
+\usepackage{palatino} % Menggunakan font Palatino untuk tampilan yang lebih menarik
+\usepackage{setspace} % Untuk mengatur spasi antar baris jika perlu
+\usepackage{titlesec} % Untuk kustomisasi judul seksi
+\usepackage{enumitem} % Untuk kustomisasi daftar
+
+\geometry{a4paper, margin=1in, headheight=15pt, footskip=30pt} % Mengatur margin halaman
+
+% Kustomisasi Judul Seksi
+\titleformat{\section}{\Large\bfseries\sffamily\color{blue!70!black}}{\thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries\sffamily\color{blue!60!black}}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\sffamily\color{blue!50!black}}{\thesubsubsection}{1em}{}
+
+% Definisi lingkungan baru
+\theoremstyle{definition} % Gaya standar untuk definisi dan contoh
+\newtheorem{definisi}{Definisi}[section]
+\newtheorem{contoh}{Contoh}[section]
+\newtheorem{catatan}{Catatan}[section]
+\theoremstyle{plain} % Gaya standar untuk teorema
+\newtheorem{teorema}{Teorema}[section]
+\newtheorem{proposisi}{Proposisi}[section]
+\newtheorem{akibat}{Akibat}[section]
+
+% Definisi perintah baru untuk kemudahan
+\newcommand{\matriks}[1]{\begin{pmatrix} #1 \end{pmatrix}} % Perintah untuk matriks
+\newcommand{\R}{\mathbb{R}} % Simbol R untuk bilangan real
+\newcommand{\Poly}{\mathbb{P}} % Simbol P untuk polinom
+\newcommand{\vektor}[1]{\mathbf{#1}} % Perintah untuk vektor tebal
+\newcommand{\nol}{\mathbf{0}} % Vektor nol
+\newcommand{\Transformasi}[1]{T\left(#1\right)} % Notasi Transformasi T(u)
+\newcommand{\TransformasiKurung}[1]{T[#1]} % Notasi Transformasi T[u]
+\newcommand{\kernel}{\operatorname{ker}} % Kernel (operatorname untuk tampilan yang benar)
+\newcommand{\rank}{\operatorname{rank}} % Rank
+\newcommand{\Range}{\operatorname{R}} % Jangkauan (Range)
+\newcommand{\nulitas}{\operatorname{nulitas}} % Nulitas
+\newcommand{\dimV}{\operatorname{dim}} % Dimensi
+\newcommand{\koordinat}[2]{[\vektor{#1}]_{#2}} % Notasi koordinat vektor
+\newcommand{\M}[1]{\mathcal{M}_{#1}} % Simbol M untuk himpunan matriks
+
+\title{\textbf{Transformasi Linear: Kernel, Jangkauan, Sifat Injektif \& Surjektif, dan Matriks Representasi}}
+\author{Rafi Kamindra 2201006}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Pendahuluan: Konsep Transformasi Linear}
+Transformasi linear merupakan konsep sentral dalam aljabar linear. Ini adalah jenis fungsi khusus antara dua ruang vektor yang mempertahankan struktur operasi dasar ruang vektor, yaitu penjumlahan vektor dan perkalian skalar. Pemahaman mendalam tentang transformasi linear, termasuk sifat-sifatnya seperti kernel, jangkauan, injektivitas, dan surjektivitas, serta bagaimana merepresentasikannya dengan matriks, sangat penting untuk berbagai aplikasi dalam matematika, sains, dan teknik.
+
+\begin{definisi}[Transformasi Linear]
+Misalkan $V$ dan $W$ masing-masing adalah ruang vektor atas lapangan skalar $\R$. Sebuah transformasi (atau pemetaan) $T: V \longrightarrow W$ dikatakan \textbf{linear} jika untuk semua vektor $\vektor{u}, \vektor{v} \in V$ dan semua skalar $\alpha \in \R$ berlaku kedua kondisi berikut:
+\begin{enumerate}[label=(\roman*)]
+    \item \textbf{Aditivitas}: $\Transformasi{\vektor{u} + \vektor{v}} = \Transformasi{\vektor{u}} + \Transformasi{\vektor{v}}$
+    \item \textbf{Homogenitas}: $\Transformasi{\alpha \vektor{u}} = \alpha \Transformasi{\vektor{u}}$
+\end{enumerate}
+Jika $\Transformasi{\vektor{v}} = \vektor{w}$, maka $\vektor{w}$ disebut \textbf{peta} (image) dari $\vektor{v}$ oleh $T$, dan $\vektor{v}$ disebut \textbf{prapeta} (preimage) dari $\vektor{w}$.
+\end{definisi}
+
+Salah satu konsekuensi langsung dari definisi ini adalah bahwa transformasi linear selalu memetakan vektor nol dari domain ke vektor nol dari kodomain:
+\begin{proposisi}
+Jika $T: V \longrightarrow W$ adalah transformasi linear, maka $\Transformasi{\nol_V} = \nol_W$.
+\end{proposisi}
+Properti ini sering digunakan sebagai tes awal yang cepat: jika suatu transformasi tidak memetakan vektor nol ke vektor nol, maka ia pasti tidak linear.
+
+\section{Kernel dan Jangkauan (Range) Transformasi Linear}
+Dua subruang fundamental yang sangat penting terkait dengan setiap transformasi linear adalah kernel dan jangkauannya. Subruang-subruang ini memberikan informasi krusial tentang sifat-sifat transformasi tersebut.
+
+\subsection{Kernel (Ruang Nol)}
+\begin{definisi}
+Misalkan $V$ dan $W$ adalah ruang vektor, dan $T: V \longrightarrow W$ adalah suatu transformasi linear. \textbf{Kernel} (atau \textbf{ruang nol}) dari $T$, dinotasikan $\kernel(T)$ atau kadang-kadang $N(T)$, adalah himpunan semua vektor di domain $V$ yang dipetakan oleh $T$ ke vektor nol $\nol_W$ di kodomain $W$. Secara formal:
+\[ \kernel(T) = \{ \vektor{v} \in V \mid \TransformasiKurung{\vektor{v}} = \nol_W \} \]
+\end{definisi}
+
+\begin{teorema}
+Jika $T: V \longrightarrow W$ adalah transformasi linear, maka $\kernel(T)$ adalah subruang dari $V$.
+\end{teorema}
+\begin{proof}
+Untuk menunjukkan bahwa $\kernel(T)$ adalah subruang dari $V$, kita perlu memverifikasi tiga kondisi:
+\begin{enumerate}
+    \item $\kernel(T)$ tidak kosong: Karena $T$ linear, $\TransformasiKurung{\nol_V} = \nol_W$. Ini berarti $\nol_V \in \kernel(T)$, sehingga $\kernel(T)$ tidak kosong.
+    \item Tertutup terhadap penjumlahan vektor: Ambil $\vektor{u}, \vektor{v} \in \kernel(T)$. Ini berarti $\TransformasiKurung{\vektor{u}} = \nol_W$ dan $\TransformasiKurung{\vektor{v}} = \nol_W$. Maka, menggunakan sifat aditivitas $T$:
+    \[ \TransformasiKurung{\vektor{u}+\vektor{v}} = \TransformasiKurung{\vektor{u}} + \TransformasiKurung{\vektor{v}} = \nol_W + \nol_W = \nol_W \]
+    Jadi, $\vektor{u}+\vektor{v} \in \kernel(T)$.
+    \item Tertutup terhadap perkalian skalar: Ambil $\vektor{u} \in \kernel(T)$ dan skalar $k \in \R$. Maka $\TransformasiKurung{\vektor{u}} = \nol_W$. Menggunakan sifat homogenitas $T$:
+    \[ \TransformasiKurung{k\vektor{u}} = k\TransformasiKurung{\vektor{u}} = k\nol_W = \nol_W \]
+    Jadi, $k\vektor{u} \in \kernel(T)$.
+\end{enumerate}
+Karena ketiga kondisi terpenuhi, $\kernel(T)$ adalah subruang dari $V$.
+\end{proof}
+
+\subsection{Jangkauan (Range atau Ruang Citra)}
+\begin{definisi}
+Misalkan $V$ dan $W$ adalah ruang vektor, dan $T: V \longrightarrow W$ adalah suatu transformasi linear. \textbf{Jangkauan} (atau \textbf{ruang citra/image}) dari $T$, dinotasikan $\Range(T)$ atau $Im(T)$, adalah himpunan semua vektor di kodomain $W$ yang merupakan peta dari setidaknya satu vektor di domain $V$. Secara formal:
+\[ \Range(T) = \{ \vektor{w} \in W \mid \vektor{w} = \TransformasiKurung{\vektor{v}} \text{ untuk suatu } \vektor{v} \in V \} \]
+\end{definisi}
+
+\begin{teorema}
+Jika $T: V \longrightarrow W$ adalah transformasi linear, maka $\Range(T)$ adalah subruang dari $W$.
+\end{teorema}
+\begin{proof}
+\begin{enumerate}
+    \item $\Range(T)$ tidak kosong: Karena $\TransformasiKurung{\nol_V} = \nol_W$, maka $\nol_W \in \Range(T)$.
+    \item Tertutup terhadap penjumlahan vektor: Ambil $\vektor{w}_1, \vektor{w}_2 \in \Range(T)$. Maka terdapat $\vektor{v}_1, \vektor{v}_2 \in V$ sedemikian sehingga $\TransformasiKurung{\vektor{v}_1} = \vektor{w}_1$ dan $\TransformasiKurung{\vektor{v}_2} = \vektor{w}_2$.
+    Maka $\vektor{w}_1 + \vektor{w}_2 = \TransformasiKurung{\vektor{v}_1} + \TransformasiKurung{\vektor{v}_2} = \TransformasiKurung{\vektor{v}_1 + \vektor{v}_2}$ (karena $T$ linear).
+    Karena $\vektor{v}_1 + \vektor{v}_2 \in V$, maka $\vektor{w}_1 + \vektor{w}_2 \in \Range(T)$.
+    \item Tertutup terhadap perkalian skalar: Ambil $\vektor{w} \in \Range(T)$ dan skalar $k \in \R$. Maka terdapat $\vektor{v} \in V$ sehingga $\TransformasiKurung{\vektor{v}} = \vektor{w}$.
+    Maka $k\vektor{w} = k\TransformasiKurung{\vektor{v}} = \TransformasiKurung{k\vektor{v}}$ (karena $T$ linear).
+    Karena $k\vektor{v} \in V$, maka $k\vektor{w} \in \Range(T)$.
+\end{enumerate}
+Karena ketiga kondisi terpenuhi, $\Range(T)$ adalah subruang dari $W$.
+\end{proof}
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[scale=1.2, every node/.style={scale=0.9}]
+    % Ruang Domain V
+    \draw[fill=blue!10, rounded corners=10pt] (-3.5,-2.5) rectangle (-0.5,2.5);
+    \node at (-2, 2.8) {$V$ (Domain)};
+    % Kernel(T) di dalam V
+    \draw[fill=red!20, draw=red!50!black, thick, dashed] (-2,0) ellipse (0.8cm and 1.2cm);
+    \node[red!80!black] at (-2,0) {$\kernel(T)$};
+    \node[circle, fill=black, inner sep=1pt, label=left:$\vektor{v}_1$] (v1) at (-2,0.5) {};
+    \node[circle, fill=black, inner sep=1pt, label=right:$\vektor{v}_2$] (v2) at (-2,-0.5) {};
+    \node[circle, fill=black, inner sep=1pt, label=above:$\vektor{x}$] (x) at (-2.5,1.5) {};
+
+    % Ruang Kodomain W
+    \draw[fill=green!10, rounded corners=10pt] (1.5,-2.5) rectangle (4.5,2.5);
+    \node at (3, 2.8) {$W$ (Kodomain)};
+    % Range(T) di dalam W
+    \draw[fill=yellow!30, draw=yellow!60!black, thick] (3,0) ellipse (1cm and 1.8cm);
+    \node[yellow!80!black] at (3,1.3) {$\Range(T)$};
+    \node[circle, fill=black, inner sep=1pt, label=right:$\Transformasi{\vektor{x}}$] (Tx) at (3,0.5) {};
+    \node[circle, fill=black, inner sep=1pt, label=below right:$\nol_W$] (zerow) at (3,-0.8) {}; % Titik nol di W
+
+    % Pemetaan
+    \draw[-{Stealth[length=2mm, width=1.5mm]}, thick, gray] (v1) to[bend left=10] (zerow);
+    \draw[-{Stealth[length=2mm, width=1.5mm]}, thick, gray] (v2) to[bend right=10] (zerow);
+    \draw[-{Stealth[length=2mm, width=1.5mm]}, thick, blue] (x) to[bend left=10] (Tx);
+\end{tikzpicture}
+\caption{Ilustrasi $\kernel(T)$ sebagai subruang dari $V$ yang semua elemennya dipetakan ke $\nol_W$, dan $\Range(T)$ sebagai subruang dari $W$ yang merupakan himpunan semua peta.}
+\label{fig:kernel_range_illustration}
+\end{figure}
+
+\subsection{Nulitas dan Rank}
+\begin{definisi}
+Misalkan $V$ dan $W$ adalah ruang vektor, dan $T: V \longrightarrow W$ adalah suatu transformasi linear.
+\begin{itemize}
+    \item Dimensi dari $\kernel(T)$ disebut \textbf{nulitas} dari $T$, dinotasikan $\nulitas(T)$.
+    \item Dimensi dari $\Range(T)$ disebut \textbf{rank} dari $T$, dinotasikan $\rank(T)$.
+\end{itemize}
+\end{definisi}
+Jika $T$ direpresentasikan oleh perkalian dengan matriks $A$ (yaitu, $T(\vektor{x}) = A\vektor{x}$), maka $\kernel(T)$ adalah ruang nol (null space) dari $A$, dan $\Range(T)$ adalah ruang kolom (column space) dari $A$. Dalam kasus ini, $\nulitas(T) = \dimV(N(A))$ dan $\rank(T) = \rank(A)$.
+
+\begin{teorema}[Teorema Rank-Nulitas (Teorema Dimensi)]
+Jika $T: V \longrightarrow W$ adalah transformasi linear dari ruang vektor $V$ berdimensi hingga ke ruang vektor $W$, maka:
+\[ \dimV(V) = \nulitas(T) + \rank(T) \]
+\end{teorema}
+Teorema ini menyatakan bahwa dimensi dari domain (ruang asal) sama dengan jumlah dari dimensi kernel (nulitas) dan dimensi jangkauan (rank).
+
+\section{Injektivitas, Surjektivitas, dan Isomorfisma}
+Sifat-sifat ini menggambarkan bagaimana transformasi linear memetakan elemen dari domain ke kodomain.
+
+\subsection{Transformasi Linear Injektif (Satu-satu)}
+\begin{definisi}
+Sebuah transformasi linear $T: V \to W$ dikatakan \textbf{injektif} (atau \textbf{satu-satu}) jika vektor-vektor yang berbeda di $V$ dipetakan ke vektor-vektor yang berbeda di $W$. Artinya, jika $\vektor{v}_1, \vektor{v}_2 \in V$ dan $\vektor{v}_1 \neq \vektor{v}_2$, maka $\Transformasi{\vektor{v}_1} \neq \Transformasi{\vektor{v}_2}$.
+Secara ekuivalen, $T$ injektif jika $\Transformasi{\vektor{v}_1} = \Transformasi{\vektor{v}_2}$ mengakibatkan $\vektor{v}_1 = \vektor{v}_2$.
+\end{definisi}
+
+\begin{teorema}[Kriteria Injektivitas]
+Misalkan $T: V \to W$ adalah transformasi linear. Pernyataan-pernyataan berikut ekuivalen:
+\begin{enumerate}
+    \item $T$ adalah injektif.
+    \item Kernel dari $T$ hanya berisi vektor nol, yaitu $\kernel(T) = \{\nol_V\}$.
+    \item Nulitas dari $T$ adalah 0, yaitu $\nulitas(T) = 0$.
+\end{enumerate}
+\end{teorema}
+
+\subsection{Transformasi Linear Surjektif (Pada/Onto)}
+\begin{definisi}
+Sebuah transformasi linear $T: V \to W$ dikatakan \textbf{surjektif} (atau \textbf{pada} atau \textbf{onto}) jika setiap vektor di kodomain $W$ adalah peta dari setidaknya satu vektor di domain $V$. Artinya, jangkauan dari $T$ sama dengan kodomainnya: $\Range(T) = W$.
+\end{definisi}
+
+\begin{teorema}[Kriteria Surjektivitas]
+Misalkan $T: V \to W$ adalah transformasi linear dan $W$ berdimensi hingga. Pernyataan-pernyataan berikut ekuivalen:
+\begin{enumerate}
+    \item $T$ adalah surjektif.
+    \item $\Range(T) = W$.
+    \item $\rank(T) = \dimV(W)$.
+\end{enumerate}
+\end{teorema}
+
+\subsection{Transformasi Linear Bijektif (Isomorfisma)}
+\begin{definisi}
+Sebuah transformasi linear $T: V \to W$ disebut \textbf{isomorfisma} jika $T$ bersifat \textbf{injektif dan surjektif} (yaitu, bijektif). Jika terdapat isomorfisma antara ruang vektor $V$ dan $W$, maka $V$ dan $W$ dikatakan \textbf{isomorfik}, dinotasikan $V \cong W$.
+\end{definisi}
+Ruang-ruang vektor yang isomorfik memiliki struktur aljabar yang identik; mereka hanya berbeda dalam notasi atau sifat elemen-elemennya.
+
+\begin{teorema}
+Misalkan $T: V \to W$ adalah transformasi linear antara dua ruang vektor berdimensi hingga.
+\begin{enumerate}
+    \item Jika $T$ adalah isomorfisma, maka $\dimV(V) = \dimV(W)$.
+    \item Jika $\dimV(V) = \dimV(W)$, maka pernyataan-pernyataan berikut ekuivalen:
+    \begin{itemize}
+        \item $T$ adalah injektif.
+        \item $T$ adalah surjektif.
+        \item $T$ adalah isomorfisma.
+    \end{itemize}
+\end{enumerate}
+\end{teorema}
+Bagian kedua dari teorema ini sangat berguna: jika domain dan kodomain memiliki dimensi yang sama, cukup dengan menunjukkan bahwa $T$ injektif (misalnya, $\kernel(T)=\{\nol_V\}$) atau $T$ surjektif (misalnya, $\rank(T)=\dimV(W)$) untuk menyimpulkan bahwa $T$ adalah isomorfisma.
+
+\section{Matriks Representasi Transformasi Linear}
+Setiap transformasi linear $T: V \to W$ antara ruang vektor berdimensi hingga dapat direpresentasikan oleh sebuah matriks setelah basis untuk $V$ dan $W$ dipilih.
+
+\begin{definisi}[Matriks Standar]
+Jika $T: \R^n \to \R^m$ adalah transformasi linear, maka terdapat matriks $A$ berukuran $m \times n$ yang unik, disebut \textbf{matriks standar} untuk $T$, sedemikian sehingga $\Transformasi{\vektor{x}} = A\vektor{x}$ untuk semua $\vektor{x} \in \R^n$. Kolom-kolom matriks $A$ adalah peta dari vektor-vektor basis standar di $\R^n$:
+\[ A = \begin{bmatrix} | & | & & | \\ \Transformasi{\vektor{e}_1} & \Transformasi{\vektor{e}_2} & \cdots & \Transformasi{\vektor{e}_n} \\ | & | & & | \end{bmatrix} \]
+dimana $\{\vektor{e}_1, \dots, \vektor{e}_n\}$ adalah basis standar untuk $\R^n$.
+\end{definisi}
+
+\begin{definisi}[Matriks Transformasi terhadap Basis Sembarang]
+Misalkan $T: V \to W$ adalah transformasi linear, $B = \{\vektor{v}_1, \dots, \vektor{v}_n\}$ adalah basis terurut untuk $V$, dan $B' = \{\vektor{w}_1, \dots, \vektor{w}_m\}$ adalah basis terurut untuk $W$. \textbf{Matriks untuk $T$ relatif terhadap basis $B$ dan $B'$}, dinotasikan $[T]_{B',B}$, adalah matriks $m \times n$ yang kolom ke-$j$-nya adalah vektor koordinat dari $\Transformasi{\vektor{v}_j}$ relatif terhadap basis $B'$:
+\[ [T]_{B',B} = \begin{bmatrix} | & | & & | \\ [\Transformasi{\vektor{v}_1}]_{B'} & [\Transformasi{\vektor{v}_2}]_{B'} & \cdots & [\Transformasi{\vektor{v}_n}]_{B'} \\ | & | & & | \end{bmatrix} \]
+Matriks ini memenuhi hubungan: $[\Transformasi{\vektor{x}}]_{B'} = [T]_{B',B} [\vektor{x}]_B$ untuk setiap $\vektor{x} \in V$.
+Jika $V=W$ dan $B=B'$, maka matriksnya dinotasikan $[T]_B$.
+\end{definisi}
+Hubungan antara kernel, jangkauan, rank, dan nulitas dari $T$ terkait erat dengan sifat-sifat matriks representasinya $A$:
+\begin{itemize}
+    \item $\kernel(T)$ bersesuaian dengan ruang nol dari $A$.
+    \item $\Range(T)$ bersesuaian dengan ruang kolom dari $A$.
+    \item $\nulitas(T) = \nulitas(A)$ (dimensi ruang nol $A$).
+    \item $\rank(T) = \rank(A)$.
+\end{itemize}
+
+\end{document}

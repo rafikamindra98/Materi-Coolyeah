@@ -1,0 +1,151 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage{amsmath} % Untuk lingkungan matriks dan perintah matematika lainnya
+\usepackage{amsfonts} % Untuk simbol matematika
+\usepackage{amssymb} % Untuk simbol \mathbb{R}
+\usepackage{geometry} % Untuk mengatur margin
+\usepackage[indonesian]{babel} % Mengatur bahasa Indonesia
+\usepackage{array} % Untuk kolom tabel yang lebih baik
+\usepackage{booktabs} % Untuk garis tabel yang lebih baik
+\usepackage{graphicx} % Untuk menyertakan gambar (jika diperlukan)
+\usepackage{hyperref} % Untuk hyperlink (jika diperlukan)
+\usepackage{amsthm} % Untuk lingkungan definisi dan teorema
+\usepackage{enumitem}
+
+\geometry{a4paper, margin=1in} % Mengatur margin halaman
+
+% Definisi lingkungan baru
+\newtheorem{definisi}{Definisi}[section]
+\newtheorem{contoh}{Contoh}[section]
+\newtheorem{teorema}{Teorema}[section]
+\newtheorem{fakta}{Fakta}[section]
+\newtheorem{proposisi}{Proposisi}[section]
+
+% Definisi perintah baru untuk kemudahan
+\newcommand{\matriks}[1]{\begin{pmatrix} #1 \end{pmatrix}} % Perintah untuk matriks
+\newcommand{\R}{\mathbb{R}} % Simbol R untuk bilangan real
+\newcommand{\Poly}{\mathbb{P}} % Simbol P untuk polinom
+\newcommand{\M}[1]{\mathcal{M}_{#1}} % Simbol M untuk himpunan matriks
+\newcommand{\vektor}[1]{\mathbf{#1}} % Perintah untuk vektor tebal
+\newcommand{\nol}{\mathbf{0}} % Vektor nol
+
+\title{Ruang Vektor}
+\author{Rafi Kamindra}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Pengantar Ruang Vektor}
+Konsep ruang vektor adalah salah satu topik fundamental dalam aljabar linear. Untuk memahami ruang vektor $V$, beberapa komponen penting yang perlu diperhatikan adalah:
+\begin{itemize}
+    \item \textbf{Himpunan $V$}: Ini adalah himpunan objek-objek yang akan kita sebut sebagai "vektor". Objek-objek ini bisa beragam, misalnya pasangan terurut bilangan (seperti $(x,y)$ di $\R^2$), matriks, polinom, fungsi, atau objek matematika lainnya.
+    \item \textbf{Himpunan Skalar}: Dalam konteks ini, kita akan membatasi skalar sebagai bilangan real ($\R$). Ruang vektor yang skalarnya adalah bilangan real disebut ruang vektor real. (Ada juga ruang vektor kompleks di mana skalarnya adalah bilangan kompleks, tetapi itu di luar cakupan materi ini untuk saat ini).
+    \item \textbf{Operasi Penjumlahan Vektor (+)}: Ini adalah operasi biner pada $V$, yang berarti jika $\vektor{u}$ dan $\vektor{v}$ adalah elemen di $V$, maka $\vektor{u} + \vektor{v}$ juga harus merupakan elemen di $V$. Operasi ini harus memenuhi sifat-sifat tertentu (akan dijelaskan di bawah).
+    \item \textbf{Operasi Perkalian Skalar ($\cdot$)}: Ini adalah operasi yang mengaitkan setiap skalar $k \in \R$ dan setiap vektor $\vektor{u} \in V$ dengan sebuah vektor $k\vektor{u} \in V$. Operasi ini sering juga disebut sebagai aksi skalar pada $V$.
+    \item \textbf{Aksioma Ruang Vektor}: Agar $V$ dapat disebut sebagai ruang vektor, kedua operasi di atas harus memenuhi sepuluh sifat (aksioma) tertentu.
+\end{itemize}
+
+\section{Definisi Formal Ruang Vektor}
+\begin{definisi}
+Himpunan $V$ disebut \textbf{ruang vektor} (atas himpunan skalar $\R$) jika pada $V$ didefinisikan dua operasi, yaitu penjumlahan vektor dan perkalian skalar, sedemikian sehingga untuk semua $\vektor{u}, \vektor{v}, \vektor{w} \in V$ dan semua skalar $\alpha, \beta \in \R$, berlaku:
+\begin{enumerate}[label=A\arabic*., leftmargin=*, widest=A10]
+    \item \textbf{Ketertutupan terhadap Penjumlahan}: Jika $\vektor{u} \in V$ dan $\vektor{v} \in V$, maka $\vektor{u} + \vektor{v} \in V$.
+    \item \textbf{Sifat Komutatif Penjumlahan}: $\vektor{u} + \vektor{v} = \vektor{v} + \vektor{u}$.
+    \item \textbf{Sifat Asosiatif Penjumlahan}: $(\vektor{u} + \vektor{v}) + \vektor{w} = \vektor{u} + (\vektor{v} + \vektor{w})$.
+    \item \textbf{Eksistensi Elemen Nol}: Terdapat sebuah elemen $\nol \in V$, yang disebut \textbf{vektor nol}, sedemikian sehingga $\nol + \vektor{u} = \vektor{u} + \nol = \vektor{u}$ untuk setiap $\vektor{u} \in V$.
+    \item \textbf{Eksistensi Elemen Invers Aditif}: Untuk setiap $\vektor{u} \in V$, terdapat sebuah elemen $-\vektor{u} \in V$, yang disebut \textbf{negatif} dari $\vektor{u}$, sedemikian sehingga $\vektor{u} + (-\vektor{u}) = (-\vektor{u}) + \vektor{u} = \nol$.
+    \item \textbf{Ketertutupan terhadap Perkalian Skalar}: Jika $k \in \R$ dan $\vektor{u} \in V$, maka $k\vektor{u} \in V$.
+    \item \textbf{Sifat Distributif Perkalian Skalar terhadap Penjumlahan Vektor}: $k(\vektor{u} + \vektor{v}) = k\vektor{u} + k\vektor{v}$.
+    \item \textbf{Sifat Distributif Perkalian Skalar terhadap Penjumlahan Skalar}: $(k+l)\vektor{u} = k\vektor{u} + l\vektor{u}$, untuk skalar $k,l \in \R$.
+    \item \textbf{Sifat Asosiatif Perkalian Skalar}: $k(l\vektor{u}) = (kl)\vektor{u}$.
+    \item \textbf{Sifat Identitas Perkalian Skalar}: $1\vektor{u} = \vektor{u}$, dimana $1$ adalah skalar identitas perkalian di $\R$.
+\end{enumerate}
+Elemen-elemen dari ruang vektor $V$ disebut \textbf{vektor}.
+\end{definisi}
+Aksioma A1 dan A6 sering disebut sebagai aksioma ketertutupan. Aksioma A2-A5 berkaitan dengan sifat-sifat operasi penjumlahan, sedangkan A7-A10 berkaitan dengan sifat-sifat operasi perkalian skalar dan interaksinya dengan penjumlahan.
+
+\section{Contoh-Contoh Ruang Vektor}
+\subsection{Ruang Vektor $\R^n$}
+\begin{contoh}
+Himpunan $V = \R^n = \{(x_1, x_2, \dots, x_n) \mid x_i \in \R \text{ untuk } i=1, \dots, n\}$ adalah himpunan semua $n$-tupel bilangan real.
+Operasi penjumlahan dan perkalian skalar didefinisikan sebagai berikut:
+\begin{itemize}
+    \item Penjumlahan: Jika $\vektor{x}=(x_1, \dots, x_n)$ dan $\vektor{y}=(y_1, \dots, y_n)$, maka
+    \[ \vektor{x} + \vektor{y} = (x_1+y_1, x_2+y_2, \dots, x_n+y_n) \]
+    \item Perkalian Skalar: Jika $\alpha \in \R$ dan $\vektor{x}=(x_1, \dots, x_n)$, maka
+    \[ \alpha\vektor{x} = (\alpha x_1, \alpha x_2, \dots, \alpha x_n) \]
+\end{itemize}
+Dengan operasi-operasi ini, $\R^n$ membentuk sebuah ruang vektor atas $\R$.
+Vektor nolnya adalah $\nol = (0,0,\dots,0)$. Negatif dari $\vektor{x}=(x_1, \dots, x_n)$ adalah $-\vektor{x}=(-x_1, \dots, -x_n)$.
+Aksioma-aksioma lainnya dapat diverifikasi dengan mudah menggunakan sifat-sifat bilangan real.
+
+\textbf{Bahan Diskusi}: Apakah $\mathbb{Z}^n$ (himpunan $n$-tupel bilangan bulat) juga ruang vektor terhadap operasi yang sama atas skalar $\R$?
+\textbf{Jawaban Diskusi}: Tidak. $\mathbb{Z}^n$ tidak tertutup terhadap perkalian skalar dengan bilangan real. Misalnya, jika $\vektor{u} = (1,1) \in \mathbb{Z}^2$ dan $k=0.5 \in \R$, maka $k\vektor{u} = (0.5, 0.5) \notin \mathbb{Z}^2$. Jadi, Aksioma A6 gagal.
+\end{contoh}
+
+\subsection{Ruang Vektor Polinom ($\Poly_n$)}
+\begin{contoh}
+Perhatikan himpunan $\Poly_2 = \{a_0 + a_1x + a_2x^2 \mid a_0, a_1, a_2 \in \R\}$, yaitu himpunan semua polinom berderajat paling tinggi 2.
+Operasi penjumlahan dan perkalian skalar didefinisikan sebagai berikut:
+\begin{itemize}
+    \item Penjumlahan: Jika $p(x) = a_0+a_1x+a_2x^2$ dan $q(x) = b_0+b_1x+b_2x^2$, maka
+    \[ (p+q)(x) = (a_0+b_0) + (a_1+b_1)x + (a_2+b_2)x^2 \]
+    \item Perkalian Skalar: Jika $\alpha \in \R$ dan $p(x) = a_0+a_1x+a_2x^2$, maka
+    \[ (\alpha p)(x) = (\alpha a_0) + (\alpha a_1)x + (\alpha a_2)x^2 \]
+\end{itemize}
+Dengan operasi-operasi ini, $\Poly_2$ membentuk ruang vektor atas $\R$. Vektor nolnya adalah polinom nol $0+0x+0x^2$. Negatif dari $p(x)$ adalah $-p(x) = -a_0 - a_1x - a_2x^2$. Ini dapat digeneralisasi untuk $\Poly_n$, himpunan polinom berderajat paling tinggi $n$.
+
+\textbf{Bahan Diskusi}: Jika definisi operasi perkalian skalar diubah menjadi $\alpha(a_0+a_1x+a_2x^2) := \alpha a_0 + a_1x + a_2x^2$, apakah $\Poly_2$ juga ruang vektor atas $\R$?
+\textbf{Jawaban Diskusi}: Tidak. Operasi perkalian skalar yang baru ini akan melanggar beberapa aksioma. Misalnya, Aksioma A10 ($1\vektor{u}=\vektor{u}$) akan gagal jika $a_1 \neq 0$ atau $a_2 \neq 0$. Misal $p(x) = x$. Maka $1 \cdot p(x) = 1 \cdot (0+1x+0x^2) = 1 \cdot 0 + 1x + 0x^2 = x$. Ini terpenuhi.
+Namun, Aksioma A8: $(k+l)\vektor{u} = k\vektor{u} + l\vektor{u}$.
+Misal $u = x$, $k=2, l=3$.
+$(k+l)u = 5u = 5(0+1x+0x^2) = 5 \cdot 0 + 1x + 0x^2 = x$.
+$ku + lu = 2u + 3u = (2 \cdot 0 + 1x + 0x^2) + (3 \cdot 0 + 1x + 0x^2) = x + x = 2x$.
+Karena $x \neq 2x$ (umumnya), Aksioma A8 gagal.
+\end{contoh}
+
+\subsection{Ruang Vektor Matriks ($M_{m \times n}$)}
+\begin{contoh}
+Perhatikan himpunan $M_{m \times n} = \{[a_{ij}] \mid a_{ij} \in \R, 1 \le i \le m, 1 \le j \le n\}$, yaitu himpunan semua matriks berukuran $m \times n$ dengan entri real.
+Operasi penjumlahan matriks dan perkalian skalar matriks didefinisikan secara standar:
+\begin{itemize}
+    \item Penjumlahan: $[a_{ij}] + [b_{ij}] = [a_{ij}+b_{ij}]$.
+    \item Perkalian Skalar: $\alpha[a_{ij}] = [\alpha a_{ij}]$.
+\end{itemize}
+Dengan operasi-operasi ini, $M_{m \times n}$ membentuk sebuah ruang vektor atas $\R$. Vektor nolnya adalah matriks nol $m \times n$. Negatif dari matriks $A$ adalah $-A$.
+\end{contoh}
+
+\subsection{Ruang Vektor Fungsi Bernilai Real}
+\begin{contoh}
+Perhatikan himpunan $V = C[0,1] = \{f: [0,1] \to \R \mid f \text{ kontinu}\}$, yaitu himpunan semua fungsi kontinu bernilai real yang didefinisikan pada interval $[0,1]$.
+\begin{itemize}
+    \item Penjumlahan: Untuk $f,g \in V$, $(f+g)(x) := f(x)+g(x)$ untuk semua $x \in [0,1]$. (Hasilnya juga fungsi kontinu).
+    \item Perkalian Skalar: Untuk $\alpha \in \R$ dan $f \in V$, $(\alpha f)(x) := \alpha f(x)$ untuk semua $x \in [0,1]$. (Hasilnya juga fungsi kontinu).
+\end{itemize}
+Dengan operasi-operasi ini, $C[0,1]$ membentuk sebuah ruang vektor atas $\R$. Vektor nolnya adalah fungsi $f(x)=0$ untuk semua $x \in [0,1]$. Negatif dari fungsi $f$ adalah fungsi $-f$ yang didefinisikan oleh $(-f)(x) = -f(x)$.
+Ruang ini dapat digeneralisasi ke $F(S,\R)$, himpunan semua fungsi dari himpunan tak kosong $S$ ke $\R$.
+\end{contoh}
+
+\subsection{Contoh Himpunan yang Bukan Ruang Vektor}
+\begin{contoh}
+Perhatikan himpunan $V=\R^2$. Didefinisikan operasi penjumlahan $\oplus$ dan perkalian skalar $\odot$ sebagai berikut:
+$(a,b) \oplus (c,d) := (a+c, 0)$
+$k \odot (a,b) := (ka, kb)$
+Apakah $\R^2$ merupakan ruang vektor atas $\R$ dengan dua operasi ini?
+Mari kita periksa beberapa aksioma:
+\begin{itemize}
+    \item \textbf{A1 (Ketertutupan terhadap $\oplus$)}: $(a+c, 0) \in \R^2$. Terpenuhi.
+    \item \textbf{A6 (Ketertutupan terhadap $\odot$)}: $(ka, kb) \in \R^2$. Terpenuhi.
+    \item \textbf{A2 (Komutatif $\oplus$)}: $(a,b) \oplus (c,d) = (a+c,0)$. $(c,d) \oplus (a,b) = (c+a,0)$. Terpenuhi.
+    \item \textbf{A3 (Asosiatif $\oplus$)}: $((a,b) \oplus (c,d)) \oplus (e,f) = (a+c,0) \oplus (e,f) = (a+c+e,0)$.
+    $(a,b) \oplus ((c,d) \oplus (e,f)) = (a,b) \oplus (c+e,0) = (a+c+e,0)$. Terpenuhi.
+    \item \textbf{A4 (Elemen Nol)}: Misalkan $\nol=(n_1, n_2)$ adalah elemen nol.
+    $(a,b) \oplus (n_1,n_2) = (a+n_1, 0) = (a,b)$.
+    Maka $a+n_1=a \Rightarrow n_1=0$. Tapi $0=b$ harus berlaku untuk semua $b$, yang tidak mungkin jika $b \neq 0$.
+    Jadi, tidak ada elemen nol tunggal yang memenuhi $u \oplus \nol = u$ untuk semua $u$. Aksioma A4 gagal.
+    Sebagai alternatif, jika kita coba definisikan $\nol=(0,0)$, maka $(a,b) \oplus (0,0) = (a,0) \neq (a,b)$ jika $b \neq 0$.
+    Karena Aksioma A4 gagal, maka $V$ dengan operasi ini bukan ruang vektor. (Kita tidak perlu memeriksa aksioma lain).
+\end{itemize}
+\end{contoh}
+
+\end{document}

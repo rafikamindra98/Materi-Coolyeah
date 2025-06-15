@@ -1,0 +1,87 @@
+\documentclass{article}
+\usepackage{amsmath} % Untuk lingkungan matriks dan perintah matematika lainnya
+\usepackage{amsfonts} % Untuk simbol
+\usepackage{amssymb} % Untuk simbol \mathbb{R}
+\usepackage{geometry} % Untuk mengatur margin
+\geometry{a4paper, margin=1in}
+
+\title{Aljabar Linear: Responsi Rank Matriks}
+\author{Rafi Kamindra 2201006}
+\date{} % Kosongkan tanggal jika tidak ingin ditampilkan
+
+\newcommand{\vektor}[1]{\mathbf{#1}} % Perintah untuk vektor
+\newcommand{\R}{\mathbb{R}} % Simbol R
+\newcommand{\Poly}{\mathbb{P}} % Simbol P untuk polinom
+\newcommand{\M}{\mathbb{M}} % Simbol M untuk matriks
+\newcommand{\rank}{\text{rank}} % Perintah untuk rank
+
+\begin{document}
+\maketitle
+\pagenumbering{gobble} % Menghilangkan nomor halaman jika tidak diinginkan untuk halaman judul
+
+\section*{Bagian A}
+\textbf{Lingkari B jika pernyataan benar, S jika pernyataan salah. Kemudian berikan alasan.}
+
+\subsection*{a. (B-S) Jika $A \in \M_{3 \times 4}$ maka $AX=0$ pasti mempunyai solusi banyak.}
+\textbf{Jawaban: B (BENAR)}\\
+\textbf{Alasan:}\\
+Sistem Persamaan Linear Homogen $AX=0$ selalu mempunyai solusi trivial ($\vektor{x}=\vektor{0}$).
+Matriks $A$ berukuran $3 \times 4$, artinya ada 3 persamaan dan 4 variabel.
+Rank matriks $A$, $\rank(A)$, paling besar adalah $\min(3,4) = 3$.
+Jumlah variabel adalah $n=4$.
+Dimensi ruang solusi (nulitas $A$) adalah $n - \rank(A) = 4 - \rank(A)$.
+Karena $\rank(A) \le 3$, maka nulitas $A = 4 - \rank(A) \ge 4 - 3 = 1$.
+Karena nulitas $A \ge 1$, maka ada setidaknya satu variabel bebas. Ini berarti ada solusi non-trivial, sehingga $AX=0$ mempunyai solusi banyak (tak hingga banyaknya solusi).
+
+\subsection*{b. (B-S) Misalkan $A \in \M_2$. Jika $AX=AY$ maka $X=Y$.}
+\textbf{Jawaban: S (SALAH)}\\
+\textbf{Alasan:}\\
+Pernyataan $AX=AY \Rightarrow X=Y$ hanya berlaku jika matriks $A$ mempunyai invers (yaitu, $A$ non-singular atau $\det(A) \neq 0$).
+Jika $A$ adalah matriks singular (misalnya matriks nol atau matriks yang determinannya nol), maka pernyataan tersebut tidak berlaku.
+Contoh: Misalkan $A = \begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix}$. Matriks ini singular karena $\det(A)=0$.
+Misalkan $X = \begin{pmatrix} 1 \\ 0 \end{pmatrix}$ dan $Y = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$. Jelas $X \neq Y$.
+$AX = \begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix} \begin{pmatrix} 1 \\ 0 \end{pmatrix} = \begin{pmatrix} 1 \\ 1 \end{pmatrix}$.
+$AY = \begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix} \begin{pmatrix} 0 \\ 1 \end{pmatrix} = \begin{pmatrix} 1 \\ 1 \end{pmatrix}$.
+Jadi, $AX=AY$ tetapi $X \neq Y$.
+
+\subsection*{c. (B-S) Jika $C \in \M_3$ dan mempunyai invers maka $|kC| > 0$ untuk setiap $k \neq 0$.}
+\textbf{Jawaban: S (SALAH)}\\
+\textbf{Alasan:}\\
+Jika $C \in \M_n$ (dalam hal ini $n=3$), maka $\det(kC) = k^n \det(C)$.
+Jadi, $|kC| = \det(kC) = k^3 \det(C)$.
+Karena $C$ mempunyai invers, maka $\det(C) \neq 0$.
+Jika $\det(C) > 0$:
+\begin{itemize}
+    \item Jika $k > 0$, maka $k^3 > 0$, sehingga $k^3 \det(C) > 0$.
+    \item Jika $k < 0$, maka $k^3 < 0$, sehingga $k^3 \det(C) < 0$.
+\end{itemize}
+Jika $\det(C) < 0$:
+\begin{itemize}
+    \item Jika $k > 0$, maka $k^3 > 0$, sehingga $k^3 \det(C) < 0$.
+    \item Jika $k < 0$, maka $k^3 < 0$, sehingga $k^3 \det(C) > 0$.
+\end{itemize}
+Jadi, $|kC|$ tidak selalu lebih besar dari 0. Misalnya, jika $\det(C)=1$ dan $k=-1$, maka $|kC|=(-1)^3 \cdot 1 = -1$, yang tidak lebih besar dari 0.
+Pernyataan yang benar adalah $|kC| \neq 0$ untuk $k \neq 0$.
+
+\subsection*{d. (B-S) Matriks $L = \begin{pmatrix} 1 & 2 & 1 \\ 1 & -1 & 2 \\ 2 & 1 & k \end{pmatrix}$ pasti mempunyai rank 3.}
+\textbf{Jawaban: S (SALAH)}\\
+\textbf{Alasan:}\\
+Matriks $L$ mempunyai rank 3 jika dan hanya jika $\det(L) \neq 0$.
+$\det(L) = 1 \begin{vmatrix} -1 & 2 \\ 1 & k \end{vmatrix} - 2 \begin{vmatrix} 1 & 2 \\ 2 & k \end{vmatrix} + 1 \begin{vmatrix} 1 & -1 \\ 2 & 1 \end{vmatrix}$
+$= 1(-k - 2) - 2(k - 4) + 1(1 - (-2))$
+$= -k - 2 - 2k + 8 + 1 + 2$
+$= -3k + 9$.
+Agar rank $L$ kurang dari 3, $\det(L)$ harus nol:
+$-3k + 9 = 0 \Rightarrow 3k = 9 \Rightarrow k = 3$.
+Jika $k=3$, maka $\det(L)=0$, sehingga rank $L < 3$.
+Jadi, matriks $L$ tidak pasti mempunyai rank 3 untuk semua $k$. Hanya jika $k \neq 3$.
+
+\subsection*{e. (B-S) Jika $M, N \in \M_3$ dengan $\rank(M)=3$ dan $\rank(N)=2$, maka $\rank(MN)$ maksimum 2.}
+\textbf{Jawaban: B (BENAR)}\\
+\textbf{Alasan:}\\
+Kita tahu bahwa $\rank(MN) \le \min(\rank(M), \rank(N))$.
+Diberikan $\rank(M)=3$ dan $\rank(N)=2$.
+Maka $\rank(MN) \le \min(3,2) = 2$.
+Jadi, rank maksimum dari $MN$ adalah 2.
+
+\end{document}

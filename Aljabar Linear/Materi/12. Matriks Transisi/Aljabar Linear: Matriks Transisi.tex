@@ -1,0 +1,136 @@
+\documentclass{article}
+\usepackage{amsmath} % Untuk lingkungan matriks dan perintah matematika lainnya
+\usepackage{amsfonts} % Untuk simbol
+\usepackage{amssymb} % Untuk simbol \mathbb{R}
+\usepackage{geometry} % Untuk mengatur margin
+\geometry{a4paper, margin=1in}
+
+\title{Aljabar Linear: Matriks Transisi}
+\author{Rafi Kamindra 2201006}
+\date{} % Kosongkan tanggal jika tidak ingin ditampilkan
+
+\newcommand{\vektor}[1]{\mathbf{#1}} % Perintah untuk vektor
+\newcommand{\R}{\mathbb{R}} % Simbol R
+\newcommand{\Poly}{\mathbb{P}} % Simbol P untuk polinom
+\newcommand{\coord}[2]{[\vektor{#1}]_{#2}} % Notasi koordinat
+
+\begin{document}
+\maketitle
+\pagenumbering{gobble} % Menghilangkan nomor halaman jika tidak diinginkan untuk halaman judul
+
+\section*{Problem (Koordinat terhadap Basis)}
+
+\subsection*{1. Perhatikan basis $B = \{\vektor{u}_1=(1,0,0), \vektor{u}_2=(3,-1,1), \vektor{u}_3=(1,1,1)\}$. Carilah koordinat dari masing-masing vektor $\vektor{x}=(2,3,1)$, $\vektor{y}=(1,0,0)$, $\vektor{z}=(2,1,1)$ terhadap basis $B$.}
+\textbf{Jawaban:}\\
+Kita ingin mencari $c_1, c_2, c_3$ sehingga $\vektor{v} = c_1\vektor{u}_1 + c_2\vektor{u}_2 + c_3\vektor{u}_3$. Vektor koordinatnya adalah $(c_1, c_2, c_3)^T$.
+Ini ekuivalen dengan menyelesaikan sistem $P_B \vektor{c} = \vektor{v}$, dimana $P_B$ adalah matriks dengan kolom-kolom vektor basis $B$.
+$P_B = \begin{pmatrix} 1 & 3 & 1 \\ 0 & -1 & 1 \\ 0 & 1 & 1 \end{pmatrix}$.
+Kita butuh $P_B^{-1}$.
+$\det(P_B) = 1 \begin{vmatrix} -1 & 1 \\ 1 & 1 \end{vmatrix} - 3 \begin{vmatrix} 0 & 1 \\ 0 & 1 \end{vmatrix} + 1 \begin{vmatrix} 0 & -1 \\ 0 & 1 \end{vmatrix} = 1(-1-1) - 0 + 0 = -2$.
+Adjoin $P_B$:
+$C_{11} = (-1)^{1+1}(-1-1) = -2$
+$C_{12} = (-1)^{1+2}(0-0) = 0$
+$C_{13} = (-1)^{1+3}(0-0) = 0$
+$C_{21} = (-1)^{2+1}(3-1) = -2$
+$C_{22} = (-1)^{2+2}(1-0) = 1$
+$C_{23} = (-1)^{2+3}(1-0) = -1$
+$C_{31} = (-1)^{3+1}(3-(-1)) = 4$
+$C_{32} = (-1)^{3+2}(1-0) = -1$
+$C_{33} = (-1)^{3+3}(-1-0) = -1$
+Kofaktor $K(P_B) = \begin{pmatrix} -2 & 0 & 0 \\ -2 & 1 & -1 \\ 4 & -1 & -1 \end{pmatrix}$.
+$\text{adj}(P_B) = K(P_B)^T = \begin{pmatrix} -2 & -2 & 4 \\ 0 & 1 & -1 \\ 0 & -1 & -1 \end{pmatrix}$.
+$P_B^{-1} = \frac{1}{-2} \begin{pmatrix} -2 & -2 & 4 \\ 0 & 1 & -1 \\ 0 & -1 & -1 \end{pmatrix} = \begin{pmatrix} 1 & 1 & -2 \\ 0 & -1/2 & 1/2 \\ 0 & 1/2 & 1/2 \end{pmatrix}$.
+
+Untuk $\vektor{x}=(2,3,1)$:
+$\coord{x}{B} = P_B^{-1} \vektor{x} = \begin{pmatrix} 1 & 1 & -2 \\ 0 & -1/2 & 1/2 \\ 0 & 1/2 & 1/2 \end{pmatrix} \begin{pmatrix} 2 \\ 3 \\ 1 \end{pmatrix} = \begin{pmatrix} 1(2)+1(3)-2(1) \\ 0(2)-(1/2)(3)+(1/2)(1) \\ 0(2)+(1/2)(3)+(1/2)(1) \end{pmatrix} = \begin{pmatrix} 2+3-2 \\ -3/2+1/2 \\ 3/2+1/2 \end{pmatrix} = \begin{pmatrix} 3 \\ -1 \\ 2 \end{pmatrix}$.
+Jadi, $[\vektor{x}]_B = (3, -1, 2)^T$.
+
+Untuk $\vektor{y}=(1,0,0)$:
+$\coord{y}{B} = P_B^{-1} \vektor{y} = \begin{pmatrix} 1 & 1 & -2 \\ 0 & -1/2 & 1/2 \\ 0 & 1/2 & 1/2 \end{pmatrix} \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} = \begin{pmatrix} 1(1)+1(0)-2(0) \\ 0(1)-(1/2)(0)+(1/2)(0) \\ 0(1)+(1/2)(0)+(1/2)(0) \end{pmatrix} = \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}$.
+Jadi, $[\vektor{y}]_B = (1, 0, 0)^T$. (Ini masuk akal karena $\vektor{y} = \vektor{u}_1$).
+
+Untuk $\vektor{z}=(2,1,1)$:
+$\coord{z}{B} = P_B^{-1} \vektor{z} = \begin{pmatrix} 1 & 1 & -2 \\ 0 & -1/2 & 1/2 \\ 0 & 1/2 & 1/2 \end{pmatrix} \begin{pmatrix} 2 \\ 1 \\ 1 \end{pmatrix} = \begin{pmatrix} 1(2)+1(1)-2(1) \\ 0(2)-(1/2)(1)+(1/2)(1) \\ 0(2)+(1/2)(1)+(1/2)(1) \end{pmatrix} = \begin{pmatrix} 2+1-2 \\ -1/2+1/2 \\ 1/2+1/2 \end{pmatrix} = \begin{pmatrix} 1 \\ 0 \\ 1 \end{pmatrix}$.
+Jadi, $[\vektor{z}]_B = (1, 0, 1)^T$.
+
+\subsection*{2. Perhatikan basis $B = \{p_1=1-x-x^2, p_2=3+2x+x^2, p_3=1+x+x^2\}$. Carilah koordinat dari masing-masing vektor $p=1, q=x, r=x^2$ terhadap basis $B$.}
+\textbf{Jawaban:}\\
+Representasikan polinom sebagai vektor koordinat terhadap basis standar $\{1, x, x^2\}$.
+$p_1 \rightarrow \vektor{u}_1 = (1,-1,-1)$
+$p_2 \rightarrow \vektor{u}_2 = (3,2,1)$
+$p_3 \rightarrow \vektor{u}_3 = (1,1,1)$
+Matriks transisi dari $B$ ke basis standar adalah $P_B = \begin{pmatrix} 1 & 3 & 1 \\ -1 & 2 & 1 \\ -1 & 1 & 1 \end{pmatrix}$.
+Kita butuh $P_B^{-1}$.
+$\det(P_B) = 1(2-1) - 3(-1-(-1)) + 1(-1-(-2)) = 1(1) - 3(0) + 1(1) = 1 - 0 + 1 = 2$.
+Adjoin $P_B$:
+$C_{11} = (2-1)=1$
+$C_{12} = -(-1-(-1))=0$
+$C_{13} = (-1-(-2))=1$
+$C_{21} = -(3-1)=-2$
+$C_{22} = (1-(-1))=2$
+$C_{23} = -(1-(-3))=-4$
+$C_{31} = (3-2)=1$
+$C_{32} = -(1-(-1))=-2$
+$C_{33} = (2-(-3))=5$
+Kofaktor $K(P_B) = \begin{pmatrix} 1 & 0 & 1 \\ -2 & 2 & -4 \\ 1 & -2 & 5 \end{pmatrix}$.
+$\text{adj}(P_B) = K(P_B)^T = \begin{pmatrix} 1 & -2 & 1 \\ 0 & 2 & -2 \\ 1 & -4 & 5 \end{pmatrix}$.
+$P_B^{-1} = \frac{1}{2} \begin{pmatrix} 1 & -2 & 1 \\ 0 & 2 & -2 \\ 1 & -4 & 5 \end{pmatrix} = \begin{pmatrix} 1/2 & -1 & 1/2 \\ 0 & 1 & -1 \\ 1/2 & -2 & 5/2 \end{pmatrix}$.
+
+Vektor $p=1 \rightarrow \vektor{v}_p = (1,0,0)$.
+$\coord{p}{B} = P_B^{-1} \vektor{v}_p = \begin{pmatrix} 1/2 & -1 & 1/2 \\ 0 & 1 & -1 \\ 1/2 & -2 & 5/2 \end{pmatrix} \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} = \begin{pmatrix} 1/2 \\ 0 \\ 1/2 \end{pmatrix}$.
+Jadi, $[p]_B = (1/2, 0, 1/2)^T$.
+
+Vektor $q=x \rightarrow \vektor{v}_q = (0,1,0)$.
+$\coord{q}{B} = P_B^{-1} \vektor{v}_q = \begin{pmatrix} 1/2 & -1 & 1/2 \\ 0 & 1 & -1 \\ 1/2 & -2 & 5/2 \end{pmatrix} \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix} = \begin{pmatrix} -1 \\ 1 \\ -2 \end{pmatrix}$.
+Jadi, $[q]_B = (-1, 1, -2)^T$.
+
+Vektor $r=x^2 \rightarrow \vektor{v}_r = (0,0,1)$.
+$\coord{r}{B} = P_B^{-1} \vektor{v}_r = \begin{pmatrix} 1/2 & -1 & 1/2 \\ 0 & 1 & -1 \\ 1/2 & -2 & 5/2 \end{pmatrix} \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix} = \begin{pmatrix} 1/2 \\ -1 \\ 5/2 \end{pmatrix}$.
+Jadi, $[r]_B = (1/2, -1, 5/2)^T$.
+
+\section*{Problem (Matriks Transisi)}
+
+\subsection*{1. Diketahui basis-basis $B=\{\vektor{b}_1=(1,0,0), \vektor{b}_2=(0,1,0), \vektor{b}_3=(0,0,1)\}$ dan $B'=\{\vektor{u}_1=(1,1,1), \vektor{u}_2=(1,2,1), \vektor{u}_3=(1,1,2)\}$. Carilah matriks transisi $P$ dari $B$ ke $B'$. Gunakan $P$ untuk mendapatkan koordinat $\vektor{x}=(4,-2,1)$ terhadap $B'$.}
+\textbf{Jawaban:}\\
+Matriks transisi $P_{B \rightarrow B'}$ (atau hanya $P$) adalah matriks yang kolom-kolomnya adalah koordinat vektor-vektor basis $B$ relatif terhadap basis $B'$.
+Namun, lebih mudah mencari matriks transisi dari $B'$ ke $B$, yaitu $P_{B' \rightarrow B}$, yang kolom-kolomnya adalah vektor-vektor basis $B'$ yang ditulis dalam koordinat $B$ (basis standar).
+$P_{B' \rightarrow B} = \begin{pmatrix} 1 & 1 & 1 \\ 1 & 2 & 1 \\ 1 & 1 & 2 \end{pmatrix}$.
+Matriks transisi dari $B$ ke $B'$ adalah $P_{B \rightarrow B'} = (P_{B' \rightarrow B})^{-1}$.
+Kita hitung invers dari $P_{B' \rightarrow B}$.
+Misalkan $M = P_{B' \rightarrow B}$.
+$\det(M) = 1(4-1) - 1(2-1) + 1(1-2) = 1(3) - 1(1) + 1(-1) = 3 - 1 - 1 = 1$.
+Adjoin $M$:
+$C_{11} = (4-1)=3$
+$C_{12} = -(2-1)=-1$
+$C_{13} = (1-2)=-1$
+$C_{21} = -(2-1)=-1$
+$C_{22} = (2-1)=1$
+$C_{23} = -(1-1)=0$
+$C_{31} = (1-2)=-1$
+$C_{32} = -(1-1)=0$
+$C_{33} = (2-1)=1$
+Kofaktor $K(M) = \begin{pmatrix} 3 & -1 & -1 \\ -1 & 1 & 0 \\ -1 & 0 & 1 \end{pmatrix}$.
+$\text{adj}(M) = K(M)^T = \begin{pmatrix} 3 & -1 & -1 \\ -1 & 1 & 0 \\ -1 & 0 & 1 \end{pmatrix}$.
+$P = P_{B \rightarrow B'} = M^{-1} = \frac{1}{1} \text{adj}(M) = \begin{pmatrix} 3 & -1 & -1 \\ -1 & 1 & 0 \\ -1 & 0 & 1 \end{pmatrix}$.
+Koordinat $\vektor{x}=(4,-2,1)$ terhadap basis $B$ adalah $[\vektor{x}]_B = (4,-2,1)^T$ (karena $B$ adalah basis standar).
+Koordinat $\vektor{x}$ terhadap $B'$ adalah $[\vektor{x}]_{B'} = P_{B \rightarrow B'} [\vektor{x}]_B$.
+$[\vektor{x}]_{B'} = \begin{pmatrix} 3 & -1 & -1 \\ -1 & 1 & 0 \\ -1 & 0 & 1 \end{pmatrix} \begin{pmatrix} 4 \\ -2 \\ 1 \end{pmatrix} = \begin{pmatrix} 3(4)+(-1)(-2)+(-1)(1) \\ -1(4)+1(-2)+0(1) \\ -1(4)+0(-2)+1(1) \end{pmatrix} = \begin{pmatrix} 12+2-1 \\ -4-2+0 \\ -4+0+1 \end{pmatrix} = \begin{pmatrix} 13 \\ -6 \\ -3 \end{pmatrix}$.
+Jadi, $[\vektor{x}]_{B'} = (13, -6, -3)^T$.
+
+\subsection*{2. Perhatikan basis-basis $B=\{1,x,x^2\}$ dan $B'=\{1-x-x^2, 3+2x+x^2, 1+x+x^2\}$. Carilah matriks transisi $P$ dari $B$ ke $B'$. Cari koordinat $p=a+bx+cx^2$ terhadap $B'$.}
+\textbf{Jawaban:}\\
+Basis $B$ adalah basis standar untuk $\Poly_2$.
+Vektor-vektor basis $B'$ dalam koordinat basis standar $B$ adalah:
+$p'_1 = 1-x-x^2 \rightarrow \vektor{u}_1 = (1,-1,-1)$
+$p'_2 = 3+2x+x^2 \rightarrow \vektor{u}_2 = (3,2,1)$
+$p'_3 = 1+x+x^2 \rightarrow \vektor{u}_3 = (1,1,1)$
+Matriks transisi dari $B'$ ke $B$ adalah $P_{B' \rightarrow B} = \begin{pmatrix} 1 & 3 & 1 \\ -1 & 2 & 1 \\ -1 & 1 & 1 \end{pmatrix}$.
+Matriks transisi $P$ dari $B$ ke $B'$ adalah $P_{B \rightarrow B'} = (P_{B' \rightarrow B})^{-1}$.
+Ini adalah matriks $P_B^{-1}$ yang kita hitung di Soal 2 Bagian Koordinat:
+$P = P_{B \rightarrow B'} = \begin{pmatrix} 1/2 & -1 & 1/2 \\ 0 & 1 & -1 \\ 1/2 & -2 & 5/2 \end{pmatrix}$.
+Koordinat $p=a+bx+cx^2$ terhadap basis $B$ (standar) adalah $[\vektor{p}]_B = (a,b,c)^T$.
+Koordinat $p$ terhadap $B'$ adalah $[\vektor{p}]_{B'} = P_{B \rightarrow B'} [\vektor{p}]_B$.
+$[\vektor{p}]_{B'} = \begin{pmatrix} 1/2 & -1 & 1/2 \\ 0 & 1 & -1 \\ 1/2 & -2 & 5/2 \end{pmatrix} \begin{pmatrix} a \\ b \\ c \end{pmatrix} = \begin{pmatrix} \frac{1}{2}a - b + \frac{1}{2}c \\ b - c \\ \frac{1}{2}a - 2b + \frac{5}{2}c \end{pmatrix}$.
+Jadi, koordinat $p=a+bx+cx^2$ terhadap $B'$ adalah $(\frac{1}{2}a - b + \frac{1}{2}c, b - c, \frac{1}{2}a - 2b + \frac{5}{2}c)^T$.
+
+\end{document}

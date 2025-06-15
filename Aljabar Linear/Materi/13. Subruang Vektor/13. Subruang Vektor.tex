@@ -1,0 +1,164 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage{amsmath} % Untuk lingkungan matriks dan perintah matematika lainnya
+\usepackage{amsfonts} % Untuk simbol matematika
+\usepackage{amssymb} % Untuk simbol \mathbb{R}
+\usepackage{geometry} % Untuk mengatur margin
+\usepackage[indonesian]{babel} % Mengatur bahasa Indonesia
+\usepackage{array} % Untuk kolom tabel yang lebih baik
+\usepackage{booktabs} % Untuk garis tabel yang lebih baik
+\usepackage{graphicx} % Untuk menyertakan gambar (jika diperlukan)
+\usepackage{hyperref} % Untuk hyperlink (jika diperlukan)
+\usepackage{amsthm} % Untuk lingkungan definisi dan teorema
+\usepackage{enumitem} % Untuk kustomisasi daftar
+
+\geometry{a4paper, margin=1in, headheight=15pt} % Mengatur margin halaman
+
+% Definisi lingkungan baru
+\theoremstyle{definition} % Gaya standar untuk definisi dan contoh
+\newtheorem{definisi}{Definisi}[section]
+\newtheorem{contoh}{Contoh}[section]
+\newtheorem{catatan}{Catatan}[section]
+\theoremstyle{plain} % Gaya standar untuk teorema
+\newtheorem{teorema}{Teorema}[section]
+\newtheorem{proposisi}{Proposisi}[section]
+\newtheorem{akibat}{Akibat}[section]
+
+% Definisi perintah baru untuk kemudahan
+\newcommand{\matriks}[1]{\begin{pmatrix} #1 \end{pmatrix}} % Perintah untuk matriks
+\newcommand{\R}{\mathbb{R}} % Simbol R untuk bilangan real
+\newcommand{\Poly}{\mathbb{P}} % Simbol P untuk polinom
+\newcommand{\M}[1]{\mathcal{M}_{#1}} % Simbol M untuk himpunan matriks
+\newcommand{\vektor}[1]{\mathbf{#1}} % Perintah untuk vektor tebal
+\newcommand{\nol}{\mathbf{0}} % Vektor nol
+\newcommand{\spanof}[1]{\text{span}(#1)} % Perintah untuk span
+\newcommand{\dimW}{\text{dim}(W)} % Dimensi W
+
+\title{Subruang Vektor}
+\author{Rafi Kamindra 2201006}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Pendahuluan}
+Dalam studi ruang vektor, seringkali kita tertarik pada himpunan bagian (subset) dari suatu ruang vektor yang juga memiliki struktur ruang vektor itu sendiri. Himpunan bagian semacam ini disebut subruang vektor. Konsep subruang sangat penting karena memungkinkan kita untuk mempelajari struktur internal ruang vektor dan mengidentifikasi ruang vektor yang lebih kecil yang "hidup" di dalam ruang vektor yang lebih besar.
+
+\section{Definisi Subruang Vektor}
+\begin{definisi}
+Misalkan $V$ adalah suatu ruang vektor atas lapangan $\R$ (dengan operasi penjumlahan vektor dan perkalian skalar yang telah didefinisikan pada $V$). Sebuah himpunan bagian tak kosong $W \subseteq V$ disebut \textbf{subruang} (subspace) dari $V$ jika $W$ sendiri merupakan ruang vektor terhadap operasi penjumlahan dan perkalian skalar yang sama seperti yang didefinisikan pada $V$.
+\end{definisi}
+Ini berarti, untuk menunjukkan bahwa $W$ adalah subruang dari $V$, kita pada prinsipnya perlu memverifikasi bahwa $W$ memenuhi semua sepuluh aksioma ruang vektor. Namun, banyak dari aksioma ini (seperti komutativitas, asosiativitas, dan sifat distributif) "diwarisi" oleh $W$ dari $V$ karena $W$ adalah himpunan bagian dari $V$ dan menggunakan operasi yang sama. Oleh karena itu, ada kriteria yang lebih sederhana untuk memeriksa apakah suatu himpunan bagian merupakan subruang.
+
+\begin{contoh}[Memverifikasi Aksioma Ruang Vektor untuk Subruang]
+Perhatikan himpunan $W = \{ (x,0) \mid x \in \R \}$. Akan ditunjukkan bahwa $W$ adalah subruang dari $\R^2$.
+(Ruang $\R^2$ adalah ruang vektor dengan operasi penjumlahan $(x_1,y_1)+(x_2,y_2)=(x_1+x_2,y_1+y_2)$ dan perkalian skalar $k(x,y)=(kx,ky)$).
+
+\textbf{Bukti dengan memeriksa semua aksioma}:
+Pertama, jelas bahwa $W \subseteq \R^2$. Elemen-elemen $W$ adalah vektor-vektor di $\R^2$ yang komponen keduanya nol.
+Misalkan $\vektor{u}=(x,0)$, $\vektor{v}=(y,0)$, $\vektor{w}=(z,0)$ adalah sebarang elemen di $W$, dan $k,l \in \R$ adalah sebarang skalar.
+\begin{enumerate}[label=A\arabic*.]
+    \item \textbf{Ketertutupan terhadap Penjumlahan}:
+    $\vektor{u} + \vektor{v} = (x,0) + (y,0) = (x+y, 0)$. Karena $x+y \in \R$, maka $(x+y,0) \in W$. Jadi, $W$ tertutup terhadap penjumlahan.
+    \item \textbf{Sifat Komutatif Penjumlahan}:
+    $\vektor{u} + \vektor{v} = (x+y, 0) = (y+x, 0) = (y,0) + (x,0) = \vektor{v} + \vektor{u}$.
+    \item \textbf{Sifat Asosiatif Penjumlahan}:
+    $(\vektor{u} + \vektor{v}) + \vektor{w} = ((x,0)+(y,0))+(z,0) = (x+y,0)+(z,0) = (x+y+z,0)$.
+    $\vektor{u} + (\vektor{v} + \vektor{w}) = (x,0)+((y,0)+(z,0)) = (x,0)+(y+z,0) = (x+y+z,0)$.
+    Jadi, $(\vektor{u} + \vektor{v}) + \vektor{w} = \vektor{u} + (\vektor{v} + \vektor{w})$.
+    \item \textbf{Eksistensi Elemen Nol}: Vektor nol di $\R^2$ adalah $\nol=(0,0)$. Karena komponen keduanya 0, maka $(0,0) \in W$. Untuk setiap $\vektor{u}=(x,0) \in W$, berlaku $\nol + \vektor{u} = (0,0) + (x,0) = (0+x, 0+0) = (x,0) = \vektor{u}$.
+    \item \textbf{Eksistensi Elemen Invers Aditif}: Untuk setiap $\vektor{u}=(x,0) \in W$, terdapat $-\vektor{u}=(-x,0)$. Karena $-x \in \R$, maka $-\vektor{u} \in W$. Berlaku $\vektor{u} + (-\vektor{u}) = (x,0) + (-x,0) = (x-x, 0+0) = (0,0) = \nol$.
+    \item \textbf{Ketertutupan terhadap Perkalian Skalar}:
+    $k\vektor{u} = k(x,0) = (kx, k \cdot 0) = (kx,0)$. Karena $kx \in \R$, maka $k\vektor{u} \in W$. Jadi, $W$ tertutup terhadap perkalian skalar.
+    \item \textbf{Sifat Distributif $k(\vektor{u} + \vektor{v}) = k\vektor{u} + k\vektor{v}$}:
+    $k(\vektor{u} + \vektor{v}) = k((x,0)+(y,0)) = k(x+y,0) = (k(x+y), 0) = (kx+ky, 0)$.
+    $k\vektor{u} + k\vektor{v} = k(x,0) + k(y,0) = (kx,0) + (ky,0) = (kx+ky, 0)$. Terpenuhi.
+    \item \textbf{Sifat Distributif $(k+l)\vektor{u} = k\vektor{u} + l\vektor{u}$}:
+    $(k+l)\vektor{u} = (k+l)(x,0) = ((k+l)x, 0) = (kx+lx, 0)$.
+    $k\vektor{u} + l\vektor{u} = k(x,0) + l(x,0) = (kx,0) + (lx,0) = (kx+lx, 0)$. Terpenuhi.
+    \item \textbf{Sifat Asosiatif $k(l\vektor{u}) = (kl)\vektor{u}$}:
+    $k(l\vektor{u}) = k(l(x,0)) = k(lx,0) = (k(lx),0) = ((kl)x,0)$.
+    $(kl)\vektor{u} = (kl)(x,0) = ((kl)x,0)$. Terpenuhi.
+    \item \textbf{Sifat Identitas $1\vektor{u} = \vektor{u}$}:
+    $1\vektor{u} = 1(x,0) = (1x,0) = (x,0) = \vektor{u}$. Terpenuhi.
+\end{enumerate}
+Karena semua 10 aksioma ruang vektor terpenuhi untuk $W$ dengan operasi yang diwarisi dari $\R^2$, maka $W$ adalah subruang dari $\R^2$. (Secara geometris, $W$ adalah sumbu-x).
+\end{contoh}
+
+\section{Kriteria Sederhana untuk Subruang}
+Memverifikasi semua aksioma ruang vektor bisa jadi panjang dan membosankan. Untungnya, ada teorema yang menyediakan kriteria yang lebih sederhana.
+
+\begin{teorema}[Kriteria Subruang]
+Misalkan $V$ suatu ruang vektor atas $\R$, dan $W$ adalah himpunan bagian tak kosong dari $V$ ($W \subseteq V, W \neq \emptyset$). Maka $W$ adalah subruang dari $V$ jika dan hanya jika dua syarat ketertutupan berikut terpenuhi:
+\begin{enumerate}[label=(\roman*)]
+    \item \textbf{Tertutup terhadap penjumlahan}: Jika $\vektor{u} \in W$ dan $\vektor{v} \in W$, maka $\vektor{u} + \vektor{v} \in W$.
+    \item \textbf{Tertutup terhadap perkalian skalar}: Jika $\vektor{u} \in W$ dan $k \in \R$ (skalar sebarang), maka $k\vektor{u} \in W$.
+\end{enumerate}
+\end{teorema}
+\textbf{Catatan Penting}: Syarat bahwa $W$ \textit{tak kosong} juga penting. Biasanya, ini diverifikasi dengan menunjukkan bahwa vektor nol $\nol_V$ dari $V$ adalah anggota $W$. Jika $\nol_V \in W$, dan syarat (i) dan (ii) terpenuhi, maka $W$ adalah subruang. Jika $\nol_V \notin W$, maka $W$ pasti bukan subruang (karena setiap ruang vektor harus memiliki elemen nol). Jika $W$ memenuhi (i) dan (ii), dan $W$ tak kosong (misalnya, mengandung suatu $\vektor{w}$), maka $0\vektor{w} = \nol_V$ juga harus ada di $W$ berdasarkan (ii), sehingga syarat $\nol_V \in W$ secara otomatis terpenuhi jika $W$ tak kosong dan memenuhi (ii).
+
+\section{Contoh-Contoh Pemeriksaan Subruang}
+Mari kita gunakan teorema kriteria subruang untuk beberapa contoh.
+
+\begin{contoh}
+Selidiki apakah $U = \{(x,2x) \mid x \in \R\}$ merupakan subruang dari $\R^2$.
+\textbf{Solusi}:
+\begin{enumerate}
+    \item \textbf{Apakah $U$ tak kosong?} Ambil $x=0$, maka $(0, 2(0)) = (0,0) \in U$. Jadi $U$ tak kosong (mengandung vektor nol).
+    \item \textbf{Tertutup terhadap penjumlahan?}
+    Ambil $\vektor{u}_1 = (x_1, 2x_1) \in U$ dan $\vektor{u}_2 = (x_2, 2x_2) \in U$.
+    $\vektor{u}_1 + \vektor{u}_2 = (x_1+x_2, 2x_1+2x_2) = (x_1+x_2, 2(x_1+x_2))$.
+    Misalkan $x' = x_1+x_2 \in \R$. Maka $\vektor{u}_1+\vektor{u}_2 = (x', 2x')$, yang memiliki bentuk yang sesuai dengan elemen di $U$. Jadi, $\vektor{u}_1+\vektor{u}_2 \in U$. Syarat terpenuhi.
+    \item \textbf{Tertutup terhadap perkalian skalar?}
+    Ambil $\vektor{u} = (x, 2x) \in U$ dan skalar $k \in \R$.
+    $k\vektor{u} = k(x,2x) = (kx, k(2x)) = (kx, 2(kx))$.
+    Misalkan $x'' = kx \in \R$. Maka $k\vektor{u} = (x'', 2x'')$, yang memiliki bentuk yang sesuai dengan elemen di $U$. Jadi, $k\vektor{u} \in U$. Syarat terpenuhi.
+\end{enumerate}
+Karena $U$ tak kosong dan memenuhi kedua syarat ketertutupan, $U$ \textbf{adalah} subruang dari $\R^2$. (Secara geometris, $U$ adalah garis $y=2x$ yang melalui titik asal).
+\textbf{Basis untuk $U$}: Setiap vektor di $U$ berbentuk $(x,2x) = x(1,2)$. Jadi, $U = \spanof{\{(1,2)\}}$. Basisnya adalah $\{(1,2)\}$ dan $\dim(U)=1$.
+\end{contoh}
+
+\begin{contoh}
+Selidiki apakah $W = \{(x,x^2) \mid x \in \R\}$ merupakan subruang dari $\R^2$.
+\textbf{Solusi}:
+\begin{enumerate}
+    \item \textbf{Apakah $W$ tak kosong?} Ambil $x=0$, maka $(0,0^2)=(0,0) \in W$. Jadi $W$ tak kosong.
+    \item \textbf{Tertutup terhadap penjumlahan?}
+    Ambil $\vektor{u}_1 = (x_1, x_1^2) \in W$ dan $\vektor{u}_2 = (x_2, x_2^2) \in W$.
+    $\vektor{u}_1 + \vektor{u}_2 = (x_1+x_2, x_1^2+x_2^2)$.
+    Agar $\vektor{u}_1+\vektor{u}_2 \in W$, komponen kedua haruslah kuadrat dari komponen pertama, yaitu $(x_1+x_2)^2$.
+    Apakah $x_1^2+x_2^2 = (x_1+x_2)^2$?
+    $(x_1+x_2)^2 = x_1^2 + 2x_1x_2 + x_2^2$.
+    Jadi, $x_1^2+x_2^2 = (x_1+x_2)^2$ hanya jika $2x_1x_2=0$, yang tidak selalu benar.
+    Sebagai contoh, ambil $\vektor{u}_1=(1,1) \in W$ (karena $1=1^2$) dan $\vektor{u}_2=(2,4) \in W$ (karena $4=2^2$).
+    $\vektor{u}_1+\vektor{u}_2 = (1+2, 1+4) = (3,5)$.
+    Apakah $(3,5) \in W$? Kita periksa apakah $5 = 3^2$. $5 \neq 9$. Jadi $(3,5) \notin W$.
+\end{enumerate}
+Karena $W$ tidak tertutup terhadap penjumlahan, $W$ \textbf{bukan} subruang dari $\R^2$. (Secara geometris, $W$ adalah parabola $y=x^2$).
+\end{contoh}
+
+\begin{contoh}
+Selidiki apakah $S = \{\vektor{u} \in \R^3 \mid \vektor{u} \cdot (1,2,1) = 0\}$ merupakan subruang dari $\R^3$.
+\textbf{Solusi}:
+Himpunan $S$ terdiri dari semua vektor $(x,y,z)$ di $\R^3$ yang ortogonal terhadap vektor $(1,2,1)$.
+Kondisi $\vektor{u} \cdot (1,2,1) = 0$ berarti $x+2y+z=0$.
+\begin{enumerate}
+    \item \textbf{Apakah $S$ tak kosong?} Vektor nol $\nol=(0,0,0)$ memenuhi $0+2(0)+0=0$. Jadi $\nol \in S$. $S$ tak kosong.
+    \item \textbf{Tertutup terhadap penjumlahan?}
+    Ambil $\vektor{u}_1=(x_1,y_1,z_1) \in S$ dan $\vektor{u}_2=(x_2,y_2,z_2) \in S$.
+    Maka $x_1+2y_1+z_1=0$ dan $x_2+2y_2+z_2=0$.
+    $\vektor{u}_1+\vektor{u}_2 = (x_1+x_2, y_1+y_2, z_1+z_2)$.
+    Periksa: $(x_1+x_2) + 2(y_1+y_2) + (z_1+z_2) = (x_1+2y_1+z_1) + (x_2+2y_2+z_2) = 0+0=0$.
+    Jadi, $\vektor{u}_1+\vektor{u}_2 \in S$.
+    \item \textbf{Tertutup terhadap perkalian skalar?}
+    Ambil $\vektor{u}=(x,y,z) \in S$ dan skalar $k \in \R$. Maka $x+2y+z=0$.
+    $k\vektor{u} = (kx,ky,kz)$.
+    Periksa: $(kx) + 2(ky) + (kz) = k(x+2y+z) = k(0) = 0$.
+    Jadi, $k\vektor{u} \in S$.
+\end{enumerate}
+Karena $S$ tak kosong dan memenuhi kedua syarat ketertutupan, $S$ \textbf{adalah} subruang dari $\R^3$. (Secara geometris, $S$ adalah bidang yang melalui titik asal dengan vektor normal $(1,2,1)$).
+\textbf{Basis untuk $S$}: Dari $x+2y+z=0$, kita dapatkan $x=-2y-z$.
+Vektor $(x,y,z) \in S$ berbentuk $(-2y-z, y, z) = y(-2,1,0) + z(-1,0,1)$.
+Basisnya adalah $\{(-2,1,0), (-1,0,1)\}$. $\dim(S)=2$.
+\end{contoh}
+
+\end{document}

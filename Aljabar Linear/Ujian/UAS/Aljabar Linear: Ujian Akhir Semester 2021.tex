@@ -1,0 +1,127 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% --- Definisi Perintah Kustom ---
+\newcommand{\R}{\mathbb{R}} % Simbol untuk himpunan bilangan real
+\newcommand{\vektor}[1]{\mathbf{#1}} % Cetak tebal untuk vektor
+\DeclareMathOperator{\Ker}{Ker} % Operator Kernel
+\DeclareMathOperator{\proj}{proj} % Operator Proyeksi
+
+\title{Aljabar Linear: Ujian Akhir Semester 2021}
+\author{Rafi Kamindra 2201006}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Bagian A: Pernyataan BENAR atau SALAH}
+
+\begin{enumerate}
+    \item \textbf{Pernyataan:} Kernel transformasi linier $T: \R^2 \to \R^3$ dengan $T(a, b) = (a-2b, 0, -a+2b)$ adalah $\{ \vektor{0} \}$.
+
+    \vspace{0.5cm}
+    \textbf{Jawaban: SALAH}
+
+    \textbf{Alasan:}
+    Kernel dari $T$, dinotasikan $\Ker(T)$, adalah himpunan semua vektor $\vektor{v} = (a, b) \in \R^2$ sedemikian sehingga $T(\vektor{v}) = \vektor{0}$.
+    $$ T(a,b) = (a-2b, 0, -a+2b) = (0,0,0) $$
+    Ini memberikan kita sistem persamaan:
+    \begin{align*}
+        a - 2b &= 0 \\
+        -a + 2b &= 0
+    \end{align*}
+    Dari persamaan pertama, kita dapatkan $a = 2b$. Persamaan kedua, $- (2b) + 2b = 0$, juga konsisten.
+    Ini berarti setiap vektor dalam kernel harus memenuhi kondisi $a = 2b$. Kita dapat menulis vektor $(a,b)$ sebagai $(2b, b) = b(2,1)$.
+    Jadi, kernelnya adalah:
+    $$ \Ker(T) = \{ b(2,1) \mid b \in \R \} = \text{span}\left\{ \begin{pmatrix} 2 \\ 1 \end{pmatrix} \right\} $$
+    Karena kernel mengandung vektor-vektor tak-nol (misalnya, untuk $b=1$, kita punya vektor $(2,1)$), maka kernelnya bukan hanya himpunan yang berisi vektor nol.
+
+    \item \textbf{Pernyataan:} Mengacu pada hasil kali titik, untuk sembarang vektor $\vektor{x}, \vektor{y} \in \R^3$ di mana dua-duanya bukan vektor nol, vektor proyeksi $\proj_{\vektor{y}}\vektor{x}$ pasti bukan vektor nol.
+
+    \vspace{0.5cm}
+    \textbf{Jawaban: SALAH}
+
+    \textbf{Alasan:}
+    Rumus untuk proyeksi ortogonal vektor $\vektor{x}$ ke vektor $\vektor{y}$ adalah:
+    $$ \proj_{\vektor{y}}\vektor{x} = \left( \frac{\vektor{x} \cdot \vektor{y}}{\vektor{y} \cdot \vektor{y}} \right) \vektor{y} $$
+    Karena $\vektor{y}$ bukan vektor nol, maka $\vektor{y} \cdot \vektor{y} = \| \vektor{y} \|^2 \neq 0$.
+    Vektor proyeksi akan menjadi vektor nol jika dan hanya jika skalar $\frac{\vektor{x} \cdot \vektor{y}}{\vektor{y} \cdot \vektor{y}}$ bernilai nol. Hal ini terjadi ketika pembilangnya, yaitu hasil kali titik $\vektor{x} \cdot \vektor{y}$, sama dengan nol.
+    
+    Dua vektor tak-nol dapat memiliki hasil kali titik nol jika keduanya saling ortogonal (tegak lurus).
+    Sebagai contoh, ambil $\vektor{x} = (1, 0, 0)$ dan $\vektor{y} = (0, 1, 0)$. Keduanya adalah vektor tak-nol di $\R^3$.
+    Hasil kali titiknya adalah:
+    $$ \vektor{x} \cdot \vektor{y} = (1)(0) + (0)(1) + (0)(0) = 0 $$
+    Maka, vektor proyeksinya adalah:
+    $$ \proj_{\vektor{y}}\vektor{x} = \left( \frac{0}{\| \vektor{y} \|^2} \right) \vektor{y} = 0 \cdot \vektor{y} = \vektor{0} $$
+    Jadi, mungkin bagi vektor proyeksi untuk menjadi vektor nol meskipun $\vektor{x}$ dan $\vektor{y}$ keduanya bukan vektor nol.
+\end{enumerate}
+
+\newpage
+
+\section*{Bagian B: Analisis Matriks}
+Perhatikan matriks
+$$ F = \begin{bmatrix} 1 & -1 & 0 \\ 0 & 2 & c \\ 0 & 0 & 2 \end{bmatrix} $$
+
+\begin{enumerate}
+    \item[(i)] \textbf{Tentukan polinom karakteristik dan semua nilai eigen dari $F$.}
+    
+    Polinom karakteristik $p(\lambda)$ ditemukan dengan menghitung $\det(F - \lambda I)$:
+    $$ F - \lambda I = \begin{bmatrix} 1-\lambda & -1 & 0 \\ 0 & 2-\lambda & c \\ 0 & 0 & 2-\lambda \end{bmatrix} $$
+    Karena ini adalah matriks segitiga atas, determinannya adalah hasil kali entri-entri diagonalnya.
+    $$ p(\lambda) = \det(F - \lambda I) = (1-\lambda)(2-\lambda)(2-\lambda) = (1-\lambda)(2-\lambda)^2 $$
+    \textbf{Polinom karakteristiknya adalah $p(\lambda) = (1-\lambda)(2-\lambda)^2$.}
+
+    Nilai-nilai eigen adalah akar-akar dari polinom karakteristik, yaitu saat $p(\lambda)=0$.
+    $$ (1-\lambda)(2-\lambda)^2 = 0 $$
+    \textbf{Nilai-nilai eigen adalah $\lambda_1 = 1$ (dengan multiplisitas aljabar 1) dan $\lambda_2 = 2$ (dengan multiplisitas aljabar 2).} Nilai eigen ini tidak bergantung pada nilai $c$.
+
+    \item[(ii)] \textbf{Adakah vektor eigen yang tidak bergantung pada nilai $c$? Jelaskan.}
+
+    \textbf{Jawaban: Ya, ada.}
+    
+    Kita cari ruang eigen untuk setiap nilai eigen.
+    \begin{itemize}
+        \item Untuk $\lambda_1 = 1$: Cari $\vektor{v}$ sehingga $(F-I)\vektor{v} = \vektor{0}$.
+        $$ \begin{bmatrix} 0 & -1 & 0 \\ 0 & 1 & c \\ 0 & 0 & 1 \end{bmatrix} \begin{pmatrix} v_1 \\ v_2 \\ v_3 \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix} $$
+        Sistem persamaannya: $-v_2=0 \implies v_2=0$, lalu $v_2+cv_3=0 \implies 0=0$, dan $v_3=0$.
+        Jadi, $v_2=0$ dan $v_3=0$, sedangkan $v_1$ bebas. Vektor eigennya berbentuk $t(1,0,0)$.
+        \textbf{Vektor eigen yang bersesuaian dengan $\lambda=1$, yaitu $t(1,0,0)$, tidak bergantung pada $c$.}
+
+        \item Untuk $\lambda_2 = 2$: Cari $\vektor{v}$ sehingga $(F-2I)\vektor{v} = \vektor{0}$.
+        $$ \begin{bmatrix} -1 & -1 & 0 \\ 0 & 0 & c \\ 0 & 0 & 0 \end{bmatrix} \begin{pmatrix} v_1 \\ v_2 \\ v_3 \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix} $$
+        Sistem persamaannya: $-v_1-v_2=0 \implies v_1=-v_2$, dan $c v_3 = 0$.
+        Solusi untuk $v_3$ bergantung pada $c$. Jika $c \neq 0$, maka $v_3=0$. Jika $c=0$, $v_3$ bebas.
+        Karena solusinya bergantung pada $c$, maka vektor eigen yang bersesuaian dengan $\lambda=2$ juga bergantung pada $c$.
+    \end{itemize}
+
+    \item[(iii)] \textbf{Apakah ada $c$ yang membuat $F$ terdiagonalkan? Jelaskan.}
+    
+    \textbf{Jawaban: Ya, ada, yaitu ketika $c=0$.}
+
+    \textbf{Alasan:}
+    Sebuah matriks $n \times n$ dapat didiagonalkan jika dan hanya jika untuk setiap nilai eigen, multiplisitas geometris (dimensi ruang eigen) sama dengan multiplisitas aljabarnya.
+    \begin{itemize}
+        \item Untuk $\lambda_1 = 1$: Multiplisitas aljabar adalah 1. Ruang eigennya adalah $\text{span}\{(1,0,0)\}$, yang dimensinya 1. Jadi, multiplisitas geometris = multiplisitas aljabar.
+        
+        \item Untuk $\lambda_2 = 2$: Multiplisitas aljabar adalah 2. Kita perlu memeriksa multiplisitas geometrisnya, yaitu dimensi ruang solusi dari $(F-2I)\vektor{v}=\vektor{0}$.
+        
+        Dari (ii), kita punya sistem $-v_1-v_2=0$ dan $c v_3=0$.
+        \begin{itemize}
+            \item \textbf{Kasus 1: $c \neq 0$.} Persamaan $cv_3=0$ mengakibatkan $v_3=0$. Persamaan $-v_1-v_2=0$ berarti $v_1=-v_2$. Vektor eigen berbentuk $t(-1,1,0)$. Ruang eigennya adalah $\text{span}\{(-1,1,0)\}$, yang dimensinya 1.
+            Di sini, multiplisitas geometris (1) $\neq$ multiplisitas aljabar (2). Jadi, $F$ \textbf{tidak} dapat didiagonalkan.
+            
+            \item \textbf{Kasus 2: $c = 0$.} Persamaan $cv_3=0$ menjadi $0 \cdot v_3=0$, yang benar untuk semua $v_3$. Jadi, $v_3$ adalah variabel bebas. Kita juga punya $v_1=-v_2$.
+            Vektor solusinya dapat ditulis sebagai:
+            $$ \begin{pmatrix} v_1 \\ v_2 \\ v_3 \end{pmatrix} = \begin{pmatrix} -v_2 \\ v_2 \\ v_3 \end{pmatrix} = v_2 \begin{pmatrix} -1 \\ 1 \\ 0 \end{pmatrix} + v_3 \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix} $$
+            Ruang eigennya adalah $\text{span}\{(-1,1,0), (0,0,1)\}$, yang dimensinya 2.
+            Di sini, multiplisitas geometris (2) = multiplisitas aljabar (2).
+        \end{itemize}
+    \end{itemize}
+    Karena semua nilai eigen memiliki multiplisitas geometris yang sama dengan multiplisitas aljabarnya hanya ketika $c=0$, maka \textbf{$F$ dapat didiagonalkan jika dan hanya jika $c=0$.}
+\end{enumerate}
+
+\end{document}

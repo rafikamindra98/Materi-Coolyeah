@@ -1,0 +1,131 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[bahasa]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+
+% Mengatur margin halaman
+\geometry{a4paper, total={170mm,257mm}, left=20mm, top=20mm}
+
+% Perintah kustom untuk Ruang
+\newcommand{\R}{\mathbb{R}}
+
+\title{Aljabar Linear Elementer: Ujian Tengah Semester 2023}
+\author{Rafi Kamindra 2201006}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Bagian A}
+\subsection*{1. Himpunan $I = \{(a, b, -b) \in \R^3 \mid a, b \in \R\}$ adalah subruang yang berdimensi 3.}
+
+\textbf{Jawaban: SALAH}
+
+\paragraph{Penjelasan:}
+Untuk menentukan dimensi dari subruang $I$, kita perlu mencari basisnya.
+Setiap vektor $\vec{v}$ di dalam $I$ dapat ditulis dalam bentuk:
+\[ \vec{v} = (a, b, -b) \]
+Kita dapat menguraikan vektor ini menjadi kombinasi linear dari vektor-vektor yang menjadi basisnya:
+\[ (a, b, -b) = (a, 0, 0) + (0, b, -b) = a(1, 0, 0) + b(0, 1, -1) \]
+Ini menunjukkan bahwa setiap vektor di $I$ dapat direntang (span) oleh himpunan vektor $S = \{(1, 0, 0), (0, 1, -1)\}$.
+
+Selanjutnya, kita perlu memeriksa apakah himpunan $S$ bebas linear. Kita bentuk persamaan:
+\[ k_1(1, 0, 0) + k_2(0, 1, -1) = (0, 0, 0) \]
+\[ (k_1, k_2, -k_2) = (0, 0, 0) \]
+Dari persamaan di atas, kita peroleh $k_1 = 0$ dan $k_2 = 0$. Karena satu-satunya solusi adalah solusi trivial, maka himpunan $S$ adalah bebas linear.
+
+Karena $S$ merentang $I$ dan bebas linear, maka $S$ adalah basis untuk $I$. Jumlah vektor dalam basis adalah dimensi dari subruang tersebut. Terdapat 2 vektor dalam $S$, sehingga \textbf{dimensi dari $I$ adalah 2}, bukan 3.
+
+\subsection*{2. Vektor $p(x) = 3+x$ berada di $J = \text{span}\{1+x-x^2, 1-x+2x^2, 2+cx+x^2\}$, tidak terpengaruh oleh bilangan real c.}
+
+\textbf{Jawaban: BENAR}
+
+\paragraph{Penjelasan:}
+Agar $p(x)$ berada dalam rentang (span) $J$, harus ada skalar $k_1, k_2, k_3$ sedemikian sehingga:
+\[ k_1(1+x-x^2) + k_2(1-x+2x^2) + k_3(2+cx+x^2) = 3+x \]
+Dengan menyamakan koefisien dari suku-suku yang bersesuaian, kita peroleh sistem persamaan linear:
+\begin{align*}
+    (\text{konstanta}):\quad & k_1 + k_2 + 2k_3 = 3 \\
+    (\text{koefisien } x):\quad & k_1 - k_2 + ck_3 = 1 \\
+    (\text{koefisien } x^2):\quad & -k_1 + 2k_2 + k_3 = 0 
+\end{align*}
+Dari persamaan ketiga, kita dapatkan $k_1 = 2k_2 + k_3$.
+Substitusikan $k_1$ ke persamaan pertama:
+\begin{align*}
+    (2k_2 + k_3) + k_2 + 2k_3 &= 3 \\
+    3k_2 + 3k_3 &= 3 \\
+    k_2 + k_3 &= 1 \implies k_2 = 1 - k_3
+\end{align*}
+Substitusikan $k_2 = 1 - k_3$ ke dalam ekspresi untuk $k_1$:
+\[ k_1 = 2(1 - k_3) + k_3 = 2 - 2k_3 + k_3 = 2 - k_3 \]
+Sekarang, substitusikan ekspresi untuk $k_1$ dan $k_2$ ke dalam persamaan kedua:
+\begin{align*}
+    (2 - k_3) - (1 - k_3) + ck_3 &= 1 \\
+    1 + 0 \cdot k_3 + ck_3 &= 1 \\
+    ck_3 &= 0
+\end{align*}
+Agar pernyataan ini benar untuk \textit{semua} bilangan real $c$, maka haruslah $k_3=0$.
+Jika $k_3=0$, maka kita dapat menemukan nilai $k_1$ dan $k_2$:
+\begin{align*}
+    k_2 &= 1 - 0 = 1 \\
+    k_1 &= 2 - 0 = 2
+\end{align*}
+Jadi, ada solusi yaitu $(k_1, k_2, k_3) = (2, 1, 0)$ yang tidak bergantung pada nilai $c$. Ini membuktikan bahwa $p(x)$ berada di rentang $J$ dan keberadaannya tidak terpengaruh oleh nilai $c$.
+
+\section*{Bagian B}
+\subsection*{3. Perhatikan matriks $A = \begin{pmatrix} 1 & -2 & -1 \\ -1 & 1 & 0 \\ 0 & -1 & -1 \end{pmatrix}$}
+
+\subsubsection*{i. Tentukan basis ruang baris ($R_A$) dan basis ruang kolom ($C_A$).}
+
+\paragraph{Penjelasan dan Jawaban:}
+\textbf{Basis Ruang Baris ($R_A$)} \\
+Kita lakukan Operasi Baris Elementer (OBE) pada matriks A untuk mengubahnya ke bentuk eselon baris.
+\[
+A = \begin{pmatrix} 1 & -2 & -1 \\ -1 & 1 & 0 \\ 0 & -1 & -1 \end{pmatrix} 
+\xrightarrow{R_2 + R_1}
+\begin{pmatrix} 1 & -2 & -1 \\ 0 & -1 & -1 \\ 0 & -1 & -1 \end{pmatrix}
+\xrightarrow{R_3 - R_2}
+\begin{pmatrix} 1 & -2 & -1 \\ 0 & -1 & -1 \\ 0 & 0 & 0 \end{pmatrix}
+\]
+Bentuk eselon baris dari A memiliki dua baris tak nol. Baris-baris tak nol ini membentuk basis untuk ruang baris A.
+\[ \text{Basis untuk } R_A = \{(1, -2, -1), (0, -1, -1)\} \]
+Dimensi dari $R_A$ adalah 2.
+
+\vspace{1cm}
+\textbf{Basis Ruang Kolom ($C_A$)} \\
+Kolom-kolom pada matriks \textit{asli} A yang bersesuaian dengan kolom-kolom yang memiliki pivot (leading 1) pada bentuk eselon barisnya merupakan basis untuk ruang kolom. Pada bentuk eselon baris di atas, pivot berada di kolom 1 dan kolom 2.
+Maka, kita ambil kolom 1 dan kolom 2 dari matriks A asli.
+\[ \text{Basis untuk } C_A = \left\{ \begin{pmatrix} 1 \\ -1 \\ 0 \end{pmatrix}, \begin{pmatrix} -2 \\ 1 \\ -1 \end{pmatrix} \right\} \]
+Dimensi dari $C_A$ juga 2, yang konsisten dengan rank matriks.
+
+\subsubsection*{ii. Berikan contoh vektor tak nol $u \in R_A \cap C_A$.}
+
+\paragraph{Penjelasan dan Jawaban:}
+Sebuah vektor $u$ berada di perpotongan (irisan) $R_A$ dan $C_A$ jika $u$ dapat dinyatakan sebagai kombinasi linear dari basis $R_A$ dan juga sebagai kombinasi linear dari basis $C_A$.
+
+$u \in R_A \implies u = c_1(1, -2, -1) + c_2(0, -1, -1) = (c_1, -2c_1 - c_2, -c_1 - c_2)$
+\\
+$u \in C_A \implies u = d_1 \begin{pmatrix} 1 \\ -1 \\ 0 \end{pmatrix} + d_2 \begin{pmatrix} -2 \\ 1 \\ -1 \end{pmatrix} = \begin{pmatrix} d_1 - 2d_2 \\ -d_1 + d_2 \\ -d_2 \end{pmatrix}$
+
+Dengan menyamakan kedua representasi dari $u$, kita dapatkan sistem persamaan:
+\begin{align*}
+    c_1 &= d_1 - 2d_2 \\
+    -2c_1 - c_2 &= -d_1 + d_2 \\
+    -c_1 - c_2 &= -d_2
+\end{align*}
+Dari persamaan ketiga, $c_2 = d_2 - c_1$. Substitusikan $c_1$ dari persamaan pertama:
+\[ c_2 = d_2 - (d_1 - 2d_2) = 3d_2 - d_1 \]
+Substitusikan $c_1$ dan $c_2$ ke persamaan kedua untuk verifikasi:
+\begin{align*}
+    -2(d_1 - 2d_2) - (3d_2 - d_1) &= -d_1 + d_2 \\
+    -2d_1 + 4d_2 - 3d_2 + d_1 &= -d_1 + d_2 \\
+    -d_1 + d_2 &= -d_1 + d_2
+\end{align*}
+Karena persamaan ini selalu benar ($0=0$), maka ada tak hingga solusi. Kita hanya perlu mencari satu contoh tak nol.
+Pilih nilai sederhana untuk $d_1$ dan $d_2$, misalnya $d_2 = 1$ dan $d_1 = 1$.
+Maka vektor $u$ adalah:
+\[ u = 1 \begin{pmatrix} 1 \\ -1 \\ 0 \end{pmatrix} + 1 \begin{pmatrix} -2 \\ 1 \\ -1 \end{pmatrix} = \begin{pmatrix} 1-2 \\ -1+1 \\ 0-1 \end{pmatrix} = \begin{pmatrix} -1 \\ 0 \\ -1 \end{pmatrix} \]
+Jadi, contoh vektor tak nol yang dimaksud adalah $u = (-1, 0, -1)$.
+
+\end{document}

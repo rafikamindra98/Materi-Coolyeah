@@ -1,0 +1,100 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[margin=2.5cm]{geometry}
+
+\title{Aljabar Linear: Remedial 2023}
+\author{Rafi Kamindra 2201006}
+\date{}
+
+\begin{document}
+\maketitle
+\renewcommand{\vec}[1]{\mathbf{#1}}
+
+\section*{Soal 1}
+\textbf{Pernyataan:} Himpunan $A = \{(1, 2, 0), (2, 4, r)\}$ bebas linier di $\mathbb{R}^3$ untuk setiap $r \in \mathbb{R}$.
+
+\subsection*{Jawaban dan Alasan}
+Pernyataan tersebut \textbf{salah}.
+
+\textbf{Alasan:}
+Dua vektor disebut bergantung linier (tidak bebas linier) jika salah satu vektor merupakan kelipatan skalar dari vektor lainnya. Misalkan $\vec{v_1} = (1, 2, 0)$ dan $\vec{v_2} = (2, 4, r)$. Kita selidiki apakah ada skalar $k$ sehingga $\vec{v_2} = k \vec{v_1}$.
+$$ (2, 4, r) = k(1, 2, 0) $$
+Ini menghasilkan sistem persamaan:
+\begin{align*}
+    2 &= k \cdot 1 \implies k = 2 \\
+    4 &= k \cdot 2 \implies k = 2 \\
+    r &= k \cdot 0 \implies r = 0
+\end{align*}
+Ketika $r=0$, kita mendapatkan $k=2$, sehingga $\vec{v_2} = 2\vec{v_1}$. Ini berarti kedua vektor tersebut bergantung linier. Karena ada satu nilai $r$ (yaitu $r=0$) yang menyebabkan himpunan tersebut tidak bebas linier, maka pernyataan "bebas linier untuk \textit{setiap} $r \in \mathbb{R}$" adalah salah.
+
+\section*{Soal 2}
+\textbf{Pernyataan:} Ruang kolom matriks $C = \begin{pmatrix} 1 & 2 & 1 \\ -1 & -2 & t \end{pmatrix}$ selalu berdimensi 2, tidak bergantung pada bilangan $t$.
+
+\subsection*{Jawaban dan Alasan}
+Pernyataan tersebut \textbf{salah}.
+
+\textbf{Alasan:}
+Dimensi dari ruang kolom sebuah matriks sama dengan rank dari matriks tersebut. Kita dapat mencari rank matriks $C$ dengan mengubahnya ke bentuk eselon baris melalui Operasi Baris Elementer (OBE).
+$$ C = \begin{pmatrix} 1 & 2 & 1 \\ -1 & -2 & t \end{pmatrix} $$
+Lakukan operasi $R_2 + R_1 \to R_2$:
+$$ \begin{pmatrix} 1 & 2 & 1 \\ 0 & 0 & t+1 \end{pmatrix} $$
+Dari bentuk eselon baris ini, kita dapat melihat rank matriks bergantung pada nilai $t$:
+\begin{itemize}
+    \item Jika $t+1 \neq 0$ (atau $t \neq -1$), matriks memiliki dua baris tak-nol, sehingga rank-nya adalah 2. Dalam kasus ini, dimensi ruang kolomnya adalah 2.
+    \item Jika $t+1 = 0$ (atau $t = -1$), matriks menjadi $\begin{pmatrix} 1 & 2 & 1 \\ 0 & 0 & 0 \end{pmatrix}$. Matriks ini hanya memiliki satu baris tak-nol, sehingga rank-nya adalah 1. Dalam kasus ini, dimensi ruang kolomnya adalah 1.
+\end{itemize}
+Karena dimensi ruang kolomnya bergantung pada nilai $t$, pernyataan bahwa dimensinya "selalu 2" adalah salah.
+
+\section*{Soal 3}
+Diketahui transformasi $T: \mathbb{R}^3 \to \mathbb{R}^2$, dengan $T(a, b, c) = (a - b + c, b - c)$.
+
+\subsection*{a. Carilah matriks transformasi T.}
+Untuk menemukan matriks transformasi $A$, kita terapkan transformasi $T$ pada vektor-vektor basis standar di $\mathbb{R}^3$, yaitu $\vec{e_1}=(1,0,0)$, $\vec{e_2}=(0,1,0)$, dan $\vec{e_3}=(0,0,1)$.
+\begin{align*}
+    T(\vec{e_1}) = T(1,0,0) &= (1-0+0, 0-0) = (1, 0) \\
+    T(\vec{e_2}) = T(0,1,0) &= (0-1+0, 1-0) = (-1, 1) \\
+    T(\vec{e_3}) = T(0,0,1) &= (0-0+1, 0-1) = (1, -1)
+\end{align*}
+Kolom-kolom dari matriks transformasi adalah hasil dari transformasi vektor basis. Jadi, matriksnya adalah:
+$$ A = \begin{pmatrix} 1 & -1 & 1 \\ 0 & 1 & -1 \end{pmatrix} $$
+
+\subsection*{b. Tentukan basis kernel T.}
+Kernel dari $T$ (ditulis $\ker(T)$) adalah himpunan semua vektor $(a,b,c) \in \mathbb{R}^3$ yang dipetakan ke vektor nol di $\mathbb{R}^2$. Jadi, kita cari solusi dari $T(a,b,c) = (0,0)$.
+$$ (a-b+c, b-c) = (0,0) $$
+Ini memberikan sistem persamaan:
+\begin{align*}
+    a - b + c &= 0 \\
+    b - c &= 0
+\end{align*}
+Dari persamaan kedua, kita dapatkan $b=c$. Substitusikan ke persamaan pertama:
+$$ a - c + c = 0 \implies a = 0 $$
+Jadi, vektor di kernel $T$ memiliki bentuk $(0, c, c)$ untuk sebarang $c \in \mathbb{R}$. Kita dapat menuliskannya sebagai:
+$$ \begin{pmatrix} 0 \\ c \\ c \end{pmatrix} = c \begin{pmatrix} 0 \\ 1 \\ 1 \end{pmatrix} $$
+Vektor yang merentang ruang solusi ini adalah $(0,1,1)$. Jadi, basis untuk kernel $T$ adalah:
+$$ \text{Basis}(\ker(T)) = \left\{ \begin{pmatrix} 0 \\ 1 \\ 1 \end{pmatrix} \right\} $$
+
+\section*{Soal 4}
+Perhatikan ruang $P_2 = \{f = a + bx + cx^2 \mid a, b, c \in \mathbb{R}\}$ yang dilengkapi dengan hasil kali dalam $\langle f, g \rangle = \int_{0}^{1} f(t)g(t) \,dt$. Selidiki, apakah ada $m \neq 0$ sehingga $u = mx$ ortogonal terhadap $v = 1 + x$.
+
+\subsection*{Jawaban dan Alasan}
+Dua vektor (polinomial) $u$ dan $v$ dikatakan ortogonal jika hasil kali dalamnya sama dengan nol, yaitu $\langle u, v \rangle = 0$.
+Kita hitung hasil kali dalamnya:
+\begin{align*}
+    \langle u, v \rangle &= \int_{0}^{1} u(t)v(t) \,dt \\
+    &= \int_{0}^{1} (mt)(1+t) \,dt \\
+    &= m \int_{0}^{1} (t + t^2) \,dt \\
+    &= m \left[ \frac{1}{2}t^2 + \frac{1}{3}t^3 \right]_{0}^{1} \\
+    &= m \left( \left(\frac{1}{2}(1)^2 + \frac{1}{3}(1)^3\right) - \left(\frac{1}{2}(0)^2 + \frac{1}{3}(0)^3\right) \right) \\
+    &= m \left( \frac{1}{2} + \frac{1}{3} \right) \\
+    &= m \left( \frac{3+2}{6} \right) = m \left( \frac{5}{6} \right)
+\end{align*}
+Agar $u$ dan $v$ ortogonal, maka $\langle u, v \rangle = 0$.
+$$ m \left( \frac{5}{6} \right) = 0 $$
+Persamaan di atas hanya terpenuhi jika $m=0$.
+Karena soal mensyaratkan $m \neq 0$, maka kesimpulannya adalah \textbf{tidak ada} nilai $m$ yang tidak nol yang membuat $u=mx$ ortogonal terhadap $v=1+x$ dalam ruang hasil kali dalam ini.
+
+\end{document}

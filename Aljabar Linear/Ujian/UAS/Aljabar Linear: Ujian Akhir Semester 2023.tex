@@ -1,0 +1,148 @@
+\documentclass{article}
+\usepackage[a4paper, margin=2cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage[bahasa]{babel}
+
+\title{Aljabar Linear: Ujian Akhir Semester 2023}
+\author{Rafi Kamindra 2201006}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Soal 1}
+Diketahui transformasi $T: \mathbb{R}^3 \to \mathbb{R}^2$, dengan
+$T(x, y, z) = (x - y - z, -x + y + rz)$.
+
+\subsection*{a. Carilah matriks transformasi untuk T.}
+\textbf{Penyelesaian:}
+Untuk mencari matriks standar untuk transformasi linear $T$, kita menerapkan $T$ pada vektor-vektor basis standar dari $\mathbb{R}^3$, yaitu $e_1 = (1,0,0)$, $e_2 = (0,1,0)$, dan $e_3 = (0,0,1)$. Hasilnya akan menjadi kolom-kolom dari matriks transformasi $[T]$.
+
+\begin{align*}
+    T(e_1) = T(1,0,0) &= (1-0-0, -1+0+r(0)) = (1, -1) \\
+    T(e_2) = T(0,1,0) &= (0-1-0, -0+1+r(0)) = (-1, 1) \\
+    T(e_3) = T(0,0,1) &= (0-0-1, -0+0+r(1)) = (-1, r)
+\end{align*}
+
+Jadi, matriks transformasi $[T]$ adalah:
+\[
+[T] = 
+\begin{pmatrix}
+1 & -1 & -1 \\
+-1 & 1 & r
+\end{pmatrix}
+\]
+
+\subsection*{b. Selidiki, apakah nilai r berpengaruh terhadap rank(T)?}
+\textbf{Penyelesaian:}
+Untuk menentukan rank dari matriks $[T]$, kita akan mengubahnya menjadi bentuk eselon baris melalui Operasi Baris Elementer (OBE).
+\[
+[T] = 
+\begin{pmatrix}
+1 & -1 & -1 \\
+-1 & 1 & r
+\end{pmatrix}
+\]
+Tambahkan baris 1 ke baris 2 ($R_2 \to R_2 + R_1$):
+\[
+\xrightarrow{R_2 + R_1}
+\begin{pmatrix}
+1 & -1 & -1 \\
+0 & 0 & r-1
+\end{pmatrix}
+\]
+Sekarang kita analisis hasilnya:
+\begin{itemize}
+    \item \textbf{Kasus 1: Jika $r-1 \neq 0$ (atau $r \neq 1$)} \\
+    Matriks akan memiliki dua pivot (yaitu 1 dan $r-1$). Jumlah pivot sama dengan rank matriks.
+    Maka, $rank(T) = 2$.
+    
+    \item \textbf{Kasus 2: Jika $r-1 = 0$ (atau $r = 1$)} \\
+    Matriks menjadi $\begin{pmatrix} 1 & -1 & -1 \\ 0 & 0 & 0 \end{pmatrix}$.
+    Matriks ini hanya memiliki satu pivot.
+    Maka, $rank(T) = 1$.
+\end{itemize}
+\textbf{Kesimpulan:} Ya, nilai $r$ berpengaruh terhadap $rank(T)$. Ranknya adalah 2 jika $r \neq 1$, dan ranknya adalah 1 jika $r = 1$.
+
+\section*{Soal 2}
+Selidiki, apakah matriks 
+$ A = \begin{pmatrix} 0 & 3 & 3 \\ 3 & 0 & 3 \\ 3 & 3 & 0 \end{pmatrix} $
+terdiagonalkan?
+
+\textbf{Penyelesaian:}
+Sebuah matriks dapat didiagonalkan jika dan hanya jika untuk setiap nilai eigen, multiplisitas aljabar sama dengan multiplisitas geometrisnya.
+Namun, ada teorema yang menyatakan bahwa \textbf{setiap matriks simetris dengan entri bilangan riil dapat didiagonalkan}.
+
+Kita periksa apakah matriks $A$ simetris. Matriks $A$ simetris jika $A = A^T$.
+\[
+A^T = 
+\begin{pmatrix}
+0 & 3 & 3 \\
+3 & 0 & 3 \\
+3 & 3 & 0
+\end{pmatrix}^T
+=
+\begin{pmatrix}
+0 & 3 & 3 \\
+3 & 0 & 3 \\
+3 & 3 & 0
+\end{pmatrix} = A
+\]
+Karena $A = A^T$, maka $A$ adalah matriks simetris.
+
+\textbf{Kesimpulan:} Berdasarkan teorema, karena $A$ adalah matriks simetris, maka matriks $A$ \textbf{dapat didiagonalkan}.
+
+\section*{Soal 3}
+Perhatikan ruang $P_2 = \{f = a + bx + cx^2 \mid a, b, c \in \mathbb{R}\}$ yang dilengkapi dengan hasil kali dalam $\langle f, g \rangle = \int_{-1}^{1} f(t)g(t) \,dt$. Carilah semua vektor yang ortogonal terhadap $v = x^2 + 1$.
+
+\textbf{Penyelesaian:}
+Kita mencari semua vektor $w = a + bx + cx^2$ di $P_2$ sedemikian sehingga $\langle w, v \rangle = 0$.
+\[
+\langle w, v \rangle = \int_{-1}^{1} (a + bt + ct^2)(1 + t^2) \,dt = 0
+\]
+Kita ekspansi integran:
+\[
+(a + bt + ct^2)(1 + t^2) = a + at^2 + bt + bt^3 + ct^2 + ct^4 = ct^4 + bt^3 + (a+c)t^2 + bt + a
+\]
+Sekarang kita integralkan:
+\[
+\int_{-1}^{1} (ct^4 + bt^3 + (a+c)t^2 + bt + a) \,dt
+\]
+Kita dapat memisahkan integral berdasarkan suku genap dan ganjil. Integral dari fungsi ganjil ($t^3, t$) dari $-1$ ke $1$ adalah nol.
+\[
+= \int_{-1}^{1} (ct^4 + (a+c)t^2 + a) \,dt + \int_{-1}^{1} (bt^3 + bt) \,dt
+\]
+\[
+= \left[ \frac{c}{5}t^5 + \frac{a+c}{3}t^3 + at \right]_{-1}^{1} + 0
+\]
+\[
+= \left( \frac{c}{5} + \frac{a+c}{3} + a \right) - \left( -\frac{c}{5} - \frac{a+c}{3} - a \right)
+\]
+\[
+= 2 \left( \frac{c}{5} + \frac{a+c}{3} + a \right)
+\]
+Kita atur agar hasil kali dalamnya sama dengan nol:
+\begin{align*}
+    2 \left( \frac{c}{5} + \frac{a+c}{3} + a \right) &= 0 \\
+    \frac{c}{5} + \frac{a}{3} + \frac{c}{3} + a &= 0 \\
+\end{align*}
+Kalikan kedua sisi dengan 15 untuk menghilangkan penyebut:
+\begin{align*}
+    15 \left( \frac{c}{5} + \frac{a}{3} + \frac{c}{3} + a \right) &= 0 \\
+    3c + 5a + 5c + 15a &= 0 \\
+    20a + 8c &= 0 \\
+    5a + 2c &= 0 \\
+    c &= -\frac{5}{2}a
+\end{align*}
+Koefisien $b$ tidak muncul dalam persamaan, yang berarti $b$ bisa berupa bilangan riil apa pun.
+Jadi, semua vektor $w$ yang ortogonal terhadap $v$ memiliki bentuk:
+\[
+w(x) = a + bx + \left(-\frac{5}{2}a\right)x^2
+\]
+dimana $a, b \in \mathbb{R}$.
+
+\textbf{Kesimpulan:} Himpunan semua vektor yang ortogonal terhadap $v = x^2+1$ adalah himpunan polinomial berbentuk $w(x) = a(1 - \frac{5}{2}x^2) + bx$ untuk sembarang skalar $a$ dan $b$. Ini adalah subruang dari $P_2$ yang direntang oleh $\{1 - \frac{5}{2}x^2, x\}$.
+
+\end{document}

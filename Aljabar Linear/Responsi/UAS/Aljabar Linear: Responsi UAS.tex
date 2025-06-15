@@ -1,0 +1,95 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath} % Untuk lingkungan matriks dan perintah matematika lainnya
+\usepackage{amsfonts} % Untuk simbol
+\usepackage{amssymb} % Untuk simbol \mathbb{R}
+\usepackage{geometry} % Untuk mengatur margin
+\geometry{a4paper, margin=1in}
+
+\title{Aljabar Linear: Responsi UAS}
+\author{Rafi Kamindra 2201006}
+\date{} % Kosongkan tanggal jika tidak ingin ditampilkan
+
+\newcommand{\R}{\mathbb{R}} % Simbol R
+\newcommand{\Poly}{\mathbb{P}} % Simbol P untuk polinom
+\newcommand{\innerprod}[2]{\langle #1, #2 \rangle} % Hasil kali dalam
+\newcommand{\vektor}[1]{\mathbf{#1}} % Perintah untuk vektor
+\newcommand{\matriks}[1]{\begin{pmatrix} #1 \end{pmatrix}} % Perintah untuk matriks
+\newcommand{\Transformasi}[1]{T\left(#1\right)} % Notasi Transformasi
+\newcommand{\kernel}{\text{ker}} % Kernel
+\newcommand{\rank}{\text{rank}} % Rank
+
+\begin{document}
+\maketitle
+\pagenumbering{gobble} % Menghilangkan nomor halaman jika tidak diinginkan untuk halaman judul
+
+\section*{Problem}
+
+\subsection*{1. Untuk $\vektor{x}=(x_1,x_2)$, $\vektor{y}=(y_1,y_2)$, didefinisikan $\innerprod{\vektor{x}}{\vektor{y}} := x_1y_1$. Periksa, apakah ini mendefinisikan perkalian dalam di $\R^2$.}
+\textbf{Jawaban:}\\
+Operasi ini \textbf{tidak} mendefinisikan perkalian dalam di $\R^2$.
+Aksioma yang tidak terpenuhi adalah aksioma positif definit: $\innerprod{\vektor{x}}{\vektor{x}} \ge 0$, dan $\innerprod{\vektor{x}}{\vektor{x}} = 0$ jika dan hanya jika $\vektor{x}=\vektor{0}$.
+Kita memiliki $\innerprod{\vektor{x}}{\vektor{x}} = x_1x_1 = x_1^2$.
+Memang benar $x_1^2 \ge 0$.
+Namun, jika $\innerprod{\vektor{x}}{\vektor{x}} = 0$, maka $x_1^2 = 0 \Rightarrow x_1=0$. Ini tidak mengharuskan $x_2=0$.
+Contohnya, ambil $\vektor{x}=(0,1)$. Maka $\vektor{x} \neq \vektor{0}$.
+Tetapi $\innerprod{\vektor{x}}{\vektor{x}} = \innerprod{(0,1)}{(0,1)} = 0 \cdot 0 = 0$.
+Karena ada vektor tak nol $\vektor{x}$ sedemikian sehingga $\innerprod{\vektor{x}}{\vektor{x}}=0$, aksioma positif definit gagal.
+
+\subsection*{2. Perhatikan ruang $\Poly_2$ yang dilengkapi dengan perkalian dalam $\innerprod{f}{g} := \int_{0}^{1} f(t)g(t)dt$. Carilah semua vektor yang ortogonal terhadap $h=1-x$.}
+\textbf{Jawaban:}\\
+Misalkan $u(x) = a+bx+cx^2$ adalah vektor (polinom) di $\Poly_2$ yang ortogonal terhadap $h(x)=1-x$.
+Maka $\innerprod{u(x)}{h(x)} = 0$.
+$\int_{0}^{1} (a+bt+ct^2)(1-t) dt = \int_{0}^{1} (a + (b-a)t + (c-b)t^2 - ct^3) dt = 0$.
+$\left[ at + (b-a)\frac{t^2}{2} + (c-b)\frac{t^3}{3} - c\frac{t^4}{4} \right]_{0}^{1} = 0$.
+$a + \frac{b-a}{2} + \frac{c-b}{3} - \frac{c}{4} = 0$.
+$\frac{1}{2}a + \frac{1}{6}b + \frac{1}{12}c = 0$.
+Kalikan dengan 12: $6a + 2b + c = 0$.
+Semua polinom $u(x) = a+bx+cx^2$ yang memenuhi $6a+2b+c=0$ ortogonal terhadap $h=1-x$.
+Jika $a=s, b=t$, maka $c=-6s-2t$.
+$u(x) = s + tx + (-6s-2t)x^2 = s(1-6x^2) + t(x-2x^2)$.
+Basis untuk ruang vektor yang ortogonal terhadap $h=1-x$ adalah $\{1-6x^2, x-2x^2\}$.
+
+\subsection*{3. Diberikan matriks $L = \matriks{1 & 2 & 3 \\ 0 & 2 & 3 \\ 0 & 0 & 2}$. Selidiki dan jelaskan, apakah $L$ terdiagonalkan.}
+\textbf{Jawaban:}\\
+Matriks $L$ adalah matriks segitiga atas. Nilai eigennya adalah elemen-elemen diagonalnya: $\lambda_1=1$ (multiplisitas aljabar 1), $\lambda_2=2$ (multiplisitas aljabar 2).
+
+Untuk $\lambda_1=1$: $(L-I)\vektor{x} = \vektor{0}$
+$\matriks{0 & 2 & 3 \\ 0 & 1 & 3 \\ 0 & 0 & 1} \matriks{x_1 \\ x_2 \\ x_3} = \matriks{0 \\ 0 \\ 0}$.
+Dari baris ketiga: $x_3=0$.
+Dari baris kedua: $x_2+3x_3=0 \Rightarrow x_2+0=0 \Rightarrow x_2=0$.
+Dari baris pertama: $2x_2+3x_3=0 \Rightarrow 0+0=0$. $x_1$ bebas.
+Vektor eigen: $\vektor{x} = t\matriks{1 \\ 0 \\ 0}$. Basis $E_1 = \left\{\matriks{1 \\ 0 \\ 0}\right\}$. Dimensi $E_1=1$. (Multiplisitas geometris = aljabar).
+
+Untuk $\lambda_2=2$: $(L-2I)\vektor{x} = \vektor{0}$
+$\matriks{-1 & 2 & 3 \\ 0 & 0 & 3 \\ 0 & 0 & 0} \matriks{x_1 \\ x_2 \\ x_3} = \matriks{0 \\ 0 \\ 0}$.
+Dari baris kedua: $3x_3=0 \Rightarrow x_3=0$.
+Dari baris pertama: $-x_1+2x_2+3x_3=0 \Rightarrow -x_1+2x_2+0=0 \Rightarrow x_1=2x_2$.
+Misalkan $x_2=t$, maka $x_1=2t$.
+Vektor eigen: $\vektor{x} = t\matriks{2 \\ 1 \\ 0}$. Basis $E_2 = \left\{\matriks{2 \\ 1 \\ 0}\right\}$. Dimensi $E_2=1$.
+Multiplisitas geometris untuk $\lambda_2=2$ adalah 1, sedangkan multiplisitas aljabarnya adalah 2.
+
+Karena untuk nilai eigen $\lambda=2$, multiplisitas geometris (1) tidak sama dengan multiplisitas aljabar (2), maka matriks $L$ \textbf{tidak terdiagonalkan}.
+
+\subsection*{4. Diketahui transformasi $T: \R^3 \rightarrow \R^3$, dengan $T\matriks{x \\ y \\ z} = \matriks{x+y-z \\ x-y-3z \\ -x+y+3z}$. Carilah basis $\kernel(T)$ dan basis $R(T)$.}
+\textbf{Jawaban:}\\
+Matriks standar $A = \matriks{1 & 1 & -1 \\ 1 & -1 & -3 \\ -1 & 1 & 3}$.
+\textbf{Basis $\kernel(T)$}: Selesaikan $A\vektor{v}=\vektor{0}$.
+$\left[ \begin{array}{ccc|c} 1 & 1 & -1 & 0 \\ 1 & -1 & -3 & 0 \\ -1 & 1 & 3 & 0 \end{array} \right]$
+$R_2 \rightarrow R_2-R_1$, $R_3 \rightarrow R_3+R_1$:
+$\left[ \begin{array}{ccc|c} 1 & 1 & -1 & 0 \\ 0 & -2 & -2 & 0 \\ 0 & 2 & 2 & 0 \end{array} \right]$
+$R_2 \rightarrow -\frac{1}{2}R_2$: $\left[ \begin{array}{ccc|c} 1 & 1 & -1 & 0 \\ 0 & 1 & 1 & 0 \\ 0 & 2 & 2 & 0 \end{array} \right]$
+$R_3 \rightarrow R_3-2R_2$: $\left[ \begin{array}{ccc|c} 1 & 1 & -1 & 0 \\ 0 & 1 & 1 & 0 \\ 0 & 0 & 0 & 0 \end{array} \right]$
+$R_1 \rightarrow R_1-R_2$: $\left[ \begin{array}{ccc|c} 1 & 0 & -2 & 0 \\ 0 & 1 & 1 & 0 \\ 0 & 0 & 0 & 0 \end{array} \right]$.
+$x-2z=0 \Rightarrow x=2z$.
+$y+z=0 \Rightarrow y=-z$.
+Misalkan $z=t$, maka $x=2t, y=-t$.
+Solusi: $(2t, -t, t) = t(2,-1,1)$.
+Basis untuk $\kernel(T) = \{(2,-1,1)\}$. $\nulitas(T)=1$.
+
+\textbf{Basis $R(T)$}: Jangkauan $T$ adalah ruang kolom $A$.
+Dari bentuk eselon baris, pivot ada di kolom 1 dan 2.
+Basis $R(T)$ adalah kolom 1 dan 2 dari $A$ asli: $\left\{ \matriks{1 \\ 1 \\ -1}, \matriks{1 \\ -1 \\ 1} \right\}$.
+$\rank(T)=2$.
+(Verifikasi: $\rank(T) + \nulitas(T) = 2+1=3 = \dim(\R^3)$).
+
+\end{document}

@@ -1,0 +1,167 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage{amsmath} % Untuk lingkungan matriks dan perintah matematika lainnya
+\usepackage{amsfonts} % Untuk simbol matematika
+\usepackage{amssymb} % Untuk simbol \mathbb{R}
+\usepackage{geometry} % Untuk mengatur margin
+\usepackage[indonesian]{babel} % Mengatur bahasa Indonesia
+\usepackage{array} % Untuk kolom tabel yang lebih baik
+\usepackage{booktabs} % Untuk garis tabel yang lebih baik
+\usepackage{graphicx} % Untuk menyertakan gambar (jika diperlukan)
+\usepackage{hyperref} % Untuk hyperlink (jika diperlukan)
+\usepackage{amsthm} % Untuk lingkungan definisi dan teorema
+\usepackage{enumitem} % Untuk kustomisasi daftar
+
+\geometry{a4paper, margin=1in} % Mengatur margin halaman
+
+% Definisi lingkungan baru
+\newtheorem{definisi}{Definisi}[section]
+\newtheorem{contoh}{Contoh}[section]
+\newtheorem{teorema}{Teorema}[section]
+\newtheorem{fakta}{Fakta}[section]
+\newtheorem{proposisi}{Proposisi}[section]
+
+% Definisi perintah baru untuk kemudahan
+\newcommand{\matriks}[1]{\begin{pmatrix} #1 \end{pmatrix}} % Perintah untuk matriks
+\newcommand{\R}{\mathbb{R}} % Simbol R untuk bilangan real
+\newcommand{\Poly}{\mathbb{P}} % Simbol P untuk polinom
+\newcommand{\M}[1]{\mathcal{M}_{#1}} % Simbol M untuk himpunan matriks
+\newcommand{\vektor}[1]{\mathbf{#1}} % Perintah untuk vektor tebal
+\newcommand{\nol}{\mathbf{0}} % Vektor nol
+\newcommand{\spanof}[1]{\text{span}(#1)} % Perintah untuk span
+\newcommand{\dimV}{\text{dim}(V)} % Dimensi V
+\newcommand{\dettext}[1]{\det(#1)}
+
+\title{Basis dan Dimensi Ruang Vektor}
+\author{Rafi Kamindra 2201006}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Kebebasan Linear (Linear Independence)}
+Konsep kebebasan linear adalah kunci untuk memahami struktur ruang vektor.
+\begin{definisi}
+Misalkan $V$ suatu ruang vektor. Himpunan vektor $S = \{\vektor{v}_1, \vektor{v}_2, \dots, \vektor{v}_n\} \subset V$ dikatakan \textbf{bebas linear} (linearly independent) jika persamaan vektor:
+\[ \alpha_1\vektor{v}_1 + \alpha_2\vektor{v}_2 + \dots + \alpha_n\vektor{v}_n = \nol \]
+hanya dipenuhi oleh skalar-skalar $\alpha_1 = 0, \alpha_2 = 0, \dots, \alpha_n = 0$ (yaitu, semua skalar adalah nol, ini disebut solusi trivial).
+Jika terdapat solusi lain dimana tidak semua skalar $\alpha_i$ adalah nol (solusi non-trivial), maka himpunan $S$ dikatakan \textbf{bergantung linear} (linearly dependent).
+\end{definisi}
+
+\begin{contoh}
+\begin{enumerate}
+    \item Himpunan $\{(1,2)\}$ di $\R^2$ adalah bebas linear.
+    Karena jika $\alpha_1(1,2)=(0,0)$, maka $(\alpha_1, 2\alpha_1)=(0,0)$, yang berarti $\alpha_1=0$.
+    \item Himpunan $\{(1,2), (2,3)\}$ di $\R^2$ adalah bebas linear.
+    Misalkan $\alpha_1(1,2) + \alpha_2(2,3) = (0,0)$.
+    $(\alpha_1+2\alpha_2, 2\alpha_1+3\alpha_2) = (0,0)$.
+    Sistem persamaannya: $\alpha_1+2\alpha_2=0$ dan $2\alpha_1+3\alpha_2=0$.
+    Determinannya adalah $1(3)-2(2) = 3-4 = -1 \neq 0$. Maka hanya ada solusi trivial $\alpha_1=0, \alpha_2=0$.
+    \item Himpunan $\{(1,2), (2,4)\}$ di $\R^2$ adalah bergantung linear.
+    Karena $(2,4) = 2(1,2)$, atau $-2(1,2) + 1(2,4) = (0,0)$. Terdapat koefisien yang tidak nol (yaitu -2 dan 1).
+\end{enumerate}
+\end{contoh}
+
+\subsection{Kaitan Determinan dengan Kebebasan Linear}
+\begin{teorema}
+Misalkan $A \in M_n$ (matriks persegi $n \times n$). Pernyataan-pernyataan berikut adalah ekuivalen:
+\begin{enumerate}
+    \item $\dettext{A} \neq 0$.
+    \item Vektor-vektor baris pada $A$ membentuk himpunan yang bebas linear.
+    \item Vektor-vektor kolom pada $A$ membentuk himpunan yang bebas linear.
+\end{enumerate}
+\end{teorema}
+Teorema ini memberikan cara praktis untuk menguji kebebasan linear dari $n$ buah vektor di $\R^n$ dengan membentuk matriks yang baris atau kolomnya adalah vektor-vektor tersebut, lalu menghitung determinannya.
+
+\begin{contoh}
+Carilah nilai $c$ sehingga himpunan $\{(1,2,1), (-1,3,3), (2,1,c)\}$ bergantung linear di $\R^3$.
+\textbf{Solusi}:
+Bentuk matriks $A$ dengan vektor-vektor tersebut sebagai baris (atau kolom):
+$A = \matriks{1 & 2 & 1 \\ -1 & 3 & 3 \\ 2 & 1 & c}$.
+Himpunan tersebut bergantung linear jika $\dettext{A}=0$.
+$\dettext{A} = 1\begin{vmatrix} 3 & 3 \\ 1 & c \end{vmatrix} - 2\begin{vmatrix} -1 & 3 \\ 2 & c \end{vmatrix} + 1\begin{vmatrix} -1 & 3 \\ 2 & 1 \end{vmatrix}$
+$= 1(3c-3) - 2(-c-6) + 1(-1-6)$
+$= 3c-3 + 2c+12 - 7 = 5c + 2$.
+Agar bergantung linear, $5c+2=0 \Rightarrow 5c = -2 \Rightarrow c = -2/5$.
+\end{contoh}
+
+\subsection{Kriteria Bergantung Linear}
+\begin{teorema}
+Sebuah himpunan vektor $S$ (dengan minimal dua vektor) bergantung linear jika dan hanya jika terdapat setidaknya satu vektor di $S$ yang dapat ditulis sebagai kombinasi linear dari vektor-vektor lainnya di $S$.
+\end{teorema}
+
+\section{Basis dan Dimensi}
+\begin{definisi}
+Misalkan $V$ suatu ruang vektor, dan $S \subseteq V$.
+\begin{enumerate}
+    \item Himpunan $S$ disebut \textbf{basis} untuk $V$ jika:
+    \begin{itemize}
+        \item $S$ bebas linear.
+        \item $S$ merentang $V$ (yaitu, $\spanof{S}=V$).
+    \end{itemize}
+    \item Banyaknya vektor dalam suatu basis $S$ untuk $V$ disebut \textbf{dimensi} dari $V$, dilambangkan $\dimV$.
+    \item Jika $V$ memiliki basis yang terdiri dari sejumlah berhingga vektor, maka $V$ dikatakan \textbf{berdimensi hingga}. Jika tidak, $V$ dikatakan berdimensi tak hingga.
+    \item Ruang vektor nol $\{\nol\}$ didefinisikan memiliki dimensi 0, dan basisnya adalah himpunan kosong $\emptyset$.
+\end{enumerate}
+\end{definisi}
+
+\begin{contoh}
+\begin{itemize}
+    \item Himpunan $S = \{(1,0), (0,1)\}$ adalah basis untuk $\R^2$. Ini disebut \textbf{basis baku} (standar) untuk $\R^2$. Jadi, $\dim(\R^2) = 2$.
+    \item Himpunan $U = \{(1,1), (2,3)\}$ juga merupakan basis untuk $\R^2$. (Karena determinan $\matriks{1 & 2 \\ 1 & 3} = 3-2=1 \neq 0$, maka bebas linear dan merentang $\R^2$).
+    \item Himpunan $\{(1,1)\}$ bukan basis untuk $\R^2$, karena tidak merentang $\R^2$ (hanya merentang garis $y=x$).
+    \item Himpunan $\{(1,1), (1,3), (0,1)\}$ bukan basis untuk $\R^2$, karena tidak bebas linear (tiga vektor di ruang berdimensi 2).
+    \item Himpunan $S = \{(1,0,0), (0,1,0), (0,0,1)\}$ adalah basis baku untuk $\R^3$. Jadi, $\dim(\R^3)=3$.
+    \item Himpunan $U = \{(1,0,0), (2,3,0), (1,2,1)\}$ adalah basis untuk $\R^3$.
+    $\det \matriks{1 & 2 & 1 \\ 0 & 3 & 2 \\ 0 & 0 & 1} = 1 \cdot 3 \cdot 1 = 3 \neq 0$.
+    \item Himpunan $S = \{1, x, x^2\}$ adalah basis baku untuk $\Poly_2$ (ruang polinom berderajat paling tinggi 2). Jadi, $\dim(\Poly_2)=3$.
+    Secara umum, $\dim(\Poly_n)=n+1$ dengan basis baku $\{1, x, x^2, \dots, x^n\}$.
+    \item Untuk ruang matriks $\M_{m \times n}$, dimensi adalah $m \times n$. Basis bakunya terdiri dari matriks-matriks yang memiliki satu entri 1 dan sisanya 0.
+\end{itemize}
+\end{contoh}
+
+\begin{contoh}
+Periksa apakah $U = \{1+2x, -x+x^2, 2+x-x^2\}$ basis untuk $\Poly_2$.
+\textbf{Solusi}:
+Vektor koordinat relatif terhadap basis baku $\{1,x,x^2\}$:
+$p_1 = 1+2x \rightarrow (1,2,0)$
+$p_2 = -x+x^2 \rightarrow (0,-1,1)$
+$p_3 = 2+x-x^2 \rightarrow (2,1,-1)$
+Bentuk matriks $A = \matriks{1 & 0 & 2 \\ 2 & -1 & 1 \\ 0 & 1 & -1}$.
+$\det(A) = 1\begin{vmatrix} -1 & 1 \\ 1 & -1 \end{vmatrix} - 0 + 2\begin{vmatrix} 2 & -1 \\ 0 & 1 \end{vmatrix}$
+$= 1(1-1) + 2(2-0) = 0 + 4 = 4$.
+Karena $\det(A) = 4 \neq 0$, himpunan vektor koordinat bebas linear, sehingga himpunan polinom $U$ juga bebas linear. Karena $\dim(\Poly_2)=3$ dan $U$ memiliki 3 polinom bebas linear, maka $U$ adalah basis untuk $\Poly_2$.
+\end{contoh}
+
+\section{Teorema-Teorema Penting Terkait Basis dan Dimensi}
+\begin{teorema}
+Misalkan $V$ suatu ruang vektor dan $S, W$ masing-masing adalah subhimpunan di $V$. Maka berlaku:
+\begin{enumerate}
+    \item Jika $S$ bebas linear maka sebarang subhimpunan tak kosong dari $S$ juga bebas linear.
+    \item Jika $W$ bergantung linear maka sebarang himpunan yang memuat $W$ juga bergantung linear.
+\end{enumerate}
+\end{teorema}
+
+\begin{teorema}
+Misalkan $V$ suatu ruang vektor dengan $\dimV = n$. Maka berlaku:
+\begin{enumerate}
+    \item Setiap himpunan yang terdiri dari $n+1$ vektor atau lebih di $V$ pasti bergantung linear. (Tidak mungkin ada lebih dari $n$ vektor bebas linear di ruang berdimensi $n$).
+    \item Setiap himpunan yang terdiri dari $n-1$ vektor atau kurang di $V$ tidak akan merentang $V$. (Dibutuhkan minimal $n$ vektor untuk merentang ruang berdimensi $n$).
+\end{enumerate}
+\end{teorema}
+Konsekuensi penting dari teorema ini:
+\begin{itemize}
+    \item Setiap himpunan $n$ vektor yang bebas linear di ruang vektor $V$ berdimensi $n$ secara otomatis membentuk basis untuk $V$.
+    \item Setiap himpunan $n$ vektor yang merentang ruang vektor $V$ berdimensi $n$ secara otomatis membentuk basis untuk $V$.
+\end{itemize}
+
+\begin{teorema}
+Misalkan $V$ suatu ruang vektor berdimensi hingga dan $W$ adalah subruang dari $V$. Maka:
+\begin{enumerate}
+    \item $W$ juga berdimensi hingga.
+    \item $\dim(W) \le \dimV$.
+    \item $W=V$ jika dan hanya jika $\dim(W) = \dimV$.
+\end{enumerate}
+\end{teorema}
+Teorema ini menyatakan bahwa dimensi subruang tidak bisa melebihi dimensi ruang vektor induknya, dan jika dimensinya sama, maka subruang tersebut adalah ruang vektor itu sendiri.
+
+\end{document}

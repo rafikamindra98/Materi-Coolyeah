@@ -1,0 +1,215 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage{amsmath} % Untuk lingkungan matriks dan perintah matematika lainnya
+\usepackage{amsfonts} % Untuk simbol matematika
+\usepackage{amssymb} % Untuk simbol \mathbb{R}
+\usepackage{geometry} % Untuk mengatur margin
+\usepackage[indonesian]{babel} % Mengatur bahasa Indonesia
+\usepackage{array} % Untuk kolom tabel yang lebih baik
+\usepackage{booktabs} % Untuk garis tabel yang lebih baik
+\usepackage{graphicx} % Untuk menyertakan gambar (jika diperlukan)
+\usepackage{hyperref} % Untuk hyperlink (jika diperlukan)
+\usepackage{amsthm} % Untuk lingkungan definisi dan teorema
+\usepackage{nicematrix, tikz} % Untuk matriks dengan garis partisi
+
+\geometry{a4paper, margin=1in} % Mengatur margin halaman
+
+% Definisi lingkungan baru
+\newtheorem{definisi}{Definisi}[section]
+\newtheorem{contoh}{Contoh}[section]
+\newtheorem{teorema}{Teorema}[section]
+\newtheorem{fakta}{Fakta}[section]
+\newtheorem{proposisi}{Proposisi}[section]
+
+% Definisi perintah baru untuk kemudahan
+\newcommand{\matriks}[1]{\begin{pmatrix} #1 \end{pmatrix}} % Perintah untuk matriks
+\newcommand{\R}{\mathbb{R}} % Simbol R untuk bilangan real
+\newcommand{\M}[1]{\mathcal{M}_{#1}} % Simbol M untuk himpunan matriks
+\newcommand{\rank}{\text{rank}} % Perintah untuk rank
+\newcommand{\vektor}[1]{\mathbf{#1}} % Perintah untuk vektor
+\newcommand{\determinan}[1]{\left| #1 \right|} % Notasi determinan |A|
+\newcommand{\dettext}[1]{\text{det}(#1)} % Notasi determinan det(A)
+
+\title{Determinan Matriks}
+\author{Rafi Kamindra 2201006}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Pengantar Determinan}
+Determinan adalah sebuah nilai skalar yang dapat dihitung dari entri-entri sebuah matriks persegi. Konsep determinan sangat penting dalam aljabar linear karena memiliki banyak aplikasi, diantaranya:
+\begin{itemize}
+    \item Menentukan apakah sebuah matriks persegi memiliki invers (invertibel).
+    \item Menyelesaikan sistem persamaan linear (SPL) menggunakan Aturan Cramer.
+    \item Dalam geometri, determinan dapat digunakan untuk menghitung luas atau volume.
+\end{itemize}
+Dalam konteks persamaan matriks $A\vektor{X}=\vektor{B}$, determinan dari matriks koefisien $A$ (jika $A$ persegi) memberikan informasi krusial mengenai eksistensi dan keunikan solusi. Sama seperti bilangan real yang dapat dipartisi menjadi nol atau tidak nol, matriks persegi juga dapat dipartisi berdasarkan apakah determinannya nol atau tidak nol.
+
+\section{Determinan Matriks Ordo Kecil}
+\subsection{Determinan Matriks $2 \times 2$}
+Untuk matriks $A = \matriks{a_{11} & a_{12} \\ a_{21} & a_{22}}$, determinannya didefinisikan sebagai:
+\[ \dettext{A} = \determinan{\begin{smallmatrix} a_{11} & a_{12} \\ a_{21} & a_{22} \end{smallmatrix}} = a_{11}a_{22} - a_{12}a_{21} \]
+Ini adalah hasil kali entri-entri diagonal utama dikurangi hasil kali entri-entri diagonal kedua.
+
+\subsection{Determinan Matriks $3 \times 3$ (Metode Sarrus)}
+Untuk matriks $A = \begin{pmatrix} a_{11} & a_{12} & a_{13} \\ a_{21} & a_{22} & a_{23} \\ a_{31} & a_{32} & a_{33} \end{pmatrix}$, determinannya dapat dihitung menggunakan Aturan Sarrus:
+\[ \det(A) = (a_{11}a_{22}a_{33} + a_{12}a_{23}a_{31} + a_{13}a_{21}a_{32}) - (a_{13}a_{22}a_{31} + a_{11}a_{23}a_{32} + a_{12}a_{21}a_{33}) \]
+Metode ini melibatkan penulisan ulang dua kolom pertama di sebelah kanan matriks dan menjumlahkan hasil kali diagonal dari kiri atas ke kanan bawah, kemudian menguranginya dengan jumlah hasil kali diagonal dari kanan atas ke kiri bawah.
+
+% Ilustrasi Aturan Sarrus yang sudah diperbaiki
+\[
+\begin{NiceMatrix}[columns-width=auto]
+a_{11} & a_{12} & a_{13} & a_{11} & a_{12} \\
+a_{21} & a_{22} & a_{23} & a_{21} & a_{22} \\
+a_{31} & a_{32} & a_{33} & a_{31} & a_{32}
+\end{NiceMatrix}
+\]
+
+\textbf{Catatan}: Aturan Sarrus hanya berlaku untuk matriks $3 \times 3$. Untuk matriks dengan ordo lebih tinggi (misalnya $4 \times 4$ atau lebih), kita memerlukan metode yang lebih umum.
+
+\section{Definisi Umum Determinan (Menggunakan Permutasi)}
+Untuk mendefinisikan determinan matriks $n \times n$ secara umum, kita memerlukan konsep permutasi dan inversi.
+
+\subsection{Permutasi}
+\begin{definisi}
+Sebuah \textbf{permutasi} dari himpunan $S = \{1, 2, \dots, n\}$ adalah sebuah susunan $(i_1, i_2, \dots, i_n)$ dimana $1 \le i_j \le n$ untuk setiap $j$, dan $i_j \neq i_k$ jika $j \neq k$. Koleksi semua permutasi dari $S$ dinotasikan sebagai $S_n$. Jumlah elemen dalam $S_n$ adalah $n!$.
+\end{definisi}
+
+\begin{contoh}
+\begin{itemize}
+    \item Semua permutasi dari $S=\{1,2\}$ adalah $S_2 = \{(1,2), (2,1)\}$.
+    \item Semua permutasi dari $S=\{1,2,3\}$ adalah $S_3 = \{(1,2,3), (1,3,2), (2,1,3), (2,3,1), (3,1,2), (3,2,1)\}$.
+\end{itemize}
+\end{contoh}
+
+\subsection{Inversi dalam Permutasi}
+\begin{definisi}
+Misalkan $\sigma = (i_1, i_2, \dots, i_n)$ suatu permutasi. Sebuah \textbf{inversi} pada $\sigma$ didefinisikan sebagai pasangan $(i_j, i_k)$ sedemikian sehingga $i_j > i_k$ padahal $j < k$. Banyaknya inversi dalam sebuah permutasi adalah jumlah total pasangan semacam itu.
+\end{definisi}
+
+\begin{contoh}
+\begin{enumerate}
+    \item Permutasi $(1,2)$ tidak mempunyai inversi (banyaknya inversi = 0).
+    \item Permutasi $(2,1)$ mempunyai 1 inversi (pasangan $(2,1)$).
+    \item Permutasi $(2,3,1)$:
+        \begin{itemize}
+            \item Pasangan $(2,1)$ adalah inversi.
+            \item Pasangan $(3,1)$ adalah inversi.
+        \end{itemize}
+        Jadi, $(2,3,1)$ mempunyai 2 inversi.
+    \item Permutasi $(4,2,3,1)$:
+        \begin{itemize}
+            \item $(4,2), (4,3), (4,1)$
+            \item $(2,1)$
+            \item $(3,1)$
+        \end{itemize}
+        Jadi, $(4,2,3,1)$ mempunyai 5 inversi.
+\end{enumerate}
+\end{contoh}
+
+\subsection{Fungsi Signum (Tanda) dari Permutasi}
+\begin{definisi}
+Fungsi \textbf{signum} (atau tanda) dari permutasi $\sigma$, dinotasikan $sg(\sigma)$ atau $\text{sgn}(\sigma)$, didefinisikan sebagai:
+\[ sg(\sigma) = \begin{cases} 1, & \text{jika banyaknya inversi pada } \sigma \text{ genap} \\ -1, & \text{jika banyaknya inversi pada } \sigma \text{ ganjil} \end{cases} \]
+Permutasi dengan $sg(\sigma)=1$ disebut permutasi genap, dan dengan $sg(\sigma)=-1$ disebut permutasi ganjil.
+\end{definisi}
+
+\begin{contoh}
+\begin{enumerate}
+    \item Inversi dari $(1,2)$ adalah 0 (genap), maka $sg(1,2)=1$.
+    \item Inversi dari $(2,1)$ adalah 1 (ganjil), maka $sg(2,1)=-1$.
+    \item Inversi dari $(2,3,1)$ adalah 2 (genap), maka $sg(2,3,1)=1$.
+    \item Inversi dari $(4,2,3,1)$ adalah 5 (ganjil), maka $sg(4,2,3,1)=-1$.
+\end{enumerate}
+\end{contoh}
+
+\subsection{Definisi Determinan}
+\begin{definisi}
+Misalkan $A = [a_{ij}]$ adalah matriks persegi $n \times n$. \textbf{Determinan} dari $A$, dinotasikan $\dettext{A}$ atau $\determinan{A}$, didefinisikan sebagai:
+\[ \dettext{A} = \sum_{\sigma \in S_n} sg(\sigma) a_{1\sigma_1} a_{2\sigma_2} \cdots a_{n\sigma_n} \]
+Penjumlahan dilakukan atas semua $n!$ permutasi $\sigma = (\sigma_1, \sigma_2, \dots, \sigma_n)$ dari himpunan $\{1, 2, \dots, n\}$. Setiap suku dalam penjumlahan adalah hasil kali $n$ entri matriks, dimana tidak ada dua entri yang berasal dari baris yang sama atau kolom yang sama, dikalikan dengan tanda permutasi dari indeks kolomnya.
+\end{definisi}
+
+\begin{contoh}[Determinan Matriks $2 \times 2$ menggunakan Definisi Umum]
+Untuk $A = \matriks{a_{11} & a_{12} \\ a_{21} & a_{22}}$, $S_2 = \{(1,2), (2,1)\}$.
+\begin{itemize}
+    \item Untuk $\sigma=(1,2)$: $sg(1,2)=1$. Suku: $1 \cdot a_{11}a_{22}$.
+    \item Untuk $\sigma=(2,1)$: $sg(2,1)=-1$. Suku: $-1 \cdot a_{12}a_{21}$.
+\end{itemize}
+Maka $\dettext{A} = a_{11}a_{22} - a_{12}a_{21}$. Ini sesuai dengan rumus yang dikenal.
+\end{contoh}
+
+\begin{contoh}[Determinan Matriks $3 \times 3$ menggunakan Definisi Umum]
+Untuk matriks $A=[a_{ij}] \in M_3$, permutasi dan suku-sukunya adalah:
+\begin{itemize}
+    \item $\sigma=(1,2,3)$, $sg(\sigma)=1 \Rightarrow +a_{11}a_{22}a_{33}$
+    \item $\sigma=(1,3,2)$, $sg(\sigma)=-1 \Rightarrow -a_{11}a_{23}a_{32}$
+    \item $\sigma=(2,1,3)$, $sg(\sigma)=-1 \Rightarrow -a_{12}a_{21}a_{33}$
+    \item $\sigma=(2,3,1)$, $sg(\sigma)=1 \Rightarrow +a_{12}a_{23}a_{31}$
+    \item $\sigma=(3,1,2)$, $sg(\sigma)=1 \Rightarrow +a_{13}a_{21}a_{32}$
+    \item $\sigma=(3,2,1)$, $sg(\sigma)=-1 \Rightarrow -a_{13}a_{22}a_{31}$
+\end{itemize}
+$\dettext{A} = a_{11}a_{22}a_{33} + a_{12}a_{23}a_{31} + a_{13}a_{21}a_{32} - a_{11}a_{23}a_{32} - a_{12}a_{21}a_{33} - a_{13}a_{22}a_{31}$.
+Ini sesuai dengan Aturan Sarrus.
+\end{contoh}
+
+\section{Sifat-sifat Dasar Determinan}
+\begin{teorema}
+Misalkan $A \in M_{n \times n}$.
+\begin{enumerate}
+    \item Jika $A$ memuat satu baris (atau kolom) yang seluruhnya nol, maka $\dettext{A}=0$.
+    \item Jika $A$ adalah matriks segitiga (atas atau bawah), maka $\dettext{A}$ adalah hasil perkalian entri-entri diagonal utamanya.
+    \item $\dettext{A^T} = \dettext{A}$. (Artinya, sifat-sifat determinan yang berlaku untuk baris juga berlaku untuk kolom).
+\end{enumerate}
+\end{teorema}
+
+\begin{contoh}
+\begin{enumerate}
+    \item $\determinan{\begin{smallmatrix} 0 & 3 & -1 \\ 1 & 1 & -3 \\ 0 & 0 & 0 \end{smallmatrix}} = 0$ (karena baris ketiga adalah baris nol).
+    \item $\determinan{\begin{smallmatrix} 1 & 3 & -1 \\ 0 & 3 & -3 \\ 0 & 0 & 4 \end{smallmatrix}} = 1 \cdot 3 \cdot 4 = 12$ (karena matriks segitiga atas).
+\end{enumerate}
+\end{contoh}
+
+\subsection{Determinan dan Operasi Baris Elementer}
+\begin{teorema}
+Misalkan $A \in M_{n \times n}$.
+\begin{enumerate}
+    \item Jika matriks $A'$ diperoleh dari $A$ dengan mengalikan satu baris (atau kolom) dari $A$ dengan konstanta $k$, maka $\dettext{A'} = k \cdot \dettext{A}$.
+    \[ \determinan{\begin{smallmatrix} ka_{11} & \dots & ka_{1n} \\ a_{21} & \dots & a_{2n} \\ \vdots & \ddots & \vdots \\ a_{n1} & \dots & a_{nn} \end{smallmatrix}} = k \determinan{\begin{smallmatrix} a_{11} & \dots & a_{1n} \\ a_{21} & \dots & a_{2n} \\ \vdots & \ddots & \vdots \\ a_{n1} & \dots & a_{nn} \end{smallmatrix}} \]
+    \item Jika matriks $A'$ diperoleh dari $A$ dengan menukar dua baris (atau kolom) dari $A$, maka $\dettext{A'} = -\dettext{A}$.
+    \item Jika matriks $A'$ diperoleh dari $A$ dengan menjumlahkan kelipatan satu baris (atau kolom) ke baris (atau kolom) lain dari $A$, maka $\dettext{A'} = \dettext{A}$.
+    \[ \determinan{\begin{smallmatrix} a_{11} & \dots & a_{1n} \\ \vdots & \ddots & \vdots \\ k a_{11} + a_{i1} & \dots & k a_{1n} + a_{in} \\ \vdots & \ddots & \vdots \\ a_{n1} & \dots & a_{nn} \end{smallmatrix}} (\text{baris ke-i baru}) = \determinan{A} \]
+\end{enumerate}
+\end{teorema}
+Sifat-sifat ini sangat berguna untuk menghitung determinan matriks berordo besar dengan cara mereduksi matriks ke bentuk eselon baris (yang merupakan matriks segitiga).
+
+\begin{contoh}[Menghitung Determinan Menggunakan OBE]
+Hitung determinan dari $A = \matriks{0 & 3 & -1 \\ 1 & 1 & -3 \\ -3 & 2 & 0}$.
+\begin{align*}
+\determinan{A} &= \determinan{\begin{smallmatrix} 0 & 3 & -1 \\ 1 & 1 & -3 \\ -3 & 2 & 0 \end{smallmatrix}}
+\xrightarrow{R_1 \leftrightarrow R_2} -\determinan{\begin{smallmatrix} 1 & 1 & -3 \\ 0 & 3 & -1 \\ -3 & 2 & 0 \end{smallmatrix}} \\
+&\xrightarrow{R_3 \to R_3 + 3R_1} -\determinan{\begin{smallmatrix} 1 & 1 & -3 \\ 0 & 3 & -1 \\ 0 & 5 & -9 \end{smallmatrix}} \\
+&\xrightarrow{R_3 \to R_3 - \frac{5}{3}R_2} -\determinan{\begin{smallmatrix} 1 & 1 & -3 \\ 0 & 3 & -1 \\ 0 & 0 & -9 - (-\frac{5}{3}) \end{smallmatrix}} = -\determinan{\begin{smallmatrix} 1 & 1 & -3 \\ 0 & 3 & -1 \\ 0 & 0 & -\frac{27}{3} + \frac{5}{3} \end{smallmatrix}} \\
+&= -\determinan{\begin{smallmatrix} 1 & 1 & -3 \\ 0 & 3 & -1 \\ 0 & 0 & -22/3 \end{smallmatrix}} = -(1 \cdot 3 \cdot (-\frac{22}{3})) = -(-22) = 22.
+\end{align*}
+\end{contoh}
+
+\subsection{Sifat Determinan Lainnya}
+\begin{teorema}
+Misalkan $A, B \in M_{n \times n}$. Maka berlaku $\dettext{AB} = \dettext{A} \dettext{B}$.
+\end{teorema}
+Artinya, determinan dari hasil kali dua matriks adalah hasil kali dari determinan masing-masing matriks.
+
+\begin{teorema}
+Misalkan $A \in M_{n \times n}$. Semua pernyataan berikut ekuivalen:
+\begin{enumerate}
+    \item $A$ invertibel (memiliki invers).
+    \item $\rank(A)=n$.
+    \item $\dettext{A} \neq 0$.
+    \item SPL homogen $A\vektor{X}=\vektor{0}$ hanya memiliki solusi trivial.
+    \item SPL $A\vektor{X}=\vektor{B}$ memiliki solusi unik untuk setiap $\vektor{B}$.
+\end{enumerate}
+\end{teorema}
+Teorema ini menunjukkan hubungan fundamental antara invertibilitas matriks, rank, determinan, dan solusi sistem persamaan linear. Determinan yang tidak nol adalah kriteria penting untuk invertibilitas.
+
+\end{document}

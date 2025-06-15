@@ -1,0 +1,180 @@
+\documentclass{article}
+\usepackage{amsmath} % Untuk lingkungan matriks dan perintah matematika lainnya
+\usepackage{amsfonts} % Untuk simbol
+\usepackage{amssymb} % Untuk simbol \mathbb{R}
+\usepackage{geometry} % Untuk mengatur margin
+\geometry{a4paper, margin=1in}
+
+\title{Aljabar Linear: Responsi Transformasi Linear}
+\author{Rafi Kamindra 2201006}
+\date{} % Kosongkan tanggal jika tidak ingin ditampilkan
+
+\newcommand{\vektor}[1]{\mathbf{#1}} % Perintah untuk vektor
+\newcommand{\R}{\mathbb{R}} % Simbol R
+\newcommand{\Poly}{\mathbb{P}} % Simbol P untuk polinom
+\newcommand{\Transformasi}[1]{T(#1)} % Notasi Transformasi
+\newcommand{\kernel}{\text{ker}} % Kernel
+\newcommand{\jangkauan}{\text{R}} % Jangkauan (Range)
+\newcommand{\nulitas}{\text{nulitas}} % Nulitas
+\newcommand{\rank}{\text{rank}} % Rank
+\newcommand{\matriks}[1]{\begin{pmatrix} #1 \end{pmatrix}} % Perintah untuk matriks
+\newcommand{\spanof}[1]{\text{span}\{#1\}}
+
+\begin{document}
+\maketitle
+\pagenumbering{gobble} % Menghilangkan nomor halaman jika tidak diinginkan untuk halaman judul
+
+\section*{Problem}
+
+\subsection*{1. Diketahui transformasi $T: \R^2 \rightarrow \R^2$, dengan $T(x,y) = (2x, y^2)$. Selidiki, apakah $T$ linier.}
+\textbf{Jawaban:}\\
+Untuk menjadi transformasi linear, $T$ harus memenuhi dua syarat:
+\begin{enumerate}
+    \item $T(\vektor{u} + \vektor{v}) = T(\vektor{u}) + T(\vektor{v})$
+    \item $T(k\vektor{u}) = kT(\vektor{u})$
+\end{enumerate}
+Periksa syarat kedua:
+Misalkan $\vektor{u}=(x,y)$ dan $k$ adalah skalar.
+$T(k\vektor{u}) = T(kx, ky) = (2(kx), (ky)^2) = (2kx, k^2y^2)$.
+$kT(\vektor{u}) = k T(x,y) = k(2x, y^2) = (2kx, ky^2)$.
+Agar $T(k\vektor{u}) = kT(\vektor{u})$, maka $(2kx, k^2y^2) = (2kx, ky^2)$.
+Ini berarti $k^2y^2 = ky^2$.
+Jika $y \neq 0$, maka $k^2=k$. Ini hanya berlaku jika $k=0$ atau $k=1$, tidak untuk semua skalar $k$.
+Misalnya, jika $k=2$ dan $y=1$, $T(2\vektor{u}) = (4x, 4)$ sedangkan $2T(\vektor{u}) = (4x, 2)$.
+Karena $4 \neq 2$, syarat kedua tidak terpenuhi.
+Jadi, $T$ bukan transformasi linear.
+
+\subsection*{2. Diketahui transformasi linear $T: \R^2 \rightarrow \Poly_2$, dengan $T(1,1)=1-x+x^2$ dan $T(1,-1)=x-2x^2$. Tentukan rumus $T(a,b)$. Apakah $T$ injektif dan surjektif?}
+\textbf{Jawaban:}\\
+Nyatakan $(a,b)$ sebagai kombinasi linear dari $(1,1)$ dan $(1,-1)$:
+$(a,b) = c_1(1,1) + c_2(1,-1) = (c_1+c_2, c_1-c_2)$.
+$c_1+c_2 = a$
+$c_1-c_2 = b$
+Menjumlahkan: $2c_1 = a+b \Rightarrow c_1 = \frac{a+b}{2}$.
+Mengurangkan: $2c_2 = a-b \Rightarrow c_2 = \frac{a-b}{2}$.
+$T(a,b) = c_1 T(1,1) + c_2 T(1,-1)$
+$= \frac{a+b}{2}(1-x+x^2) + \frac{a-b}{2}(x-2x^2)$
+$= (\frac{a+b}{2}) + (-\frac{a+b}{2} + \frac{a-b}{2})x + (\frac{a+b}{2} - 2\frac{a-b}{2})x^2$
+$= \frac{a+b}{2} + (\frac{-a-b+a-b}{2})x + (\frac{a+b-2a+2b}{2})x^2$
+$= \frac{a+b}{2} -bx + \frac{-a+3b}{2}x^2$.
+
+\textbf{Injektif?}\\
+$T$ injektif jika $\kernel(T) = \{\vektor{0}\}$.
+$T(a,b) = 0 \Rightarrow \frac{a+b}{2} = 0, -b=0, \frac{-a+3b}{2}=0$.
+Dari $-b=0 \Rightarrow b=0$.
+Dari $\frac{a+b}{2}=0 \Rightarrow a+0=0 \Rightarrow a=0$.
+Jadi, $a=0, b=0$ adalah satu-satunya solusi. Maka $\kernel(T) = \{(0,0)\}$.
+$T$ adalah injektif.
+
+\textbf{Surjektif?}\\
+$\dim(\text{domain}) = \dim(\R^2) = 2$.
+$\dim(\text{kodomain}) = \dim(\Poly_2) = 3$.
+Karena $T$ injektif, $\nulitas(T) = 0$.
+$\rank(T) = \dim(\text{domain}) - \nulitas(T) = 2-0=2$.
+Dimensi jangkauan $R(T)$ adalah 2.
+Karena $\dim(R(T)) = 2 < \dim(\text{kodomain}) = 3$, maka $T$ tidak surjektif.
+
+\subsection*{3. Carilah kernel dan jangkauan dari $T: \Poly_2 \rightarrow \R^3$ dengan $T[a+bx+cx^2] = (2a-b, b+c, a-b+c)$.}
+\textbf{Jawaban:}\\
+Matriks standar $A$ terhadap basis standar $\{1,x,x^2\}$ untuk $\Poly_2$ dan basis standar untuk $\R^3$:
+$T(1) = T(1+0x+0x^2) = (2(1)-0, 0+0, 1-0+0) = (2,0,1)$.
+$T(x) = T(0+1x+0x^2) = (2(0)-1, 1+0, 0-1+0) = (-1,1,-1)$.
+$T(x^2) = T(0+0x+1x^2) = (2(0)-0, 0+1, 0-0+1) = (0,1,1)$.
+$A = \matriks{2 & -1 & 0 \\ 0 & 1 & 1 \\ 1 & -1 & 1}$.
+
+\textbf{Kernel $T$}: Selesaikan $A \matriks{a \\ b \\ c} = \matriks{0 \\ 0 \\ 0}$.
+$\left[ \begin{array}{ccc|c} 2 & -1 & 0 & 0 \\ 0 & 1 & 1 & 0 \\ 1 & -1 & 1 & 0 \end{array} \right]$
+$R_1 \leftrightarrow R_3$: $\left[ \begin{array}{ccc|c} 1 & -1 & 1 & 0 \\ 0 & 1 & 1 & 0 \\ 2 & -1 & 0 & 0 \end{array} \right]$
+$R_3 \rightarrow R_3 - 2R_1$: $\left[ \begin{array}{ccc|c} 1 & -1 & 1 & 0 \\ 0 & 1 & 1 & 0 \\ 0 & 1 & -2 & 0 \end{array} \right]$
+$R_3 \rightarrow R_3 - R_2$: $\left[ \begin{array}{ccc|c} 1 & -1 & 1 & 0 \\ 0 & 1 & 1 & 0 \\ 0 & 0 & -3 & 0 \end{array} \right]$.
+Dari $-3c=0 \Rightarrow c=0$.
+Dari $b+c=0 \Rightarrow b=0$.
+Dari $a-b+c=0 \Rightarrow a=0$.
+Jadi, $a=b=c=0$. $\kernel(T) = \{0+0x+0x^2\}$, yaitu polinom nol.
+Basis untuk $\kernel(T)$ adalah $\emptyset$. $\nulitas(T)=0$.
+
+\textbf{Jangkauan $T$ ($R(T)$)}:
+$\rank(T) = \dim(\Poly_2) - \nulitas(T) = 3-0=3$.
+Karena $\rank(T)=3$ dan kodomainnya $\R^3$ (berdimensi 3), maka $R(T) = \R^3$.
+Basis untuk $R(T)$ adalah basis standar $\R^3$, yaitu $\{(1,0,0), (0,1,0), (0,0,1)\}$.
+Atau, kolom-kolom matriks $A$ juga membentuk basis: $\{(2,0,1), (-1,1,-1), (0,1,1)\}$.
+
+\subsection*{4. Diketahui transformasi $T: \Poly_2 \rightarrow \Poly_2$, dengan $T(p(x)) = p(x) + 2p'(x)$. Tentukan matriks transformasi terhadap basis baku $B=\{1,x,x^2\}$. Tentukan pula kernel dari $T$.}
+\textbf{Jawaban:}\\
+$T(1) = 1 + 2(1)' = 1 + 2(0) = 1 \rightarrow (1,0,0)$.
+$T(x) = x + 2(x)' = x + 2(1) = 2+x \rightarrow (2,1,0)$.
+$T(x^2) = x^2 + 2(x^2)' = x^2 + 2(2x) = 4x+x^2 \rightarrow (0,4,1)$.
+Matriks transformasi $A = \matriks{1 & 2 & 0 \\ 0 & 1 & 4 \\ 0 & 0 & 1}$.
+
+\textbf{Kernel $T$}:
+Karena $A$ adalah matriks segitiga atas dengan semua elemen diagonal tidak nol, $\det(A) = 1 \cdot 1 \cdot 1 = 1 \neq 0$.
+Maka $A$ non-singular, sehingga $A\vektor{v}=\vektor{0}$ hanya memiliki solusi trivial $\vektor{v}=\vektor{0}$.
+$\kernel(T) = \{0+0x+0x^2\}$, yaitu polinom nol.
+
+\subsection*{5. Diketahui transformasi linear $T: \R^3 \rightarrow \R^3$, dengan $T(x,y,z) = (x-y, y-z, z-x)$. Tentukan basis $R(T)$.}
+\textbf{Jawaban:}\\
+Matriks standar $A$:
+$T(1,0,0) = (1,0,-1)$.
+$T(0,1,0) = (-1,1,0)$.
+$T(0,0,1) = (0,-1,1)$.
+$A = \matriks{1 & -1 & 0 \\ 0 & 1 & -1 \\ -1 & 0 & 1}$.
+$R(T)$ adalah ruang kolom $A$. Lakukan OBE pada $A^T$ untuk basis ruang baris $A^T$ (yang sama dengan basis ruang kolom $A$).
+$A^T = \matriks{1 & 0 & -1 \\ -1 & 1 & 0 \\ 0 & -1 & 1}$.
+$R_2 \rightarrow R_2 + R_1$: $\matriks{1 & 0 & -1 \\ 0 & 1 & -1 \\ 0 & -1 & 1}$.
+$R_3 \rightarrow R_3 + R_2$: $\matriks{1 & 0 & -1 \\ 0 & 1 & -1 \\ 0 & 0 & 0}$.
+Basis ruang baris $A^T$ adalah $\{(1,0,-1), (0,1,-1)\}$.
+Jadi, basis $R(T)$ adalah $\{(1,0,-1), (0,1,-1)\}$.
+$\rank(T) = 2$. $\nulitas(T) = 3-2=1$.
+(Kernel: $x-y=0, y-z=0, z-x=0 \Rightarrow x=y=z$. Basis kernel $\{(1,1,1)\}$).
+
+\subsection*{6. Diketahui transformasi $T: \Poly_3 \rightarrow \Poly_2$, dengan $T(1)=1, T(1+x)=1+x, T(x+x^2)=ax+x^2, T(x^3)=2+x$. Jika $T$ suatu pemetaan surjektif, berapa nilai $a$?}
+\textbf{Jawaban:}\\
+Ini adalah soal yang sama dengan Soal 7 pada set sebelumnya.
+$T(1)=(1,0,0)$.
+$T(x) = T(1+x)-T(1) = (1,1,0)-(1,0,0) = (0,1,0)$.
+$T(x^2) = T(x+x^2)-T(x) = (0,a,1)-(0,1,0) = (0, a-1, 1)$.
+$T(x^3)=(2,1,0)$.
+Jangkauan $R(T)$ direntang oleh $\{T(1), T(x), T(x^2), T(x^3)\}$.
+$R(T) = \spanof{(1,0,0), (0,1,0), (0,a-1,1), (2,1,0)}$.
+Agar $T$ surjektif ke $\Poly_2$, $\dim(R(T))$ harus 3.
+Matriks yang barisnya adalah vektor-vektor ini (atau kolomnya):
+$M = \matriks{1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & a-1 & 1 \\ 2 & 1 & 0}$.
+Kita perlu rank 3. Perhatikan 3 vektor pertama: $(1,0,0), (0,1,0), (0,a-1,1)$.
+Determinan $\begin{vmatrix} 1 & 0 & 0 \\ 0 & 1 & a-1 \\ 0 & 0 & 1 \end{vmatrix} = 1(1-0) = 1 \neq 0$.
+Karena tiga vektor ini sudah linear independen dan berada di $\Poly_2$ (yang direpresentasikan sebagai $\R^3$), mereka sudah membentuk basis untuk $\R^3$. Jadi $R(T)$ pasti $\Poly_2$.
+Ini berarti $T$ selalu surjektif untuk semua nilai $a \in \R$.
+
+\subsection*{7. Diketahui transformasi linear $T: \R^2 \rightarrow \R^3$, dengan $T(1,2)=(1,a,3)$, $T(2,1)=(a,1,6)$. Berapa nilai $a$ supaya $T$ satu-satu (injektif)?}
+\textbf{Jawaban:}\\
+Ini adalah soal yang sama dengan Soal 8 pada set sebelumnya.
+$T$ injektif jika $\kernel(T)=\{\vektor{0}\}$.
+Karena domainnya $\R^2$, $T$ injektif jika himpunan $\{T(1,2), T(2,1)\}$ linear independen di $\R^3$.
+Vektor $(1,a,3)$ dan $(a,1,6)$ linear independen jika salah satunya bukan kelipatan skalar dari yang lain.
+Jika mereka dependen, $(1,a,3) = k(a,1,6)$.
+$1=ka$, $a=k$, $3=6k \Rightarrow k=1/2$.
+Jika $k=1/2$, maka $a=1/2$.
+Substitusikan ke $1=ka$: $1=(1/2)(1/2)=1/4$. Ini salah.
+Jadi, kedua vektor $(1,a,3)$ dan $(a,1,6)$ tidak mungkin menjadi kelipatan skalar satu sama lain kecuali jika salah satunya adalah vektor nol (yang tidak mungkin di sini jika $a$ adalah bilangan real).
+Dua vektor non-nol adalah dependen linear jika dan hanya jika satu adalah kelipatan skalar dari yang lain.
+Karena kita mendapatkan kontradiksi, maka vektor $(1,a,3)$ dan $(a,1,6)$ selalu linear independen untuk semua nilai $a \in \R$.
+Oleh karena itu, $\rank(T)=2$.
+Karena $\nulitas(T) = \dim(\text{domain}) - \rank(T) = 2-2=0$, maka $\kernel(T)=\{\vektor{0}\}$.
+Jadi, $T$ selalu injektif untuk semua $a \in \R$.
+
+\subsection*{8. Misalkan $B=\{\vektor{v}_1, \vektor{v}_2, \vektor{v}_3\}$ adalah suatu basis terurut untuk $V$. Asumsikan $T:V \rightarrow V$ linear, dimana $T(\vektor{v}_1)=\vektor{v}_2+\vektor{v}_3, T(\vektor{v}_2)=\vektor{v}_3, T(\vektor{v}_3)=\vektor{v}_1-\vektor{v}_2$.}
+\subsubsection*{a. Carilah matriks representasi $[T]_{B,B}$.}
+\textbf{Jawaban:}\\
+Ini adalah soal yang sama dengan Soal 11a pada set sebelumnya.
+$[T(\vektor{v}_1)]_B = [0\vektor{v}_1 + 1\vektor{v}_2 + 1\vektor{v}_3]_B = (0,1,1)^T$.
+$[T(\vektor{v}_2)]_B = [0\vektor{v}_1 + 0\vektor{v}_2 + 1\vektor{v}_3]_B = (0,0,1)^T$.
+$[T(\vektor{v}_3)]_B = [1\vektor{v}_1 - 1\vektor{v}_2 + 0\vektor{v}_3]_B = (1,-1,0)^T$.
+$[T]_{B,B} = \matriks{0 & 0 & 1 \\ 1 & 0 & -1 \\ 1 & 1 & 0}$.
+
+\subsubsection*{b. Jika $B'=\{\vektor{v}_2, \vektor{v}_3+\vektor{v}_1, \vektor{v}_1-\vektor{v}_2\}$ carilah $[T]_{B',B'}$.}
+\textbf{Jawaban:}\\
+Ini adalah soal yang sama dengan Soal 11b pada set sebelumnya.
+$P_{B' \rightarrow B} = \matriks{0 & 1 & 1 \\ 1 & 0 & -1 \\ 0 & 1 & 0}$.
+$P_{B \rightarrow B'} = (P_{B' \rightarrow B})^{-1} = \matriks{1 & 1 & -1 \\ 0 & 0 & 1 \\ 1 & 0 & -1}$.
+$[T]_{B',B'} = P_{B \rightarrow B'} [T]_{B,B} P_{B' \rightarrow B} = \matriks{-1 & 0 & 1 \\ 1 & 1 & 0 \\ -1 & 0 & 0}$.
+
+\end{document}

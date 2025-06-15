@@ -1,0 +1,154 @@
+\documentclass{article}
+\usepackage{amsmath} % Untuk lingkungan matriks dan perintah matematika lainnya
+\usepackage{amsfonts} % Untuk simbol
+\usepackage{amssymb} % Untuk simbol \mathbb{R}
+\usepackage{geometry} % Untuk mengatur margin
+\geometry{a4paper, margin=1in}
+
+\title{Aljabar Linear: Ruang Eigen}
+\author{Rafi Kamindra 2201006}
+\date{} % Kosongkan tanggal jika tidak ingin ditampilkan
+
+\newcommand{\vektor}[1]{\mathbf{#1}} % Perintah untuk vektor
+\newcommand{\R}{\mathbb{R}} % Simbol R
+\newcommand{\matriks}[1]{\begin{pmatrix} #1 \end{pmatrix}} % Perintah untuk matriks
+
+\begin{document}
+\maketitle
+\pagenumbering{gobble} % Menghilangkan nomor halaman jika tidak diinginkan untuk halaman judul
+
+\section*{Problem}
+\textbf{Carilah basis dan dimensi ruang eigen dari matriks-matriks:}
+
+\subsection*{$A = \matriks{1 & 2 & 2 \\ 0 & 3 & 0 \\ 0 & 2 & 3}$}
+\textbf{Jawaban:}\\
+Karena $A$ adalah matriks segitiga atas, nilai eigen adalah elemen-elemen diagonalnya.
+Nilai eigen: $\lambda_1 = 1$, $\lambda_2 = 3$ (multiplisitas aljabar 2).
+
+Untuk $\lambda_1 = 1$: $(A - I)\vektor{x} = \vektor{0}$
+\[ \matriks{1-1 & 2 & 2 \\ 0 & 3-1 & 0 \\ 0 & 2 & 3-1} \matriks{x_1 \\ x_2 \\ x_3} = \matriks{0 & 2 & 2 \\ 0 & 2 & 0 \\ 0 & 2 & 2} \matriks{x_1 \\ x_2 \\ x_3} = \matriks{0 \\ 0 \\ 0} \]
+Dari baris kedua: $2x_2 = 0 \Rightarrow x_2 = 0$.
+Dari baris pertama (atau ketiga): $2x_2 + 2x_3 = 0 \Rightarrow 2(0) + 2x_3 = 0 \Rightarrow 2x_3 = 0 \Rightarrow x_3 = 0$.
+$x_1$ adalah variabel bebas. Misalkan $x_1 = t$.
+Vektor eigen: $\vektor{x} = t\matriks{1 \\ 0 \\ 0}$.
+Basis untuk ruang eigen $E_1$: $\left\{ \matriks{1 \\ 0 \\ 0} \right\}$. Dimensi $E_1 = 1$.
+
+Untuk $\lambda_2 = 3$: $(A - 3I)\vektor{x} = \vektor{0}$
+\[ \matriks{1-3 & 2 & 2 \\ 0 & 3-3 & 0 \\ 0 & 2 & 3-3} \matriks{x_1 \\ x_2 \\ x_3} = \matriks{-2 & 2 & 2 \\ 0 & 0 & 0 \\ 0 & 2 & 0} \matriks{x_1 \\ x_2 \\ x_3} = \matriks{0 \\ 0 \\ 0} \]
+Dari baris ketiga: $2x_2 = 0 \Rightarrow x_2 = 0$.
+Dari baris pertama: $-2x_1 + 2x_2 + 2x_3 = 0 \Rightarrow -2x_1 + 2(0) + 2x_3 = 0 \Rightarrow -2x_1 + 2x_3 = 0 \Rightarrow x_1 = x_3$.
+$x_3$ adalah variabel bebas. Misalkan $x_3 = t$. Maka $x_1 = t$.
+Vektor eigen: $\vektor{x} = t\matriks{1 \\ 0 \\ 1}$.
+Basis untuk ruang eigen $E_3$: $\left\{ \matriks{1 \\ 0 \\ 1} \right\}$. Dimensi $E_3 = 1$.
+(Catatan: Multiplisitas aljabar $\lambda=3$ adalah 2, tetapi multiplisitas geometrisnya adalah 1. Matriks ini tidak dapat didiagonalkan).
+
+\subsection*{$B = \matriks{2 & 2 & 2 \\ 2 & 2 & 2 \\ 2 & 2 & 2}$}
+\textbf{Jawaban:}\\
+Persamaan karakteristik: $\det(B - \lambda I) = 0$.
+\[ \begin{vmatrix} 2-\lambda & 2 & 2 \\ 2 & 2-\lambda & 2 \\ 2 & 2 & 2-\lambda \end{vmatrix} = 0 \]
+$R_1 \rightarrow R_1+R_2+R_3$:
+\[ \begin{vmatrix} 6-\lambda & 6-\lambda & 6-\lambda \\ 2 & 2-\lambda & 2 \\ 2 & 2 & 2-\lambda \end{vmatrix} = (6-\lambda) \begin{vmatrix} 1 & 1 & 1 \\ 2 & 2-\lambda & 2 \\ 2 & 2 & 2-\lambda \end{vmatrix} = 0 \]
+$C_2 \rightarrow C_2-C_1$, $C_3 \rightarrow C_3-C_1$:
+\[ (6-\lambda) \begin{vmatrix} 1 & 0 & 0 \\ 2 & -\lambda & 0 \\ 2 & 0 & -\lambda \end{vmatrix} = (6-\lambda)(1)(-\lambda)(-\lambda) = (6-\lambda)\lambda^2 = 0 \]
+Nilai eigen: $\lambda_1 = 6$ (multiplisitas 1), $\lambda_2 = 0$ (multiplisitas 2).
+
+Untuk $\lambda_1 = 6$: $(B - 6I)\vektor{x} = \vektor{0}$
+\[ \matriks{2-6 & 2 & 2 \\ 2 & 2-6 & 2 \\ 2 & 2 & 2-6} \matriks{x_1 \\ x_2 \\ x_3} = \matriks{-4 & 2 & 2 \\ 2 & -4 & 2 \\ 2 & 2 & -4} \matriks{x_1 \\ x_2 \\ x_3} = \matriks{0 \\ 0 \\ 0} \]
+Bagi semua baris dengan 2: $\matriks{-2 & 1 & 1 \\ 1 & -2 & 1 \\ 1 & 1 & -2} \matriks{x_1 \\ x_2 \\ x_3} = \matriks{0 \\ 0 \\ 0}$.
+$R_2 \rightarrow R_2 + \frac{1}{2}R_1$, $R_3 \rightarrow R_3 + \frac{1}{2}R_1$:
+$\matriks{-2 & 1 & 1 \\ 0 & -3/2 & 3/2 \\ 0 & 3/2 & -3/2} \matriks{x_1 \\ x_2 \\ x_3} = \matriks{0 \\ 0 \\ 0}$.
+Dari baris kedua: $-\frac{3}{2}x_2 + \frac{3}{2}x_3 = 0 \Rightarrow x_2 = x_3$.
+Dari baris pertama: $-2x_1 + x_2 + x_3 = 0 \Rightarrow -2x_1 + x_2 + x_2 = 0 \Rightarrow -2x_1 + 2x_2 = 0 \Rightarrow x_1 = x_2$.
+Jadi $x_1=x_2=x_3$. Misalkan $x_3=t$, maka $x_1=t, x_2=t$.
+Vektor eigen: $\vektor{x} = t\matriks{1 \\ 1 \\ 1}$.
+Basis untuk ruang eigen $E_6$: $\left\{ \matriks{1 \\ 1 \\ 1} \right\}$. Dimensi $E_6 = 1$.
+
+Untuk $\lambda_2 = 0$: $(B - 0I)\vektor{x} = B\vektor{x} = \vektor{0}$
+\[ \matriks{2 & 2 & 2 \\ 2 & 2 & 2 \\ 2 & 2 & 2} \matriks{x_1 \\ x_2 \\ x_3} = \matriks{0 \\ 0 \\ 0} \]
+$2x_1 + 2x_2 + 2x_3 = 0 \Rightarrow x_1 + x_2 + x_3 = 0 \Rightarrow x_1 = -x_2 - x_3$.
+Misalkan $x_2 = s$, $x_3 = t$. Maka $x_1 = -s-t$.
+Vektor eigen: $\vektor{x} = \matriks{-s-t \\ s \\ t} = s\matriks{-1 \\ 1 \\ 0} + t\matriks{-1 \\ 0 \\ 1}$.
+Basis untuk ruang eigen $E_0$: $\left\{ \matriks{-1 \\ 1 \\ 0}, \matriks{-1 \\ 0 \\ 1} \right\}$. Dimensi $E_0 = 2$.
+
+\subsection*{$C = \matriks{2 & -1 & 0 \\ -1 & 2 & 1 \\ 1 & 1 & 1}$}
+\textbf{Jawaban:}\\
+Persamaan karakteristik: $\det(C - \lambda I) = 0$.
+\[ \begin{vmatrix} 2-\lambda & -1 & 0 \\ -1 & 2-\lambda & 1 \\ 1 & 1 & 1-\lambda \end{vmatrix} = 0 \]
+$(2-\lambda)((2-\lambda)(1-\lambda) - 1) - (-1)(-1(1-\lambda) - 1) + 0 = 0$
+$(2-\lambda)(2 - 2\lambda - \lambda + \lambda^2 - 1) + (-1+\lambda - 1) = 0$
+$(2-\lambda)(\lambda^2 - 3\lambda + 1) + (\lambda - 2) = 0$
+$(2-\lambda)(\lambda^2 - 3\lambda + 1) - (2-\lambda) = 0$
+$(2-\lambda)(\lambda^2 - 3\lambda + 1 - 1) = 0$
+$(2-\lambda)(\lambda^2 - 3\lambda) = 0$
+$(2-\lambda)\lambda(\lambda - 3) = 0$.
+Nilai eigen: $\lambda_1 = 2, \lambda_2 = 0, \lambda_3 = 3$.
+
+Untuk $\lambda_1 = 2$: $(C - 2I)\vektor{x} = \vektor{0}$
+\[ \matriks{0 & -1 & 0 \\ -1 & 0 & 1 \\ 1 & 1 & -1} \matriks{x_1 \\ x_2 \\ x_3} = \matriks{0 \\ 0 \\ 0} \]
+$-x_2 = 0 \Rightarrow x_2 = 0$.
+$-x_1 + x_3 = 0 \Rightarrow x_1 = x_3$.
+Misalkan $x_3 = t$, maka $x_1 = t$.
+Vektor eigen: $\vektor{x} = t\matriks{1 \\ 0 \\ 1}$. Basis $E_2$: $\left\{ \matriks{1 \\ 0 \\ 1} \right\}$. Dimensi $E_2 = 1$.
+
+Untuk $\lambda_2 = 0$: $(C - 0I)\vektor{x} = C\vektor{x} = \vektor{0}$
+\[ \matriks{2 & -1 & 0 \\ -1 & 2 & 1 \\ 1 & 1 & 1} \matriks{x_1 \\ x_2 \\ x_3} = \matriks{0 \\ 0 \\ 0} \]
+$R_1 \leftrightarrow R_3$: $\matriks{1 & 1 & 1 \\ -1 & 2 & 1 \\ 2 & -1 & 0} \matriks{x_1 \\ x_2 \\ x_3} = \matriks{0 \\ 0 \\ 0}$.
+$R_2 \rightarrow R_2+R_1$, $R_3 \rightarrow R_3-2R_1$: $\matriks{1 & 1 & 1 \\ 0 & 3 & 2 \\ 0 & -3 & -2} \matriks{x_1 \\ x_2 \\ x_3} = \matriks{0 \\ 0 \\ 0}$.
+$R_3 \rightarrow R_3+R_2$: $\matriks{1 & 1 & 1 \\ 0 & 3 & 2 \\ 0 & 0 & 0} \matriks{x_1 \\ x_2 \\ x_3} = \matriks{0 \\ 0 \\ 0}$.
+$3x_2 + 2x_3 = 0 \Rightarrow x_2 = -\frac{2}{3}x_3$.
+$x_1 + x_2 + x_3 = 0 \Rightarrow x_1 = -x_2 - x_3 = -(-\frac{2}{3}x_3) - x_3 = \frac{2}{3}x_3 - x_3 = -\frac{1}{3}x_3$.
+Misalkan $x_3 = 3t$, maka $x_2 = -2t, x_1 = -t$.
+Vektor eigen: $\vektor{x} = t\matriks{-1 \\ -2 \\ 3}$. Basis $E_0$: $\left\{ \matriks{-1 \\ -2 \\ 3} \right\}$. Dimensi $E_0 = 1$.
+
+Untuk $\lambda_3 = 3$: $(C - 3I)\vektor{x} = \vektor{0}$
+\[ \matriks{-1 & -1 & 0 \\ -1 & -1 & 1 \\ 1 & 1 & -2} \matriks{x_1 \\ x_2 \\ x_3} = \matriks{0 \\ 0 \\ 0} \]
+$R_2 \rightarrow R_2-R_1$, $R_3 \rightarrow R_3+R_1$: $\matriks{-1 & -1 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & -2} \matriks{x_1 \\ x_2 \\ x_3} = \matriks{0 \\ 0 \\ 0}$.
+Dari $R_2: x_3=0$.
+Dari $R_1: -x_1-x_2=0 \Rightarrow x_1 = -x_2$.
+Misalkan $x_2 = t$, maka $x_1 = -t$.
+Vektor eigen: $\vektor{x} = t\matriks{-1 \\ 1 \\ 0}$. Basis $E_3$: $\left\{ \matriks{-1 \\ 1 \\ 0} \right\}$. Dimensi $E_3 = 1$.
+
+\subsection*{$D = \matriks{1 & 3 & 1 \\ -1 & 2 & 1 \\ 1 & 8 & 3}$}
+\textbf{Jawaban:}\\
+Persamaan karakteristik: $\det(D - \lambda I) = 0$.
+\[ \begin{vmatrix} 1-\lambda & 3 & 1 \\ -1 & 2-\lambda & 1 \\ 1 & 8 & 3-\lambda \end{vmatrix} = 0 \]
+$(1-\lambda)((2-\lambda)(3-\lambda)-8) - 3(-1(3-\lambda)-1) + 1(-8-(2-\lambda)) = 0$
+$(1-\lambda)(6-2\lambda-3\lambda+\lambda^2-8) - 3(-3+\lambda-1) + (-8-2+\lambda) = 0$
+$(1-\lambda)(\lambda^2-5\lambda-2) - 3(\lambda-4) + (\lambda-10) = 0$
+$\lambda^2-5\lambda-2 - \lambda^3+5\lambda^2+2\lambda - 3\lambda+12 + \lambda-10 = 0$
+$-\lambda^3 + (1+5)\lambda^2 + (-5+2-3+1)\lambda + (-2+12-10) = 0$
+$-\lambda^3 + 6\lambda^2 - 5\lambda + 0 = 0$
+$-\lambda(\lambda^2 - 6\lambda + 5) = 0$
+$-\lambda(\lambda-1)(\lambda-5) = 0$.
+Nilai eigen: $\lambda_1 = 0, \lambda_2 = 1, \lambda_3 = 5$.
+
+Untuk $\lambda_1 = 0$: $(D - 0I)\vektor{x} = D\vektor{x} = \vektor{0}$
+\[ \matriks{1 & 3 & 1 \\ -1 & 2 & 1 \\ 1 & 8 & 3} \matriks{x_1 \\ x_2 \\ x_3} = \matriks{0 \\ 0 \\ 0} \]
+$R_2 \rightarrow R_2+R_1$, $R_3 \rightarrow R_3-R_1$: $\matriks{1 & 3 & 1 \\ 0 & 5 & 2 \\ 0 & 5 & 2} \matriks{x_1 \\ x_2 \\ x_3} = \matriks{0 \\ 0 \\ 0}$.
+$R_3 \rightarrow R_3-R_2$: $\matriks{1 & 3 & 1 \\ 0 & 5 & 2 \\ 0 & 0 & 0} \matriks{x_1 \\ x_2 \\ x_3} = \matriks{0 \\ 0 \\ 0}$.
+$5x_2+2x_3=0 \Rightarrow x_2 = -\frac{2}{5}x_3$.
+$x_1+3x_2+x_3=0 \Rightarrow x_1 = -3x_2-x_3 = -3(-\frac{2}{5}x_3)-x_3 = \frac{6}{5}x_3 - x_3 = \frac{1}{5}x_3$.
+Misalkan $x_3=5t$, maka $x_1=t, x_2=-2t$.
+Vektor eigen: $\vektor{x} = t\matriks{1 \\ -2 \\ 5}$. Basis $E_0$: $\left\{ \matriks{1 \\ -2 \\ 5} \right\}$. Dimensi $E_0 = 1$.
+
+Untuk $\lambda_2 = 1$: $(D - I)\vektor{x} = \vektor{0}$
+\[ \matriks{0 & 3 & 1 \\ -1 & 1 & 1 \\ 1 & 8 & 2} \matriks{x_1 \\ x_2 \\ x_3} = \matriks{0 \\ 0 \\ 0} \]
+$R_1 \leftrightarrow R_2$: $\matriks{-1 & 1 & 1 \\ 0 & 3 & 1 \\ 1 & 8 & 2} \matriks{x_1 \\ x_2 \\ x_3} = \matriks{0 \\ 0 \\ 0}$.
+$R_3 \rightarrow R_3+R_1$: $\matriks{-1 & 1 & 1 \\ 0 & 3 & 1 \\ 0 & 9 & 3} \matriks{x_1 \\ x_2 \\ x_3} = \matriks{0 \\ 0 \\ 0}$.
+$R_3 \rightarrow R_3-3R_2$: $\matriks{-1 & 1 & 1 \\ 0 & 3 & 1 \\ 0 & 0 & 0} \matriks{x_1 \\ x_2 \\ x_3} = \matriks{0 \\ 0 \\ 0}$.
+$3x_2+x_3=0 \Rightarrow x_3 = -3x_2$.
+$-x_1+x_2+x_3=0 \Rightarrow x_1 = x_2+x_3 = x_2 - 3x_2 = -2x_2$.
+Misalkan $x_2=t$, maka $x_1=-2t, x_3=-3t$.
+Vektor eigen: $\vektor{x} = t\matriks{-2 \\ 1 \\ -3}$. Basis $E_1$: $\left\{ \matriks{-2 \\ 1 \\ -3} \right\}$. Dimensi $E_1 = 1$.
+
+Untuk $\lambda_3 = 5$: $(D - 5I)\vektor{x} = \vektor{0}$
+\[ \matriks{-4 & 3 & 1 \\ -1 & -3 & 1 \\ 1 & 8 & -2} \matriks{x_1 \\ x_2 \\ x_3} = \matriks{0 \\ 0 \\ 0} \]
+$R_1 \leftrightarrow R_3$: $\matriks{1 & 8 & -2 \\ -1 & -3 & 1 \\ -4 & 3 & 1} \matriks{x_1 \\ x_2 \\ x_3} = \matriks{0 \\ 0 \\ 0}$.
+$R_2 \rightarrow R_2+R_1$, $R_3 \rightarrow R_3+4R_1$: $\matriks{1 & 8 & -2 \\ 0 & 5 & -1 \\ 0 & 35 & -7} \matriks{x_1 \\ x_2 \\ x_3} = \matriks{0 \\ 0 \\ 0}$.
+$R_3 \rightarrow R_3-7R_2$: $\matriks{1 & 8 & -2 \\ 0 & 5 & -1 \\ 0 & 0 & 0} \matriks{x_1 \\ x_2 \\ x_3} = \matriks{0 \\ 0 \\ 0}$.
+$5x_2-x_3=0 \Rightarrow x_3=5x_2$.
+$x_1+8x_2-2x_3=0 \Rightarrow x_1 = -8x_2+2x_3 = -8x_2+2(5x_2) = -8x_2+10x_2 = 2x_2$.
+Misalkan $x_2=t$, maka $x_1=2t, x_3=5t$.
+Vektor eigen: $\vektor{x} = t\matriks{2 \\ 1 \\ 5}$. Basis $E_5$: $\left\{ \matriks{2 \\ 1 \\ 5} \right\}$. Dimensi $E_5 = 1$.
+
+\end{document}

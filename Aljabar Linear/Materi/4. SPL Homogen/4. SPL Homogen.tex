@@ -1,0 +1,145 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage{amsmath} % Untuk lingkungan matriks dan perintah matematika lainnya
+\usepackage{amsfonts} % Untuk simbol matematika
+\usepackage{amssymb} % Untuk simbol \mathbb{R}
+\usepackage{geometry} % Untuk mengatur margin
+\usepackage[indonesian]{babel} % Mengatur bahasa Indonesia
+\usepackage{array} % Untuk kolom tabel yang lebih baik
+\usepackage{booktabs} % Untuk garis tabel yang lebih baik
+\usepackage{graphicx} % Untuk menyertakan gambar (jika diperlukan)
+\usepackage{hyperref} % Untuk hyperlink (jika diperlukan)
+\usepackage{amsthm} % Untuk lingkungan definisi dan teorema
+\usepackage{systeme}   % Untuk sistem persamaan
+\usepackage{enumitem}
+
+\geometry{a4paper, margin=1in} % Mengatur margin halaman
+
+% Definisi lingkungan baru
+\newtheorem{definisi}{Definisi}[section]
+\newtheorem{contoh}{Contoh}[section]
+\newtheorem{teorema}{Teorema}[section]
+\newtheorem{fakta}{Fakta}[section]
+\newtheorem{proposisi}{Proposisi}[section] % Menambahkan lingkungan proposisi
+
+% Definisi perintah baru untuk kemudahan
+\newcommand{\matriks}[1]{\begin{pmatrix} #1 \end{pmatrix}} % Perintah untuk matriks
+\newcommand{\R}{\mathbb{R}} % Simbol R untuk bilangan real
+\newcommand{\M}[1]{\mathcal{M}_{#1}} % Simbol M untuk himpunan matriks
+\newcommand{\rank}{\text{rank}} % Perintah untuk rank
+\newcommand{\vektor}[1]{\mathbf{#1}} % Perintah untuk vektor
+
+\title{Sistem Persamaan Linear (SPL) Homogen}
+\author{Rafi Kamindra 2201006}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Definisi SPL Homogen}
+\begin{definisi}
+Sebuah Sistem Persamaan Linear (SPL) dikatakan \textbf{homogen} jika semua suku konstanta (suku di sebelah kanan tanda sama dengan) adalah nol. Bentuk umum dari SPL homogen dengan $m$ persamaan dan $n$ variabel adalah:
+\begin{align*}
+    a_{11}x_1 + a_{12}x_2 + \cdots + a_{1n}x_n &= 0 \\
+    a_{21}x_1 + a_{22}x_2 + \cdots + a_{2n}x_n &= 0 \\
+    \vdots \quad & \quad \vdots \quad & \quad \vdots \\
+    a_{m1}x_1 + a_{m2}x_2 + \cdots + a_{mn}x_n &= 0
+\end{align*}
+Dalam notasi matriks, SPL homogen dapat ditulis sebagai $A\vektor{X} = \vektor{0}$, dimana $A$ adalah matriks koefisien $m \times n$, $\vektor{X}$ adalah vektor kolom variabel $n \times 1$, dan $\vektor{0}$ adalah vektor kolom nol $m \times 1$.
+\end{definisi}
+
+\subsection{Solusi Trivial}
+Setiap SPL homogen \textbf{selalu konsisten} (memiliki solusi) karena $\vektor{X} = \vektor{0}$ (yaitu, $x_1=0, x_2=0, \dots, x_n=0$) selalu merupakan solusi. Solusi ini disebut \textbf{solusi trivial}.
+
+\begin{contoh}
+Perhatikan SPL homogen berikut:
+\begin{align*}
+    x_1 + x_2 + x_3 &= 0 \\
+    x_1 - x_2 - 2x_3 &= 0
+\end{align*}
+Jelas bahwa $x_1=0, x_2=0, x_3=0$ adalah sebuah solusi. Pertanyaannya adalah apakah ada solusi lain selain solusi trivial ini. Solusi lain selain solusi trivial disebut \textbf{solusi non-trivial}.
+\end{contoh}
+
+\section{Mencari Solusi SPL Homogen}
+Metode untuk mencari solusi SPL homogen sama dengan metode untuk SPL non-homogen, yaitu menggunakan eliminasi Gauss atau eliminasi Gauss-Jordan pada matriks koefisien $A$ (atau matriks augmented $[A|\vektor{0}]$, meskipun kolom terakhir yang berisi nol tidak akan berubah oleh OBE).
+
+\begin{contoh}[Solusi Trivial Saja]
+Carilah solusi dari SPL homogen:
+\sysdelim..
+\systeme{
+x_1 - x_2 + 2x_3 = 0,
+x_2 - 2x_3 = 0,
+-x_1 + 3x_2 = 0
+}
+\textbf{Solusi:}\\
+Matriks koefisien (matriks augmented memiliki kolom terakhir nol):
+\[ A = \matriks{1 & -1 & 2 \\ 0 & 1 & -2 \\ -1 & 3 & 0} \]
+Lakukan OBE:
+\[ \matriks{1 & -1 & 2 \\ 0 & 1 & -2 \\ -1 & 3 & 0} \xrightarrow{R_3 \to R_3 + R_1}
+   \matriks{1 & -1 & 2 \\ 0 & 1 & -2 \\ 0 & 2 & 2} \]
+\[ \xrightarrow{R_3 \to R_3 - 2R_2}
+   \matriks{1 & -1 & 2 \\ 0 & 1 & -2 \\ 0 & 0 & 6} \]
+Bentuk eselon barisnya (setelah $R_3 \to \frac{1}{6}R_3$ dan dilanjutkan ke bentuk tereduksi jika perlu):
+\[ \matriks{1 & -1 & 2 \\ 0 & 1 & -2 \\ 0 & 0 & 1} \]
+SPL yang bersesuaian:
+\begin{align*} x_1 - x_2 + 2x_3 &= 0 \\ x_2 - 2x_3 &= 0 \\ x_3 &= 0 \end{align*}
+Substitusi balik:
+$x_3=0$.
+$x_2 - 2(0) = 0 \Rightarrow x_2 = 0$.
+$x_1 - 0 + 2(0) = 0 \Rightarrow x_1 = 0$.
+Jadi, satu-satunya solusi adalah solusi trivial $x_1=0, x_2=0, x_3=0$.
+\end{contoh}
+
+\begin{contoh}[Solusi Non-Trivial / Banyak Solusi]
+Carilah solusi dari SPL homogen:
+\sysdelim..
+\systeme{
+x_1 + 2x_2 - x_3 = 0,
+x_1 + x_2 + 2x_3 = 0,
+2x_1 + 3x_2 + x_3 = 0
+}
+\textbf{Solusi:}\\
+Matriks koefisien:
+\[ A = \matriks{1 & 2 & -1 \\ 1 & 1 & 2 \\ 2 & 3 & 1} \]
+Lakukan OBE:
+\[ \matriks{1 & 2 & -1 \\ 1 & 1 & 2 \\ 2 & 3 & 1} \xrightarrow{R_2 \to R_2-R_1, R_3 \to R_3-2R_1}
+   \matriks{1 & 2 & -1 \\ 0 & -1 & 3 \\ 0 & -1 & 3} \]
+\[ \xrightarrow{R_3 \to R_3-R_2}
+   \matriks{1 & 2 & -1 \\ 0 & -1 & 3 \\ 0 & 0 & 0} \xrightarrow{R_2 \to -R_2}
+   \matriks{1 & 2 & -1 \\ 0 & 1 & -3 \\ 0 & 0 & 0} \]
+\[ \xrightarrow{R_1 \to R_1-2R_2}
+   \matriks{1 & 0 & 5 \\ 0 & 1 & -3 \\ 0 & 0 & 0} \]
+SPL yang bersesuaian dengan bentuk eselon baris tereduksi:
+\begin{align*} x_1 + 5x_3 &= 0 \Rightarrow x_1 = -5x_3 \\ x_2 - 3x_3 &= 0 \Rightarrow x_2 = 3x_3 \end{align*}
+Kolom ketiga tidak memiliki 1 utama, sehingga $x_3$ adalah variabel bebas. Misalkan $x_3 = t$, dimana $t \in \R$.
+Maka solusi umumnya adalah $x_1 = -5t, x_2 = 3t, x_3 = t$.
+Dalam bentuk vektor: $\vektor{X} = \matriks{-5t \\ 3t \\ t} = t \matriks{-5 \\ 3 \\ 1}$.
+Karena $t$ bisa sebarang bilangan real, SPL ini memiliki solusi tak hingga banyak (solusi non-trivial).
+Himpunan $\left\{ \matriks{-5 \\ 3 \\ 1} \right\}$ disebut \textbf{basis untuk ruang solusi} (atau kernel) dari SPL homogen ini. Dimensi ruang solusi adalah 1.
+\end{contoh}
+
+\section{Sifat Solusi SPL Homogen}
+\begin{proposisi}
+Sebuah SPL homogen $A\vektor{X}=\vektor{0}$ memiliki salah satu dari dua kemungkinan berikut terkait solusinya:
+\begin{enumerate}[label=(\alph*)]
+    \item Hanya memiliki \textbf{solusi trivial} ($\vektor{X}=\vektor{0}$).
+    \item Memiliki \textbf{solusi tak hingga banyak} (termasuk solusi trivial dan solusi non-trivial).
+\end{enumerate}
+SPL homogen tidak mungkin tidak konsisten.
+\end{proposisi}
+
+\subsection{Kaitan dengan Rank dan Jumlah Variabel}
+\begin{teorema}
+Misalkan $A \in M_{m \times n}$ adalah matriks koefisien dari SPL homogen $A\vektor{X}=\vektor{0}$.
+\begin{itemize}
+    \item Jika $m < n$ (jumlah persamaan lebih sedikit dari jumlah variabel), maka SPL homogen $A\vektor{X}=\vektor{0}$ pasti mempunyai solusi tak hingga banyak. Jumlah parameter (variabel bebas) dalam solusi umumnya adalah $n - \rank(A)$.
+    \item SPL homogen $A\vektor{X}=\vektor{0}$ memiliki solusi non-trivial jika dan hanya jika $\rank(A) < n$.
+    \item Jika $A \in M_n$ (matriks persegi), maka SPL homogen $A\vektor{X}=\vektor{0}$ memiliki solusi non-trivial jika dan hanya jika $A$ tidak invertibel (singular), atau ekuivalen dengan $\det(A)=0$. Jika $A$ invertibel ($\det(A) \neq 0$), maka hanya solusi trivial yang ada.
+\end{itemize}
+\end{teorema}
+
+\begin{teorema}
+Misalkan $A \in M_n$ (matriks persegi $n \times n$). Maka SPL $A\vektor{X}=\vektor{B}$ mempunyai solusi tunggal (unik) untuk setiap $\vektor{B}$ jika dan hanya jika $\rank(A)=n$. Jika $\rank(A)=n$, maka $A$ invertibel, dan solusi uniknya adalah $\vektor{X}=A^{-1}\vektor{B}$.
+\end{teorema}
+\textbf{Catatan}: Teorema terakhir ini berlaku untuk SPL non-homogen, tetapi relevan karena menunjukkan pentingnya rank $n$ untuk matriks persegi dalam menentukan keunikan solusi. Untuk SPL homogen $A\vektor{X}=\vektor{0}$ dengan $A \in M_n$, jika $\rank(A)=n$, maka hanya ada solusi trivial.
+
+\end{document}

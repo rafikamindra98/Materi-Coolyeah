@@ -1,0 +1,182 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage{amsmath} % Untuk lingkungan matriks dan perintah matematika lainnya
+\usepackage{amsfonts} % Untuk simbol matematika
+\usepackage{amssymb} % Untuk simbol \mathbb{R}
+\usepackage{geometry} % Untuk mengatur margin
+\usepackage[indonesian]{babel} % Mengatur bahasa Indonesia
+\usepackage{array} % Untuk kolom tabel yang lebih baik
+\usepackage{booktabs} % Untuk garis tabel yang lebih baik
+\usepackage{graphicx} % Untuk menyertakan gambar (jika diperlukan)
+\usepackage{tikz} % Untuk menggambar diagram
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric, fit, calc, chains}
+\usepackage[hidelinks]{hyperref} % Untuk hyperlink tanpa kotak
+\usepackage{amsthm} % Untuk lingkungan definisi dan teorema
+\usepackage{nicematrix} % Untuk matriks dengan garis partisi, jika diperlukan
+\usepackage{palatino} % Menggunakan font Palatino untuk tampilan yang lebih menarik
+\usepackage{setspace} % Untuk mengatur spasi antar baris jika perlu
+\usepackage{titlesec} % Untuk kustomisasi judul seksi
+\usepackage{enumitem} % Untuk kustomisasi daftar
+\usepackage{longtable} % Untuk tabel yang melintasi halaman, jika diperlukan
+
+\geometry{a4paper, margin=1in, headheight=15pt, footskip=30pt} % Mengatur margin halaman
+
+% Kustomisasi Judul Seksi
+\titleformat{\section}{\Large\bfseries\sffamily\color{blue!70!black}}{\thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries\sffamily\color{blue!60!black}}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\sffamily\color{blue!50!black}}{\thesubsubsection}{1em}{}
+
+% Definisi lingkungan baru
+\theoremstyle{definition} % Gaya standar untuk definisi dan contoh
+\newtheorem{definisi}{Definisi}[section]
+\newtheorem{contoh}{Contoh}[section]
+\newtheorem{catatan}{Catatan Penting}[section]
+\theoremstyle{plain} % Gaya standar untuk teorema
+\newtheorem{teorema}{Teorema}[section]
+\newtheorem{proposisi}{Proposisi}[section]
+\newtheorem{akibat}{Akibat}[section]
+
+% Definisi perintah baru untuk kemudahan
+\newcommand{\matriks}[1]{\begin{pmatrix} #1 \end{pmatrix}} % Perintah untuk matriks
+\newcommand{\R}{\mathbb{R}} % Simbol R untuk bilangan real
+\newcommand{\vektor}[1]{\mathbf{#1}} % Perintah untuk vektor tebal
+\newcommand{\nol}{\mathbf{0}} % Vektor nol
+\newcommand{\dettext}[1]{\operatorname{det}(#1)} % Notasi determinan det(A)
+\newcommand{\I}{\mathbf{I}} % Matriks identitas
+\newcommand{\dimV}{\operatorname{dim}} % Dimensi
+\newcommand{\kernel}{\operatorname{ker}} % Kernel
+
+\title{\textbf{Ruang Eigen (Eigenspace)}}
+\author{Rafi Kamindra 2201006}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Pengantar: Dari Vektor Eigen ke Ruang Eigen}
+Pada materi sebelumnya, kita telah mempelajari konsep nilai eigen dan vektor eigen. Untuk sebuah matriks persegi $A$, vektor eigen $\vektor{x}$ adalah vektor tak nol yang arahnya tetap (hanya panjangnya yang berubah) setelah dikenai transformasi oleh $A$. Hubungan ini dirangkum dalam persamaan fundamental:
+\[ A\vektor{x} = \lambda\vektor{x} \]
+dimana $\lambda$ adalah nilai eigen yang bersesuaian.
+
+Pertanyaan selanjutnya adalah: apakah himpunan semua vektor eigen yang bersesuaian dengan suatu nilai eigen $\lambda$ tertentu, ditambah dengan vektor nol, membentuk suatu struktur yang menarik? Jawabannya adalah ya, himpunan ini membentuk sebuah \textbf{subruang}, yang kita sebut sebagai \textbf{ruang eigen}. Memahami struktur ruang eigen ini sangat penting untuk memahami sifat geometris dari transformasi linear dan merupakan kunci utama dalam proses diagonalisasi matriks.
+
+\section{Definisi Formal Ruang Eigen}
+\begin{definisi}
+Misalkan $A$ adalah sebuah matriks persegi berukuran $n \times n$ dan $\lambda$ adalah salah satu nilai eigen dari $A$. Himpunan semua vektor $\vektor{x} \in \R^n$ yang memenuhi persamaan $(A - \lambda I)\vektor{x} = \nol$ disebut \textbf{ruang eigen} (eigenspace) dari $A$ yang bersesuaian dengan nilai eigen $\lambda$. Ruang eigen ini dinotasikan sebagai $E_{\lambda}$.
+\end{definisi}
+
+\begin{catatan}
+Berdasarkan definisi di atas, kita dapat melihat bahwa:
+\begin{itemize}
+    \item Ruang eigen $E_{\lambda}$ adalah himpunan semua vektor eigen yang berpadanan dengan $\lambda$, ditambah dengan vektor nol $\nol$.
+    \item $E_{\lambda}$ adalah himpunan solusi dari sistem persamaan linear homogen $(A - \lambda I)\vektor{x} = \nol$.
+    \item Ini berarti $E_{\lambda}$ adalah \textbf{kernel} atau \textbf{ruang nol} dari matriks $(A - \lambda I)$.
+    \[ E_{\lambda} = \kernel(A - \lambda I) \]
+\end{itemize}
+\end{catatan}
+
+\begin{teorema}
+Ruang eigen $E_{\lambda}$ dari sebuah matriks $A$ berukuran $n \times n$ adalah subruang dari $\R^n$.
+\end{teorema}
+\begin{proof}
+Karena $E_{\lambda} = \kernel(A - \lambda I)$, dan kita telah membuktikan bahwa kernel dari setiap transformasi linear (atau matriks) adalah sebuah subruang, maka secara otomatis $E_{\lambda}$ adalah subruang dari $\R^n$.
+Secara eksplisit:
+\begin{enumerate}
+    \item \textbf{Tidak Kosong}: $A\nol = \nol$ dan $\lambda\nol = \nol$, sehingga $A\nol = \lambda\nol$. Ini berarti $\nol \in E_{\lambda}$, jadi $E_{\lambda}$ tidak kosong.
+    \item \textbf{Tertutup terhadap Penjumlahan}: Ambil $\vektor{x}_1, \vektor{x}_2 \in E_{\lambda}$. Maka $A\vektor{x}_1 = \lambda\vektor{x}_1$ dan $A\vektor{x}_2 = \lambda\vektor{x}_2$.
+    \[ A(\vektor{x}_1 + \vektor{x}_2) = A\vektor{x}_1 + A\vektor{x}_2 = \lambda\vektor{x}_1 + \lambda\vektor{x}_2 = \lambda(\vektor{x}_1 + \vektor{x}_2) \]
+    Jadi, $\vektor{x}_1 + \vektor{x}_2 \in E_{\lambda}$.
+    \item \textbf{Tertutup terhadap Perkalian Skalar}: Ambil $\vektor{x} \in E_{\lambda}$ dan skalar $k \in \R$.
+    \[ A(k\vektor{x}) = k(A\vektor{x}) = k(\lambda\vektor{x}) = \lambda(k\vektor{x}) \]
+    Jadi, $k\vektor{x} \in E_{\lambda}$.
+\end{enumerate}
+Karena ketiga syarat terpenuhi, $E_{\lambda}$ adalah subruang dari $\R^n$.
+\end{proof}
+
+\section{Basis dan Dimensi Ruang Eigen}
+Karena ruang eigen adalah subruang, maka ia memiliki basis dan dimensi.
+\begin{definisi}
+\begin{itemize}
+    \item Sebuah himpunan vektor eigen bebas linear yang merentang ruang eigen $E_{\lambda}$ disebut \textbf{basis untuk ruang eigen} $E_{\lambda}$.
+    \item Dimensi dari ruang eigen $E_{\lambda}$, yaitu $\dimV(E_{\lambda})$, disebut \textbf{multiplisitas geometris} dari nilai eigen $\lambda$.
+\end{itemize}
+\end{definisi}
+Multiplisitas geometris dari $\lambda$ adalah jumlah maksimum vektor eigen bebas linear yang dapat ditemukan untuk $\lambda$ tersebut.
+
+\subsection{Prosedur Mencari Basis Ruang Eigen}
+Untuk mencari basis dari ruang eigen $E_{\lambda}$ yang bersesuaian dengan nilai eigen $\lambda$:
+\begin{enumerate}
+    \item Bentuk matriks $A - \lambda I$.
+    \item Selesaikan sistem persamaan linear homogen $(A - \lambda I)\vektor{x} = \nol$ dengan menggunakan eliminasi Gauss-Jordan untuk mengubah matriks augmented $[A - \lambda I | \nol]$ menjadi bentuk eselon baris tereduksi.
+    \item Tuliskan solusi umum dari sistem tersebut dalam bentuk parametrik (misalnya, dalam variabel bebas $s, t, \dots$).
+    \item Vektor-vektor yang menjadi pengali dari parameter-parameter bebas tersebut membentuk sebuah basis untuk ruang eigen $E_{\lambda}$.
+\end{enumerate}
+
+\subsection{Contoh Perhitungan Basis Ruang Eigen}
+
+\begin{contoh}[Multiplisitas Geometris = Multiplisitas Aljabar]
+Carilah basis dan dimensi ruang eigen dari matriks $B = \matriks{1 & 3 & 0 \\ 0 & -2 & 0 \\ 0 & 6 & 1}$.
+\textbf{Solusi}:
+Nilai eigen dari matriks segitiga ini adalah entri-entri diagonalnya: $\lambda_1 = -2$ (multiplisitas aljabar 1) dan $\lambda_2 = 1$ (multiplisitas aljabar 2).
+
+\textbf{Untuk $\lambda_1 = -2$}:
+Kita selesaikan $(B - (-2)I)\vektor{x} = (B+2I)\vektor{x} = \nol$.
+\[ \matriks{3 & 3 & 0 \\ 0 & 0 & 0 \\ 0 & 6 & 3} \matriks{x_1 \\ x_2 \\ x_3} = \matriks{0 \\ 0 \\ 0} \]
+Sistem persamaannya: $3x_1+3x_2=0 \implies x_1=-x_2$, dan $6x_2+3x_3=0 \implies x_3=-2x_2$.
+Misalkan $x_2=t$, maka $x_1=-t$ dan $x_3=-2t$.
+Solusi umumnya adalah $\vektor{x} = t\matriks{-1 \\ 1 \\ -2}$.
+Basis untuk ruang eigen $E_{-2}$ adalah $\left\{ \matriks{-1 \\ 1 \\ -2} \right\}$.
+Dimensi ruang eigen $E_{-2}$ (multiplisitas geometris) adalah 1.
+
+\textbf{Untuk $\lambda_2 = 1$}:
+Kita selesaikan $(B - 1I)\vektor{x} = \nol$.
+\[ \matriks{0 & 3 & 0 \\ 0 & -3 & 0 \\ 0 & 6 & 0} \matriks{x_1 \\ x_2 \\ x_3} = \matriks{0 \\ 0 \\ 0} \]
+Dari semua baris, kita mendapatkan persamaan $3x_2=0$ (atau kelipatannya), yang berarti $x_2=0$.
+Variabel $x_1$ dan $x_3$ tidak memiliki pivot, sehingga keduanya adalah variabel bebas.
+Misalkan $x_1=s$ dan $x_3=t$.
+Solusi umumnya adalah $\vektor{x} = \matriks{s \\ 0 \\ t} = s\matriks{1 \\ 0 \\ 0} + t\matriks{0 \\ 0 \\ 1}$.
+Basis untuk ruang eigen $E_1$ adalah $\left\{ \matriks{1 \\ 0 \\ 0}, \matriks{0 \\ 0 \\ 1} \right\}$.
+Dimensi ruang eigen $E_1$ (multiplisitas geometris) adalah 2.
+
+\textbf{Ringkasan}:
+\begin{itemize}
+    \item Untuk $\lambda = -2$, basis ruang eigen adalah $\{(-1,1,-2)^T\}$ dan dimensinya 1.
+    \item Untuk $\lambda = 1$, basis ruang eigen adalah $\{(1,0,0)^T, (0,0,1)^T\}$ dan dimensinya 2.
+\end{itemize}
+\end{contoh}
+
+\begin{contoh}[Multiplisitas Geometris $<$ Multiplisitas Aljabar]
+Carilah basis dan dimensi ruang eigen dari matriks $A = \matriks{1 & 1 & 1 \\ 0 & 1 & 0 \\ 0 & 1 & 2}$.
+\textbf{Solusi}:
+Nilai eigen dari matriks segitiga ini adalah $\lambda_1 = 2$ (multiplisitas aljabar 1) dan $\lambda_2 = 1$ (multiplisitas aljabar 2).
+
+\textbf{Untuk $\lambda_1 = 2$}:
+$(A - 2I)\vektor{x} = \nol \implies \matriks{-1 & 1 & 1 \\ 0 & -1 & 0 \\ 0 & 1 & 0} \vektor{x} = \nol$.
+Dari baris kedua: $-x_2=0 \implies x_2=0$.
+Dari baris pertama: $-x_1+x_2+x_3=0 \implies -x_1+0+x_3=0 \implies x_1=x_3$.
+Misalkan $x_3=t$, maka $x_1=t$.
+Basis untuk $E_2$ adalah $\left\{ (1,0,1)^T \right\}$, dimensinya 1.
+
+\textbf{Untuk $\lambda_2 = 1$}:
+$(A - 1I)\vektor{x} = \nol \implies \matriks{0 & 1 & 1 \\ 0 & 0 & 0 \\ 0 & 1 & 1} \vektor{x} = \nol$.
+Persamaan yang signifikan adalah $x_2+x_3=0 \implies x_2=-x_3$.
+Variabel $x_1$ adalah variabel bebas.
+Misalkan $x_1=s, x_3=t$. Maka $x_2=-t$.
+Solusi umum: $\vektor{x} = \matriks{s \\ -t \\ t} = s\matriks{1 \\ 0 \\ 0} + t\matriks{0 \\ -1 \\ 1}$.
+Basis untuk ruang eigen $E_1$ adalah $\left\{ \matriks{1 \\ 0 \\ 0}, \matriks{0 \\ -1 \\ 1} \right\}$.
+Dimensi ruang eigen $E_1$ (multiplisitas geometris) adalah 2.
+\end{contoh}
+\begin{catatan}
+Terdapat kesalahan dalam file PDF asli untuk contoh ini. Berdasarkan perhitungan yang benar, matriks $A$ dari file asli \textbf{dapat didiagonalkan} karena untuk $\lambda=1$, multiplisitas geometris (2) sama dengan aljabar (2), dan untuk $\lambda=2$, multiplisitas geometris (1) sama dengan aljabar (1).
+\end{catatan}
+
+\section{Makna Geometris Ruang Eigen}
+Secara geometris, ruang eigen $E_{\lambda}$ adalah sebuah \textbf{subruang invarian} di bawah transformasi $T(\vektor{x}) = A\vektor{x}$. Ini berarti bahwa jika sebuah vektor $\vektor{x}$ berada di ruang eigen $E_{\lambda}$, maka petanya, $A\vektor{x}$, juga akan berada di ruang eigen $E_{\lambda}$ yang sama.
+\[ \text{Jika } \vektor{x} \in E_{\lambda}, \text{ maka } A\vektor{x} = \lambda\vektor{x}. \]
+Karena $E_{\lambda}$ adalah subruang, $\lambda\vektor{x}$ juga berada di $E_{\lambda}$.
+\begin{itemize}
+    \item Jika dimensi $E_{\lambda}$ adalah 1, ruang eigen tersebut adalah sebuah \textbf{garis} yang melalui titik asal. Setiap vektor di garis ini akan tetap berada di garis yang sama setelah transformasi (diregangkan, menyusut, atau dibalik).
+    \item Jika dimensi $E_{\lambda}$ adalah 2, ruang eigen tersebut adalah sebuah \textbf{bidang} yang melalui titik asal. Setiap vektor di bidang ini akan tetap berada di bidang yang sama setelah transformasi.
+\end{itemize}
+Konsep ini sangat penting dalam memahami bagaimana sebuah transformasi linear "bertindak" pada ruang vektor secara keseluruhan. Vektor-vektor eigen membentuk "sumbu-sumbu" di mana aksi dari transformasi menjadi sangat sederhana: hanya peregangan atau penyusutan.
+
+\end{document}

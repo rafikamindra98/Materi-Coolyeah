@@ -1,0 +1,226 @@
+\documentclass{article}
+\usepackage{amsmath} % Untuk lingkungan matriks dan perintah matematika lainnya
+\usepackage{amsfonts} % Untuk simbol
+\usepackage{amssymb} % Untuk simbol \mathbb{R}
+\usepackage{geometry} % Untuk mengatur margin
+\geometry{a4paper, margin=1in}
+
+\title{Aljabar Linear: Responsi UTS}
+\author{Rafi Kamindra 2201006}
+\date{} % Kosongkan tanggal jika tidak ingin ditampilkan
+
+\newcommand{\vektor}[1]{\mathbf{#1}} % Perintah untuk vektor
+\newcommand{\R}{\mathbb{R}} % Simbol R
+\newcommand{\Poly}{\mathbb{P}} % Simbol P untuk polinom
+\newcommand{\M}{\mathbb{M}} % Simbol M untuk matriks
+\newcommand{\spanof}[1]{\text{span}\{#1\}} % Perintah untuk span
+\newcommand{\coord}[2]{[\vektor{#1}]_{#2}} % Notasi koordinat
+
+\begin{document}
+\maketitle
+\pagenumbering{gobble} % Menghilangkan nomor halaman jika tidak diinginkan untuk halaman judul
+
+\section*{Problem}
+
+\subsection*{1. Carilah basis ruang baris dan basis ruang kolom dari matriks: $A = \begin{pmatrix} 3 & -2 & 0 & -1 \\ -2 & 1 & 1 & 1 \\ 0 & 2 & 2 & 0 \end{pmatrix}$.}
+\textbf{Jawaban:}\\
+Lakukan Operasi Baris Elementer (OBE) pada $A$ untuk mendapatkan bentuk eselon baris.
+\[ A = \begin{pmatrix} 3 & -2 & 0 & -1 \\ -2 & 1 & 1 & 1 \\ 0 & 2 & 2 & 0 \end{pmatrix} \]
+$R_1 \leftrightarrow R_2$ (untuk mendapatkan -2 atau 1 di awal, lalu $R_2 \rightarrow -R_2$ jika perlu):
+\[ \begin{pmatrix} -2 & 1 & 1 & 1 \\ 3 & -2 & 0 & -1 \\ 0 & 2 & 2 & 0 \end{pmatrix} \]
+$R_1 \rightarrow -\frac{1}{2}R_1$:
+\[ \begin{pmatrix} 1 & -1/2 & -1/2 & -1/2 \\ 3 & -2 & 0 & -1 \\ 0 & 2 & 2 & 0 \end{pmatrix} \]
+$R_2 \rightarrow R_2 - 3R_1$:
+\[ \begin{pmatrix} 1 & -1/2 & -1/2 & -1/2 \\ 0 & -2 - (-3/2) & 0 - (-3/2) & -1 - (-3/2) \\ 0 & 2 & 2 & 0 \end{pmatrix} = \begin{pmatrix} 1 & -1/2 & -1/2 & -1/2 \\ 0 & -4/2 + 3/2 & 3/2 & -2/2 + 3/2 \\ 0 & 2 & 2 & 0 \end{pmatrix} = \begin{pmatrix} 1 & -1/2 & -1/2 & -1/2 \\ 0 & -1/2 & 3/2 & 1/2 \\ 0 & 2 & 2 & 0 \end{pmatrix} \]
+$R_2 \rightarrow -2R_2$:
+\[ \begin{pmatrix} 1 & -1/2 & -1/2 & -1/2 \\ 0 & 1 & -3 & -1 \\ 0 & 2 & 2 & 0 \end{pmatrix} \]
+$R_3 \rightarrow R_3 - 2R_2$:
+\[ \begin{pmatrix} 1 & -1/2 & -1/2 & -1/2 \\ 0 & 1 & -3 & -1 \\ 0 & 0 & 2 - (-6) & 0 - (-2) \end{pmatrix} = \begin{pmatrix} 1 & -1/2 & -1/2 & -1/2 \\ 0 & 1 & -3 & -1 \\ 0 & 0 & 8 & 2 \end{pmatrix} \]
+Baris-baris tak nol dalam bentuk eselon baris membentuk basis untuk ruang baris.
+Basis ruang baris: $\{(1, -1/2, -1/2, -1/2), (0, 1, -3, -1), (0, 0, 8, 2)\}$.
+Dimensi ruang baris adalah 3.
+Kolom-kolom pada matriks eselon baris yang memiliki elemen pivot adalah kolom 1, 2, dan 3.
+Maka, kolom-kolom yang bersesuaian pada matriks $A$ asli membentuk basis untuk ruang kolom.
+Basis ruang kolom: $\{(3,-2,0), (-2,1,2), (0,1,2)\}$.
+Dimensi ruang kolom juga 3.
+
+\subsection*{2. Selidiki, apakah $K = \{(-1,2,0,1), (2,-3,1,1), (1,-1,1,1)\}$ bebas linier di $\R^4$.}
+\textbf{Jawaban:}\\
+Untuk menyelidiki kebebasan linear, kita bentuk matriks dengan vektor-vektor ini sebagai baris (atau kolom) dan periksa rank-nya. Jika rank sama dengan jumlah vektor (yaitu 3), maka himpunan tersebut bebas linear.
+\[ M = \begin{pmatrix} -1 & 2 & 0 & 1 \\ 2 & -3 & 1 & 1 \\ 1 & -1 & 1 & 1 \end{pmatrix} \]
+$R_2 \rightarrow R_2 + 2R_1$:
+$R_3 \rightarrow R_3 + R_1$:
+\[ \begin{pmatrix} -1 & 2 & 0 & 1 \\ 0 & 1 & 1 & 3 \\ 0 & 1 & 1 & 2 \end{pmatrix} \]
+$R_3 \rightarrow R_3 - R_2$:
+\[ \begin{pmatrix} -1 & 2 & 0 & 1 \\ 0 & 1 & 1 & 3 \\ 0 & 0 & 0 & -1 \end{pmatrix} \]
+Matriks ini dalam bentuk eselon baris dan memiliki 3 baris tak nol. Rank matriks adalah 3.
+Karena rank matriks (3) sama dengan jumlah vektor (3), maka himpunan $K$ bebas linier di $\R^4$.
+
+\subsection*{3. Berikan contoh matriks $A, B \in \M_2$ dengan kondisi:}
+\subsubsection*{a. $R_A = C_A$ dan $\text{rank}(A) \ge 1$.}
+\textbf{Jawaban:}\\
+$R_A$ adalah ruang baris $A$, $C_A$ adalah ruang kolom $A$.
+Kondisi $R_A = C_A$ sering terjadi pada matriks simetris.
+Misalkan $A = \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}$ (matriks identitas).
+Ruang baris $R_A = \spanof{(1,0), (0,1)} = \R^2$.
+Ruang kolom $C_A = \spanof{(1,0)^T, (0,1)^T} = \R^2$.
+Jadi $R_A = C_A = \R^2$.
+$\text{rank}(A) = 2 \ge 1$.
+Contoh lain: $A = \begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix}$.
+$R_A = \spanof{(1,1)}$.
+$C_A = \spanof{(1,1)^T}$.
+Dalam representasi vektor, $R_A$ dan $C_A$ keduanya adalah $\spanof{(1,1)}$.
+$\text{rank}(A)=1 \ge 1$.
+
+\subsubsection*{b. $R_B \neq C_B$ tetapi $\dim(R_B) = \dim(C_B)$.}
+\textbf{Jawaban:}\\
+Dimensi ruang baris selalu sama dengan dimensi ruang kolom (ini adalah rank matriks). Jadi, kondisi $\dim(R_B) = \dim(C_B)$ selalu terpenuhi. Kita perlu $R_B \neq C_B$.
+Misalkan $B = \begin{pmatrix} 1 & 2 \\ 0 & 0 \end{pmatrix}$.
+$R_B = \spanof{(1,2)}$. Ini adalah subruang dari $\R^2$.
+$C_B = \spanof{(1,0)^T, (2,0)^T} = \spanof{(1,0)^T}$. Ini adalah subruang dari $\R^2$.
+$\dim(R_B) = 1$, $\dim(C_B) = 1$.
+Apakah $R_B = C_B$? Tidak. $R_B$ adalah himpunan kelipatan $(1,2)$, sedangkan $C_B$ adalah himpunan kelipatan $(1,0)$ (jika dilihat sebagai vektor baris).
+Lebih tepatnya, $R_B = \{ (k, 2k) \mid k \in \R \}$.
+$C_B = \{ (k, 0)^T \mid k \in \R \}$.
+Jika kita membandingkan ruang baris (vektor baris) dengan ruang yang direntang oleh vektor kolom (yang juga vektor baris jika ditranspos), maka:
+$R_B = \spanof{(1,2)}$.
+Vektor kolom adalah $(1,0)^T$ dan $(2,0)^T$. Ruang yang direntang oleh kolom-kolom ini adalah $\spanof{(1,0)}$.
+Karena $\spanof{(1,2)} \neq \spanof{(1,0)}$, maka $R_B \neq C_B$ (jika $C_B$ diinterpretasikan sebagai ruang yang direntang oleh transpos dari vektor kolom).
+$\dim(R_B) = 1$ dan $\dim(C_B) = 1$.
+
+\subsection*{4. Carilah semua $c$ sehingga $\vektor{x}=(0,-2,c,2)^T$ berada pada ruang kolom $B = \begin{pmatrix} 1 & -2 & 1 \\ 0 & 2 & -4 \\ 1 & 2 & 0 \\ 3 & 0 & -1 \end{pmatrix}$.}
+\textbf{Jawaban:}\\
+Vektor $\vektor{x}$ berada pada ruang kolom $B$ jika sistem $B\vektor{k} = \vektor{x}$ mempunyai solusi untuk $\vektor{k}=(k_1, k_2, k_3)^T$.
+Bentuk matriks augmented $[B|\vektor{x}]$:
+\[ \left[ \begin{array}{ccc|c} 1 & -2 & 1 & 0 \\ 0 & 2 & -4 & -2 \\ 1 & 2 & 0 & c \\ 3 & 0 & -1 & 2 \end{array} \right] \]
+$R_3 \rightarrow R_3 - R_1$:
+$R_4 \rightarrow R_4 - 3R_1$:
+\[ \left[ \begin{array}{ccc|c} 1 & -2 & 1 & 0 \\ 0 & 2 & -4 & -2 \\ 0 & 4 & -1 & c \\ 0 & 6 & -4 & 2 \end{array} \right] \]
+$R_2 \rightarrow \frac{1}{2}R_2$:
+\[ \left[ \begin{array}{ccc|c} 1 & -2 & 1 & 0 \\ 0 & 1 & -2 & -1 \\ 0 & 4 & -1 & c \\ 0 & 6 & -4 & 2 \end{array} \right] \]
+$R_3 \rightarrow R_3 - 4R_2$:
+$R_4 \rightarrow R_4 - 6R_2$:
+\[ \left[ \begin{array}{ccc|c} 1 & -2 & 1 & 0 \\ 0 & 1 & -2 & -1 \\ 0 & 0 & -1 - (-8) & c - (-4) \\ 0 & 0 & -4 - (-12) & 2 - (-6) \end{array} \right] = \left[ \begin{array}{ccc|c} 1 & -2 & 1 & 0 \\ 0 & 1 & -2 & -1 \\ 0 & 0 & 7 & c+4 \\ 0 & 0 & 8 & 8 \end{array} \right] \]
+Dari baris ke-4: $8k_3 = 8 \Rightarrow k_3 = 1$ (jika kita menganggap ini adalah bentuk eselon, meskipun belum selesai).
+Agar sistem konsisten, rank matriks koefisien harus sama dengan rank matriks augmented.
+Perhatikan baris ke-3 dan ke-4:
+$7k_3 = c+4$
+$8k_3 = 8 \Rightarrow k_3 = 1$.
+Substitusikan $k_3=1$ ke persamaan $7k_3 = c+4$:
+$7(1) = c+4 \Rightarrow 7 = c+4 \Rightarrow c = 7-4 = 3$.
+Jadi, agar $\vektor{x}$ berada pada ruang kolom $B$, nilai $c$ haruslah 3.
+
+\subsection*{5. Carilah basis untuk $L = \{ (a,0,c) \mid a,c \in \R \}$.}
+\textbf{Jawaban:}\\
+Setiap vektor $\vektor{v} \in L$ berbentuk $(a,0,c)$.
+Vektor ini dapat ditulis sebagai:
+$\vektor{v} = (a,0,c) = a(1,0,0) + c(0,0,1)$.
+Himpunan $\{(1,0,0), (0,0,1)\}$ merentang $L$.
+Untuk memeriksa kebebasan linear, misalkan $k_1(1,0,0) + k_2(0,0,1) = (0,0,0)$.
+$(k_1, 0, k_2) = (0,0,0)$.
+Ini berarti $k_1=0$ dan $k_2=0$. Jadi, vektor-vektor tersebut linear independen.
+Maka, basis untuk $L$ adalah $\{(1,0,0), (0,0,1)\}$.
+
+\subsection*{6. Diketahui $\vektor{x}=(1,1,2)$, $\vektor{y}=(2,3,0)$. Carilah $\vektor{z} \in \R^3$ sehingga $\{\vektor{x}, \vektor{y}, \vektor{z}\}$ basis untuk $\R^3$.}
+\textbf{Jawaban:}\\
+Agar $\{\vektor{x}, \vektor{y}, \vektor{z}\}$ menjadi basis untuk $\R^3$, ketiga vektor tersebut harus linear independen.
+$\vektor{x}$ dan $\vektor{y}$ sudah linear independen karena bukan kelipatan skalar satu sama lain.
+Kita perlu memilih $\vektor{z}$ sehingga tidak terletak pada bidang yang direntang oleh $\vektor{x}$ dan $\vektor{y}$.
+Cara mudah adalah memilih $\vektor{z}$ yang ortogonal terhadap bidang tersebut, misalnya $\vektor{z} = \vektor{x} \times \vektor{y}$.
+$\vektor{z} = \vektor{x} \times \vektor{y} = \begin{vmatrix} \vektor{i} & \vektor{j} & \vektor{k} \\ 1 & 1 & 2 \\ 2 & 3 & 0 \end{vmatrix}$
+$= \vektor{i}(1 \cdot 0 - 2 \cdot 3) - \vektor{j}(1 \cdot 0 - 2 \cdot 2) + \vektor{k}(1 \cdot 3 - 1 \cdot 2)$
+$= \vektor{i}(0-6) - \vektor{j}(0-4) + \vektor{k}(3-2)$
+$= -6\vektor{i} + 4\vektor{j} + 1\vektor{k} = (-6, 4, 1)$.
+Jadi, salah satu contoh $\vektor{z}$ adalah $(-6,4,1)$.
+Kita bisa periksa determinannya: $\begin{vmatrix} 1 & 2 & -6 \\ 1 & 3 & 4 \\ 2 & 0 & 1 \end{vmatrix} = 1(3-0) - 2(1-8) - 6(0-6) = 3 - 2(-7) - 6(-6) = 3 + 14 + 36 = 53 \neq 0$.
+Jadi, $\{\vektor{x}, \vektor{y}, (-6,4,1)\}$ adalah basis untuk $\R^3$.
+(Banyak pilihan lain, misalnya $\vektor{z}=(0,0,1)$ juga bisa jika $\det(\begin{pmatrix} \vektor{x} & \vektor{y} & (0,0,1) \end{pmatrix}) \neq 0$.
+$\begin{vmatrix} 1 & 2 & 0 \\ 1 & 3 & 0 \\ 2 & 0 & 1 \end{vmatrix} = 1 \begin{vmatrix} 1 & 2 \\ 1 & 3 \end{vmatrix} = 1(3-2) = 1 \neq 0$. Jadi $\vektor{z}=(0,0,1)$ juga bisa.)
+
+\subsection*{7. Diketahui $p=-1+x^2$, $q=1+x$. Carilah $r \in \Poly_2$ sehingga $\{p,q,r\}$ basis untuk $\Poly_2$.}
+\textbf{Jawaban:}\\
+Representasikan $p$ dan $q$ sebagai vektor koordinat terhadap basis standar $\{1,x,x^2\}$:
+$p = -1+0x+1x^2 \rightarrow \vektor{v}_p = (-1,0,1)$
+$q = 1+1x+0x^2 \rightarrow \vektor{v}_q = (1,1,0)$
+Vektor $\vektor{v}_p$ dan $\vektor{v}_q$ linear independen. Kita perlu mencari vektor $\vektor{v}_r = (a,b,c)$ sehingga $\vektor{v}_p, \vektor{v}_q, \vektor{v}_r$ linear independen.
+Artinya, $\det \begin{pmatrix} -1 & 1 & a \\ 0 & 1 & b \\ 1 & 0 & c \end{pmatrix} \neq 0$.
+$\det = -1(c-0) - 1(0-b) + a(0-1) = -c + b - a$.
+Kita perlu $-a+b-c \neq 0$.
+Pilihan sederhana adalah memilih $\vektor{v}_r$ yang merupakan salah satu vektor basis standar yang belum "tercakup" oleh $\vektor{v}_p$ dan $\vektor{v}_q$.
+Misalkan kita pilih $r=1$, sehingga $\vektor{v}_r = (1,0,0)$.
+Maka determinannya menjadi $\begin{vmatrix} -1 & 1 & 1 \\ 0 & 1 & 0 \\ 1 & 0 & 0 \end{vmatrix} = -1(0-0) - 1(0-0) + 1(0-1) = -1 \neq 0$.
+Jadi, $r=1$ adalah pilihan yang valid.
+Maka $\{ -1+x^2, 1+x, 1 \}$ adalah basis untuk $\Poly_2$.
+Pilihan lain, misal $r=x$, maka $\vektor{v}_r = (0,1,0)$.
+$\begin{vmatrix} -1 & 1 & 0 \\ 0 & 1 & 1 \\ 1 & 0 & 0 \end{vmatrix} = -1(0-0) - 1(0-1) + 0 = 1 \neq 0$.
+Jadi, $r=x$ juga pilihan yang valid.
+Pilihan lain, misal $r=x^2$, maka $\vektor{v}_r = (0,0,1)$.
+$\begin{vmatrix} -1 & 1 & 0 \\ 0 & 1 & 0 \\ 1 & 0 & 1 \end{vmatrix} = -1(1-0) - 1(0-0) + 0 = -1 \neq 0$.
+Jadi, $r=x^2$ juga pilihan yang valid.
+
+\subsection*{8. Selidiki kebenaran pernyataan berikut: "Jika $A, B \in \M_3$ dengan rank masing-masing 2 dan 3, maka $AB$ dapat memiliki rank 3".}
+\textbf{Jawaban:}\\
+Pernyataan ini \textbf{SALAH}.
+Kita tahu bahwa $\text{rank}(AB) \le \min(\text{rank}(A), \text{rank}(B))$.
+Diberikan $\text{rank}(A)=2$ dan $\text{rank}(B)=3$.
+Maka $\text{rank}(AB) \le \min(2,3) = 2$.
+Karena $\text{rank}(AB) \le 2$, maka $AB$ tidak mungkin memiliki rank 3.
+
+\subsection*{9. Selidiki, apakah SPL $\begin{pmatrix} 1 & 2 & -1 \\ 2 & 4 & -2 \end{pmatrix} \begin{pmatrix} x_1 \\ x_2 \end{pmatrix} = \begin{pmatrix} a \\ b \end{pmatrix}$ selalu mempunyai solusi untuk semua $a,b \in \R$.}
+(Catatan: Matriks koefisien $2 \times 3$ dan vektor $x$ adalah $2 \times 1$. Ini tidak konsisten. Asumsikan $x_3$ ada atau matriksnya $2 \times 2$).
+Jika SPL adalah $\begin{pmatrix} 1 & 2 \\ 2 & 4 \end{pmatrix} \begin{pmatrix} x_1 \\ x_2 \end{pmatrix} = \begin{pmatrix} a \\ b \end{pmatrix}$:
+\textbf{Jawaban:}\\
+Bentuk matriks augmented: $\left[ \begin{array}{cc|c} 1 & 2 & a \\ 2 & 4 & b \end{array} \right]$.
+$R_2 \rightarrow R_2 - 2R_1$:
+$\left[ \begin{array}{cc|c} 1 & 2 & a \\ 0 & 0 & b-2a \end{array} \right]$.
+Agar SPL mempunyai solusi, baris terakhir tidak boleh menghasilkan kontradiksi.
+Ini berarti $0x_1 + 0x_2 = b-2a$ harus konsisten, yaitu $b-2a=0 \Rightarrow b=2a$.
+Karena SPL hanya mempunyai solusi jika $b=2a$, maka SPL tidak selalu mempunyai solusi untuk semua $a,b \in \R$.
+Misalnya, jika $a=1, b=3$, maka $b-2a = 3-2(1) = 1 \neq 0$, sehingga tidak ada solusi.
+
+Jika SPL adalah $\begin{pmatrix} 1 & 2 & -1 \\ 2 & 4 & -2 \end{pmatrix} \begin{pmatrix} x_1 \\ x_2 \\ x_3 \end{pmatrix} = \begin{pmatrix} a \\ b \end{pmatrix}$:
+\textbf{Jawaban:}\\
+Bentuk matriks augmented: $\left[ \begin{array}{ccc|c} 1 & 2 & -1 & a \\ 2 & 4 & -2 & b \end{array} \right]$.
+$R_2 \rightarrow R_2 - 2R_1$:
+$\left[ \begin{array}{ccc|c} 1 & 2 & -1 & a \\ 0 & 0 & 0 & b-2a \end{array} \right]$.
+Agar SPL mempunyai solusi, $b-2a=0 \Rightarrow b=2a$.
+SPL tidak selalu mempunyai solusi untuk semua $a,b \in \R$.
+
+\subsection*{10. Diketahui $B=\{\vektor{u}, \vektor{v}, \vektor{w}\}$ merupakan basis untuk $V$.}
+\subsubsection*{a. Buktikan $B'=\{\vektor{u}, \vektor{u}+\vektor{v}, \vektor{u}+\vektor{v}+\vektor{w}\}$ juga basis untuk $V$.}
+\textbf{Jawaban:}\\
+Karena $B$ adalah basis untuk $V$ dan $\dim(V)=3$, kita cukup menunjukkan bahwa $B'$ linear independen.
+Misalkan $c_1(\vektor{u}) + c_2(\vektor{u}+\vektor{v}) + c_3(\vektor{u}+\vektor{v}+\vektor{w}) = \vektor{0}$.
+$(c_1+c_2+c_3)\vektor{u} + (c_2+c_3)\vektor{v} + c_3\vektor{w} = \vektor{0}$.
+Karena $B=\{\vektor{u}, \vektor{v}, \vektor{w}\}$ adalah basis, maka $\vektor{u}, \vektor{v}, \vektor{w}$ linear independen.
+Oleh karena itu, koefisien-koefisiennya harus nol:
+$c_1+c_2+c_3 = 0 \quad (1)$
+$c_2+c_3 = 0 \quad (2)$
+$c_3 = 0 \quad (3)$
+Dari (3), $c_3=0$.
+Substitusikan $c_3=0$ ke (2): $c_2+0=0 \Rightarrow c_2=0$.
+Substitusikan $c_2=0$ dan $c_3=0$ ke (1): $c_1+0+0=0 \Rightarrow c_1=0$.
+Karena $c_1=c_2=c_3=0$ adalah satu-satunya solusi, maka $B'$ linear independen.
+Karena $B'$ terdiri dari 3 vektor linear independen dalam ruang vektor $V$ berdimensi 3, maka $B'$ juga merupakan basis untuk $V$.
+
+\subsubsection*{b. Tentukan matriks transisi dari $B$ ke $B'$.}
+\textbf{Jawaban:}\\
+Matriks transisi $P_{B \rightarrow B'}$ memiliki kolom-kolom yang merupakan koordinat vektor-vektor basis $B$ relatif terhadap basis $B'$.
+Lebih mudah mencari $P_{B' \rightarrow B}$, yang kolom-kolomnya adalah koordinat vektor-vektor basis $B'$ relatif terhadap basis $B$.
+Vektor basis $B'$:
+$\vektor{u}'_1 = \vektor{u} = 1\vektor{u} + 0\vektor{v} + 0\vektor{w} \Rightarrow [\vektor{u}'_1]_B = (1,0,0)^T$.
+$\vektor{u}'_2 = \vektor{u}+\vektor{v} = 1\vektor{u} + 1\vektor{v} + 0\vektor{w} \Rightarrow [\vektor{u}'_2]_B = (1,1,0)^T$.
+$\vektor{u}'_3 = \vektor{u}+\vektor{v}+\vektor{w} = 1\vektor{u} + 1\vektor{v} + 1\vektor{w} \Rightarrow [\vektor{u}'_3]_B = (1,1,1)^T$.
+Maka $P_{B' \rightarrow B} = \begin{pmatrix} 1 & 1 & 1 \\ 0 & 1 & 1 \\ 0 & 0 & 1 \end{pmatrix}$.
+Matriks transisi dari $B$ ke $B'$ adalah $P_{B \rightarrow B'} = (P_{B' \rightarrow B})^{-1}$.
+Kita hitung invers dari $P_{B' \rightarrow B}$. Ini adalah matriks segitiga atas, determinannya adalah $1 \cdot 1 \cdot 1 = 1$.
+Untuk mencari inversnya:
+$\left[ \begin{array}{ccc|ccc} 1 & 1 & 1 & 1 & 0 & 0 \\ 0 & 1 & 1 & 0 & 1 & 0 \\ 0 & 0 & 1 & 0 & 0 & 1 \end{array} \right]$
+$R_1 \rightarrow R_1 - R_3$:
+$R_2 \rightarrow R_2 - R_3$:
+$\left[ \begin{array}{ccc|ccc} 1 & 1 & 0 & 1 & 0 & -1 \\ 0 & 1 & 0 & 0 & 1 & -1 \\ 0 & 0 & 1 & 0 & 0 & 1 \end{array} \right]$
+$R_1 \rightarrow R_1 - R_2$:
+$\left[ \begin{array}{ccc|ccc} 1 & 0 & 0 & 1 & -1 & 0 \\ 0 & 1 & 0 & 0 & 1 & -1 \\ 0 & 0 & 1 & 0 & 0 & 1 \end{array} \right]$
+Jadi, $P_{B \rightarrow B'} = (P_{B' \rightarrow B})^{-1} = \begin{pmatrix} 1 & -1 & 0 \\ 0 & 1 & -1 \\ 0 & 0 & 1 \end{pmatrix}$.
+
+\end{document}
