@@ -9,13 +9,6 @@ Tujuan dari repositori ini adalah untuk:
 
 ---
 
-## 📂 Struktur Folder
-- `materi/` - Slide, modul, atau dokumen dari dosen _(jika diizinkan untuk dibagikan)_.
-- `tugas/` - Kumpulan tugas yang saya kerjakan secara individu maupun kelompok.
-- `catatan/` - Ringkasan materi dan catatan pribadi selama kuliah.
-
----
-
 ## ⚠️ Disclaimer Hak Cipta
 
 > **Catatan penting:**
