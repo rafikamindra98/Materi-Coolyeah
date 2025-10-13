@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skull Reaper - Interactive Skeleton</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            cursor: none;
+        }
+        
+        canvas {
+            display: block;
+            background: #000;
+        }
+        
+        #ui {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #666;
+            font-size: 12px;
+            z-index: 100;
+        }
+        
+        #controls {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            color: #666;
+            font-size: 11px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+    <div id="ui">
+        <div>Skull Reaper</div>
+        <div>Nodes: <span id="nodeCount">20</span></div>
+        <div>Speed: <span id="speed">5</span></div>
+    </div>
+    <div id="controls">
+        <div>Move mouse to control the creature</div>
+        <div>Click to add segments | Space: Reset | R: Random mode</div>
+        <div>1-3: Change rib style | +/-: Adjust speed</div>
+    </div>
+    
+    <script>
+        class SkullReaper {
+            constructor() {
+                this.canvas = document.getElementById('gameCanvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.setupCanvas();
+                this.setupInput();
+                
+                // Game state
+                this.nodes = [];
+                this.nodeCount = 20;
+                this.speed = 5;
+                this.ribStyle = 1;
+                this.randomMode = false;
+                this.targetX = 0;
+                this.targetY = 0;
+                
+                // Visual settings
+                this.nodeSize = 8;
+                this.ribLength = 30;
+                this.trailOpacity = 0.1;
+                
+                this.initializeNodes();
+                this.gameLoop();
+            }
+            
+            setupCanvas() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+                
+                window.addEventListener('resize', () => {
+                    this.canvas.width = window.innerWidth;
+                    this.canvas.height = window.innerHeight;
+                });
+            }
+            
+            setupInput() {
+                // Mouse movement
+                this.canvas.addEventListener('mousemove', (e) => {
+                    const rect = this.canvas.getBoundingClientRect();
+                    this.targetX = e.clientX - rect.left;
+                    this.targetY = e.clientY - rect.top;
+                });
+                
+                // Touch support for mobile
+                this.canvas.addEventListener('touchmove', (e) => {
+                    e.preventDefault();
+                    const rect = this.canvas.getBoundingClientRect();
+                    const touch = e.touches[0];
+                    this.targetX = touch.clientX - rect.left;
+                    this.targetY = touch.clientY - rect.top;
+                });
+                
+                // Click to add segments
+                this.canvas.addEventListener('click', (e) => {
+                    this.addNode();
+                    this.updateUI();
+                });
+                
+                // Keyboard controls
+                document.addEventListener('keydown', (e) => {
+                    switch(e.code) {
+                        case 'Space':
+                            e.preventDefault();
+                            this.reset();
+                            break;
+                        case 'KeyR':
+                            this.randomMode = !this.randomMode;
+                            break;
+                        case 'Digit1':
+                            this.ribStyle = 1;
+                            break;
+                        case 'Digit2':
+                            this.ribStyle = 2;
+                            break;
+                        case 'Digit3':
+                            this.ribStyle = 3;
+                            break;
+                        case 'Equal':
+                        case 'Plus':
+                            this.speed = Math.min(20, this.speed + 1);
+                            this.updateUI();
+                            break;
+                        case 'Minus':
+                            this.speed = Math.max(1, this.speed - 1);
+                            this.updateUI();
+                            break;
+                    }
+                });
+            }
+            
+            initializeNodes() {
+                this.nodes = [];
+                const centerX = this.canvas.width / 2;
+                const centerY = this.canvas.height / 2;
+                
+                for (let i = 0; i < this.nodeCount; i++) {
+                    this.nodes.push({
+                        x: centerX,
+                        y: centerY + i * 15,
+                        size: this.nodeSize - (i * 0.2),
+                        angle: 0,
+                        targetX: centerX,
+                        targetY: centerY + i * 15
+                    });
+                }
+                
+                this.targetX = centerX;
+                this.targetY = centerY;
+            }
+            
+            addNode() {
+                if (this.nodes.length < 50) {
+                    const lastNode = this.nodes[this.nodes.length - 1];
+                    this.nodes.push({
+                        x: lastNode.x,
+                        y: lastNode.y + 15,
+                        size: Math.max(2, this.nodeSize - (this.nodes.length * 0.2)),
+                        angle: 0,
+                        targetX: lastNode.x,
+                        targetY: lastNode.y + 15
+                    });
+                    this.nodeCount = this.nodes.length;
+                }
+            }
+            
+            reset() {
+                this.nodeCount = 20;
+                this.speed = 5;
+                this.randomMode = false;
+                this.ribStyle = 1;
+                this.initializeNodes();
+                this.updateUI();
+            }
+            
+            updateUI() {
+                document.getElementById('nodeCount').textContent = this.nodeCount;
+                document.getElementById('speed').textContent = this.speed;
+            }
+            
+            moveTo(x, y) {
+                if (this.nodes.length === 0) return;
+                
+                // Random mode adds some chaos
+                if (this.randomMode) {
+                    x += (Math.random() - 0.5) * 100;
+                    y += (Math.random() - 0.5) * 100;
+                }
+                
+                // Update first node (head)
+                this.nodes[0].targetX = x;
+                this.nodes[0].targetY = y;
+                
+                // Smooth movement for head
+                const headDx = x - this.nodes[0].x;
+                const headDy = y - this.nodes[0].y;
+                const headDist = Math.sqrt(headDx * headDx + headDy * headDy);
+                
+                if (headDist > 0) {
+                    const moveSpeed = Math.min(this.speed, headDist);
+                    this.nodes[0].x += (headDx / headDist) * moveSpeed;
+                    this.nodes[0].y += (headDy / headDist) * moveSpeed;
+                }
+                
+                // Update following nodes
+                for (let i = 1; i < this.nodes.length; i++) {
+                    const prevNode = this.nodes[i - 1];
+                    const currentNode = this.nodes[i];
+                    
+                    const dx = prevNode.x - currentNode.x;
+                    const dy = prevNode.y - currentNode.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    const targetDistance = 15 - (i * 0.2);
+                    
+                    if (distance > targetDistance) {
+                        const angle = Math.atan2(dy, dx);
+                        currentNode.x = prevNode.x - Math.cos(angle) * targetDistance;
+                        currentNode.y = prevNode.y - Math.sin(angle) * targetDistance;
+                    }
+                    
+                    // Store angle for rib calculation
+                    currentNode.angle = Math.atan2(dy, dx);
+                }
+            }
+            
+            drawRibs(node, index) {
+                const ribCount = Math.max(2, 6 - Math.floor(index / 3));
+                const baseRibLength = this.ribLength * (1 - index * 0.03);
+                
+                this.ctx.strokeStyle = `rgba(150, 150, 150, ${0.8 - index * 0.03})`;
+                this.ctx.lineWidth = Math.max(0.5, 2 - index * 0.1);
+                
+                for (let i = 0; i < ribCount; i++) {
+                    const ribAngle = node.angle + Math.PI / 2 + (i - ribCount / 2 + 0.5) * (Math.PI / (ribCount + 1));
+                    
+                    let ribLength = baseRibLength;
+                    
+                    switch (this.ribStyle) {
+                        case 1: // Classic ribs
+                            ribLength *= (0.3 + 0.7 * Math.sin(i * Math.PI / (ribCount - 1)));
+                            break;
+                        case 2: // Spiky ribs
+                            ribLength *= (0.5 + 0.5 * (i % 2));
+                            break;
+                        case 3: // Organic ribs
+                            ribLength *= (0.4 + 0.6 * Math.sin(Date.now() * 0.001 + i + index * 0.1));
+                            break;
+                    }
+                    
+                    const endX = node.x + Math.cos(ribAngle) * ribLength;
+                    const endY = node.y + Math.sin(ribAngle) * ribLength;
+                    
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(node.x, node.y);
+                    this.ctx.lineTo(endX, endY);
+                    this.ctx.stroke();
+                    
+                    // Draw small joint at rib end
+                    this.ctx.beginPath();
+                    this.ctx.arc(endX, endY, 1, 0, Math.PI * 2);
+                    this.ctx.fillStyle = this.ctx.strokeStyle;
+                    this.ctx.fill();
+                }
+            }
+            
+            update() {
+                this.moveTo(this.targetX, this.targetY);
+            }
+            
+            render() {
+                // Create trail effect
+                this.ctx.fillStyle = `rgba(0, 0, 0, ${this.trailOpacity})`;
+                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+                
+                if (this.nodes.length === 0) return;
+                
+                // Draw spine connections
+                this.ctx.strokeStyle = 'rgba(200, 200, 200, 0.9)';
+                this.ctx.lineWidth = 3;
+                this.ctx.beginPath();
+                this.ctx.moveTo(this.nodes[0].x, this.nodes[0].y);
+                
+                for (let i = 1; i < this.nodes.length; i++) {
+                    this.ctx.lineTo(this.nodes[i].x, this.nodes[i].y);
+                }
+                this.ctx.stroke();
+                
+                // Draw ribs for each node
+                for (let i = 0; i < this.nodes.length; i++) {
+                    if (i > 0) { // Skip head for ribs
+                        this.drawRibs(this.nodes[i], i);
+                    }
+                }
+                
+                // Draw nodes
+                for (let i = 0; i < this.nodes.length; i++) {
+                    const node = this.nodes[i];
+                    const opacity = 1 - (i * 0.02);
+                    
+                    // Node shadow
+                    this.ctx.fillStyle = `rgba(100, 100, 100, ${opacity * 0.3})`;
+                    this.ctx.beginPath();
+                    this.ctx.arc(node.x + 1, node.y + 1, node.size + 1, 0, Math.PI * 2);
+                    this.ctx.fill();
+                    
+                    // Main node
+                    this.ctx.fillStyle = `rgba(220, 220, 220, ${opacity})`;
+                    this.ctx.beginPath();
+                    this.ctx.arc(node.x, node.y, node.size, 0, Math.PI * 2);
+                    this.ctx.fill();
+                    
+                    // Node highlight
+                    if (i === 0) { // Head gets special treatment
+                        this.ctx.fillStyle = 'rgba(255, 100, 100, 0.7)';
+                        this.ctx.beginPath();
+                        this.ctx.arc(node.x - 2, node.y - 2, node.size * 0.3, 0, Math.PI * 2);
+                        this.ctx.fill();
+                    } else {
+                        this.ctx.fillStyle = `rgba(255, 255, 255, ${opacity * 0.5})`;
+                        this.ctx.beginPath();
+                        this.ctx.arc(node.x - 1, node.y - 1, node.size * 0.4, 0, Math.PI * 2);
+                        this.ctx.fill();
+                    }
+                }
+                
+                // Draw cursor indicator
+                this.ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+                this.ctx.lineWidth = 1;
+                this.ctx.beginPath();
+                this.ctx.arc(this.targetX, this.targetY, 10, 0, Math.PI * 2);
+                this.ctx.stroke();
+                
+                // Draw crosshair at cursor
+                this.ctx.beginPath();
+                this.ctx.moveTo(this.targetX - 5, this.targetY);
+                this.ctx.lineTo(this.targetX + 5, this.targetY);
+                this.ctx.moveTo(this.targetX, this.targetY - 5);
+                this.ctx.lineTo(this.targetX, this.targetY + 5);
+                this.ctx.stroke();
+            }
+            
+            gameLoop() {
+                this.update();
+                this.render();
+                requestAnimationFrame(() => this.gameLoop());
+            }
+        }
+        
+        // Audio feedback system
+        class AudioManager {
+            constructor() {
+                this.audioContext = null;
+                this.initAudio();
+            }
+            
+            initAudio() {
+                try {
+                    this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                } catch (e) {
+                    console.log('Web Audio API not supported');
+                }
+            }
+            
+            playTone(frequency, duration, type = 'sine') {
+                if (!this.audioContext) return;
+                
+                const oscillator = this.audioContext.createOscillator();
+                const gainNode = this.audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(this.audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(frequency, this.audioContext.currentTime);
+                oscillator.type = type;
+                
+                gainNode.gain.setValueAtTime(0.1, this.audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + duration);
+                
+                oscillator.start(this.audioContext.currentTime);
+                oscillator.stop(this.audioContext.currentTime + duration);
+            }
+        }
+        
+        // Initialize game
+        window.addEventListener('DOMContentLoaded', () => {
+            const game = new SkullReaper();
+            const audio = new AudioManager();
+            
+            // Add audio feedback for interactions
+            document.addEventListener('click', () => {
+                audio.playTone(200, 0.1, 'triangle');
+            });
+            
+            document.addEventListener('keydown', (e) => {
+                if (e.code === 'Space') {
+                    audio.playTone(150, 0.2, 'square');
+                } else {
+                    audio.playTone(300, 0.05, 'sine');
+                }
+            });
+        });
+        
+        // Prevent context menu on right click
+        document.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+        });
+    </script>
+</body>
+</html>

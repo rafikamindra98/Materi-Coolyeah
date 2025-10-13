@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confession App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f8ff;
+            flex-direction: column;
+        }
+        #confession {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+            max-width: 400px;
+        }
+        .buttons {
+            display: flex;
+            gap: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        #yesBtn {
+            background-color: #4CAF50;
+            color: white;
+        }
+        #yesBtn:hover {
+            background-color: #45a049;
+        }
+        #noBtn {
+            background-color: #f44336;
+            color: white;
+        }
+        #noBtn:hover {
+            background-color: #da190b;
+        }
+        #success {
+            font-size: 28px;
+            color: #4CAF50;
+            text-align: center;
+            display: none;
+        }
+        .moving {
+            animation: moveAround 2s infinite;
+        }
+        @keyframes moveAround {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(20px, -10px); }
+            50% { transform: translate(-20px, 0); }
+            75% { transform: translate(10px, 20px); }
+            100% { transform: translate(0, 0); }
+        }
+    </style>
+</head>
+<body>
+    <div id="confession">
+        <p>Saya ingin menyatakan perasaan saya kepada kamu. Apakah kamu mau menjadi pasangan saya?</p>
+        <div class="buttons">
+            <button id="yesBtn" onclick="chooseYes()">Yes</button>
+            <button id="noBtn" onclick="chooseNo()">No</button>
+        </div>
+    </div>
+    <div id="success">Yay! Kamu menerima saya sebagai pasangan! 💕</div>
+
+    <script>
+        let attempts = 0;
+        const confessionDiv = document.getElementById('confession');
+        const successDiv = document.getElementById('success');
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+
+        function chooseYes() {
+            confessionDiv.style.display = 'none';
+            successDiv.style.display = 'block';
+            yesBtn.style.display = 'none';
+            noBtn.style.display = 'none';
+        }
+
+        function chooseNo() {
+            attempts++;
+            // Buat tombol No "berpindah" dengan animasi dan randomize posisi
+            confessionDiv.classList.add('moving');
+            setTimeout(() => {
+                confessionDiv.classList.remove('moving');
+                // Randomize posisi confession div (berpindah di layar)
+                const x = Math.random() * (window.innerWidth - 400);
+                const y = Math.random() * (window.innerHeight - 200);
+                confessionDiv.style.position = 'absolute';
+                confessionDiv.style.left = x + 'px';
+                confessionDiv.style.top = y + 'px';
+                confessionDiv.style.transform = `translate(-50%, -50%)`;
+                
+                // Ubah teks confession sedikit untuk variasi setiap kali No
+                const texts = [
+                    "Baiklah, tapi saya serius loh. Mau jadi pasangan saya?",
+                    "Jangan buru-buru tolak. Coba pikir lagi: Yes or No?",
+                    "Saya tidak menyerah! Kamu mau menerima perasaan saya?",
+                    "Oke, satu kesempatan lagi. Jadilah pasangan saya yuk!"
+                ];
+                const randomText = texts[attempts % texts.length];
+                confessionDiv.innerHTML = `<p>${randomText}</p><div class="buttons"><button id="yesBtn" onclick="chooseYes()">Yes</button><button id="noBtn" onclick="chooseNo()">No</button></div>`;
+                
+                // Re-attach event listeners jika diperlukan (karena innerHTML diubah)
+                document.getElementById('yesBtn').onclick = chooseYes;
+                document.getElementById('noBtn').onclick = chooseNo;
+            }, 500);
+        }
+
+        // Inisialisasi posisi awal di tengah
+        confessionDiv.style.position = 'relative';
+        confessionDiv.style.left = '50%';
+        confessionDiv.style.top = '50%';
+        confessionDiv.style.transform = 'translate(-50%, -50%)';
+    </script>
+</body>
+</html>

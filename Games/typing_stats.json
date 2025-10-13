@@ -1,0 +1,25 @@
+{
+  "games_played": 3,
+  "best_wpm": 54,
+  "best_accuracy": 96.42857142857143,
+  "total_words_typed": 55,
+  "average_wpm": 38.333333333333336,
+  "difficulty_stats": {
+    "BEGINNER": {
+      "games": 2,
+      "best_wpm": 54
+    },
+    "INTERMEDIATE": {
+      "games": 0,
+      "best_wpm": 0
+    },
+    "ADVANCED": {
+      "games": 1,
+      "best_wpm": 21
+    },
+    "EXPERT": {
+      "games": 0,
+      "best_wpm": 0
+    }
+  }
+}
