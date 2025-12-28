@@ -1,0 +1,2 @@
+Shapiro-Wilk: stat=0.654394, p=8.73228e-46
+Jarque-Bera: stat=4465.235626, p=0

@@ -1,0 +1,2 @@
+Breusch-Pagan LM stat=10.097306, p=0.342665
+Breusch-Pagan F stat=1.122005, p=0.343542
