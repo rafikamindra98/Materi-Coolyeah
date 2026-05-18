@@ -1,0 +1,74 @@
+import pandas as pd
+import numpy as np
+from scipy.stats import norm
+import openpyxl
+from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
+
+# Generate Z values for 0.0 to 4.5
+z_values = np.arange(0.0, 4.6, 0.1)
+decimals = np.arange(0, 10, 1)
+
+# Create DataFrame
+data = []
+for z in z_values:
+    row = []
+    for d in decimals:
+        # Calculate area from 0 to Z
+        val = norm.cdf(z + d/100.0) - 0.5
+        row.append(val)
+    data.append(row)
+
+df = pd.DataFrame(data, index=[f"{z:.1f}" for z in z_values], columns=[f"{d}" for d in decimals])
+
+# Write to Excel
+output_path = "Tabel_Z_Normal_Baku_0_to_4.5.xlsx"
+writer = pd.ExcelWriter(output_path, engine='openpyxl')
+df.to_excel(writer, sheet_name='Tabel Z (0 ke Z)', startrow=2)
+
+workbook = writer.book
+worksheet = workbook['Tabel Z (0 ke Z)']
+
+# Style Title
+worksheet['A1'] = "Tabel Luas di bawah Lengkungan Normal Standar dari 0 ke z (0.0 - 4.5)"
+worksheet['A1'].font = Font(bold=True, size=14, color="333333")
+worksheet.merge_cells('A1:K1')
+
+# Styles
+header_fill = PatternFill(start_color="3B4252", end_color="3B4252", fill_type="solid")
+row_header_fill = PatternFill(start_color="E5E9F0", end_color="E5E9F0", fill_type="solid")
+header_font = Font(bold=True, color="FFFFFF")
+row_header_font = Font(bold=True, color="333333")
+center_align = Alignment(horizontal="center", vertical="center")
+thin_border = Border(left=Side(style='thin', color="CCCCCC"), 
+                     right=Side(style='thin', color="CCCCCC"), 
+                     top=Side(style='thin', color="CCCCCC"), 
+                     bottom=Side(style='thin', color="CCCCCC"))
+
+worksheet['A3'] = "Z"
+
+# Apply formatting
+for row in worksheet.iter_rows(min_row=3, max_row=worksheet.max_row, min_col=1, max_col=11):
+    for cell in row:
+        cell.border = thin_border
+        
+        if cell.row == 3:
+            cell.font = header_font
+            cell.fill = header_fill
+            cell.alignment = center_align
+        elif cell.column == 1:
+            cell.font = row_header_font
+            cell.fill = row_header_fill
+            cell.alignment = center_align
+        else:
+            cell.number_format = '0.00000'
+            cell.alignment = center_align
+
+# Adjust column widths
+worksheet.column_dimensions['A'].width = 8
+for col in ['B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K']:
+    worksheet.column_dimensions[col].width = 12
+
+worksheet.freeze_panes = 'B4'
+
+writer.close()
+output_path
