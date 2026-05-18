@@ -1,0 +1,98 @@
+import pandas as pd
+import numpy as np
+from scipy.stats import t
+import openpyxl
+from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
+
+# Define degrees of freedom from 1 to 500
+dfs = list(range(1, 501))
+
+# Define alpha levels that map cleanly between one-tailed and two-tailed
+alpha_one = [0.005, 0.01, 0.025, 0.05, 0.10, 0.25]
+alpha_two = [0.01, 0.02, 0.05, 0.10, 0.20, 0.50]
+
+# Create Excel workbook
+output_path = "Tabel_Distribusi_t_1_500.xlsx"
+wb = openpyxl.Workbook()
+ws = wb.active
+ws.title = "Tabel t (1-500)"
+
+# Define Styles
+title_font = Font(bold=True, size=12, color="333333")
+header_font = Font(bold=True, color="FFFFFF")
+subheader_font = Font(bold=True, color="333333")
+fill_dark = PatternFill(start_color="2E3440", end_color="2E3440", fill_type="solid")
+fill_light = PatternFill(start_color="E5E9F0", end_color="E5E9F0", fill_type="solid")
+align_center = Alignment(horizontal="center", vertical="center", wrap_text=True)
+border_thin = Border(left=Side(style='thin', color="CCCCCC"), 
+                     right=Side(style='thin', color="CCCCCC"), 
+                     top=Side(style='thin', color="CCCCCC"), 
+                     bottom=Side(style='thin', color="CCCCCC"))
+
+# Write headers
+ws.cell(row=1, column=1, value="Tabel Nilai Persentil untuk Distribusi t (df 1 - 500)")
+ws.cell(row=2, column=1, value="Derajat\nKebebasan\n(v = dk)")
+ws.cell(row=2, column=2, value="Taraf Nyata α untuk Uji Satu Pihak")
+ws.cell(row=4, column=2, value="Taraf Nyata = α untuk Uji Dua Pihak")
+
+for col, val in enumerate(alpha_one, start=2):
+    ws.cell(row=3, column=col, value=val)
+
+for col, val in enumerate(alpha_two, start=2):
+    ws.cell(row=5, column=col, value=val)
+
+# Populate Data
+current_row = 6
+for df_val in dfs:
+    ws.cell(row=current_row, column=1, value=df_val)
+    for col, a1 in enumerate(alpha_one, start=2):
+        # Using percent point function (inverse of cdf)
+        val = t.ppf(1 - a1, df_val)
+        ws.cell(row=current_row, column=col, value=val).number_format = '0.000000'
+    current_row += 1
+
+# Apply Merges and Styles
+ws.merge_cells('A1:H1')
+ws['A1'].font = title_font
+ws['A1'].alignment = align_center
+
+ws.merge_cells('A2:A5')
+ws['A2'].font = header_font
+ws['A2'].fill = fill_dark
+ws['A2'].alignment = align_center
+
+ws.merge_cells('B2:H2')
+ws['B2'].font = header_font
+ws['B2'].fill = fill_dark
+ws['B2'].alignment = align_center
+
+ws.merge_cells('B4:H4')
+ws['B4'].font = header_font
+ws['B4'].fill = fill_dark
+ws['B4'].alignment = align_center
+
+for row in [3, 5]:
+    for col in range(2, 9):
+        cell = ws.cell(row=row, column=col)
+        cell.font = subheader_font
+        cell.fill = fill_light
+        cell.alignment = align_center
+
+# Apply borders and alignment to data rows
+for row in ws.iter_rows(min_row=2, max_row=ws.max_row, min_col=1, max_col=8):
+    for cell in row:
+        cell.border = border_thin
+        if cell.row >= 6:
+            if cell.column == 1:
+                cell.font = subheader_font
+                cell.fill = fill_light
+            cell.alignment = align_center
+
+ws.column_dimensions['A'].width = 15
+for col in ['B', 'C', 'D', 'E', 'F', 'G', 'H']:
+    ws.column_dimensions[col].width = 15
+
+ws.freeze_panes = 'B6'
+
+wb.save(output_path)
+output_path
